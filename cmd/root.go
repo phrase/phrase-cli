@@ -29,7 +29,7 @@ func init() {
 	viper.BindPFlag("debug", rootCmd.PersistentFlags().Lookup("debug"))
 	viper.SetDefault("debug", false)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.phrase.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yaml fallback to $HOME/.phrase.yaml)")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -79,8 +79,8 @@ func initConfig() {
 			HandleError(err)
 		}
 
-		viper.AddConfigPath(home)
 		viper.AddConfigPath(".")
+		viper.AddConfigPath(home)
 		viper.SetConfigName(".phrase")
 		viper.AutomaticEnv()
 
