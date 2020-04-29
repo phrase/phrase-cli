@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	homedir "github.com/mitchellh/go-homedir"
+	"github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -63,49 +63,12 @@ func AddFlag(cmd *cobra.Command, flagType string, name string, short string, des
 }
 
 func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-		viper.AutomaticEnv()
-
-		if err := viper.ReadInConfig(); err == nil {
-			if Debug {
-				fmt.Println("Using config file:", viper.ConfigFileUsed())
-			}
-		}
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			HandleError(err)
-		}
-
-		viper.AddConfigPath(".")
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".phrase")
-		viper.AutomaticEnv()
-
-		if err := viper.ReadInConfig(); err == nil {
-			if Debug {
-				fmt.Println("Using config file:", viper.ConfigFileUsed())
-			}
-		}
-
-		viper.SetConfigName(".phraseapp")
-		if err := viper.MergeInConfig(); err == nil {
-			if Debug {
-				fmt.Println("Using config file:", viper.ConfigFileUsed())
-			}
-		}
-
-		Config = viper.Sub("phrase")
-		if Config == nil {
-			Config = viper.Sub("phraseapp")
-			if Config == nil {
-				HandleError("Invalid config file structure.")
-			}
-		}
+	config, err := phrase.ConfigFile(cfgFile)
+	if err != nil {
+		HandleError(err)
 	}
+
+	Config = config
 }
 
 func HandleError(msg interface{}) {
