@@ -37,7 +37,7 @@ func initUploadCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -85,7 +85,7 @@ func initUploadShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -144,7 +144,7 @@ func initUploadsList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 

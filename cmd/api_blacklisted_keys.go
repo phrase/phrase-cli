@@ -39,7 +39,7 @@ func initBlacklistedKeyCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -87,7 +87,7 @@ func initBlacklistedKeyDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -135,7 +135,7 @@ func initBlacklistedKeyShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -190,7 +190,7 @@ func initBlacklistedKeyUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -249,7 +249,7 @@ func initBlacklistedKeysList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 

@@ -38,7 +38,7 @@ func initMemberDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -86,7 +86,7 @@ func initMemberShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -141,7 +141,7 @@ func initMemberUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -200,7 +200,7 @@ func initMembersList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 

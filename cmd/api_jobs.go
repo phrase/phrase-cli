@@ -44,7 +44,7 @@ func initJobComplete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -103,7 +103,7 @@ func initJobCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -151,7 +151,7 @@ func initJobDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -203,7 +203,7 @@ func initJobKeysCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -262,7 +262,7 @@ func initJobKeysDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -314,7 +314,7 @@ func initJobReopen() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -373,7 +373,7 @@ func initJobShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -432,7 +432,7 @@ func initJobStart() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -491,7 +491,7 @@ func initJobUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -550,7 +550,7 @@ func initJobsList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 

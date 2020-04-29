@@ -12,7 +12,7 @@ import (
 var (
 	// Used for flags.
 	cfgFile string
-	Config  *viper.Viper
+	Config  *phrase.Config
 
 	Debug bool
 

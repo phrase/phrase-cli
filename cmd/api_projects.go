@@ -39,7 +39,7 @@ func initProjectCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -83,7 +83,7 @@ func initProjectDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -127,7 +127,7 @@ func initProjectShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -178,7 +178,7 @@ func initProjectUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
@@ -233,7 +233,7 @@ func initProjectsList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.GetString("access_token"),
+				Key:    Config.AccessToken,
 				Prefix: "token",
 			})
 
