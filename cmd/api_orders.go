@@ -39,7 +39,7 @@ func initOrderConfirm() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -98,7 +98,7 @@ func initOrderCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -146,7 +146,7 @@ func initOrderDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -198,7 +198,7 @@ func initOrderShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -257,7 +257,7 @@ func initOrdersList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 

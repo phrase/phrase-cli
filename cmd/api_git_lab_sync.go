@@ -41,7 +41,7 @@ func initGitlabSyncDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -89,7 +89,7 @@ func initGitlabSyncExport() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -144,7 +144,7 @@ func initGitlabSyncHistory() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -199,7 +199,7 @@ func initGitlabSyncImport() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -254,7 +254,7 @@ func initGitlabSyncList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -305,7 +305,7 @@ func initGitlabSyncShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -360,7 +360,7 @@ func initGitlabSyncUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 

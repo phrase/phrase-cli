@@ -36,7 +36,7 @@ func initVersionShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 
@@ -99,7 +99,7 @@ func initVersionsList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    viper.GetString("access_token"),
+				Key:    Config.GetString("access_token"),
 				Prefix: "token",
 			})
 

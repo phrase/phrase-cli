@@ -12,6 +12,7 @@ import (
 var (
 	// Used for flags.
 	cfgFile string
+	Config  *viper.Viper
 
 	Debug bool
 
@@ -94,6 +95,14 @@ func initConfig() {
 		if err := viper.MergeInConfig(); err == nil {
 			if Debug {
 				fmt.Println("Using config file:", viper.ConfigFileUsed())
+			}
+		}
+
+		Config = viper.Sub("phrase")
+		if Config == nil {
+			Config = viper.Sub("phraseapp")
+			if Config == nil {
+				HandleError("Invalid config file structure.")
 			}
 		}
 	}
