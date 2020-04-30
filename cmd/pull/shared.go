@@ -29,13 +29,13 @@ func LocalesForProjects(client *phrase.APIClient, projectLocales ProjectLocales,
 
 		if _, ok := projectIdToLocales[key]; !ok {
 
-			remoteLocales, err := RemoteLocales(client, key)
+			remoteLocales, http_response, err := RemoteLocales(client, key)
 			if err != nil {
-				// 	if _, ok := (err).(phrase.ErrNotFound); ok && branch != "" {
-				// 		// skip this key if we targeted a branch in
-				// 		// a project which does not exist
-				// 		continue
-				// 	}
+				if http_response.StatusCode == 404 && branch != "" {
+					// skip this key if we targeted a branch in
+					// a project which does not exist
+					continue
+				}
 				return nil, err
 			}
 
@@ -43,10 +43,9 @@ func LocalesForProjects(client *phrase.APIClient, projectLocales ProjectLocales,
 		}
 	}
 	return projectIdToLocales, nil
-
 }
 
-func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Locale, error) {
+func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Locale, *phrase.APIResponse, error) {
 	page := 1
 
 	localVarOptionals := phrase.LocalesListOpts{
@@ -58,27 +57,27 @@ func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Loca
 		localVarOptionals.Branch = optional.NewString(key.Branch)
 	}
 
-	locales, _, err := client.LocalesApi.LocalesList(Auth, key.ProjectID, &localVarOptionals)
+	locales, http_response, err := client.LocalesApi.LocalesList(Auth, key.ProjectID, &localVarOptionals)
 	if err != nil {
-		return nil, err
+		return nil, http_response, err
 	}
 	result := locales
 	for len(locales) == 25 {
 		page = page + 1
 		localVarOptionals.Page = optional.NewInt32(int32(page))
 
-		locales, _, err := client.LocalesApi.LocalesList(Auth, key.ProjectID, &localVarOptionals)
+		locales, http_response, err := client.LocalesApi.LocalesList(Auth, key.ProjectID, &localVarOptionals)
 		if err != nil {
-			return nil, err
+			return nil, http_response, err
 		}
 		result = append(result, locales...)
 	}
 
 	var data []*phrase.Locale
 
-	for _, e := range result {
-		data = append(data, &e)
+	for i := 0; i < len(result); i++ {
+		data = append(data, &result[i])
 	}
 
-	return data, nil
+	return data, nil, nil
 }

@@ -165,7 +165,11 @@ func newTestUpateChecker(version, latestReleaseVersion, latestCachedVersion stri
 	if err != nil {
 		t.Fatal(err)
 	}
-	file.Write([]byte(latestCachedVersion))
+	_, err = file.Write([]byte(latestCachedVersion))
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	file.Close()
 
 	out := &bytes.Buffer{}
@@ -180,7 +184,7 @@ func newTestUpateChecker(version, latestReleaseVersion, latestCachedVersion stri
 
 func setupTestServer(version string) (string, func()) {
 	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Location", "https://github.com/phrase/phraseapp-client/releases/tag/"+version)
+		w.Header().Set("Location", "https://github.com/phrase/phrase-cli/releases/tag/"+version)
 		w.WriteHeader(http.StatusFound)
 	}))
 
@@ -189,5 +193,5 @@ func setupTestServer(version string) (string, func()) {
 
 func invalidateCache(filename string) {
 	info, _ := os.Stat(filename)
-	os.Chtimes(filename, time.Now(), info.ModTime().Add(-48*time.Hour))
+	_ = os.Chtimes(filename, time.Now(), info.ModTime().Add(-48*time.Hour))
 }

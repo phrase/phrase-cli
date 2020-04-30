@@ -43,7 +43,7 @@ func Execute() {
 	}
 }
 
-func AddFlag(cmd *cobra.Command, flagType string, name string, short string, description string) {
+func AddFlag(cmd *cobra.Command, flagType string, name string, short string, description string, required ...bool) {
 	switch flagType {
 	case "bool":
 		cmd.Flags().BoolP(name, short, false, description)
@@ -61,7 +61,14 @@ func AddFlag(cmd *cobra.Command, flagType string, name string, short string, des
 		cmd.Flags().StringP(name, short, "", description)
 	}
 
-	cmd.MarkFlagRequired(name)
+	if len(required) == 1 {
+		if required[0] {
+			cmd.MarkFlagRequired(name)
+		}
+	} else {
+		cmd.MarkFlagRequired(name)
+	}
+
 }
 
 func initConfig() {

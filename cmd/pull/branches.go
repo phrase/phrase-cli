@@ -23,6 +23,10 @@ func usedBranchName(useLocalBranchNameFlag bool, branchParam string) (string, er
 			return "", gitErr
 		}
 
+		if gitBranch == "master" {
+			gitBranch = ""
+		}
+
 		return gitBranch, nil
 	}
 

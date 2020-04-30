@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/coreos/go-semver/semver"
-	"github.com/phrase/phraseapp-client/internal/print"
-	"github.com/phrase/phraseapp-client/internal/stringz"
+	"github.com/phrase/phrase-cli/cmd/pull/internal/print"
+	"github.com/phrase/phrase-cli/cmd/pull/internal/stringz"
 )
 
 const downloadPageURL = "https://phrase.com/cli"
@@ -62,7 +62,10 @@ func (uc *Checker) getLatestVersion() (*semver.Version, error) {
 	if err != nil || time.Since(modified) > 24*time.Hour {
 		versionOnline, err := uc.getLatestVersionFromURL()
 		if err == nil {
-			ioutil.WriteFile(uc.versionCacheFilename, []byte(versionOnline.String()), 0600)
+			err = ioutil.WriteFile(uc.versionCacheFilename, []byte(versionOnline.String()), 0600)
+			if err != nil {
+				return version, nil
+			}
 		}
 
 		return versionOnline, err
