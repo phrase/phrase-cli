@@ -165,10 +165,8 @@ func initJobDelete() {
 			
 			id := params.GetString("id")
 			
-			jobDeleteParameters := api.JobDeleteParameters{}
-			
 
-			api_response, err := client.JobsApi.JobDelete(auth, projectId, id, jobDeleteParameters, &localVarOptionals)
+			api_response, err := client.JobsApi.JobDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -186,8 +184,6 @@ func initJobDelete() {
 	AddFlag(jobDelete, "string", "projectId", "", "ID")
 	
 	AddFlag(jobDelete, "string", "id", "", "ID")
-	
-	// jobDeleteParameters := api.JobDeleteParameters{}
 	
 
 	params.BindPFlags(jobDelete.Flags())
@@ -276,10 +272,8 @@ func initJobKeysDelete() {
 			
 			id := params.GetString("id")
 			
-			jobKeysDeleteParameters := api.JobKeysDeleteParameters{}
-			
 
-			api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, jobKeysDeleteParameters, &localVarOptionals)
+			api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -297,8 +291,6 @@ func initJobKeysDelete() {
 	AddFlag(jobKeysDelete, "string", "projectId", "", "ID")
 	
 	AddFlag(jobKeysDelete, "string", "id", "", "ID")
-	
-	// jobKeysDeleteParameters := api.JobKeysDeleteParameters{}
 	
 
 	params.BindPFlags(jobKeysDelete.Flags())
@@ -387,10 +379,8 @@ func initJobShow() {
 			
 			id := params.GetString("id")
 			
-			jobShowParameters := api.JobShowParameters{}
-			
 
-			data, api_response, err := client.JobsApi.JobShow(auth, projectId, id, jobShowParameters, &localVarOptionals)
+			data, api_response, err := client.JobsApi.JobShow(auth, projectId, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -415,8 +405,6 @@ func initJobShow() {
 	AddFlag(jobShow, "string", "projectId", "", "ID")
 	
 	AddFlag(jobShow, "string", "id", "", "ID")
-	
-	// jobShowParameters := api.JobShowParameters{}
 	
 
 	params.BindPFlags(jobShow.Flags())
@@ -562,10 +550,8 @@ func initJobsList() {
 			
 			projectId := params.GetString("projectId")
 			
-			jobsListParameters := api.JobsListParameters{}
-			
 
-			data, api_response, err := client.JobsApi.JobsList(auth, projectId, jobsListParameters, &localVarOptionals)
+			data, api_response, err := client.JobsApi.JobsList(auth, projectId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -588,8 +574,6 @@ func initJobsList() {
 
 	
 	AddFlag(jobsList, "string", "projectId", "", "ID")
-	
-	// jobsListParameters := api.JobsListParameters{}
 	
 
 	params.BindPFlags(jobsList.Flags())

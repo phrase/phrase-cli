@@ -120,10 +120,8 @@ func initJobLocaleDelete() {
 			
 			id := params.GetString("id")
 			
-			jobLocaleDeleteParameters := api.JobLocaleDeleteParameters{}
-			
 
-			api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, jobLocaleDeleteParameters, &localVarOptionals)
+			api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -143,8 +141,6 @@ func initJobLocaleDelete() {
 	AddFlag(jobLocaleDelete, "string", "jobId", "", "ID")
 	
 	AddFlag(jobLocaleDelete, "string", "id", "", "ID")
-	
-	// jobLocaleDeleteParameters := api.JobLocaleDeleteParameters{}
 	
 
 	params.BindPFlags(jobLocaleDelete.Flags())
@@ -239,10 +235,8 @@ func initJobLocaleShow() {
 			
 			id := params.GetString("id")
 			
-			jobLocaleShowParameters := api.JobLocaleShowParameters{}
-			
 
-			data, api_response, err := client.JobLocalesApi.JobLocaleShow(auth, projectId, jobId, id, jobLocaleShowParameters, &localVarOptionals)
+			data, api_response, err := client.JobLocalesApi.JobLocaleShow(auth, projectId, jobId, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -269,8 +263,6 @@ func initJobLocaleShow() {
 	AddFlag(jobLocaleShow, "string", "jobId", "", "ID")
 	
 	AddFlag(jobLocaleShow, "string", "id", "", "ID")
-	
-	// jobLocaleShowParameters := api.JobLocaleShowParameters{}
 	
 
 	params.BindPFlags(jobLocaleShow.Flags())
@@ -415,10 +407,8 @@ func initJobLocalesList() {
 			
 			jobId := params.GetString("jobId")
 			
-			jobLocalesListParameters := api.JobLocalesListParameters{}
-			
 
-			data, api_response, err := client.JobLocalesApi.JobLocalesList(auth, projectId, jobId, jobLocalesListParameters, &localVarOptionals)
+			data, api_response, err := client.JobLocalesApi.JobLocalesList(auth, projectId, jobId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -443,8 +433,6 @@ func initJobLocalesList() {
 	AddFlag(jobLocalesList, "string", "projectId", "", "ID")
 	
 	AddFlag(jobLocalesList, "string", "jobId", "", "ID")
-	
-	// jobLocalesListParameters := api.JobLocalesListParameters{}
 	
 
 	params.BindPFlags(jobLocalesList.Flags())

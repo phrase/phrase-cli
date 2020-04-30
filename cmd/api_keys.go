@@ -105,10 +105,8 @@ func initKeyDelete() {
 			
 			id := params.GetString("id")
 			
-			keyDeleteParameters := api.KeyDeleteParameters{}
-			
 
-			api_response, err := client.KeysApi.KeyDelete(auth, projectId, id, keyDeleteParameters, &localVarOptionals)
+			api_response, err := client.KeysApi.KeyDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -126,8 +124,6 @@ func initKeyDelete() {
 	AddFlag(keyDelete, "string", "projectId", "", "ID")
 	
 	AddFlag(keyDelete, "string", "id", "", "ID")
-	
-	// keyDeleteParameters := api.KeyDeleteParameters{}
 	
 
 	params.BindPFlags(keyDelete.Flags())
@@ -157,10 +153,8 @@ func initKeyShow() {
 			
 			id := params.GetString("id")
 			
-			keyShowParameters := api.KeyShowParameters{}
-			
 
-			data, api_response, err := client.KeysApi.KeyShow(auth, projectId, id, keyShowParameters, &localVarOptionals)
+			data, api_response, err := client.KeysApi.KeyShow(auth, projectId, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -185,8 +179,6 @@ func initKeyShow() {
 	AddFlag(keyShow, "string", "projectId", "", "ID")
 	
 	AddFlag(keyShow, "string", "id", "", "ID")
-	
-	// keyShowParameters := api.KeyShowParameters{}
 	
 
 	params.BindPFlags(keyShow.Flags())
@@ -273,10 +265,8 @@ func initKeysDelete() {
 			
 			projectId := params.GetString("projectId")
 			
-			keysDeleteParameters := api.KeysDeleteParameters{}
-			
 
-			data, api_response, err := client.KeysApi.KeysDelete(auth, projectId, keysDeleteParameters, &localVarOptionals)
+			data, api_response, err := client.KeysApi.KeysDelete(auth, projectId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -299,8 +289,6 @@ func initKeysDelete() {
 
 	
 	AddFlag(keysDelete, "string", "projectId", "", "ID")
-	
-	// keysDeleteParameters := api.KeysDeleteParameters{}
 	
 
 	params.BindPFlags(keysDelete.Flags())
@@ -328,10 +316,8 @@ func initKeysList() {
 			
 			projectId := params.GetString("projectId")
 			
-			keysListParameters := api.KeysListParameters{}
-			
 
-			data, api_response, err := client.KeysApi.KeysList(auth, projectId, keysListParameters, &localVarOptionals)
+			data, api_response, err := client.KeysApi.KeysList(auth, projectId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -354,8 +340,6 @@ func initKeysList() {
 
 	
 	AddFlag(keysList, "string", "projectId", "", "ID")
-	
-	// keysListParameters := api.KeysListParameters{}
 	
 
 	params.BindPFlags(keysList.Flags())

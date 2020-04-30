@@ -55,10 +55,8 @@ func initBranchCompare() {
 			
 			name := params.GetString("name")
 			
-			branchCompareParameters := api.BranchCompareParameters{}
-			
 
-			api_response, err := client.BranchesApi.BranchCompare(auth, projectId, name, branchCompareParameters, &localVarOptionals)
+			api_response, err := client.BranchesApi.BranchCompare(auth, projectId, name, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -76,8 +74,6 @@ func initBranchCompare() {
 	AddFlag(branchCompare, "string", "projectId", "", "ID")
 	
 	AddFlag(branchCompare, "string", "name", "", "ID")
-	
-	// branchCompareParameters := api.BranchCompareParameters{}
 	
 
 	params.BindPFlags(branchCompare.Flags())

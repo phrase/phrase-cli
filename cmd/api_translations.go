@@ -290,10 +290,8 @@ func initTranslationShow() {
 			
 			id := params.GetString("id")
 			
-			translationShowParameters := api.TranslationShowParameters{}
-			
 
-			data, api_response, err := client.TranslationsApi.TranslationShow(auth, projectId, id, translationShowParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationShow(auth, projectId, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -318,8 +316,6 @@ func initTranslationShow() {
 	AddFlag(translationShow, "string", "projectId", "", "ID")
 	
 	AddFlag(translationShow, "string", "id", "", "ID")
-	
-	// translationShowParameters := api.TranslationShowParameters{}
 	
 
 	params.BindPFlags(translationShow.Flags())
@@ -526,10 +522,8 @@ func initTranslationsByKey() {
 			
 			keyId := params.GetString("keyId")
 			
-			translationsByKeyParameters := api.TranslationsByKeyParameters{}
-			
 
-			data, api_response, err := client.TranslationsApi.TranslationsByKey(auth, projectId, keyId, translationsByKeyParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationsByKey(auth, projectId, keyId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -554,8 +548,6 @@ func initTranslationsByKey() {
 	AddFlag(translationsByKey, "string", "projectId", "", "ID")
 	
 	AddFlag(translationsByKey, "string", "keyId", "", "ID")
-	
-	// translationsByKeyParameters := api.TranslationsByKeyParameters{}
 	
 
 	params.BindPFlags(translationsByKey.Flags())
@@ -585,10 +577,8 @@ func initTranslationsByLocale() {
 			
 			localeId := params.GetString("localeId")
 			
-			translationsByLocaleParameters := api.TranslationsByLocaleParameters{}
-			
 
-			data, api_response, err := client.TranslationsApi.TranslationsByLocale(auth, projectId, localeId, translationsByLocaleParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationsByLocale(auth, projectId, localeId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -613,8 +603,6 @@ func initTranslationsByLocale() {
 	AddFlag(translationsByLocale, "string", "projectId", "", "ID")
 	
 	AddFlag(translationsByLocale, "string", "localeId", "", "ID")
-	
-	// translationsByLocaleParameters := api.TranslationsByLocaleParameters{}
 	
 
 	params.BindPFlags(translationsByLocale.Flags())
@@ -752,10 +740,8 @@ func initTranslationsList() {
 			
 			projectId := params.GetString("projectId")
 			
-			translationsListParameters := api.TranslationsListParameters{}
-			
 
-			data, api_response, err := client.TranslationsApi.TranslationsList(auth, projectId, translationsListParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationsList(auth, projectId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -778,8 +764,6 @@ func initTranslationsList() {
 
 	
 	AddFlag(translationsList, "string", "projectId", "", "ID")
-	
-	// translationsListParameters := api.TranslationsListParameters{}
 	
 
 	params.BindPFlags(translationsList.Flags())

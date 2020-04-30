@@ -110,10 +110,8 @@ func initCommentDelete() {
 			
 			id := params.GetString("id")
 			
-			commentDeleteParameters := api.CommentDeleteParameters{}
-			
 
-			api_response, err := client.CommentsApi.CommentDelete(auth, projectId, keyId, id, commentDeleteParameters, &localVarOptionals)
+			api_response, err := client.CommentsApi.CommentDelete(auth, projectId, keyId, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -133,8 +131,6 @@ func initCommentDelete() {
 	AddFlag(commentDelete, "string", "keyId", "", "ID")
 	
 	AddFlag(commentDelete, "string", "id", "", "ID")
-	
-	// commentDeleteParameters := api.CommentDeleteParameters{}
 	
 
 	params.BindPFlags(commentDelete.Flags())
@@ -166,10 +162,8 @@ func initCommentMarkCheck() {
 			
 			id := params.GetString("id")
 			
-			commentMarkCheckParameters := api.CommentMarkCheckParameters{}
-			
 
-			api_response, err := client.CommentsApi.CommentMarkCheck(auth, projectId, keyId, id, commentMarkCheckParameters, &localVarOptionals)
+			api_response, err := client.CommentsApi.CommentMarkCheck(auth, projectId, keyId, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -189,8 +183,6 @@ func initCommentMarkCheck() {
 	AddFlag(commentMarkCheck, "string", "keyId", "", "ID")
 	
 	AddFlag(commentMarkCheck, "string", "id", "", "ID")
-	
-	// commentMarkCheckParameters := api.CommentMarkCheckParameters{}
 	
 
 	params.BindPFlags(commentMarkCheck.Flags())
@@ -278,10 +270,8 @@ func initCommentMarkUnread() {
 			
 			id := params.GetString("id")
 			
-			commentMarkUnreadParameters := api.CommentMarkUnreadParameters{}
-			
 
-			api_response, err := client.CommentsApi.CommentMarkUnread(auth, projectId, keyId, id, commentMarkUnreadParameters, &localVarOptionals)
+			api_response, err := client.CommentsApi.CommentMarkUnread(auth, projectId, keyId, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -301,8 +291,6 @@ func initCommentMarkUnread() {
 	AddFlag(commentMarkUnread, "string", "keyId", "", "ID")
 	
 	AddFlag(commentMarkUnread, "string", "id", "", "ID")
-	
-	// commentMarkUnreadParameters := api.CommentMarkUnreadParameters{}
 	
 
 	params.BindPFlags(commentMarkUnread.Flags())
@@ -334,10 +322,8 @@ func initCommentShow() {
 			
 			id := params.GetString("id")
 			
-			commentShowParameters := api.CommentShowParameters{}
-			
 
-			data, api_response, err := client.CommentsApi.CommentShow(auth, projectId, keyId, id, commentShowParameters, &localVarOptionals)
+			data, api_response, err := client.CommentsApi.CommentShow(auth, projectId, keyId, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -364,8 +350,6 @@ func initCommentShow() {
 	AddFlag(commentShow, "string", "keyId", "", "ID")
 	
 	AddFlag(commentShow, "string", "id", "", "ID")
-	
-	// commentShowParameters := api.CommentShowParameters{}
 	
 
 	params.BindPFlags(commentShow.Flags())
@@ -458,10 +442,8 @@ func initCommentsList() {
 			
 			keyId := params.GetString("keyId")
 			
-			commentsListParameters := api.CommentsListParameters{}
-			
 
-			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, commentsListParameters, &localVarOptionals)
+			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -486,8 +468,6 @@ func initCommentsList() {
 	AddFlag(commentsList, "string", "projectId", "", "ID")
 	
 	AddFlag(commentsList, "string", "keyId", "", "ID")
-	
-	// commentsListParameters := api.CommentsListParameters{}
 	
 
 	params.BindPFlags(commentsList.Flags())

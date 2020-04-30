@@ -150,10 +150,8 @@ func initBitbucketSyncsList() {
 			localVarOptionals := api.BitbucketSyncsListOpts{}
 
 			
-			bitbucketSyncsListParameters := api.BitbucketSyncsListParameters{}
-			
 
-			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncsList(auth, bitbucketSyncsListParameters, &localVarOptionals)
+			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncsList(auth, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -174,8 +172,6 @@ func initBitbucketSyncsList() {
 
 	bitbucketSyncApiCmd.AddCommand(bitbucketSyncsList)
 
-	
-	// bitbucketSyncsListParameters := api.BitbucketSyncsListParameters{}
 	
 
 	params.BindPFlags(bitbucketSyncsList.Flags())

@@ -160,10 +160,8 @@ func initOrderDelete() {
 			
 			id := params.GetString("id")
 			
-			orderDeleteParameters := api.OrderDeleteParameters{}
-			
 
-			api_response, err := client.OrdersApi.OrderDelete(auth, projectId, id, orderDeleteParameters, &localVarOptionals)
+			api_response, err := client.OrdersApi.OrderDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -181,8 +179,6 @@ func initOrderDelete() {
 	AddFlag(orderDelete, "string", "projectId", "", "ID")
 	
 	AddFlag(orderDelete, "string", "id", "", "ID")
-	
-	// orderDeleteParameters := api.OrderDeleteParameters{}
 	
 
 	params.BindPFlags(orderDelete.Flags())
@@ -212,10 +208,8 @@ func initOrderShow() {
 			
 			id := params.GetString("id")
 			
-			orderShowParameters := api.OrderShowParameters{}
-			
 
-			data, api_response, err := client.OrdersApi.OrderShow(auth, projectId, id, orderShowParameters, &localVarOptionals)
+			data, api_response, err := client.OrdersApi.OrderShow(auth, projectId, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -240,8 +234,6 @@ func initOrderShow() {
 	AddFlag(orderShow, "string", "projectId", "", "ID")
 	
 	AddFlag(orderShow, "string", "id", "", "ID")
-	
-	// orderShowParameters := api.OrderShowParameters{}
 	
 
 	params.BindPFlags(orderShow.Flags())
@@ -269,10 +261,8 @@ func initOrdersList() {
 			
 			projectId := params.GetString("projectId")
 			
-			ordersListParameters := api.OrdersListParameters{}
-			
 
-			data, api_response, err := client.OrdersApi.OrdersList(auth, projectId, ordersListParameters, &localVarOptionals)
+			data, api_response, err := client.OrdersApi.OrdersList(auth, projectId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -295,8 +285,6 @@ func initOrdersList() {
 
 	
 	AddFlag(ordersList, "string", "projectId", "", "ID")
-	
-	// ordersListParameters := api.OrdersListParameters{}
 	
 
 	params.BindPFlags(ordersList.Flags())

@@ -100,10 +100,8 @@ func initTagDelete() {
 			
 			name := params.GetString("name")
 			
-			tagDeleteParameters := api.TagDeleteParameters{}
-			
 
-			api_response, err := client.TagsApi.TagDelete(auth, projectId, name, tagDeleteParameters, &localVarOptionals)
+			api_response, err := client.TagsApi.TagDelete(auth, projectId, name, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -121,8 +119,6 @@ func initTagDelete() {
 	AddFlag(tagDelete, "string", "projectId", "", "ID")
 	
 	AddFlag(tagDelete, "string", "name", "", "ID")
-	
-	// tagDeleteParameters := api.TagDeleteParameters{}
 	
 
 	params.BindPFlags(tagDelete.Flags())
@@ -152,10 +148,8 @@ func initTagShow() {
 			
 			name := params.GetString("name")
 			
-			tagShowParameters := api.TagShowParameters{}
-			
 
-			data, api_response, err := client.TagsApi.TagShow(auth, projectId, name, tagShowParameters, &localVarOptionals)
+			data, api_response, err := client.TagsApi.TagShow(auth, projectId, name, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -180,8 +174,6 @@ func initTagShow() {
 	AddFlag(tagShow, "string", "projectId", "", "ID")
 	
 	AddFlag(tagShow, "string", "name", "", "ID")
-	
-	// tagShowParameters := api.TagShowParameters{}
 	
 
 	params.BindPFlags(tagShow.Flags())
@@ -209,10 +201,8 @@ func initTagsList() {
 			
 			projectId := params.GetString("projectId")
 			
-			tagsListParameters := api.TagsListParameters{}
-			
 
-			data, api_response, err := client.TagsApi.TagsList(auth, projectId, tagsListParameters, &localVarOptionals)
+			data, api_response, err := client.TagsApi.TagsList(auth, projectId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -235,8 +225,6 @@ func initTagsList() {
 
 	
 	AddFlag(tagsList, "string", "projectId", "", "ID")
-	
-	// tagsListParameters := api.TagsListParameters{}
 	
 
 	params.BindPFlags(tagsList.Flags())

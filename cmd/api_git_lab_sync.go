@@ -53,10 +53,8 @@ func initGitlabSyncDelete() {
 			
 			id := params.GetString("id")
 			
-			gitlabSyncDeleteParameters := api.GitlabSyncDeleteParameters{}
-			
 
-			api_response, err := client.GitLabSyncApi.GitlabSyncDelete(auth, id, gitlabSyncDeleteParameters, &localVarOptionals)
+			api_response, err := client.GitLabSyncApi.GitlabSyncDelete(auth, id, &localVarOptionals)
 
 			if err != nil {
 				HandleError(err)
@@ -72,8 +70,6 @@ func initGitlabSyncDelete() {
 
 	
 	AddFlag(gitlabSyncDelete, "string", "id", "", "ID")
-	
-	// gitlabSyncDeleteParameters := api.GitlabSyncDeleteParameters{}
 	
 
 	params.BindPFlags(gitlabSyncDelete.Flags())
@@ -156,10 +152,8 @@ func initGitlabSyncHistory() {
 			
 			gitlabSyncId := params.GetString("gitlabSyncId")
 			
-			gitlabSyncHistoryParameters := api.GitlabSyncHistoryParameters{}
-			
 
-			data, api_response, err := client.GitLabSyncApi.GitlabSyncHistory(auth, gitlabSyncId, gitlabSyncHistoryParameters, &localVarOptionals)
+			data, api_response, err := client.GitLabSyncApi.GitlabSyncHistory(auth, gitlabSyncId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -182,8 +176,6 @@ func initGitlabSyncHistory() {
 
 	
 	AddFlag(gitlabSyncHistory, "string", "gitlabSyncId", "", "ID")
-	
-	// gitlabSyncHistoryParameters := api.GitlabSyncHistoryParameters{}
 	
 
 	params.BindPFlags(gitlabSyncHistory.Flags())
@@ -264,10 +256,8 @@ func initGitlabSyncList() {
 			localVarOptionals := api.GitlabSyncListOpts{}
 
 			
-			gitlabSyncListParameters := api.GitlabSyncListParameters{}
-			
 
-			data, api_response, err := client.GitLabSyncApi.GitlabSyncList(auth, gitlabSyncListParameters, &localVarOptionals)
+			data, api_response, err := client.GitLabSyncApi.GitlabSyncList(auth, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -288,8 +278,6 @@ func initGitlabSyncList() {
 
 	gitLabSyncApiCmd.AddCommand(gitlabSyncList)
 
-	
-	// gitlabSyncListParameters := api.GitlabSyncListParameters{}
 	
 
 	params.BindPFlags(gitlabSyncList.Flags())
@@ -317,10 +305,8 @@ func initGitlabSyncShow() {
 			
 			id := params.GetString("id")
 			
-			gitlabSyncShowParameters := api.GitlabSyncShowParameters{}
-			
 
-			data, api_response, err := client.GitLabSyncApi.GitlabSyncShow(auth, id, gitlabSyncShowParameters, &localVarOptionals)
+			data, api_response, err := client.GitLabSyncApi.GitlabSyncShow(auth, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -343,8 +329,6 @@ func initGitlabSyncShow() {
 
 	
 	AddFlag(gitlabSyncShow, "string", "id", "", "ID")
-	
-	// gitlabSyncShowParameters := api.GitlabSyncShowParameters{}
 	
 
 	params.BindPFlags(gitlabSyncShow.Flags())
@@ -372,10 +356,8 @@ func initGitlabSyncUpdate() {
 			
 			id := params.GetString("id")
 			
-			gitlabSyncUpdateParameters := api.GitlabSyncUpdateParameters{}
-			
 
-			data, api_response, err := client.GitLabSyncApi.GitlabSyncUpdate(auth, id, gitlabSyncUpdateParameters, &localVarOptionals)
+			data, api_response, err := client.GitLabSyncApi.GitlabSyncUpdate(auth, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -398,8 +380,6 @@ func initGitlabSyncUpdate() {
 
 	
 	AddFlag(gitlabSyncUpdate, "string", "id", "", "ID")
-	
-	// gitlabSyncUpdateParameters := api.GitlabSyncUpdateParameters{}
 	
 
 	params.BindPFlags(gitlabSyncUpdate.Flags())

@@ -52,10 +52,8 @@ func initVersionShow() {
 			
 			id := params.GetString("id")
 			
-			versionShowParameters := api.VersionShowParameters{}
-			
 
-			data, api_response, err := client.VersionsHistoryApi.VersionShow(auth, projectId, translationId, id, versionShowParameters, &localVarOptionals)
+			data, api_response, err := client.VersionsHistoryApi.VersionShow(auth, projectId, translationId, id, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -82,8 +80,6 @@ func initVersionShow() {
 	AddFlag(versionShow, "string", "translationId", "", "ID")
 	
 	AddFlag(versionShow, "string", "id", "", "ID")
-	
-	// versionShowParameters := api.VersionShowParameters{}
 	
 
 	params.BindPFlags(versionShow.Flags())
@@ -113,10 +109,8 @@ func initVersionsList() {
 			
 			translationId := params.GetString("translationId")
 			
-			versionsListParameters := api.VersionsListParameters{}
-			
 
-			data, api_response, err := client.VersionsHistoryApi.VersionsList(auth, projectId, translationId, versionsListParameters, &localVarOptionals)
+			data, api_response, err := client.VersionsHistoryApi.VersionsList(auth, projectId, translationId, &localVarOptionals)
 
 			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 			if jsonErr != nil {
@@ -141,8 +135,6 @@ func initVersionsList() {
 	AddFlag(versionsList, "string", "projectId", "", "ID")
 	
 	AddFlag(versionsList, "string", "translationId", "", "ID")
-	
-	// versionsListParameters := api.VersionsListParameters{}
 	
 
 	params.BindPFlags(versionsList.Flags())
