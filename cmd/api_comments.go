@@ -42,7 +42,7 @@ func initCommentCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -94,7 +94,7 @@ func initCommentDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -150,7 +150,7 @@ func initCommentMarkCheck() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -206,7 +206,7 @@ func initCommentMarkRead() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -262,7 +262,7 @@ func initCommentMarkUnread() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -318,7 +318,7 @@ func initCommentShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -381,7 +381,7 @@ func initCommentUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -444,7 +444,7 @@ func initCommentsList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 

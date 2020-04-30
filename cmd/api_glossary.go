@@ -39,7 +39,7 @@ func initGlossariesList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -90,7 +90,7 @@ func initGlossaryCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -138,7 +138,7 @@ func initGlossaryDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -186,7 +186,7 @@ func initGlossaryShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -241,7 +241,7 @@ func initGlossaryUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 

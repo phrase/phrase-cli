@@ -41,7 +41,7 @@ func initJobLocaleComplete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -104,7 +104,7 @@ func initJobLocaleDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -160,7 +160,7 @@ func initJobLocaleReopen() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -223,7 +223,7 @@ func initJobLocaleShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -286,7 +286,7 @@ func initJobLocaleUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -349,7 +349,7 @@ func initJobLocalesCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -401,7 +401,7 @@ func initJobLocalesList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 

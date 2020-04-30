@@ -40,7 +40,7 @@ func initInvitationCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -88,7 +88,7 @@ func initInvitationDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -136,7 +136,7 @@ func initInvitationResend() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -191,7 +191,7 @@ func initInvitationShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -246,7 +246,7 @@ func initInvitationUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -305,7 +305,7 @@ func initInvitationsList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 

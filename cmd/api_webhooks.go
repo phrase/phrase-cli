@@ -40,7 +40,7 @@ func initWebhookCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -88,7 +88,7 @@ func initWebhookDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -136,7 +136,7 @@ func initWebhookShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -191,7 +191,7 @@ func initWebhookTest() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -239,7 +239,7 @@ func initWebhookUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 
@@ -298,7 +298,7 @@ func initWebhooksList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.AccessToken,
+				Key:    Config.Credentials.Token,
 				Prefix: "token",
 			})
 

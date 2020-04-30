@@ -11,8 +11,8 @@ import (
 
 var (
 	// Used for flags.
-	cfgFile string
-	Config  *phrase.Config
+	// cfgFile string
+	Config *phrase.Config
 
 	Debug bool
 
@@ -30,7 +30,7 @@ func init() {
 	viper.BindPFlag("debug", rootCmd.PersistentFlags().Lookup("debug"))
 	viper.SetDefault("debug", false)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yaml fallback to $HOME/.phrase.yaml)")
+	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yaml fallback to $HOME/.phrase.yaml)")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -63,10 +63,12 @@ func AddFlag(cmd *cobra.Command, flagType string, name string, short string, des
 }
 
 func initConfig() {
-	config, err := phrase.ConfigFile(cfgFile)
+	config, err := phrase.ReadConfig()
 	if err != nil {
 		HandleError(err)
 	}
+
+	fmt.Printf("%+v\n", config)
 
 	Config = config
 }
