@@ -11,10 +11,8 @@ import (
 
 var (
 	// Used for flags.
-	// cfgFile string
-	Config *phrase.Config
-
-	Debug bool
+	cfgFile string
+	Config  *phrase.Config
 
 	rootCmd = &cobra.Command{
 		Use:   "phrase",
@@ -24,13 +22,17 @@ var (
 )
 
 func init() {
+	Config = &phrase.Config{
+		Debug: false,
+	}
+
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().BoolVarP(&Debug, "debug", "d", false, "show debug messages")
+	rootCmd.PersistentFlags().BoolVarP(&Config.Debug, "debug", "d", false, "show debug messages")
 	viper.BindPFlag("debug", rootCmd.PersistentFlags().Lookup("debug"))
 	viper.SetDefault("debug", false)
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yaml fallback to $HOME/.phrase.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yaml fallback to $HOME/.phrase.yaml)")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -63,12 +65,19 @@ func AddFlag(cmd *cobra.Command, flagType string, name string, short string, des
 }
 
 func initConfig() {
-	config, err := phrase.ReadConfig()
+	config, err := phrase.ReadConfig(cfgFile)
 	if err != nil {
 		HandleError(err)
 	}
 
-	fmt.Printf("%+v\n", config)
+	// flag overwrites debug option from file
+	if Config.Debug {
+		config.Debug = Config.Debug
+	}
+
+	if config.Debug {
+		fmt.Printf("%+v\n", config)
+	}
 
 	Config = config
 }

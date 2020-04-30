@@ -61,7 +61,7 @@ func initInvitationCreate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -109,7 +109,7 @@ func initInvitationDelete() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -164,7 +164,7 @@ func initInvitationResend() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -219,7 +219,7 @@ func initInvitationShow() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -276,7 +276,7 @@ func initInvitationUpdate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -331,7 +331,7 @@ func initInvitationsList() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},

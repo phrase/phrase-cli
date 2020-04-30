@@ -72,7 +72,7 @@ func initTranslationCreate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -129,7 +129,7 @@ func initTranslationExclude() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -188,7 +188,7 @@ func initTranslationInclude() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -247,7 +247,7 @@ func initTranslationReview() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -306,7 +306,7 @@ func initTranslationShow() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -365,7 +365,7 @@ func initTranslationUnverify() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -424,7 +424,7 @@ func initTranslationUpdate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -483,7 +483,7 @@ func initTranslationVerify() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -542,7 +542,7 @@ func initTranslationsByKey() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -601,7 +601,7 @@ func initTranslationsByLocale() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -658,7 +658,7 @@ func initTranslationsExclude() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -713,7 +713,7 @@ func initTranslationsInclude() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -768,7 +768,7 @@ func initTranslationsList() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -823,7 +823,7 @@ func initTranslationsReview() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -878,7 +878,7 @@ func initTranslationsSearch() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -933,7 +933,7 @@ func initTranslationsUnverify() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -988,7 +988,7 @@ func initTranslationsVerify() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},

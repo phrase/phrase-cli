@@ -64,7 +64,7 @@ func initKeyCreate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -114,7 +114,7 @@ func initKeyDelete() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -173,7 +173,7 @@ func initKeyShow() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -232,7 +232,7 @@ func initKeyUpdate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -289,7 +289,7 @@ func initKeysDelete() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -344,7 +344,7 @@ func initKeysList() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -399,7 +399,7 @@ func initKeysSearch() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -454,7 +454,7 @@ func initKeysTag() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -509,7 +509,7 @@ func initKeysUntag() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},

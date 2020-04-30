@@ -63,7 +63,7 @@ func initSpaceCreate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -111,7 +111,7 @@ func initSpaceDelete() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -166,7 +166,7 @@ func initSpaceShow() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -223,7 +223,7 @@ func initSpaceUpdate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -278,7 +278,7 @@ func initSpacesList() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -326,7 +326,7 @@ func initSpacesProjectsCreate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -378,7 +378,7 @@ func initSpacesProjectsDelete() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -435,7 +435,7 @@ func initSpacesProjectsList() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},

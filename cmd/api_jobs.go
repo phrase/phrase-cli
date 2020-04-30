@@ -74,7 +74,7 @@ func initJobComplete() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -124,7 +124,7 @@ func initJobCreate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -174,7 +174,7 @@ func initJobDelete() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -233,7 +233,7 @@ func initJobKeysCreate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -285,7 +285,7 @@ func initJobKeysDelete() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -344,7 +344,7 @@ func initJobReopen() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -403,7 +403,7 @@ func initJobShow() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -462,7 +462,7 @@ func initJobStart() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -521,7 +521,7 @@ func initJobUpdate() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
@@ -578,7 +578,7 @@ func initJobsList() {
 				HandleError(err)
 			}
 
-			if Debug {
+			if Config.Debug {
 				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
 			}
 		},
