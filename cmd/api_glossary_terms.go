@@ -56,8 +56,15 @@ func initGlossaryTermCreate() {
 			glossaryTermCreateParameters := api.GlossaryTermCreateParameters{}
 			
 
-			api_response, err := client.GlossaryTermsApi.GlossaryTermCreate(auth, accountId, glossaryId, glossaryTermCreateParameters, &localVarOptionals)
+			data, api_response, err := client.GlossaryTermsApi.GlossaryTermCreate(auth, accountId, glossaryId, glossaryTermCreateParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -108,8 +115,15 @@ func initGlossaryTermDelete() {
 			id := params.GetString("id")
 			
 
-			api_response, err := client.GlossaryTermsApi.GlossaryTermDelete(auth, accountId, glossaryId, id, &localVarOptionals)
+			data, api_response, err := client.GlossaryTermsApi.GlossaryTermDelete(auth, accountId, glossaryId, id, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}

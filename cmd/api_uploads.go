@@ -52,8 +52,15 @@ func initUploadCreate() {
 			uploadCreateParameters := api.UploadCreateParameters{}
 			
 
-			api_response, err := client.UploadsApi.UploadCreate(auth, projectId, uploadCreateParameters, &localVarOptionals)
+			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, uploadCreateParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}

@@ -55,8 +55,15 @@ func initLocaleCreate() {
 			localeCreateParameters := api.LocaleCreateParameters{}
 			
 
-			api_response, err := client.LocalesApi.LocaleCreate(auth, projectId, localeCreateParameters, &localVarOptionals)
+			data, api_response, err := client.LocalesApi.LocaleCreate(auth, projectId, localeCreateParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -103,8 +110,15 @@ func initLocaleDelete() {
 			id := params.GetString("id")
 			
 
-			api_response, err := client.LocalesApi.LocaleDelete(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.LocalesApi.LocaleDelete(auth, projectId, id, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -151,8 +165,15 @@ func initLocaleDownload() {
 			id := params.GetString("id")
 			
 
-			api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}

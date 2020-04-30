@@ -121,8 +121,15 @@ func initJobLocaleDelete() {
 			id := params.GetString("id")
 			
 
-			api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, &localVarOptionals)
+			data, api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -358,8 +365,15 @@ func initJobLocalesCreate() {
 			jobLocalesCreateParameters := api.JobLocalesCreateParameters{}
 			
 
-			api_response, err := client.JobLocalesApi.JobLocalesCreate(auth, projectId, jobId, jobLocalesCreateParameters, &localVarOptionals)
+			data, api_response, err := client.JobLocalesApi.JobLocalesCreate(auth, projectId, jobId, jobLocalesCreateParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}

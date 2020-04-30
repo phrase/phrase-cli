@@ -118,8 +118,15 @@ func initJobCreate() {
 			jobCreateParameters := api.JobCreateParameters{}
 			
 
-			api_response, err := client.JobsApi.JobCreate(auth, projectId, jobCreateParameters, &localVarOptionals)
+			data, api_response, err := client.JobsApi.JobCreate(auth, projectId, jobCreateParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -166,8 +173,15 @@ func initJobDelete() {
 			id := params.GetString("id")
 			
 
-			api_response, err := client.JobsApi.JobDelete(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.JobsApi.JobDelete(auth, projectId, id, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -273,8 +287,15 @@ func initJobKeysDelete() {
 			id := params.GetString("id")
 			
 
-			api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}

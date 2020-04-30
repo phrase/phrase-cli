@@ -56,8 +56,15 @@ func initBranchCompare() {
 			name := params.GetString("name")
 			
 
-			api_response, err := client.BranchesApi.BranchCompare(auth, projectId, name, &localVarOptionals)
+			data, api_response, err := client.BranchesApi.BranchCompare(auth, projectId, name, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -104,8 +111,15 @@ func initBranchCreate() {
 			branchCreateParameters := api.BranchCreateParameters{}
 			
 
-			api_response, err := client.BranchesApi.BranchCreate(auth, projectId, branchCreateParameters, &localVarOptionals)
+			data, api_response, err := client.BranchesApi.BranchCreate(auth, projectId, branchCreateParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -152,8 +166,15 @@ func initBranchDelete() {
 			name := params.GetString("name")
 			
 
-			api_response, err := client.BranchesApi.BranchDelete(auth, projectId, name, &localVarOptionals)
+			data, api_response, err := client.BranchesApi.BranchDelete(auth, projectId, name, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -202,8 +223,15 @@ func initBranchMerge() {
 			branchMergeParameters := api.BranchMergeParameters{}
 			
 
-			api_response, err := client.BranchesApi.BranchMerge(auth, projectId, name, branchMergeParameters, &localVarOptionals)
+			data, api_response, err := client.BranchesApi.BranchMerge(auth, projectId, name, branchMergeParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}

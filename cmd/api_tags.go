@@ -53,8 +53,15 @@ func initTagCreate() {
 			tagCreateParameters := api.TagCreateParameters{}
 			
 
-			api_response, err := client.TagsApi.TagCreate(auth, projectId, tagCreateParameters, &localVarOptionals)
+			data, api_response, err := client.TagsApi.TagCreate(auth, projectId, tagCreateParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -101,8 +108,15 @@ func initTagDelete() {
 			name := params.GetString("name")
 			
 
-			api_response, err := client.TagsApi.TagDelete(auth, projectId, name, &localVarOptionals)
+			data, api_response, err := client.TagsApi.TagDelete(auth, projectId, name, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}

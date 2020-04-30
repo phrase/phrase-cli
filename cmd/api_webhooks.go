@@ -55,8 +55,15 @@ func initWebhookCreate() {
 			webhookCreateParameters := api.WebhookCreateParameters{}
 			
 
-			api_response, err := client.WebhooksApi.WebhookCreate(auth, projectId, webhookCreateParameters, &localVarOptionals)
+			data, api_response, err := client.WebhooksApi.WebhookCreate(auth, projectId, webhookCreateParameters, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -103,8 +110,15 @@ func initWebhookDelete() {
 			id := params.GetString("id")
 			
 
-			api_response, err := client.WebhooksApi.WebhookDelete(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.WebhooksApi.WebhookDelete(auth, projectId, id, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
@@ -206,8 +220,15 @@ func initWebhookTest() {
 			id := params.GetString("id")
 			
 
-			api_response, err := client.WebhooksApi.WebhookTest(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.WebhooksApi.WebhookTest(auth, projectId, id, &localVarOptionals)
 
+			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+			if jsonErr != nil {
+				fmt.Printf("%v\n", data)
+				HandleError(err)
+			}
+
+			fmt.Printf("%s\n", string(jsonBuf))
 			if err != nil {
 				HandleError(err)
 			}
