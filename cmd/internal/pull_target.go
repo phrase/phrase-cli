@@ -1,13 +1,13 @@
-package pull
+package internal
 
 import (
 	"fmt"
 	"path/filepath"
 	"strings"
 
-	"github.com/phrase/phrase-cli/cmd/pull/internal/paths"
-	"github.com/phrase/phrase-cli/cmd/pull/internal/placeholders"
-	"github.com/phrase/phrase-cli/cmd/pull/internal/shared"
+	"github.com/phrase/phrase-cli/cmd/internal/paths"
+	"github.com/phrase/phrase-cli/cmd/internal/placeholders"
+	"github.com/phrase/phrase-cli/cmd/internal/shared"
 	"github.com/phrase/phrase-go"
 	"gopkg.in/yaml.v2"
 )

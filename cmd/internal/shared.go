@@ -1,4 +1,4 @@
-package pull
+package internal
 
 import (
 	"github.com/antihax/optional"

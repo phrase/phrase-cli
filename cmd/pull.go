@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/phrase/phrase-cli/cmd/pull"
+	pull "github.com/phrase/phrase-cli/cmd/internal"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

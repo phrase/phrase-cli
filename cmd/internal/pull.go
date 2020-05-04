@@ -1,4 +1,4 @@
-package pull
+package internal
 
 import (
 	"context"
@@ -9,10 +9,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/phrase/phrase-cli/cmd/internal/paths"
+	"github.com/phrase/phrase-cli/cmd/internal/placeholders"
+	"github.com/phrase/phrase-cli/cmd/internal/print"
+
 	"github.com/antihax/optional"
-	"github.com/phrase/phrase-cli/cmd/pull/internal/paths"
-	"github.com/phrase/phrase-cli/cmd/pull/internal/placeholders"
-	"github.com/phrase/phrase-cli/cmd/pull/internal/print"
 	"github.com/phrase/phrase-go"
 )
 
@@ -30,17 +31,8 @@ type PullCommand struct {
 
 var Auth context.Context
 
-func newClient() *phrase.APIClient {
-	Auth = context.WithValue(context.Background(), phrase.ContextAPIKey, phrase.APIKey{
-		Key:    Config.Credentials.Token,
-		Prefix: "token",
-	})
-
-	cfg := phrase.NewConfiguration()
-	return phrase.NewAPIClient(cfg)
-}
-
 func (cmd *PullCommand) Run(config *phrase.Config) error {
+	fmt.Printf("%+v\n", config)
 	Config = config
 
 	if Config.Debug {
@@ -85,6 +77,16 @@ func (cmd *PullCommand) Run(config *phrase.Config) error {
 	}
 
 	return nil
+}
+
+func newClient() *phrase.APIClient {
+	Auth = context.WithValue(context.Background(), phrase.ContextAPIKey, phrase.APIKey{
+		Key:    Config.Credentials.Token,
+		Prefix: "token",
+	})
+
+	cfg := phrase.NewConfiguration()
+	return phrase.NewAPIClient(cfg)
 }
 
 type PullParams struct {
@@ -261,7 +263,7 @@ func createFile(path string) error {
 		absDir := filepath.Dir(path)
 		err := paths.Exists(absDir)
 		if err != nil {
-			os.MkdirAll(absDir, 0700)
+			_ = os.MkdirAll(absDir, 0700)
 		}
 
 		f, err := os.Create(path)

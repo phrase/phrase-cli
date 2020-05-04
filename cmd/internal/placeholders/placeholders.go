@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/phrase/phrase-cli/cmd/pull/internal/stringz"
+	"github.com/phrase/phrase-cli/cmd/internal/stringz"
 )
 
 var (

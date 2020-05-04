@@ -1,4 +1,4 @@
-package pull
+package internal
 
 import (
 	"fmt"
@@ -40,7 +40,7 @@ func (localeFile *LocaleFile) Message() string {
 			str = fmt.Sprintf("%s Format: %s", str, localeFile.FileFormat)
 		}
 	} else {
-		str = fmt.Sprintf("%s", localeFile.Name)
+		str = fmt.Sprint(localeFile.Name)
 	}
 	return strings.TrimSpace(str)
 }

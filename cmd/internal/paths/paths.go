@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/phrase/phrase-cli/cmd/pull/internal/shared"
+	"github.com/phrase/phrase-cli/cmd/internal/shared"
 )
 
 var YamlConfigName = ".phraseapp.yml"

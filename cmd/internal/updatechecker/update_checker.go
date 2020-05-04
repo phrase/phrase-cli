@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/coreos/go-semver/semver"
-	"github.com/phrase/phrase-cli/cmd/pull/internal/print"
-	"github.com/phrase/phrase-cli/cmd/pull/internal/stringz"
+	"github.com/phrase/phrase-cli/cmd/internal/print"
+	"github.com/phrase/phrase-cli/cmd/internal/stringz"
 )
 
 const downloadPageURL = "https://phrase.com/cli"

@@ -71,7 +71,11 @@ func Glob(pattern string) (matches []string, err error) {
 		}
 
 		for _, base := range directoriesOnly(baseCandidates) {
-			err = filepath.Walk(filepath.Clean(base), func(path string, info os.FileInfo, err error) error {
+			_ = filepath.Walk(filepath.Clean(base), func(path string, info os.FileInfo, err error) error {
+				if err != nil {
+					return err
+				}
+
 				if !info.IsDir() {
 					return nil
 				}
@@ -85,7 +89,6 @@ func Glob(pattern string) (matches []string, err error) {
 				return nil
 			})
 		}
-
 	} else {
 		candidates, err := filepath.Glob(pattern)
 		if err != nil {
