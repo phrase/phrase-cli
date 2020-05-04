@@ -48,19 +48,29 @@ func initUploadCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			uploadCreateParameters := api.UploadCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &uploadCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", uploadCreateParameters)
+			}
 			
 
 			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, uploadCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -74,8 +84,9 @@ func initUploadCreate() {
 	uploadsApiCmd.AddCommand(uploadCreate)
 
 	
-	AddFlag(uploadCreate, "string", "projectId", "", "ID")
+	AddFlag(uploadCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(uploadCreate, "string", "data", "d", "payload in JSON format", true)
 	// uploadCreateParameters := api.UploadCreateParameters{}
 	
 
@@ -103,19 +114,23 @@ func initUploadShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.UploadsApi.UploadShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -129,9 +144,9 @@ func initUploadShow() {
 	uploadsApiCmd.AddCommand(uploadShow)
 
 	
-	AddFlag(uploadShow, "string", "projectId", "", "ID")
+	AddFlag(uploadShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(uploadShow, "string", "id", "", "ID")
+	AddFlag(uploadShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(uploadShow.Flags())
@@ -158,17 +173,20 @@ func initUploadsList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.UploadsApi.UploadsList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -182,7 +200,7 @@ func initUploadsList() {
 	uploadsApiCmd.AddCommand(uploadsList)
 
 	
-	AddFlag(uploadsList, "string", "projectId", "", "ID")
+	AddFlag(uploadsList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(uploadsList.Flags())

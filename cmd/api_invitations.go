@@ -51,19 +51,29 @@ func initInvitationCreate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
+
 			invitationCreateParameters := api.InvitationCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", invitationCreateParameters)
+			}
 			
 
 			data, api_response, err := client.InvitationsApi.InvitationCreate(auth, accountId, invitationCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -77,8 +87,9 @@ func initInvitationCreate() {
 	invitationsApiCmd.AddCommand(invitationCreate)
 
 	
-	AddFlag(invitationCreate, "string", "accountId", "", "ID")
+	AddFlag(invitationCreate, "string", "accountId", "", "Account ID", true)
 	
+	AddFlag(invitationCreate, "string", "data", "d", "payload in JSON format", true)
 	// invitationCreateParameters := api.InvitationCreateParameters{}
 	
 
@@ -106,19 +117,23 @@ func initInvitationDelete() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.InvitationsApi.InvitationDelete(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -132,9 +147,9 @@ func initInvitationDelete() {
 	invitationsApiCmd.AddCommand(invitationDelete)
 
 	
-	AddFlag(invitationDelete, "string", "accountId", "", "ID")
+	AddFlag(invitationDelete, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(invitationDelete, "string", "id", "", "ID")
+	AddFlag(invitationDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(invitationDelete.Flags())
@@ -161,19 +176,23 @@ func initInvitationResend() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.InvitationsApi.InvitationResend(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -187,9 +206,9 @@ func initInvitationResend() {
 	invitationsApiCmd.AddCommand(invitationResend)
 
 	
-	AddFlag(invitationResend, "string", "accountId", "", "ID")
+	AddFlag(invitationResend, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(invitationResend, "string", "id", "", "ID")
+	AddFlag(invitationResend, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(invitationResend.Flags())
@@ -216,19 +235,23 @@ func initInvitationShow() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.InvitationsApi.InvitationShow(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -242,9 +265,9 @@ func initInvitationShow() {
 	invitationsApiCmd.AddCommand(invitationShow)
 
 	
-	AddFlag(invitationShow, "string", "accountId", "", "ID")
+	AddFlag(invitationShow, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(invitationShow, "string", "id", "", "ID")
+	AddFlag(invitationShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(invitationShow.Flags())
@@ -271,21 +294,32 @@ func initInvitationUpdate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			invitationUpdateParameters := api.InvitationUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", invitationUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.InvitationsApi.InvitationUpdate(auth, accountId, id, invitationUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -299,10 +333,11 @@ func initInvitationUpdate() {
 	invitationsApiCmd.AddCommand(invitationUpdate)
 
 	
-	AddFlag(invitationUpdate, "string", "accountId", "", "ID")
+	AddFlag(invitationUpdate, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(invitationUpdate, "string", "id", "", "ID")
+	AddFlag(invitationUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(invitationUpdate, "string", "data", "d", "payload in JSON format", true)
 	// invitationUpdateParameters := api.InvitationUpdateParameters{}
 	
 
@@ -330,17 +365,20 @@ func initInvitationsList() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 
 			data, api_response, err := client.InvitationsApi.InvitationsList(auth, accountId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -354,7 +392,7 @@ func initInvitationsList() {
 	invitationsApiCmd.AddCommand(invitationsList)
 
 	
-	AddFlag(invitationsList, "string", "accountId", "", "ID")
+	AddFlag(invitationsList, "string", "accountId", "", "Account ID", true)
 	
 
 	params.BindPFlags(invitationsList.Flags())

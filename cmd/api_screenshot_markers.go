@@ -50,21 +50,32 @@ func initScreenshotMarkerCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			screenshotId := params.GetString("screenshotId")
+
 			
+
 			screenshotMarkerCreateParameters := api.ScreenshotMarkerCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotMarkerCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", screenshotMarkerCreateParameters)
+			}
 			
 
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkerCreate(auth, projectId, screenshotId, screenshotMarkerCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -78,10 +89,11 @@ func initScreenshotMarkerCreate() {
 	screenshotMarkersApiCmd.AddCommand(screenshotMarkerCreate)
 
 	
-	AddFlag(screenshotMarkerCreate, "string", "projectId", "", "ID")
+	AddFlag(screenshotMarkerCreate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(screenshotMarkerCreate, "string", "screenshotId", "", "ID")
+	AddFlag(screenshotMarkerCreate, "string", "screenshotId", "", "Screenshot ID", true)
 	
+	AddFlag(screenshotMarkerCreate, "string", "data", "d", "payload in JSON format", true)
 	// screenshotMarkerCreateParameters := api.ScreenshotMarkerCreateParameters{}
 	
 
@@ -109,19 +121,23 @@ func initScreenshotMarkerDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			screenshotId := params.GetString("screenshotId")
+
 			
 
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkerDelete(auth, projectId, screenshotId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -135,9 +151,9 @@ func initScreenshotMarkerDelete() {
 	screenshotMarkersApiCmd.AddCommand(screenshotMarkerDelete)
 
 	
-	AddFlag(screenshotMarkerDelete, "string", "projectId", "", "ID")
+	AddFlag(screenshotMarkerDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(screenshotMarkerDelete, "string", "screenshotId", "", "ID")
+	AddFlag(screenshotMarkerDelete, "string", "screenshotId", "", "Screenshot ID", true)
 	
 
 	params.BindPFlags(screenshotMarkerDelete.Flags())
@@ -164,21 +180,26 @@ func initScreenshotMarkerShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			screenshotId := params.GetString("screenshotId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkerShow(auth, projectId, screenshotId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -192,11 +213,11 @@ func initScreenshotMarkerShow() {
 	screenshotMarkersApiCmd.AddCommand(screenshotMarkerShow)
 
 	
-	AddFlag(screenshotMarkerShow, "string", "projectId", "", "ID")
+	AddFlag(screenshotMarkerShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(screenshotMarkerShow, "string", "screenshotId", "", "ID")
+	AddFlag(screenshotMarkerShow, "string", "screenshotId", "", "Screenshot ID", true)
 	
-	AddFlag(screenshotMarkerShow, "string", "id", "", "ID")
+	AddFlag(screenshotMarkerShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(screenshotMarkerShow.Flags())
@@ -223,21 +244,32 @@ func initScreenshotMarkerUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			screenshotId := params.GetString("screenshotId")
+
 			
+
 			screenshotMarkerUpdateParameters := api.ScreenshotMarkerUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotMarkerUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", screenshotMarkerUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkerUpdate(auth, projectId, screenshotId, screenshotMarkerUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -251,10 +283,11 @@ func initScreenshotMarkerUpdate() {
 	screenshotMarkersApiCmd.AddCommand(screenshotMarkerUpdate)
 
 	
-	AddFlag(screenshotMarkerUpdate, "string", "projectId", "", "ID")
+	AddFlag(screenshotMarkerUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(screenshotMarkerUpdate, "string", "screenshotId", "", "ID")
+	AddFlag(screenshotMarkerUpdate, "string", "screenshotId", "", "Screenshot ID", true)
 	
+	AddFlag(screenshotMarkerUpdate, "string", "data", "d", "payload in JSON format", true)
 	// screenshotMarkerUpdateParameters := api.ScreenshotMarkerUpdateParameters{}
 	
 
@@ -282,19 +315,23 @@ func initScreenshotMarkersList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkersList(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -308,9 +345,9 @@ func initScreenshotMarkersList() {
 	screenshotMarkersApiCmd.AddCommand(screenshotMarkersList)
 
 	
-	AddFlag(screenshotMarkersList, "string", "projectId", "", "ID")
+	AddFlag(screenshotMarkersList, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(screenshotMarkersList, "string", "id", "", "ID")
+	AddFlag(screenshotMarkersList, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(screenshotMarkersList.Flags())

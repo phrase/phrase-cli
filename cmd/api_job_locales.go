@@ -52,23 +52,35 @@ func initJobLocaleComplete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			jobId := params.GetString("jobId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			jobLocaleCompleteParameters := api.JobLocaleCompleteParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobLocaleCompleteParameters)
+			}
 			
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleComplete(auth, projectId, jobId, id, jobLocaleCompleteParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -82,12 +94,13 @@ func initJobLocaleComplete() {
 	jobLocalesApiCmd.AddCommand(jobLocaleComplete)
 
 	
-	AddFlag(jobLocaleComplete, "string", "projectId", "", "ID")
+	AddFlag(jobLocaleComplete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobLocaleComplete, "string", "jobId", "", "ID")
+	AddFlag(jobLocaleComplete, "string", "jobId", "", "Job ID", true)
 	
-	AddFlag(jobLocaleComplete, "string", "id", "", "ID")
+	AddFlag(jobLocaleComplete, "string", "id", "", "ID", true)
 	
+	AddFlag(jobLocaleComplete, "string", "data", "d", "payload in JSON format", true)
 	// jobLocaleCompleteParameters := api.JobLocaleCompleteParameters{}
 	
 
@@ -115,21 +128,26 @@ func initJobLocaleDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			jobId := params.GetString("jobId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -143,11 +161,11 @@ func initJobLocaleDelete() {
 	jobLocalesApiCmd.AddCommand(jobLocaleDelete)
 
 	
-	AddFlag(jobLocaleDelete, "string", "projectId", "", "ID")
+	AddFlag(jobLocaleDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobLocaleDelete, "string", "jobId", "", "ID")
+	AddFlag(jobLocaleDelete, "string", "jobId", "", "Job ID", true)
 	
-	AddFlag(jobLocaleDelete, "string", "id", "", "ID")
+	AddFlag(jobLocaleDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(jobLocaleDelete.Flags())
@@ -174,23 +192,35 @@ func initJobLocaleReopen() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			jobId := params.GetString("jobId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			jobLocaleReopenParameters := api.JobLocaleReopenParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleReopenParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobLocaleReopenParameters)
+			}
 			
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleReopen(auth, projectId, jobId, id, jobLocaleReopenParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -204,12 +234,13 @@ func initJobLocaleReopen() {
 	jobLocalesApiCmd.AddCommand(jobLocaleReopen)
 
 	
-	AddFlag(jobLocaleReopen, "string", "projectId", "", "ID")
+	AddFlag(jobLocaleReopen, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobLocaleReopen, "string", "jobId", "", "ID")
+	AddFlag(jobLocaleReopen, "string", "jobId", "", "Job ID", true)
 	
-	AddFlag(jobLocaleReopen, "string", "id", "", "ID")
+	AddFlag(jobLocaleReopen, "string", "id", "", "ID", true)
 	
+	AddFlag(jobLocaleReopen, "string", "data", "d", "payload in JSON format", true)
 	// jobLocaleReopenParameters := api.JobLocaleReopenParameters{}
 	
 
@@ -237,21 +268,26 @@ func initJobLocaleShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			jobId := params.GetString("jobId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleShow(auth, projectId, jobId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -265,11 +301,11 @@ func initJobLocaleShow() {
 	jobLocalesApiCmd.AddCommand(jobLocaleShow)
 
 	
-	AddFlag(jobLocaleShow, "string", "projectId", "", "ID")
+	AddFlag(jobLocaleShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobLocaleShow, "string", "jobId", "", "ID")
+	AddFlag(jobLocaleShow, "string", "jobId", "", "Job ID", true)
 	
-	AddFlag(jobLocaleShow, "string", "id", "", "ID")
+	AddFlag(jobLocaleShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(jobLocaleShow.Flags())
@@ -296,23 +332,35 @@ func initJobLocaleUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			jobId := params.GetString("jobId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			jobLocaleUpdateParameters := api.JobLocaleUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobLocaleUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleUpdate(auth, projectId, jobId, id, jobLocaleUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -326,12 +374,13 @@ func initJobLocaleUpdate() {
 	jobLocalesApiCmd.AddCommand(jobLocaleUpdate)
 
 	
-	AddFlag(jobLocaleUpdate, "string", "projectId", "", "ID")
+	AddFlag(jobLocaleUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobLocaleUpdate, "string", "jobId", "", "ID")
+	AddFlag(jobLocaleUpdate, "string", "jobId", "", "Job ID", true)
 	
-	AddFlag(jobLocaleUpdate, "string", "id", "", "ID")
+	AddFlag(jobLocaleUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(jobLocaleUpdate, "string", "data", "d", "payload in JSON format", true)
 	// jobLocaleUpdateParameters := api.JobLocaleUpdateParameters{}
 	
 
@@ -359,21 +408,32 @@ func initJobLocalesCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			jobId := params.GetString("jobId")
+
 			
+
 			jobLocalesCreateParameters := api.JobLocalesCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocalesCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobLocalesCreateParameters)
+			}
 			
 
 			data, api_response, err := client.JobLocalesApi.JobLocalesCreate(auth, projectId, jobId, jobLocalesCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -387,10 +447,11 @@ func initJobLocalesCreate() {
 	jobLocalesApiCmd.AddCommand(jobLocalesCreate)
 
 	
-	AddFlag(jobLocalesCreate, "string", "projectId", "", "ID")
+	AddFlag(jobLocalesCreate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobLocalesCreate, "string", "jobId", "", "ID")
+	AddFlag(jobLocalesCreate, "string", "jobId", "", "Job ID", true)
 	
+	AddFlag(jobLocalesCreate, "string", "data", "d", "payload in JSON format", true)
 	// jobLocalesCreateParameters := api.JobLocalesCreateParameters{}
 	
 
@@ -418,19 +479,23 @@ func initJobLocalesList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			jobId := params.GetString("jobId")
+
 			
 
 			data, api_response, err := client.JobLocalesApi.JobLocalesList(auth, projectId, jobId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -444,9 +509,9 @@ func initJobLocalesList() {
 	jobLocalesApiCmd.AddCommand(jobLocalesList)
 
 	
-	AddFlag(jobLocalesList, "string", "projectId", "", "ID")
+	AddFlag(jobLocalesList, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobLocalesList, "string", "jobId", "", "ID")
+	AddFlag(jobLocalesList, "string", "jobId", "", "Job ID", true)
 	
 
 	params.BindPFlags(jobLocalesList.Flags())

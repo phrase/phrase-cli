@@ -53,21 +53,32 @@ func initCommentCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
+
 			commentCreateParameters := api.CommentCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &commentCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", commentCreateParameters)
+			}
 			
 
 			data, api_response, err := client.CommentsApi.CommentCreate(auth, projectId, keyId, commentCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -81,10 +92,11 @@ func initCommentCreate() {
 	commentsApiCmd.AddCommand(commentCreate)
 
 	
-	AddFlag(commentCreate, "string", "projectId", "", "ID")
+	AddFlag(commentCreate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(commentCreate, "string", "keyId", "", "ID")
+	AddFlag(commentCreate, "string", "keyId", "", "Translation Key ID", true)
 	
+	AddFlag(commentCreate, "string", "data", "d", "payload in JSON format", true)
 	// commentCreateParameters := api.CommentCreateParameters{}
 	
 
@@ -112,21 +124,26 @@ func initCommentDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.CommentsApi.CommentDelete(auth, projectId, keyId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -140,11 +157,11 @@ func initCommentDelete() {
 	commentsApiCmd.AddCommand(commentDelete)
 
 	
-	AddFlag(commentDelete, "string", "projectId", "", "ID")
+	AddFlag(commentDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(commentDelete, "string", "keyId", "", "ID")
+	AddFlag(commentDelete, "string", "keyId", "", "Translation Key ID", true)
 	
-	AddFlag(commentDelete, "string", "id", "", "ID")
+	AddFlag(commentDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(commentDelete.Flags())
@@ -171,21 +188,26 @@ func initCommentMarkCheck() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.CommentsApi.CommentMarkCheck(auth, projectId, keyId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -199,11 +221,11 @@ func initCommentMarkCheck() {
 	commentsApiCmd.AddCommand(commentMarkCheck)
 
 	
-	AddFlag(commentMarkCheck, "string", "projectId", "", "ID")
+	AddFlag(commentMarkCheck, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(commentMarkCheck, "string", "keyId", "", "ID")
+	AddFlag(commentMarkCheck, "string", "keyId", "", "Translation Key ID", true)
 	
-	AddFlag(commentMarkCheck, "string", "id", "", "ID")
+	AddFlag(commentMarkCheck, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(commentMarkCheck.Flags())
@@ -230,23 +252,35 @@ func initCommentMarkRead() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			commentMarkReadParameters := api.CommentMarkReadParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &commentMarkReadParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", commentMarkReadParameters)
+			}
 			
 
 			data, api_response, err := client.CommentsApi.CommentMarkRead(auth, projectId, keyId, id, commentMarkReadParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -260,12 +294,13 @@ func initCommentMarkRead() {
 	commentsApiCmd.AddCommand(commentMarkRead)
 
 	
-	AddFlag(commentMarkRead, "string", "projectId", "", "ID")
+	AddFlag(commentMarkRead, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(commentMarkRead, "string", "keyId", "", "ID")
+	AddFlag(commentMarkRead, "string", "keyId", "", "Translation Key ID", true)
 	
-	AddFlag(commentMarkRead, "string", "id", "", "ID")
+	AddFlag(commentMarkRead, "string", "id", "", "ID", true)
 	
+	AddFlag(commentMarkRead, "string", "data", "d", "payload in JSON format", true)
 	// commentMarkReadParameters := api.CommentMarkReadParameters{}
 	
 
@@ -293,21 +328,26 @@ func initCommentMarkUnread() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.CommentsApi.CommentMarkUnread(auth, projectId, keyId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -321,11 +361,11 @@ func initCommentMarkUnread() {
 	commentsApiCmd.AddCommand(commentMarkUnread)
 
 	
-	AddFlag(commentMarkUnread, "string", "projectId", "", "ID")
+	AddFlag(commentMarkUnread, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(commentMarkUnread, "string", "keyId", "", "ID")
+	AddFlag(commentMarkUnread, "string", "keyId", "", "Translation Key ID", true)
 	
-	AddFlag(commentMarkUnread, "string", "id", "", "ID")
+	AddFlag(commentMarkUnread, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(commentMarkUnread.Flags())
@@ -352,21 +392,26 @@ func initCommentShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.CommentsApi.CommentShow(auth, projectId, keyId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -380,11 +425,11 @@ func initCommentShow() {
 	commentsApiCmd.AddCommand(commentShow)
 
 	
-	AddFlag(commentShow, "string", "projectId", "", "ID")
+	AddFlag(commentShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(commentShow, "string", "keyId", "", "ID")
+	AddFlag(commentShow, "string", "keyId", "", "Translation Key ID", true)
 	
-	AddFlag(commentShow, "string", "id", "", "ID")
+	AddFlag(commentShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(commentShow.Flags())
@@ -411,23 +456,35 @@ func initCommentUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			commentUpdateParameters := api.CommentUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &commentUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", commentUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.CommentsApi.CommentUpdate(auth, projectId, keyId, id, commentUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -441,12 +498,13 @@ func initCommentUpdate() {
 	commentsApiCmd.AddCommand(commentUpdate)
 
 	
-	AddFlag(commentUpdate, "string", "projectId", "", "ID")
+	AddFlag(commentUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(commentUpdate, "string", "keyId", "", "ID")
+	AddFlag(commentUpdate, "string", "keyId", "", "Translation Key ID", true)
 	
-	AddFlag(commentUpdate, "string", "id", "", "ID")
+	AddFlag(commentUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(commentUpdate, "string", "data", "d", "payload in JSON format", true)
 	// commentUpdateParameters := api.CommentUpdateParameters{}
 	
 
@@ -474,19 +532,23 @@ func initCommentsList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
 
 			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -500,9 +562,9 @@ func initCommentsList() {
 	commentsApiCmd.AddCommand(commentsList)
 
 	
-	AddFlag(commentsList, "string", "projectId", "", "ID")
+	AddFlag(commentsList, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(commentsList, "string", "keyId", "", "ID")
+	AddFlag(commentsList, "string", "keyId", "", "Translation Key ID", true)
 	
 
 	params.BindPFlags(commentsList.Flags())

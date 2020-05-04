@@ -55,21 +55,32 @@ func initJobComplete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			jobCompleteParameters := api.JobCompleteParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCompleteParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobCompleteParameters)
+			}
 			
 
 			data, api_response, err := client.JobsApi.JobComplete(auth, projectId, id, jobCompleteParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -83,10 +94,11 @@ func initJobComplete() {
 	jobsApiCmd.AddCommand(jobComplete)
 
 	
-	AddFlag(jobComplete, "string", "projectId", "", "ID")
+	AddFlag(jobComplete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobComplete, "string", "id", "", "ID")
+	AddFlag(jobComplete, "string", "id", "", "ID", true)
 	
+	AddFlag(jobComplete, "string", "data", "d", "payload in JSON format", true)
 	// jobCompleteParameters := api.JobCompleteParameters{}
 	
 
@@ -114,19 +126,29 @@ func initJobCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			jobCreateParameters := api.JobCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobCreateParameters)
+			}
 			
 
 			data, api_response, err := client.JobsApi.JobCreate(auth, projectId, jobCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -140,8 +162,9 @@ func initJobCreate() {
 	jobsApiCmd.AddCommand(jobCreate)
 
 	
-	AddFlag(jobCreate, "string", "projectId", "", "ID")
+	AddFlag(jobCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(jobCreate, "string", "data", "d", "payload in JSON format", true)
 	// jobCreateParameters := api.JobCreateParameters{}
 	
 
@@ -169,19 +192,23 @@ func initJobDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.JobsApi.JobDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -195,9 +222,9 @@ func initJobDelete() {
 	jobsApiCmd.AddCommand(jobDelete)
 
 	
-	AddFlag(jobDelete, "string", "projectId", "", "ID")
+	AddFlag(jobDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobDelete, "string", "id", "", "ID")
+	AddFlag(jobDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(jobDelete.Flags())
@@ -224,21 +251,32 @@ func initJobKeysCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			jobKeysCreateParameters := api.JobKeysCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobKeysCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobKeysCreateParameters)
+			}
 			
 
 			data, api_response, err := client.JobsApi.JobKeysCreate(auth, projectId, id, jobKeysCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -252,10 +290,11 @@ func initJobKeysCreate() {
 	jobsApiCmd.AddCommand(jobKeysCreate)
 
 	
-	AddFlag(jobKeysCreate, "string", "projectId", "", "ID")
+	AddFlag(jobKeysCreate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobKeysCreate, "string", "id", "", "ID")
+	AddFlag(jobKeysCreate, "string", "id", "", "ID", true)
 	
+	AddFlag(jobKeysCreate, "string", "data", "d", "payload in JSON format", true)
 	// jobKeysCreateParameters := api.JobKeysCreateParameters{}
 	
 
@@ -283,19 +322,23 @@ func initJobKeysDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -309,9 +352,9 @@ func initJobKeysDelete() {
 	jobsApiCmd.AddCommand(jobKeysDelete)
 
 	
-	AddFlag(jobKeysDelete, "string", "projectId", "", "ID")
+	AddFlag(jobKeysDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobKeysDelete, "string", "id", "", "ID")
+	AddFlag(jobKeysDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(jobKeysDelete.Flags())
@@ -338,21 +381,32 @@ func initJobReopen() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			jobReopenParameters := api.JobReopenParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobReopenParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobReopenParameters)
+			}
 			
 
 			data, api_response, err := client.JobsApi.JobReopen(auth, projectId, id, jobReopenParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -366,10 +420,11 @@ func initJobReopen() {
 	jobsApiCmd.AddCommand(jobReopen)
 
 	
-	AddFlag(jobReopen, "string", "projectId", "", "ID")
+	AddFlag(jobReopen, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobReopen, "string", "id", "", "ID")
+	AddFlag(jobReopen, "string", "id", "", "ID", true)
 	
+	AddFlag(jobReopen, "string", "data", "d", "payload in JSON format", true)
 	// jobReopenParameters := api.JobReopenParameters{}
 	
 
@@ -397,19 +452,23 @@ func initJobShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.JobsApi.JobShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -423,9 +482,9 @@ func initJobShow() {
 	jobsApiCmd.AddCommand(jobShow)
 
 	
-	AddFlag(jobShow, "string", "projectId", "", "ID")
+	AddFlag(jobShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobShow, "string", "id", "", "ID")
+	AddFlag(jobShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(jobShow.Flags())
@@ -452,21 +511,32 @@ func initJobStart() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			jobStartParameters := api.JobStartParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobStartParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobStartParameters)
+			}
 			
 
 			data, api_response, err := client.JobsApi.JobStart(auth, projectId, id, jobStartParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -480,10 +550,11 @@ func initJobStart() {
 	jobsApiCmd.AddCommand(jobStart)
 
 	
-	AddFlag(jobStart, "string", "projectId", "", "ID")
+	AddFlag(jobStart, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobStart, "string", "id", "", "ID")
+	AddFlag(jobStart, "string", "id", "", "ID", true)
 	
+	AddFlag(jobStart, "string", "data", "d", "payload in JSON format", true)
 	// jobStartParameters := api.JobStartParameters{}
 	
 
@@ -511,21 +582,32 @@ func initJobUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			jobUpdateParameters := api.JobUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.JobsApi.JobUpdate(auth, projectId, id, jobUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -539,10 +621,11 @@ func initJobUpdate() {
 	jobsApiCmd.AddCommand(jobUpdate)
 
 	
-	AddFlag(jobUpdate, "string", "projectId", "", "ID")
+	AddFlag(jobUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(jobUpdate, "string", "id", "", "ID")
+	AddFlag(jobUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(jobUpdate, "string", "data", "d", "payload in JSON format", true)
 	// jobUpdateParameters := api.JobUpdateParameters{}
 	
 
@@ -570,17 +653,20 @@ func initJobsList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.JobsApi.JobsList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -594,7 +680,7 @@ func initJobsList() {
 	jobsApiCmd.AddCommand(jobsList)
 
 	
-	AddFlag(jobsList, "string", "projectId", "", "ID")
+	AddFlag(jobsList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(jobsList.Flags())

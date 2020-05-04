@@ -53,19 +53,29 @@ func initSpaceCreate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
+
 			spaceCreateParameters := api.SpaceCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", spaceCreateParameters)
+			}
 			
 
 			data, api_response, err := client.SpacesApi.SpaceCreate(auth, accountId, spaceCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -79,8 +89,9 @@ func initSpaceCreate() {
 	spacesApiCmd.AddCommand(spaceCreate)
 
 	
-	AddFlag(spaceCreate, "string", "accountId", "", "ID")
+	AddFlag(spaceCreate, "string", "accountId", "", "Account ID", true)
 	
+	AddFlag(spaceCreate, "string", "data", "d", "payload in JSON format", true)
 	// spaceCreateParameters := api.SpaceCreateParameters{}
 	
 
@@ -108,19 +119,23 @@ func initSpaceDelete() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.SpacesApi.SpaceDelete(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -134,9 +149,9 @@ func initSpaceDelete() {
 	spacesApiCmd.AddCommand(spaceDelete)
 
 	
-	AddFlag(spaceDelete, "string", "accountId", "", "ID")
+	AddFlag(spaceDelete, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(spaceDelete, "string", "id", "", "ID")
+	AddFlag(spaceDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(spaceDelete.Flags())
@@ -163,19 +178,23 @@ func initSpaceShow() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.SpacesApi.SpaceShow(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -189,9 +208,9 @@ func initSpaceShow() {
 	spacesApiCmd.AddCommand(spaceShow)
 
 	
-	AddFlag(spaceShow, "string", "accountId", "", "ID")
+	AddFlag(spaceShow, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(spaceShow, "string", "id", "", "ID")
+	AddFlag(spaceShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(spaceShow.Flags())
@@ -218,21 +237,32 @@ func initSpaceUpdate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			spaceUpdateParameters := api.SpaceUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", spaceUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.SpacesApi.SpaceUpdate(auth, accountId, id, spaceUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -246,10 +276,11 @@ func initSpaceUpdate() {
 	spacesApiCmd.AddCommand(spaceUpdate)
 
 	
-	AddFlag(spaceUpdate, "string", "accountId", "", "ID")
+	AddFlag(spaceUpdate, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(spaceUpdate, "string", "id", "", "ID")
+	AddFlag(spaceUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(spaceUpdate, "string", "data", "d", "payload in JSON format", true)
 	// spaceUpdateParameters := api.SpaceUpdateParameters{}
 	
 
@@ -277,17 +308,20 @@ func initSpacesList() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 
 			data, api_response, err := client.SpacesApi.SpacesList(auth, accountId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -301,7 +335,7 @@ func initSpacesList() {
 	spacesApiCmd.AddCommand(spacesList)
 
 	
-	AddFlag(spacesList, "string", "accountId", "", "ID")
+	AddFlag(spacesList, "string", "accountId", "", "Account ID", true)
 	
 
 	params.BindPFlags(spacesList.Flags())
@@ -328,21 +362,32 @@ func initSpacesProjectsCreate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			spaceId := params.GetString("spaceId")
+
 			
+
 			spacesProjectsCreateParameters := api.SpacesProjectsCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &spacesProjectsCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", spacesProjectsCreateParameters)
+			}
 			
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsCreate(auth, accountId, spaceId, spacesProjectsCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -356,10 +401,11 @@ func initSpacesProjectsCreate() {
 	spacesApiCmd.AddCommand(spacesProjectsCreate)
 
 	
-	AddFlag(spacesProjectsCreate, "string", "accountId", "", "ID")
+	AddFlag(spacesProjectsCreate, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(spacesProjectsCreate, "string", "spaceId", "", "ID")
+	AddFlag(spacesProjectsCreate, "string", "spaceId", "", "Space ID", true)
 	
+	AddFlag(spacesProjectsCreate, "string", "data", "d", "payload in JSON format", true)
 	// spacesProjectsCreateParameters := api.SpacesProjectsCreateParameters{}
 	
 
@@ -387,21 +433,26 @@ func initSpacesProjectsDelete() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			spaceId := params.GetString("spaceId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsDelete(auth, accountId, spaceId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -415,11 +466,11 @@ func initSpacesProjectsDelete() {
 	spacesApiCmd.AddCommand(spacesProjectsDelete)
 
 	
-	AddFlag(spacesProjectsDelete, "string", "accountId", "", "ID")
+	AddFlag(spacesProjectsDelete, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(spacesProjectsDelete, "string", "spaceId", "", "ID")
+	AddFlag(spacesProjectsDelete, "string", "spaceId", "", "Space ID", true)
 	
-	AddFlag(spacesProjectsDelete, "string", "id", "", "ID")
+	AddFlag(spacesProjectsDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(spacesProjectsDelete.Flags())
@@ -446,19 +497,23 @@ func initSpacesProjectsList() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			spaceId := params.GetString("spaceId")
+
 			
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsList(auth, accountId, spaceId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -472,9 +527,9 @@ func initSpacesProjectsList() {
 	spacesApiCmd.AddCommand(spacesProjectsList)
 
 	
-	AddFlag(spacesProjectsList, "string", "accountId", "", "ID")
+	AddFlag(spacesProjectsList, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(spacesProjectsList, "string", "spaceId", "", "ID")
+	AddFlag(spacesProjectsList, "string", "spaceId", "", "Space ID", true)
 	
 
 	params.BindPFlags(spacesProjectsList.Flags())

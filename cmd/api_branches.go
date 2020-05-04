@@ -52,19 +52,23 @@ func initBranchCompare() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			name := params.GetString("name")
+
 			
 
 			data, api_response, err := client.BranchesApi.BranchCompare(auth, projectId, name, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -78,9 +82,9 @@ func initBranchCompare() {
 	branchesApiCmd.AddCommand(branchCompare)
 
 	
-	AddFlag(branchCompare, "string", "projectId", "", "ID")
+	AddFlag(branchCompare, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(branchCompare, "string", "name", "", "ID")
+	AddFlag(branchCompare, "string", "name", "", "name", true)
 	
 
 	params.BindPFlags(branchCompare.Flags())
@@ -107,19 +111,29 @@ func initBranchCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			branchCreateParameters := api.BranchCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &branchCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", branchCreateParameters)
+			}
 			
 
 			data, api_response, err := client.BranchesApi.BranchCreate(auth, projectId, branchCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -133,8 +147,9 @@ func initBranchCreate() {
 	branchesApiCmd.AddCommand(branchCreate)
 
 	
-	AddFlag(branchCreate, "string", "projectId", "", "ID")
+	AddFlag(branchCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(branchCreate, "string", "data", "d", "payload in JSON format", true)
 	// branchCreateParameters := api.BranchCreateParameters{}
 	
 
@@ -162,19 +177,23 @@ func initBranchDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			name := params.GetString("name")
+
 			
 
 			data, api_response, err := client.BranchesApi.BranchDelete(auth, projectId, name, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -188,9 +207,9 @@ func initBranchDelete() {
 	branchesApiCmd.AddCommand(branchDelete)
 
 	
-	AddFlag(branchDelete, "string", "projectId", "", "ID")
+	AddFlag(branchDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(branchDelete, "string", "name", "", "ID")
+	AddFlag(branchDelete, "string", "name", "", "name", true)
 	
 
 	params.BindPFlags(branchDelete.Flags())
@@ -217,21 +236,32 @@ func initBranchMerge() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			name := params.GetString("name")
+
 			
+
 			branchMergeParameters := api.BranchMergeParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &branchMergeParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", branchMergeParameters)
+			}
 			
 
 			data, api_response, err := client.BranchesApi.BranchMerge(auth, projectId, name, branchMergeParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -245,10 +275,11 @@ func initBranchMerge() {
 	branchesApiCmd.AddCommand(branchMerge)
 
 	
-	AddFlag(branchMerge, "string", "projectId", "", "ID")
+	AddFlag(branchMerge, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(branchMerge, "string", "name", "", "ID")
+	AddFlag(branchMerge, "string", "name", "", "name", true)
 	
+	AddFlag(branchMerge, "string", "data", "d", "payload in JSON format", true)
 	// branchMergeParameters := api.BranchMergeParameters{}
 	
 
@@ -276,19 +307,23 @@ func initBranchShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			name := params.GetString("name")
+
 			
 
 			data, api_response, err := client.BranchesApi.BranchShow(auth, projectId, name, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -302,9 +337,9 @@ func initBranchShow() {
 	branchesApiCmd.AddCommand(branchShow)
 
 	
-	AddFlag(branchShow, "string", "projectId", "", "ID")
+	AddFlag(branchShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(branchShow, "string", "name", "", "ID")
+	AddFlag(branchShow, "string", "name", "", "name", true)
 	
 
 	params.BindPFlags(branchShow.Flags())
@@ -331,21 +366,32 @@ func initBranchUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			name := params.GetString("name")
+
 			
+
 			branchUpdateParameters := api.BranchUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &branchUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", branchUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.BranchesApi.BranchUpdate(auth, projectId, name, branchUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -359,10 +405,11 @@ func initBranchUpdate() {
 	branchesApiCmd.AddCommand(branchUpdate)
 
 	
-	AddFlag(branchUpdate, "string", "projectId", "", "ID")
+	AddFlag(branchUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(branchUpdate, "string", "name", "", "ID")
+	AddFlag(branchUpdate, "string", "name", "", "name", true)
 	
+	AddFlag(branchUpdate, "string", "data", "d", "payload in JSON format", true)
 	// branchUpdateParameters := api.BranchUpdateParameters{}
 	
 
@@ -390,17 +437,20 @@ func initBranchesList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.BranchesApi.BranchesList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -414,7 +464,7 @@ func initBranchesList() {
 	branchesApiCmd.AddCommand(branchesList)
 
 	
-	AddFlag(branchesList, "string", "projectId", "", "ID")
+	AddFlag(branchesList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(branchesList.Flags())

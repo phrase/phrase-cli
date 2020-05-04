@@ -49,19 +49,23 @@ func initMemberDelete() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.MembersApi.MemberDelete(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -75,9 +79,9 @@ func initMemberDelete() {
 	membersApiCmd.AddCommand(memberDelete)
 
 	
-	AddFlag(memberDelete, "string", "accountId", "", "ID")
+	AddFlag(memberDelete, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(memberDelete, "string", "id", "", "ID")
+	AddFlag(memberDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(memberDelete.Flags())
@@ -104,19 +108,23 @@ func initMemberShow() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.MembersApi.MemberShow(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -130,9 +138,9 @@ func initMemberShow() {
 	membersApiCmd.AddCommand(memberShow)
 
 	
-	AddFlag(memberShow, "string", "accountId", "", "ID")
+	AddFlag(memberShow, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(memberShow, "string", "id", "", "ID")
+	AddFlag(memberShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(memberShow.Flags())
@@ -159,21 +167,32 @@ func initMemberUpdate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			memberUpdateParameters := api.MemberUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &memberUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", memberUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.MembersApi.MemberUpdate(auth, accountId, id, memberUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -187,10 +206,11 @@ func initMemberUpdate() {
 	membersApiCmd.AddCommand(memberUpdate)
 
 	
-	AddFlag(memberUpdate, "string", "accountId", "", "ID")
+	AddFlag(memberUpdate, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(memberUpdate, "string", "id", "", "ID")
+	AddFlag(memberUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(memberUpdate, "string", "data", "d", "payload in JSON format", true)
 	// memberUpdateParameters := api.MemberUpdateParameters{}
 	
 
@@ -218,17 +238,20 @@ func initMembersList() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 
 			data, api_response, err := client.MembersApi.MembersList(auth, accountId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -242,7 +265,7 @@ func initMembersList() {
 	membersApiCmd.AddCommand(membersList)
 
 	
-	AddFlag(membersList, "string", "accountId", "", "ID")
+	AddFlag(membersList, "string", "accountId", "", "Account ID", true)
 	
 
 	params.BindPFlags(membersList.Flags())

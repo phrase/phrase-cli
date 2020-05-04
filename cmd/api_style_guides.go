@@ -50,19 +50,29 @@ func initStyleguideCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			styleguideCreateParameters := api.StyleguideCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &styleguideCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", styleguideCreateParameters)
+			}
 			
 
 			data, api_response, err := client.StyleGuidesApi.StyleguideCreate(auth, projectId, styleguideCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -76,8 +86,9 @@ func initStyleguideCreate() {
 	styleGuidesApiCmd.AddCommand(styleguideCreate)
 
 	
-	AddFlag(styleguideCreate, "string", "projectId", "", "ID")
+	AddFlag(styleguideCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(styleguideCreate, "string", "data", "d", "payload in JSON format", true)
 	// styleguideCreateParameters := api.StyleguideCreateParameters{}
 	
 
@@ -105,19 +116,23 @@ func initStyleguideDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.StyleGuidesApi.StyleguideDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -131,9 +146,9 @@ func initStyleguideDelete() {
 	styleGuidesApiCmd.AddCommand(styleguideDelete)
 
 	
-	AddFlag(styleguideDelete, "string", "projectId", "", "ID")
+	AddFlag(styleguideDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(styleguideDelete, "string", "id", "", "ID")
+	AddFlag(styleguideDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(styleguideDelete.Flags())
@@ -160,19 +175,23 @@ func initStyleguideShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.StyleGuidesApi.StyleguideShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -186,9 +205,9 @@ func initStyleguideShow() {
 	styleGuidesApiCmd.AddCommand(styleguideShow)
 
 	
-	AddFlag(styleguideShow, "string", "projectId", "", "ID")
+	AddFlag(styleguideShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(styleguideShow, "string", "id", "", "ID")
+	AddFlag(styleguideShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(styleguideShow.Flags())
@@ -215,21 +234,32 @@ func initStyleguideUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			styleguideUpdateParameters := api.StyleguideUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &styleguideUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", styleguideUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.StyleGuidesApi.StyleguideUpdate(auth, projectId, id, styleguideUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -243,10 +273,11 @@ func initStyleguideUpdate() {
 	styleGuidesApiCmd.AddCommand(styleguideUpdate)
 
 	
-	AddFlag(styleguideUpdate, "string", "projectId", "", "ID")
+	AddFlag(styleguideUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(styleguideUpdate, "string", "id", "", "ID")
+	AddFlag(styleguideUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(styleguideUpdate, "string", "data", "d", "payload in JSON format", true)
 	// styleguideUpdateParameters := api.StyleguideUpdateParameters{}
 	
 
@@ -274,17 +305,20 @@ func initStyleguidesList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.StyleGuidesApi.StyleguidesList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -298,7 +332,7 @@ func initStyleguidesList() {
 	styleGuidesApiCmd.AddCommand(styleguidesList)
 
 	
-	AddFlag(styleguidesList, "string", "projectId", "", "ID")
+	AddFlag(styleguidesList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(styleguidesList.Flags())

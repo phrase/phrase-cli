@@ -49,19 +49,29 @@ func initTagCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			tagCreateParameters := api.TagCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &tagCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", tagCreateParameters)
+			}
 			
 
 			data, api_response, err := client.TagsApi.TagCreate(auth, projectId, tagCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -75,8 +85,9 @@ func initTagCreate() {
 	tagsApiCmd.AddCommand(tagCreate)
 
 	
-	AddFlag(tagCreate, "string", "projectId", "", "ID")
+	AddFlag(tagCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(tagCreate, "string", "data", "d", "payload in JSON format", true)
 	// tagCreateParameters := api.TagCreateParameters{}
 	
 
@@ -104,19 +115,23 @@ func initTagDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			name := params.GetString("name")
+
 			
 
 			data, api_response, err := client.TagsApi.TagDelete(auth, projectId, name, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -130,9 +145,9 @@ func initTagDelete() {
 	tagsApiCmd.AddCommand(tagDelete)
 
 	
-	AddFlag(tagDelete, "string", "projectId", "", "ID")
+	AddFlag(tagDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(tagDelete, "string", "name", "", "ID")
+	AddFlag(tagDelete, "string", "name", "", "name", true)
 	
 
 	params.BindPFlags(tagDelete.Flags())
@@ -159,19 +174,23 @@ func initTagShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			name := params.GetString("name")
+
 			
 
 			data, api_response, err := client.TagsApi.TagShow(auth, projectId, name, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -185,9 +204,9 @@ func initTagShow() {
 	tagsApiCmd.AddCommand(tagShow)
 
 	
-	AddFlag(tagShow, "string", "projectId", "", "ID")
+	AddFlag(tagShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(tagShow, "string", "name", "", "ID")
+	AddFlag(tagShow, "string", "name", "", "name", true)
 	
 
 	params.BindPFlags(tagShow.Flags())
@@ -214,17 +233,20 @@ func initTagsList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.TagsApi.TagsList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -238,7 +260,7 @@ func initTagsList() {
 	tagsApiCmd.AddCommand(tagsList)
 
 	
-	AddFlag(tagsList, "string", "projectId", "", "ID")
+	AddFlag(tagsList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(tagsList.Flags())

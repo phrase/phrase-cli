@@ -50,19 +50,29 @@ func initBlacklistedKeyCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			blacklistedKeyCreateParameters := api.BlacklistedKeyCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", blacklistedKeyCreateParameters)
+			}
 			
 
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyCreate(auth, projectId, blacklistedKeyCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -76,8 +86,9 @@ func initBlacklistedKeyCreate() {
 	blacklistedKeysApiCmd.AddCommand(blacklistedKeyCreate)
 
 	
-	AddFlag(blacklistedKeyCreate, "string", "projectId", "", "ID")
+	AddFlag(blacklistedKeyCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(blacklistedKeyCreate, "string", "data", "d", "payload in JSON format", true)
 	// blacklistedKeyCreateParameters := api.BlacklistedKeyCreateParameters{}
 	
 
@@ -105,19 +116,23 @@ func initBlacklistedKeyDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -131,9 +146,9 @@ func initBlacklistedKeyDelete() {
 	blacklistedKeysApiCmd.AddCommand(blacklistedKeyDelete)
 
 	
-	AddFlag(blacklistedKeyDelete, "string", "projectId", "", "ID")
+	AddFlag(blacklistedKeyDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(blacklistedKeyDelete, "string", "id", "", "ID")
+	AddFlag(blacklistedKeyDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(blacklistedKeyDelete.Flags())
@@ -160,19 +175,23 @@ func initBlacklistedKeyShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -186,9 +205,9 @@ func initBlacklistedKeyShow() {
 	blacklistedKeysApiCmd.AddCommand(blacklistedKeyShow)
 
 	
-	AddFlag(blacklistedKeyShow, "string", "projectId", "", "ID")
+	AddFlag(blacklistedKeyShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(blacklistedKeyShow, "string", "id", "", "ID")
+	AddFlag(blacklistedKeyShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(blacklistedKeyShow.Flags())
@@ -215,21 +234,32 @@ func initBlacklistedKeyUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			blacklistedKeyUpdateParameters := api.BlacklistedKeyUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", blacklistedKeyUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyUpdate(auth, projectId, id, blacklistedKeyUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -243,10 +273,11 @@ func initBlacklistedKeyUpdate() {
 	blacklistedKeysApiCmd.AddCommand(blacklistedKeyUpdate)
 
 	
-	AddFlag(blacklistedKeyUpdate, "string", "projectId", "", "ID")
+	AddFlag(blacklistedKeyUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(blacklistedKeyUpdate, "string", "id", "", "ID")
+	AddFlag(blacklistedKeyUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(blacklistedKeyUpdate, "string", "data", "d", "payload in JSON format", true)
 	// blacklistedKeyUpdateParameters := api.BlacklistedKeyUpdateParameters{}
 	
 
@@ -274,17 +305,20 @@ func initBlacklistedKeysList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeysList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -298,7 +332,7 @@ func initBlacklistedKeysList() {
 	blacklistedKeysApiCmd.AddCommand(blacklistedKeysList)
 
 	
-	AddFlag(blacklistedKeysList, "string", "projectId", "", "ID")
+	AddFlag(blacklistedKeysList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(blacklistedKeysList.Flags())

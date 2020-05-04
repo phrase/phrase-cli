@@ -50,19 +50,29 @@ func initScreenshotCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			screenshotCreateParameters := api.ScreenshotCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", screenshotCreateParameters)
+			}
 			
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotCreate(auth, projectId, screenshotCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -76,8 +86,9 @@ func initScreenshotCreate() {
 	screenshotsApiCmd.AddCommand(screenshotCreate)
 
 	
-	AddFlag(screenshotCreate, "string", "projectId", "", "ID")
+	AddFlag(screenshotCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(screenshotCreate, "string", "data", "d", "payload in JSON format", true)
 	// screenshotCreateParameters := api.ScreenshotCreateParameters{}
 	
 
@@ -105,19 +116,23 @@ func initScreenshotDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -131,9 +146,9 @@ func initScreenshotDelete() {
 	screenshotsApiCmd.AddCommand(screenshotDelete)
 
 	
-	AddFlag(screenshotDelete, "string", "projectId", "", "ID")
+	AddFlag(screenshotDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(screenshotDelete, "string", "id", "", "ID")
+	AddFlag(screenshotDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(screenshotDelete.Flags())
@@ -160,19 +175,23 @@ func initScreenshotShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -186,9 +205,9 @@ func initScreenshotShow() {
 	screenshotsApiCmd.AddCommand(screenshotShow)
 
 	
-	AddFlag(screenshotShow, "string", "projectId", "", "ID")
+	AddFlag(screenshotShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(screenshotShow, "string", "id", "", "ID")
+	AddFlag(screenshotShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(screenshotShow.Flags())
@@ -215,21 +234,32 @@ func initScreenshotUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			screenshotUpdateParameters := api.ScreenshotUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", screenshotUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotUpdate(auth, projectId, id, screenshotUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -243,10 +273,11 @@ func initScreenshotUpdate() {
 	screenshotsApiCmd.AddCommand(screenshotUpdate)
 
 	
-	AddFlag(screenshotUpdate, "string", "projectId", "", "ID")
+	AddFlag(screenshotUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(screenshotUpdate, "string", "id", "", "ID")
+	AddFlag(screenshotUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(screenshotUpdate, "string", "data", "d", "payload in JSON format", true)
 	// screenshotUpdateParameters := api.ScreenshotUpdateParameters{}
 	
 
@@ -274,17 +305,20 @@ func initScreenshotsList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotsList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -298,7 +332,7 @@ func initScreenshotsList() {
 	screenshotsApiCmd.AddCommand(screenshotsList)
 
 	
-	AddFlag(screenshotsList, "string", "projectId", "", "ID")
+	AddFlag(screenshotsList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(screenshotsList.Flags())

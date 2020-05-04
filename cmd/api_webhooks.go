@@ -51,19 +51,29 @@ func initWebhookCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			webhookCreateParameters := api.WebhookCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &webhookCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", webhookCreateParameters)
+			}
 			
 
 			data, api_response, err := client.WebhooksApi.WebhookCreate(auth, projectId, webhookCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -77,8 +87,9 @@ func initWebhookCreate() {
 	webhooksApiCmd.AddCommand(webhookCreate)
 
 	
-	AddFlag(webhookCreate, "string", "projectId", "", "ID")
+	AddFlag(webhookCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(webhookCreate, "string", "data", "d", "payload in JSON format", true)
 	// webhookCreateParameters := api.WebhookCreateParameters{}
 	
 
@@ -106,19 +117,23 @@ func initWebhookDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.WebhooksApi.WebhookDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -132,9 +147,9 @@ func initWebhookDelete() {
 	webhooksApiCmd.AddCommand(webhookDelete)
 
 	
-	AddFlag(webhookDelete, "string", "projectId", "", "ID")
+	AddFlag(webhookDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(webhookDelete, "string", "id", "", "ID")
+	AddFlag(webhookDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(webhookDelete.Flags())
@@ -161,19 +176,23 @@ func initWebhookShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.WebhooksApi.WebhookShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -187,9 +206,9 @@ func initWebhookShow() {
 	webhooksApiCmd.AddCommand(webhookShow)
 
 	
-	AddFlag(webhookShow, "string", "projectId", "", "ID")
+	AddFlag(webhookShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(webhookShow, "string", "id", "", "ID")
+	AddFlag(webhookShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(webhookShow.Flags())
@@ -216,19 +235,23 @@ func initWebhookTest() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.WebhooksApi.WebhookTest(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -242,9 +265,9 @@ func initWebhookTest() {
 	webhooksApiCmd.AddCommand(webhookTest)
 
 	
-	AddFlag(webhookTest, "string", "projectId", "", "ID")
+	AddFlag(webhookTest, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(webhookTest, "string", "id", "", "ID")
+	AddFlag(webhookTest, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(webhookTest.Flags())
@@ -271,21 +294,32 @@ func initWebhookUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			webhookUpdateParameters := api.WebhookUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &webhookUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", webhookUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.WebhooksApi.WebhookUpdate(auth, projectId, id, webhookUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -299,10 +333,11 @@ func initWebhookUpdate() {
 	webhooksApiCmd.AddCommand(webhookUpdate)
 
 	
-	AddFlag(webhookUpdate, "string", "projectId", "", "ID")
+	AddFlag(webhookUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(webhookUpdate, "string", "id", "", "ID")
+	AddFlag(webhookUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(webhookUpdate, "string", "data", "d", "payload in JSON format", true)
 	// webhookUpdateParameters := api.WebhookUpdateParameters{}
 	
 
@@ -330,17 +365,20 @@ func initWebhooksList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.WebhooksApi.WebhooksList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -354,7 +392,7 @@ func initWebhooksList() {
 	webhooksApiCmd.AddCommand(webhooksList)
 
 	
-	AddFlag(webhooksList, "string", "projectId", "", "ID")
+	AddFlag(webhooksList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(webhooksList.Flags())

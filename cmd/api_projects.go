@@ -49,18 +49,27 @@ func initProjectCreate() {
 			localVarOptionals := api.ProjectCreateOpts{}
 
 			
+
 			projectCreateParameters := api.ProjectCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &projectCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", projectCreateParameters)
+			}
 			
 
 			data, api_response, err := client.ProjectsApi.ProjectCreate(auth, projectCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -74,6 +83,7 @@ func initProjectCreate() {
 	projectsApiCmd.AddCommand(projectCreate)
 
 	
+	AddFlag(projectCreate, "string", "data", "d", "payload in JSON format", true)
 	// projectCreateParameters := api.ProjectCreateParameters{}
 	
 
@@ -101,17 +111,20 @@ func initProjectDelete() {
 
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ProjectsApi.ProjectDelete(auth, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -125,7 +138,7 @@ func initProjectDelete() {
 	projectsApiCmd.AddCommand(projectDelete)
 
 	
-	AddFlag(projectDelete, "string", "id", "", "ID")
+	AddFlag(projectDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(projectDelete.Flags())
@@ -152,17 +165,20 @@ func initProjectShow() {
 
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ProjectsApi.ProjectShow(auth, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -176,7 +192,7 @@ func initProjectShow() {
 	projectsApiCmd.AddCommand(projectShow)
 
 	
-	AddFlag(projectShow, "string", "id", "", "ID")
+	AddFlag(projectShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(projectShow.Flags())
@@ -203,19 +219,29 @@ func initProjectUpdate() {
 
 			
 			id := params.GetString("id")
+
 			
+
 			projectUpdateParameters := api.ProjectUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &projectUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", projectUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.ProjectsApi.ProjectUpdate(auth, id, projectUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -229,8 +255,9 @@ func initProjectUpdate() {
 	projectsApiCmd.AddCommand(projectUpdate)
 
 	
-	AddFlag(projectUpdate, "string", "id", "", "ID")
+	AddFlag(projectUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(projectUpdate, "string", "data", "d", "payload in JSON format", true)
 	// projectUpdateParameters := api.ProjectUpdateParameters{}
 	
 
@@ -260,13 +287,15 @@ func initProjectsList() {
 
 			data, api_response, err := client.ProjectsApi.ProjectsList(auth, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}

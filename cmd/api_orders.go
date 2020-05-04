@@ -50,21 +50,32 @@ func initOrderConfirm() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			orderConfirmParameters := api.OrderConfirmParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &orderConfirmParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", orderConfirmParameters)
+			}
 			
 
 			data, api_response, err := client.OrdersApi.OrderConfirm(auth, projectId, id, orderConfirmParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -78,10 +89,11 @@ func initOrderConfirm() {
 	ordersApiCmd.AddCommand(orderConfirm)
 
 	
-	AddFlag(orderConfirm, "string", "projectId", "", "ID")
+	AddFlag(orderConfirm, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(orderConfirm, "string", "id", "", "ID")
+	AddFlag(orderConfirm, "string", "id", "", "ID", true)
 	
+	AddFlag(orderConfirm, "string", "data", "d", "payload in JSON format", true)
 	// orderConfirmParameters := api.OrderConfirmParameters{}
 	
 
@@ -109,19 +121,29 @@ func initOrderCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			orderCreateParameters := api.OrderCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &orderCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", orderCreateParameters)
+			}
 			
 
 			data, api_response, err := client.OrdersApi.OrderCreate(auth, projectId, orderCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -135,8 +157,9 @@ func initOrderCreate() {
 	ordersApiCmd.AddCommand(orderCreate)
 
 	
-	AddFlag(orderCreate, "string", "projectId", "", "ID")
+	AddFlag(orderCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(orderCreate, "string", "data", "d", "payload in JSON format", true)
 	// orderCreateParameters := api.OrderCreateParameters{}
 	
 
@@ -164,19 +187,23 @@ func initOrderDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.OrdersApi.OrderDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -190,9 +217,9 @@ func initOrderDelete() {
 	ordersApiCmd.AddCommand(orderDelete)
 
 	
-	AddFlag(orderDelete, "string", "projectId", "", "ID")
+	AddFlag(orderDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(orderDelete, "string", "id", "", "ID")
+	AddFlag(orderDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(orderDelete.Flags())
@@ -219,19 +246,23 @@ func initOrderShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.OrdersApi.OrderShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -245,9 +276,9 @@ func initOrderShow() {
 	ordersApiCmd.AddCommand(orderShow)
 
 	
-	AddFlag(orderShow, "string", "projectId", "", "ID")
+	AddFlag(orderShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(orderShow, "string", "id", "", "ID")
+	AddFlag(orderShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(orderShow.Flags())
@@ -274,17 +305,20 @@ func initOrdersList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.OrdersApi.OrdersList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -298,7 +332,7 @@ func initOrdersList() {
 	ordersApiCmd.AddCommand(ordersList)
 
 	
-	AddFlag(ordersList, "string", "projectId", "", "ID")
+	AddFlag(ordersList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(ordersList.Flags())

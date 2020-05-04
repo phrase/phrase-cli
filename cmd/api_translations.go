@@ -62,19 +62,29 @@ func initTranslationCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			translationCreateParameters := api.TranslationCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationCreateParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationCreate(auth, projectId, translationCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -88,8 +98,9 @@ func initTranslationCreate() {
 	translationsApiCmd.AddCommand(translationCreate)
 
 	
-	AddFlag(translationCreate, "string", "projectId", "", "ID")
+	AddFlag(translationCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(translationCreate, "string", "data", "d", "payload in JSON format", true)
 	// translationCreateParameters := api.TranslationCreateParameters{}
 	
 
@@ -117,21 +128,32 @@ func initTranslationExclude() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			translationExcludeParameters := api.TranslationExcludeParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationExcludeParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationExcludeParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationExclude(auth, projectId, id, translationExcludeParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -145,10 +167,11 @@ func initTranslationExclude() {
 	translationsApiCmd.AddCommand(translationExclude)
 
 	
-	AddFlag(translationExclude, "string", "projectId", "", "ID")
+	AddFlag(translationExclude, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationExclude, "string", "id", "", "ID")
+	AddFlag(translationExclude, "string", "id", "", "ID", true)
 	
+	AddFlag(translationExclude, "string", "data", "d", "payload in JSON format", true)
 	// translationExcludeParameters := api.TranslationExcludeParameters{}
 	
 
@@ -176,21 +199,32 @@ func initTranslationInclude() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			translationIncludeParameters := api.TranslationIncludeParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationIncludeParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationIncludeParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationInclude(auth, projectId, id, translationIncludeParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -204,10 +238,11 @@ func initTranslationInclude() {
 	translationsApiCmd.AddCommand(translationInclude)
 
 	
-	AddFlag(translationInclude, "string", "projectId", "", "ID")
+	AddFlag(translationInclude, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationInclude, "string", "id", "", "ID")
+	AddFlag(translationInclude, "string", "id", "", "ID", true)
 	
+	AddFlag(translationInclude, "string", "data", "d", "payload in JSON format", true)
 	// translationIncludeParameters := api.TranslationIncludeParameters{}
 	
 
@@ -235,21 +270,32 @@ func initTranslationReview() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			translationReviewParameters := api.TranslationReviewParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationReviewParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationReviewParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationReview(auth, projectId, id, translationReviewParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -263,10 +309,11 @@ func initTranslationReview() {
 	translationsApiCmd.AddCommand(translationReview)
 
 	
-	AddFlag(translationReview, "string", "projectId", "", "ID")
+	AddFlag(translationReview, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationReview, "string", "id", "", "ID")
+	AddFlag(translationReview, "string", "id", "", "ID", true)
 	
+	AddFlag(translationReview, "string", "data", "d", "payload in JSON format", true)
 	// translationReviewParameters := api.TranslationReviewParameters{}
 	
 
@@ -294,19 +341,23 @@ func initTranslationShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -320,9 +371,9 @@ func initTranslationShow() {
 	translationsApiCmd.AddCommand(translationShow)
 
 	
-	AddFlag(translationShow, "string", "projectId", "", "ID")
+	AddFlag(translationShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationShow, "string", "id", "", "ID")
+	AddFlag(translationShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(translationShow.Flags())
@@ -349,21 +400,32 @@ func initTranslationUnverify() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			translationUnverifyParameters := api.TranslationUnverifyParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationUnverifyParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationUnverifyParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationUnverify(auth, projectId, id, translationUnverifyParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -377,10 +439,11 @@ func initTranslationUnverify() {
 	translationsApiCmd.AddCommand(translationUnverify)
 
 	
-	AddFlag(translationUnverify, "string", "projectId", "", "ID")
+	AddFlag(translationUnverify, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationUnverify, "string", "id", "", "ID")
+	AddFlag(translationUnverify, "string", "id", "", "ID", true)
 	
+	AddFlag(translationUnverify, "string", "data", "d", "payload in JSON format", true)
 	// translationUnverifyParameters := api.TranslationUnverifyParameters{}
 	
 
@@ -408,21 +471,32 @@ func initTranslationUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			translationUpdateParameters := api.TranslationUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationUpdate(auth, projectId, id, translationUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -436,10 +510,11 @@ func initTranslationUpdate() {
 	translationsApiCmd.AddCommand(translationUpdate)
 
 	
-	AddFlag(translationUpdate, "string", "projectId", "", "ID")
+	AddFlag(translationUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationUpdate, "string", "id", "", "ID")
+	AddFlag(translationUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(translationUpdate, "string", "data", "d", "payload in JSON format", true)
 	// translationUpdateParameters := api.TranslationUpdateParameters{}
 	
 
@@ -467,21 +542,32 @@ func initTranslationVerify() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			translationVerifyParameters := api.TranslationVerifyParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationVerifyParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationVerifyParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationVerify(auth, projectId, id, translationVerifyParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -495,10 +581,11 @@ func initTranslationVerify() {
 	translationsApiCmd.AddCommand(translationVerify)
 
 	
-	AddFlag(translationVerify, "string", "projectId", "", "ID")
+	AddFlag(translationVerify, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationVerify, "string", "id", "", "ID")
+	AddFlag(translationVerify, "string", "id", "", "ID", true)
 	
+	AddFlag(translationVerify, "string", "data", "d", "payload in JSON format", true)
 	// translationVerifyParameters := api.TranslationVerifyParameters{}
 	
 
@@ -526,19 +613,23 @@ func initTranslationsByKey() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			keyId := params.GetString("keyId")
+
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsByKey(auth, projectId, keyId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -552,9 +643,9 @@ func initTranslationsByKey() {
 	translationsApiCmd.AddCommand(translationsByKey)
 
 	
-	AddFlag(translationsByKey, "string", "projectId", "", "ID")
+	AddFlag(translationsByKey, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationsByKey, "string", "keyId", "", "ID")
+	AddFlag(translationsByKey, "string", "keyId", "", "Translation Key ID", true)
 	
 
 	params.BindPFlags(translationsByKey.Flags())
@@ -581,19 +672,23 @@ func initTranslationsByLocale() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			localeId := params.GetString("localeId")
+
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsByLocale(auth, projectId, localeId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -607,9 +702,9 @@ func initTranslationsByLocale() {
 	translationsApiCmd.AddCommand(translationsByLocale)
 
 	
-	AddFlag(translationsByLocale, "string", "projectId", "", "ID")
+	AddFlag(translationsByLocale, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(translationsByLocale, "string", "localeId", "", "ID")
+	AddFlag(translationsByLocale, "string", "localeId", "", "Locale ID", true)
 	
 
 	params.BindPFlags(translationsByLocale.Flags())
@@ -636,19 +731,29 @@ func initTranslationsExclude() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			translationsExcludeParameters := api.TranslationsExcludeParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsExcludeParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationsExcludeParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsExclude(auth, projectId, translationsExcludeParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -662,8 +767,9 @@ func initTranslationsExclude() {
 	translationsApiCmd.AddCommand(translationsExclude)
 
 	
-	AddFlag(translationsExclude, "string", "projectId", "", "ID")
+	AddFlag(translationsExclude, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(translationsExclude, "string", "data", "d", "payload in JSON format", true)
 	// translationsExcludeParameters := api.TranslationsExcludeParameters{}
 	
 
@@ -691,19 +797,29 @@ func initTranslationsInclude() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			translationsIncludeParameters := api.TranslationsIncludeParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsIncludeParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationsIncludeParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsInclude(auth, projectId, translationsIncludeParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -717,8 +833,9 @@ func initTranslationsInclude() {
 	translationsApiCmd.AddCommand(translationsInclude)
 
 	
-	AddFlag(translationsInclude, "string", "projectId", "", "ID")
+	AddFlag(translationsInclude, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(translationsInclude, "string", "data", "d", "payload in JSON format", true)
 	// translationsIncludeParameters := api.TranslationsIncludeParameters{}
 	
 
@@ -746,17 +863,20 @@ func initTranslationsList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -770,7 +890,7 @@ func initTranslationsList() {
 	translationsApiCmd.AddCommand(translationsList)
 
 	
-	AddFlag(translationsList, "string", "projectId", "", "ID")
+	AddFlag(translationsList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(translationsList.Flags())
@@ -797,19 +917,29 @@ func initTranslationsReview() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			translationsReviewParameters := api.TranslationsReviewParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsReviewParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationsReviewParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsReview(auth, projectId, translationsReviewParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -823,8 +953,9 @@ func initTranslationsReview() {
 	translationsApiCmd.AddCommand(translationsReview)
 
 	
-	AddFlag(translationsReview, "string", "projectId", "", "ID")
+	AddFlag(translationsReview, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(translationsReview, "string", "data", "d", "payload in JSON format", true)
 	// translationsReviewParameters := api.TranslationsReviewParameters{}
 	
 
@@ -852,19 +983,29 @@ func initTranslationsSearch() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			translationsSearchParameters := api.TranslationsSearchParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsSearchParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationsSearchParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsSearch(auth, projectId, translationsSearchParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -878,8 +1019,9 @@ func initTranslationsSearch() {
 	translationsApiCmd.AddCommand(translationsSearch)
 
 	
-	AddFlag(translationsSearch, "string", "projectId", "", "ID")
+	AddFlag(translationsSearch, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(translationsSearch, "string", "data", "d", "payload in JSON format", true)
 	// translationsSearchParameters := api.TranslationsSearchParameters{}
 	
 
@@ -907,19 +1049,29 @@ func initTranslationsUnverify() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			translationsUnverifyParameters := api.TranslationsUnverifyParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsUnverifyParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationsUnverifyParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsUnverify(auth, projectId, translationsUnverifyParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -933,8 +1085,9 @@ func initTranslationsUnverify() {
 	translationsApiCmd.AddCommand(translationsUnverify)
 
 	
-	AddFlag(translationsUnverify, "string", "projectId", "", "ID")
+	AddFlag(translationsUnverify, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(translationsUnverify, "string", "data", "d", "payload in JSON format", true)
 	// translationsUnverifyParameters := api.TranslationsUnverifyParameters{}
 	
 
@@ -962,19 +1115,29 @@ func initTranslationsVerify() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			translationsVerifyParameters := api.TranslationsVerifyParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsVerifyParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationsVerifyParameters)
+			}
 			
 
 			data, api_response, err := client.TranslationsApi.TranslationsVerify(auth, projectId, translationsVerifyParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -988,8 +1151,9 @@ func initTranslationsVerify() {
 	translationsApiCmd.AddCommand(translationsVerify)
 
 	
-	AddFlag(translationsVerify, "string", "projectId", "", "ID")
+	AddFlag(translationsVerify, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(translationsVerify, "string", "data", "d", "payload in JSON format", true)
 	// translationsVerifyParameters := api.TranslationsVerifyParameters{}
 	
 

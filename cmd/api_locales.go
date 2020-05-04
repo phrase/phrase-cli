@@ -51,19 +51,29 @@ func initLocaleCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			localeCreateParameters := api.LocaleCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &localeCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", localeCreateParameters)
+			}
 			
 
 			data, api_response, err := client.LocalesApi.LocaleCreate(auth, projectId, localeCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -77,8 +87,9 @@ func initLocaleCreate() {
 	localesApiCmd.AddCommand(localeCreate)
 
 	
-	AddFlag(localeCreate, "string", "projectId", "", "ID")
+	AddFlag(localeCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(localeCreate, "string", "data", "d", "payload in JSON format", true)
 	// localeCreateParameters := api.LocaleCreateParameters{}
 	
 
@@ -106,19 +117,23 @@ func initLocaleDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.LocalesApi.LocaleDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -132,9 +147,9 @@ func initLocaleDelete() {
 	localesApiCmd.AddCommand(localeDelete)
 
 	
-	AddFlag(localeDelete, "string", "projectId", "", "ID")
+	AddFlag(localeDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(localeDelete, "string", "id", "", "ID")
+	AddFlag(localeDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(localeDelete.Flags())
@@ -161,19 +176,23 @@ func initLocaleDownload() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -187,9 +206,9 @@ func initLocaleDownload() {
 	localesApiCmd.AddCommand(localeDownload)
 
 	
-	AddFlag(localeDownload, "string", "projectId", "", "ID")
+	AddFlag(localeDownload, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(localeDownload, "string", "id", "", "ID")
+	AddFlag(localeDownload, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(localeDownload.Flags())
@@ -216,19 +235,23 @@ func initLocaleShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.LocalesApi.LocaleShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -242,9 +265,9 @@ func initLocaleShow() {
 	localesApiCmd.AddCommand(localeShow)
 
 	
-	AddFlag(localeShow, "string", "projectId", "", "ID")
+	AddFlag(localeShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(localeShow, "string", "id", "", "ID")
+	AddFlag(localeShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(localeShow.Flags())
@@ -271,21 +294,32 @@ func initLocaleUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			localeUpdateParameters := api.LocaleUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &localeUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", localeUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.LocalesApi.LocaleUpdate(auth, projectId, id, localeUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -299,10 +333,11 @@ func initLocaleUpdate() {
 	localesApiCmd.AddCommand(localeUpdate)
 
 	
-	AddFlag(localeUpdate, "string", "projectId", "", "ID")
+	AddFlag(localeUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(localeUpdate, "string", "id", "", "ID")
+	AddFlag(localeUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(localeUpdate, "string", "data", "d", "payload in JSON format", true)
 	// localeUpdateParameters := api.LocaleUpdateParameters{}
 	
 
@@ -330,17 +365,20 @@ func initLocalesList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.LocalesApi.LocalesList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -354,7 +392,7 @@ func initLocalesList() {
 	localesApiCmd.AddCommand(localesList)
 
 	
-	AddFlag(localesList, "string", "projectId", "", "ID")
+	AddFlag(localesList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(localesList.Flags())

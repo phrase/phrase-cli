@@ -47,21 +47,26 @@ func initVersionShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			translationId := params.GetString("translationId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.VersionsHistoryApi.VersionShow(auth, projectId, translationId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -75,11 +80,11 @@ func initVersionShow() {
 	versionsHistoryApiCmd.AddCommand(versionShow)
 
 	
-	AddFlag(versionShow, "string", "projectId", "", "ID")
+	AddFlag(versionShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(versionShow, "string", "translationId", "", "ID")
+	AddFlag(versionShow, "string", "translationId", "", "Translation ID", true)
 	
-	AddFlag(versionShow, "string", "id", "", "ID")
+	AddFlag(versionShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(versionShow.Flags())
@@ -106,19 +111,23 @@ func initVersionsList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			translationId := params.GetString("translationId")
+
 			
 
 			data, api_response, err := client.VersionsHistoryApi.VersionsList(auth, projectId, translationId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -132,9 +141,9 @@ func initVersionsList() {
 	versionsHistoryApiCmd.AddCommand(versionsList)
 
 	
-	AddFlag(versionsList, "string", "projectId", "", "ID")
+	AddFlag(versionsList, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(versionsList, "string", "translationId", "", "ID")
+	AddFlag(versionsList, "string", "translationId", "", "Translation ID", true)
 	
 
 	params.BindPFlags(versionsList.Flags())

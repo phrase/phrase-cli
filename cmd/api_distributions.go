@@ -50,19 +50,29 @@ func initDistributionCreate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
+
 			distributionCreateParameters := api.DistributionCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &distributionCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", distributionCreateParameters)
+			}
 			
 
 			data, api_response, err := client.DistributionsApi.DistributionCreate(auth, accountId, distributionCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -76,8 +86,9 @@ func initDistributionCreate() {
 	distributionsApiCmd.AddCommand(distributionCreate)
 
 	
-	AddFlag(distributionCreate, "string", "accountId", "", "ID")
+	AddFlag(distributionCreate, "string", "accountId", "", "Account ID", true)
 	
+	AddFlag(distributionCreate, "string", "data", "d", "payload in JSON format", true)
 	// distributionCreateParameters := api.DistributionCreateParameters{}
 	
 
@@ -105,19 +116,23 @@ func initDistributionDelete() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.DistributionsApi.DistributionDelete(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -131,9 +146,9 @@ func initDistributionDelete() {
 	distributionsApiCmd.AddCommand(distributionDelete)
 
 	
-	AddFlag(distributionDelete, "string", "accountId", "", "ID")
+	AddFlag(distributionDelete, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(distributionDelete, "string", "id", "", "ID")
+	AddFlag(distributionDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(distributionDelete.Flags())
@@ -160,19 +175,23 @@ func initDistributionShow() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.DistributionsApi.DistributionShow(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -186,9 +205,9 @@ func initDistributionShow() {
 	distributionsApiCmd.AddCommand(distributionShow)
 
 	
-	AddFlag(distributionShow, "string", "accountId", "", "ID")
+	AddFlag(distributionShow, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(distributionShow, "string", "id", "", "ID")
+	AddFlag(distributionShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(distributionShow.Flags())
@@ -215,21 +234,32 @@ func initDistributionUpdate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			distributionUpdateParameters := api.DistributionUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &distributionUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", distributionUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.DistributionsApi.DistributionUpdate(auth, accountId, id, distributionUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -243,10 +273,11 @@ func initDistributionUpdate() {
 	distributionsApiCmd.AddCommand(distributionUpdate)
 
 	
-	AddFlag(distributionUpdate, "string", "accountId", "", "ID")
+	AddFlag(distributionUpdate, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(distributionUpdate, "string", "id", "", "ID")
+	AddFlag(distributionUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(distributionUpdate, "string", "data", "d", "payload in JSON format", true)
 	// distributionUpdateParameters := api.DistributionUpdateParameters{}
 	
 
@@ -274,17 +305,20 @@ func initDistributionsList() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 
 			data, api_response, err := client.DistributionsApi.DistributionsList(auth, accountId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -298,7 +332,7 @@ func initDistributionsList() {
 	distributionsApiCmd.AddCommand(distributionsList)
 
 	
-	AddFlag(distributionsList, "string", "accountId", "", "ID")
+	AddFlag(distributionsList, "string", "accountId", "", "Account ID", true)
 	
 
 	params.BindPFlags(distributionsList.Flags())

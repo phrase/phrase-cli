@@ -54,19 +54,29 @@ func initKeyCreate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			keyCreateParameters := api.KeyCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &keyCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", keyCreateParameters)
+			}
 			
 
 			data, api_response, err := client.KeysApi.KeyCreate(auth, projectId, keyCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -80,8 +90,9 @@ func initKeyCreate() {
 	keysApiCmd.AddCommand(keyCreate)
 
 	
-	AddFlag(keyCreate, "string", "projectId", "", "ID")
+	AddFlag(keyCreate, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(keyCreate, "string", "data", "d", "payload in JSON format", true)
 	// keyCreateParameters := api.KeyCreateParameters{}
 	
 
@@ -109,19 +120,23 @@ func initKeyDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.KeysApi.KeyDelete(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -135,9 +150,9 @@ func initKeyDelete() {
 	keysApiCmd.AddCommand(keyDelete)
 
 	
-	AddFlag(keyDelete, "string", "projectId", "", "ID")
+	AddFlag(keyDelete, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(keyDelete, "string", "id", "", "ID")
+	AddFlag(keyDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(keyDelete.Flags())
@@ -164,19 +179,23 @@ func initKeyShow() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.KeysApi.KeyShow(auth, projectId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -190,9 +209,9 @@ func initKeyShow() {
 	keysApiCmd.AddCommand(keyShow)
 
 	
-	AddFlag(keyShow, "string", "projectId", "", "ID")
+	AddFlag(keyShow, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(keyShow, "string", "id", "", "ID")
+	AddFlag(keyShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(keyShow.Flags())
@@ -219,21 +238,32 @@ func initKeyUpdate() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			keyUpdateParameters := api.KeyUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &keyUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", keyUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.KeysApi.KeyUpdate(auth, projectId, id, keyUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -247,10 +277,11 @@ func initKeyUpdate() {
 	keysApiCmd.AddCommand(keyUpdate)
 
 	
-	AddFlag(keyUpdate, "string", "projectId", "", "ID")
+	AddFlag(keyUpdate, "string", "projectId", "", "Project ID", true)
 	
-	AddFlag(keyUpdate, "string", "id", "", "ID")
+	AddFlag(keyUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(keyUpdate, "string", "data", "d", "payload in JSON format", true)
 	// keyUpdateParameters := api.KeyUpdateParameters{}
 	
 
@@ -278,17 +309,20 @@ func initKeysDelete() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.KeysApi.KeysDelete(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -302,7 +336,7 @@ func initKeysDelete() {
 	keysApiCmd.AddCommand(keysDelete)
 
 	
-	AddFlag(keysDelete, "string", "projectId", "", "ID")
+	AddFlag(keysDelete, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(keysDelete.Flags())
@@ -329,17 +363,20 @@ func initKeysList() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
 
 			data, api_response, err := client.KeysApi.KeysList(auth, projectId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -353,7 +390,7 @@ func initKeysList() {
 	keysApiCmd.AddCommand(keysList)
 
 	
-	AddFlag(keysList, "string", "projectId", "", "ID")
+	AddFlag(keysList, "string", "projectId", "", "Project ID", true)
 	
 
 	params.BindPFlags(keysList.Flags())
@@ -380,19 +417,29 @@ func initKeysSearch() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			keysSearchParameters := api.KeysSearchParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &keysSearchParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", keysSearchParameters)
+			}
 			
 
 			data, api_response, err := client.KeysApi.KeysSearch(auth, projectId, keysSearchParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -406,8 +453,9 @@ func initKeysSearch() {
 	keysApiCmd.AddCommand(keysSearch)
 
 	
-	AddFlag(keysSearch, "string", "projectId", "", "ID")
+	AddFlag(keysSearch, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(keysSearch, "string", "data", "d", "payload in JSON format", true)
 	// keysSearchParameters := api.KeysSearchParameters{}
 	
 
@@ -435,19 +483,29 @@ func initKeysTag() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			keysTagParameters := api.KeysTagParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &keysTagParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", keysTagParameters)
+			}
 			
 
 			data, api_response, err := client.KeysApi.KeysTag(auth, projectId, keysTagParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -461,8 +519,9 @@ func initKeysTag() {
 	keysApiCmd.AddCommand(keysTag)
 
 	
-	AddFlag(keysTag, "string", "projectId", "", "ID")
+	AddFlag(keysTag, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(keysTag, "string", "data", "d", "payload in JSON format", true)
 	// keysTagParameters := api.KeysTagParameters{}
 	
 
@@ -490,19 +549,29 @@ func initKeysUntag() {
 
 			
 			projectId := params.GetString("projectId")
+
 			
+
 			keysUntagParameters := api.KeysUntagParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &keysUntagParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", keysUntagParameters)
+			}
 			
 
 			data, api_response, err := client.KeysApi.KeysUntag(auth, projectId, keysUntagParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -516,8 +585,9 @@ func initKeysUntag() {
 	keysApiCmd.AddCommand(keysUntag)
 
 	
-	AddFlag(keysUntag, "string", "projectId", "", "ID")
+	AddFlag(keysUntag, "string", "projectId", "", "Project ID", true)
 	
+	AddFlag(keysUntag, "string", "data", "d", "payload in JSON format", true)
 	// keysUntagParameters := api.KeysUntagParameters{}
 	
 

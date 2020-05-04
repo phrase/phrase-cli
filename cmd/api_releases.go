@@ -51,21 +51,32 @@ func initReleaseCreate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			distributionId := params.GetString("distributionId")
+
 			
+
 			releaseCreateParameters := api.ReleaseCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &releaseCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", releaseCreateParameters)
+			}
 			
 
 			data, api_response, err := client.ReleasesApi.ReleaseCreate(auth, accountId, distributionId, releaseCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -79,10 +90,11 @@ func initReleaseCreate() {
 	releasesApiCmd.AddCommand(releaseCreate)
 
 	
-	AddFlag(releaseCreate, "string", "accountId", "", "ID")
+	AddFlag(releaseCreate, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(releaseCreate, "string", "distributionId", "", "ID")
+	AddFlag(releaseCreate, "string", "distributionId", "", "Distribution ID", true)
 	
+	AddFlag(releaseCreate, "string", "data", "d", "payload in JSON format", true)
 	// releaseCreateParameters := api.ReleaseCreateParameters{}
 	
 
@@ -110,21 +122,26 @@ func initReleaseDelete() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			distributionId := params.GetString("distributionId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ReleasesApi.ReleaseDelete(auth, accountId, distributionId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -138,11 +155,11 @@ func initReleaseDelete() {
 	releasesApiCmd.AddCommand(releaseDelete)
 
 	
-	AddFlag(releaseDelete, "string", "accountId", "", "ID")
+	AddFlag(releaseDelete, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(releaseDelete, "string", "distributionId", "", "ID")
+	AddFlag(releaseDelete, "string", "distributionId", "", "Distribution ID", true)
 	
-	AddFlag(releaseDelete, "string", "id", "", "ID")
+	AddFlag(releaseDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(releaseDelete.Flags())
@@ -169,21 +186,26 @@ func initReleasePublish() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			distributionId := params.GetString("distributionId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ReleasesApi.ReleasePublish(auth, accountId, distributionId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -197,11 +219,11 @@ func initReleasePublish() {
 	releasesApiCmd.AddCommand(releasePublish)
 
 	
-	AddFlag(releasePublish, "string", "accountId", "", "ID")
+	AddFlag(releasePublish, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(releasePublish, "string", "distributionId", "", "ID")
+	AddFlag(releasePublish, "string", "distributionId", "", "Distribution ID", true)
 	
-	AddFlag(releasePublish, "string", "id", "", "ID")
+	AddFlag(releasePublish, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(releasePublish.Flags())
@@ -228,21 +250,26 @@ func initReleaseShow() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			distributionId := params.GetString("distributionId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.ReleasesApi.ReleaseShow(auth, accountId, distributionId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -256,11 +283,11 @@ func initReleaseShow() {
 	releasesApiCmd.AddCommand(releaseShow)
 
 	
-	AddFlag(releaseShow, "string", "accountId", "", "ID")
+	AddFlag(releaseShow, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(releaseShow, "string", "distributionId", "", "ID")
+	AddFlag(releaseShow, "string", "distributionId", "", "Distribution ID", true)
 	
-	AddFlag(releaseShow, "string", "id", "", "ID")
+	AddFlag(releaseShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(releaseShow.Flags())
@@ -287,23 +314,35 @@ func initReleaseUpdate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			distributionId := params.GetString("distributionId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			releaseUpdateParameters := api.ReleaseUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &releaseUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", releaseUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.ReleasesApi.ReleaseUpdate(auth, accountId, distributionId, id, releaseUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -317,12 +356,13 @@ func initReleaseUpdate() {
 	releasesApiCmd.AddCommand(releaseUpdate)
 
 	
-	AddFlag(releaseUpdate, "string", "accountId", "", "ID")
+	AddFlag(releaseUpdate, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(releaseUpdate, "string", "distributionId", "", "ID")
+	AddFlag(releaseUpdate, "string", "distributionId", "", "Distribution ID", true)
 	
-	AddFlag(releaseUpdate, "string", "id", "", "ID")
+	AddFlag(releaseUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(releaseUpdate, "string", "data", "d", "payload in JSON format", true)
 	// releaseUpdateParameters := api.ReleaseUpdateParameters{}
 	
 
@@ -350,19 +390,23 @@ func initReleasesList() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			distributionId := params.GetString("distributionId")
+
 			
 
 			data, api_response, err := client.ReleasesApi.ReleasesList(auth, accountId, distributionId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -376,9 +420,9 @@ func initReleasesList() {
 	releasesApiCmd.AddCommand(releasesList)
 
 	
-	AddFlag(releasesList, "string", "accountId", "", "ID")
+	AddFlag(releasesList, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(releasesList, "string", "distributionId", "", "ID")
+	AddFlag(releasesList, "string", "distributionId", "", "Distribution ID", true)
 	
 
 	params.BindPFlags(releasesList.Flags())

@@ -49,18 +49,27 @@ func initAuthorizationCreate() {
 			localVarOptionals := api.AuthorizationCreateOpts{}
 
 			
+
 			authorizationCreateParameters := api.AuthorizationCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &authorizationCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", authorizationCreateParameters)
+			}
 			
 
 			data, api_response, err := client.AuthorizationsApi.AuthorizationCreate(auth, authorizationCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -74,6 +83,7 @@ func initAuthorizationCreate() {
 	authorizationsApiCmd.AddCommand(authorizationCreate)
 
 	
+	AddFlag(authorizationCreate, "string", "data", "d", "payload in JSON format", true)
 	// authorizationCreateParameters := api.AuthorizationCreateParameters{}
 	
 
@@ -101,17 +111,20 @@ func initAuthorizationDelete() {
 
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.AuthorizationsApi.AuthorizationDelete(auth, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -125,7 +138,7 @@ func initAuthorizationDelete() {
 	authorizationsApiCmd.AddCommand(authorizationDelete)
 
 	
-	AddFlag(authorizationDelete, "string", "id", "", "ID")
+	AddFlag(authorizationDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(authorizationDelete.Flags())
@@ -152,17 +165,20 @@ func initAuthorizationShow() {
 
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.AuthorizationsApi.AuthorizationShow(auth, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -176,7 +192,7 @@ func initAuthorizationShow() {
 	authorizationsApiCmd.AddCommand(authorizationShow)
 
 	
-	AddFlag(authorizationShow, "string", "id", "", "ID")
+	AddFlag(authorizationShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(authorizationShow.Flags())
@@ -203,19 +219,29 @@ func initAuthorizationUpdate() {
 
 			
 			id := params.GetString("id")
+
 			
+
 			authorizationUpdateParameters := api.AuthorizationUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &authorizationUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", authorizationUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.AuthorizationsApi.AuthorizationUpdate(auth, id, authorizationUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -229,8 +255,9 @@ func initAuthorizationUpdate() {
 	authorizationsApiCmd.AddCommand(authorizationUpdate)
 
 	
-	AddFlag(authorizationUpdate, "string", "id", "", "ID")
+	AddFlag(authorizationUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(authorizationUpdate, "string", "data", "d", "payload in JSON format", true)
 	// authorizationUpdateParameters := api.AuthorizationUpdateParameters{}
 	
 
@@ -260,13 +287,15 @@ func initAuthorizationsList() {
 
 			data, api_response, err := client.AuthorizationsApi.AuthorizationsList(auth, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}

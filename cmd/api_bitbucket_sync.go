@@ -48,19 +48,29 @@ func initBitbucketSyncExport() {
 
 			
 			id := params.GetString("id")
+
 			
+
 			bitbucketSyncExportParameters := api.BitbucketSyncExportParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &bitbucketSyncExportParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", bitbucketSyncExportParameters)
+			}
 			
 
 			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncExport(auth, id, bitbucketSyncExportParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -74,8 +84,9 @@ func initBitbucketSyncExport() {
 	bitbucketSyncApiCmd.AddCommand(bitbucketSyncExport)
 
 	
-	AddFlag(bitbucketSyncExport, "string", "id", "", "ID")
+	AddFlag(bitbucketSyncExport, "string", "id", "", "ID", true)
 	
+	AddFlag(bitbucketSyncExport, "string", "data", "d", "payload in JSON format", true)
 	// bitbucketSyncExportParameters := api.BitbucketSyncExportParameters{}
 	
 
@@ -103,19 +114,29 @@ func initBitbucketSyncImport() {
 
 			
 			id := params.GetString("id")
+
 			
+
 			bitbucketSyncImportParameters := api.BitbucketSyncImportParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &bitbucketSyncImportParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", bitbucketSyncImportParameters)
+			}
 			
 
 			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncImport(auth, id, bitbucketSyncImportParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -129,8 +150,9 @@ func initBitbucketSyncImport() {
 	bitbucketSyncApiCmd.AddCommand(bitbucketSyncImport)
 
 	
-	AddFlag(bitbucketSyncImport, "string", "id", "", "ID")
+	AddFlag(bitbucketSyncImport, "string", "id", "", "ID", true)
 	
+	AddFlag(bitbucketSyncImport, "string", "data", "d", "payload in JSON format", true)
 	// bitbucketSyncImportParameters := api.BitbucketSyncImportParameters{}
 	
 
@@ -160,13 +182,15 @@ func initBitbucketSyncsList() {
 
 			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncsList(auth, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}

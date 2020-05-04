@@ -50,17 +50,20 @@ func initGlossariesList() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 
 			data, api_response, err := client.GlossaryApi.GlossariesList(auth, accountId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -74,7 +77,7 @@ func initGlossariesList() {
 	glossaryApiCmd.AddCommand(glossariesList)
 
 	
-	AddFlag(glossariesList, "string", "accountId", "", "ID")
+	AddFlag(glossariesList, "string", "accountId", "", "Account ID", true)
 	
 
 	params.BindPFlags(glossariesList.Flags())
@@ -101,19 +104,29 @@ func initGlossaryCreate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
+
 			glossaryCreateParameters := api.GlossaryCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryCreateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", glossaryCreateParameters)
+			}
 			
 
 			data, api_response, err := client.GlossaryApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -127,8 +140,9 @@ func initGlossaryCreate() {
 	glossaryApiCmd.AddCommand(glossaryCreate)
 
 	
-	AddFlag(glossaryCreate, "string", "accountId", "", "ID")
+	AddFlag(glossaryCreate, "string", "accountId", "", "Account ID", true)
 	
+	AddFlag(glossaryCreate, "string", "data", "d", "payload in JSON format", true)
 	// glossaryCreateParameters := api.GlossaryCreateParameters{}
 	
 
@@ -156,19 +170,23 @@ func initGlossaryDelete() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.GlossaryApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -182,9 +200,9 @@ func initGlossaryDelete() {
 	glossaryApiCmd.AddCommand(glossaryDelete)
 
 	
-	AddFlag(glossaryDelete, "string", "accountId", "", "ID")
+	AddFlag(glossaryDelete, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(glossaryDelete, "string", "id", "", "ID")
+	AddFlag(glossaryDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(glossaryDelete.Flags())
@@ -211,19 +229,23 @@ func initGlossaryShow() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.GlossaryApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -237,9 +259,9 @@ func initGlossaryShow() {
 	glossaryApiCmd.AddCommand(glossaryShow)
 
 	
-	AddFlag(glossaryShow, "string", "accountId", "", "ID")
+	AddFlag(glossaryShow, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(glossaryShow, "string", "id", "", "ID")
+	AddFlag(glossaryShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(glossaryShow.Flags())
@@ -266,21 +288,32 @@ func initGlossaryUpdate() {
 
 			
 			accountId := params.GetString("accountId")
+
 			
 			id := params.GetString("id")
+
 			
+
 			glossaryUpdateParameters := api.GlossaryUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", glossaryUpdateParameters)
+			}
 			
 
 			data, api_response, err := client.GlossaryApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -294,10 +327,11 @@ func initGlossaryUpdate() {
 	glossaryApiCmd.AddCommand(glossaryUpdate)
 
 	
-	AddFlag(glossaryUpdate, "string", "accountId", "", "ID")
+	AddFlag(glossaryUpdate, "string", "accountId", "", "Account ID", true)
 	
-	AddFlag(glossaryUpdate, "string", "id", "", "ID")
+	AddFlag(glossaryUpdate, "string", "id", "", "ID", true)
 	
+	AddFlag(glossaryUpdate, "string", "data", "d", "payload in JSON format", true)
 	// glossaryUpdateParameters := api.GlossaryUpdateParameters{}
 	
 

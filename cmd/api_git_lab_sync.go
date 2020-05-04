@@ -52,17 +52,20 @@ func initGitlabSyncDelete() {
 
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncDelete(auth, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -76,7 +79,7 @@ func initGitlabSyncDelete() {
 	gitLabSyncApiCmd.AddCommand(gitlabSyncDelete)
 
 	
-	AddFlag(gitlabSyncDelete, "string", "id", "", "ID")
+	AddFlag(gitlabSyncDelete, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(gitlabSyncDelete.Flags())
@@ -103,19 +106,29 @@ func initGitlabSyncExport() {
 
 			
 			gitlabSyncId := params.GetString("gitlabSyncId")
+
 			
+
 			gitlabSyncExportParameters := api.GitlabSyncExportParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncExportParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", gitlabSyncExportParameters)
+			}
 			
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncExport(auth, gitlabSyncId, gitlabSyncExportParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -129,8 +142,9 @@ func initGitlabSyncExport() {
 	gitLabSyncApiCmd.AddCommand(gitlabSyncExport)
 
 	
-	AddFlag(gitlabSyncExport, "string", "gitlabSyncId", "", "ID")
+	AddFlag(gitlabSyncExport, "string", "gitlabSyncId", "", "Gitlab Sync ID", true)
 	
+	AddFlag(gitlabSyncExport, "string", "data", "d", "payload in JSON format", true)
 	// gitlabSyncExportParameters := api.GitlabSyncExportParameters{}
 	
 
@@ -158,17 +172,20 @@ func initGitlabSyncHistory() {
 
 			
 			gitlabSyncId := params.GetString("gitlabSyncId")
+
 			
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncHistory(auth, gitlabSyncId, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -182,7 +199,7 @@ func initGitlabSyncHistory() {
 	gitLabSyncApiCmd.AddCommand(gitlabSyncHistory)
 
 	
-	AddFlag(gitlabSyncHistory, "string", "gitlabSyncId", "", "ID")
+	AddFlag(gitlabSyncHistory, "string", "gitlabSyncId", "", "Gitlab Sync ID", true)
 	
 
 	params.BindPFlags(gitlabSyncHistory.Flags())
@@ -209,19 +226,29 @@ func initGitlabSyncImport() {
 
 			
 			gitlabSyncId := params.GetString("gitlabSyncId")
+
 			
+
 			gitlabSyncImportParameters := api.GitlabSyncImportParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncImportParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", gitlabSyncImportParameters)
+			}
 			
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncImport(auth, gitlabSyncId, gitlabSyncImportParameters, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -235,8 +262,9 @@ func initGitlabSyncImport() {
 	gitLabSyncApiCmd.AddCommand(gitlabSyncImport)
 
 	
-	AddFlag(gitlabSyncImport, "string", "gitlabSyncId", "", "ID")
+	AddFlag(gitlabSyncImport, "string", "gitlabSyncId", "", "Gitlab Sync ID", true)
 	
+	AddFlag(gitlabSyncImport, "string", "data", "d", "payload in JSON format", true)
 	// gitlabSyncImportParameters := api.GitlabSyncImportParameters{}
 	
 
@@ -266,13 +294,15 @@ func initGitlabSyncList() {
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncList(auth, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -311,17 +341,20 @@ func initGitlabSyncShow() {
 
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncShow(auth, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -335,7 +368,7 @@ func initGitlabSyncShow() {
 	gitLabSyncApiCmd.AddCommand(gitlabSyncShow)
 
 	
-	AddFlag(gitlabSyncShow, "string", "id", "", "ID")
+	AddFlag(gitlabSyncShow, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(gitlabSyncShow.Flags())
@@ -362,17 +395,20 @@ func initGitlabSyncUpdate() {
 
 			
 			id := params.GetString("id")
+
 			
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncUpdate(auth, id, &localVarOptionals)
 
-			jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-			if jsonErr != nil {
-				fmt.Printf("%v\n", data)
-				HandleError(err)
-			}
+			if api_response.StatusCode == 200 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
 
-			fmt.Printf("%s\n", string(jsonBuf))
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
 			if err != nil {
 				HandleError(err)
 			}
@@ -386,7 +422,7 @@ func initGitlabSyncUpdate() {
 	gitLabSyncApiCmd.AddCommand(gitlabSyncUpdate)
 
 	
-	AddFlag(gitlabSyncUpdate, "string", "id", "", "ID")
+	AddFlag(gitlabSyncUpdate, "string", "id", "", "ID", true)
 	
 
 	params.BindPFlags(gitlabSyncUpdate.Flags())
