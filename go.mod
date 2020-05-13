@@ -10,7 +10,7 @@ require (
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.6.3
 	golang.org/dl v0.0.0-20200414231856-f86334ee252a // indirect
-	gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 v2.3.0
 )
 
 replace github.com/phrase/phrase-go => ../phrase-go
