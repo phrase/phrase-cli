@@ -32,7 +32,6 @@ type PullCommand struct {
 var Auth context.Context
 
 func (cmd *PullCommand) Run(config *phrase.Config) error {
-	fmt.Printf("%+v\n", config)
 	Config = config
 
 	if Config.Debug {
@@ -91,7 +90,7 @@ func newClient() *phrase.APIClient {
 
 type PullParams struct {
 	phrase.LocaleDownloadOpts
-	LocaleID string
+	LocaleID string `json:"locale_id"`
 }
 
 func (target *Target) Pull(client *phrase.APIClient, branch string) error {

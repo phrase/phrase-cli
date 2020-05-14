@@ -2,7 +2,9 @@ package internal
 
 import (
 	"github.com/antihax/optional"
+	"github.com/mitchellh/mapstructure"
 	"github.com/phrase/phrase-go"
+	"github.com/spf13/viper"
 )
 
 var Debug bool
@@ -80,4 +82,10 @@ func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Loca
 	}
 
 	return data, nil, nil
+}
+
+func ViperStructTag() viper.DecoderConfigOption {
+	return func(c *mapstructure.DecoderConfig) {
+		c.TagName = "json"
+	}
 }

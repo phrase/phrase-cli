@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"bytes"
 	"fmt"
 	"path/filepath"
 	"strings"
@@ -9,7 +10,7 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/placeholders"
 	"github.com/phrase/phrase-cli/cmd/internal/shared"
 	"github.com/phrase/phrase-go"
-	"gopkg.in/yaml.v2"
+	"github.com/spf13/viper"
 )
 
 type Targets []*Target
@@ -23,10 +24,10 @@ func (targets Targets) ProjectIds() []string {
 }
 
 type Target struct {
-	File          string
-	ProjectID     string
-	AccessToken   string
-	FileFormat    string
+	File          string `json:"file"`
+	ProjectID     string `json:"project_id"`
+	AccessToken   string `json:"access_token"`
+	FileFormat    string `json:"file_format"`
 	Params        *PullParams
 	RemoteLocales []*phrase.Locale
 }
@@ -160,10 +161,20 @@ func TargetsFromConfig(config phrase.Config) (Targets, error) {
 	tmp := struct {
 		Targets Targets
 	}{}
-	err := yaml.Unmarshal(config.Targets, &tmp)
+
+	targets := viper.New()
+	targets.SetConfigType("yaml")
+	err := targets.ReadConfig(bytes.NewReader(config.Targets))
+
 	if err != nil {
 		return nil, err
 	}
+
+	err = targets.UnmarshalExact(&tmp, ViperStructTag())
+	if err != nil {
+		return nil, err
+	}
+
 	tgts := tmp.Targets
 
 	projectId := config.DefaultProjectID
@@ -188,30 +199,4 @@ func TargetsFromConfig(config phrase.Config) (Targets, error) {
 	}
 
 	return validTargets, nil
-}
-
-func (tgt *Target) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	m := map[string]interface{}{}
-	err := phrase.ParseYAMLToMap(unmarshal, map[string]interface{}{
-		"file":         &tgt.File,
-		"project_id":   &tgt.ProjectID,
-		"access_token": &tgt.AccessToken,
-		"file_format":  &tgt.FileFormat,
-		"params":       &m,
-	})
-	if err != nil {
-		return err
-	}
-
-	tgt.Params = new(PullParams)
-	if v, found := m["locale_id"]; found {
-		if tgt.Params.LocaleID, err = phrase.ValidateIsString("params.locale_id", v); err != nil {
-			return err
-		}
-		// Must delete the param from the map as the LocaleDownloadParams type
-		// doesn't support this one and the apply method would return an error.
-		delete(m, "locale_id")
-	}
-
-	return tgt.Params.ApplyValuesFromMap(m)
 }

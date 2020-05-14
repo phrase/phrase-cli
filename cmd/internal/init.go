@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"regexp"
 	"strings"
 
@@ -385,12 +386,12 @@ func (cmd *InitCommand) writeConfig() error {
 	fmt.Println()
 
 	pushNow := ""
-	err = prompt.WithDefault("Do you want to upload your locales now for the first time? (y/n)", &pushNow, "y")
+	_ = prompt.WithDefault("Do you want to upload your locales now for the first time? (y/n)", &pushNow, "y")
 	if pushNow == "y" {
-		// err = firstPush()
-		// if err != nil {
-		// 	return err
-		// }
+		err = firstPush()
+		if err != nil {
+			return err
+		}
 	}
 
 	print.Success("Project initialization completed!")
@@ -398,12 +399,12 @@ func (cmd *InitCommand) writeConfig() error {
 	return nil
 }
 
-// func firstPush() error {
-// 	cfg, err := phrase.ReadConfig("")
-// 	if err != nil {
-// 		fmt.Fprintf(os.Stderr, "Error: %s\n", err)
-// 		os.Exit(2)
-// 	}
-// 	cmd := &PushCommand{Config: *cfg}
-// 	return cmd.Run()
-// }
+func firstPush() error {
+	config, err := phrase.ReadConfig("")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %s\n", err)
+		os.Exit(2)
+	}
+	cmd := &PushCommand{Config: *config}
+	return cmd.Run()
+}
