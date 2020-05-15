@@ -51,16 +51,7 @@ func initUploadCreate() {
 
 			
 
-			uploadCreateParameters := api.UploadCreateParameters{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &uploadCreateParameters); err != nil {
-				HandleError(err)
-			}
-			if Config.Debug {
-				fmt.Printf("%+v\n", uploadCreateParameters)
-			}
-			
-
-			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, uploadCreateParameters, &localVarOptionals)
+			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -85,9 +76,6 @@ func initUploadCreate() {
 
 	
 	AddFlag(uploadCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(uploadCreate, "string", "data", "d", "payload in JSON format", true)
-	// uploadCreateParameters := api.UploadCreateParameters{}
 	
 
 	params.BindPFlags(uploadCreate.Flags())

@@ -1,6 +1,8 @@
 package internal
 
 import (
+	"reflect"
+
 	"github.com/antihax/optional"
 	"github.com/mitchellh/mapstructure"
 	"github.com/phrase/phrase-go"
@@ -87,5 +89,47 @@ func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Loca
 func ViperStructTag() viper.DecoderConfigOption {
 	return func(c *mapstructure.DecoderConfig) {
 		c.TagName = "json"
+		c.DecodeHook = mapstructure.ComposeDecodeHookFunc(
+			mapstructure.StringToTimeDurationHookFunc(),
+			mapstructure.StringToSliceHookFunc(","),
+			StringToOptionalString(),
+			StringToOptionalBool(),
+		)
+	}
+}
+
+// StringToOptionalString returns a DecodeHookFunc that converts
+// strings to optional.String.
+func StringToOptionalString() mapstructure.DecodeHookFunc {
+	return func(
+		f reflect.Type,
+		t reflect.Type,
+		data interface{}) (interface{}, error) {
+		if f.Kind() != reflect.String {
+			return data, nil
+		}
+		if t != reflect.TypeOf(optional.String{}) {
+			return data, nil
+		}
+
+		return optional.NewString(data.(string)), nil
+	}
+}
+
+// StringToOptionalBool returns a DecodeHookFunc that converts
+// strings to optional.Bool.
+func StringToOptionalBool() mapstructure.DecodeHookFunc {
+	return func(
+		f reflect.Type,
+		t reflect.Type,
+		data interface{}) (interface{}, error) {
+		if f.Kind() != reflect.Bool {
+			return data, nil
+		}
+		if t != reflect.TypeOf(optional.Bool{}) {
+			return data, nil
+		}
+
+		return optional.NewBool(data.(bool)), nil
 	}
 }

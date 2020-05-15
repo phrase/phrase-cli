@@ -49,15 +49,15 @@ func SourcesFromConfig(config phrase.Config) (Sources, error) {
 			source.ProjectID = projectId
 		}
 		if source.Params == nil {
-			source.Params = new(phrase.UploadCreateParameters)
+			source.Params = new(phrase.UploadCreateOpts)
 		}
 
-		if source.Params.FileFormat == "" {
+		if !source.Params.FileFormat.IsSet() {
 			switch {
 			case source.FileFormat != "":
-				source.Params.FileFormat = source.FileFormat
+				source.Params.FileFormat = optional.NewString(source.FileFormat)
 			case fileFormat != "":
-				source.Params.FileFormat = fileFormat
+				source.Params.FileFormat = optional.NewString(fileFormat)
 			}
 		}
 		validSources = append(validSources, source)
@@ -82,27 +82,27 @@ func (sources Sources) Validate() error {
 }
 
 type Source struct {
-	File        string `json:"file"`
-	ProjectID   string `json:"project_id"`
-	Branch      string `json:"branch"`
-	AccessToken string `json:"access_token"`
-	FileFormat  string `json:"file_format"`
-	Params      *phrase.UploadCreateParameters
+	File        string                   `json:"file"`
+	ProjectID   string                   `json:"project_id"`
+	Branch      string                   `json:"branch"`
+	AccessToken string                   `json:"access_token"`
+	FileFormat  string                   `json:"file_format"`
+	Params      *phrase.UploadCreateOpts `json:"params,omitempty"`
 
 	RemoteLocales []*phrase.Locale
 	Format        *phrase.Format
 }
 
 func (source *Source) GetLocaleID() string {
-	if source.Params != nil && source.Params.LocaleId != "" {
-		return source.Params.LocaleId
+	if source.Params != nil && !source.Params.LocaleId.IsSet() {
+		return source.Params.LocaleId.Value()
 	}
 	return ""
 }
 
 func (source *Source) GetFileFormat() string {
-	if source.Params != nil && source.Params.FileFormat != "" {
-		return source.Params.FileFormat
+	if source.Params != nil && source.Params.FileFormat.IsSet() {
+		return source.Params.FileFormat.Value()
 	}
 	if source.FileFormat != "" {
 		return source.FileFormat
@@ -150,40 +150,45 @@ func (sources Sources) ProjectIds() []string {
 	return projectIds
 }
 func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFile, branch string) (*phrase.Upload, error) {
-	if Config.Debug {
+	if Debug {
 		fmt.Fprintln(os.Stdout, "Source file pattern:", source.File)
 		fmt.Fprintln(os.Stdout, "Actual file location:", localeFile.Path)
 	}
 
-	params := new(phrase.UploadCreateParameters)
+	params := new(phrase.UploadCreateOpts)
 	*params = *source.Params
 
-	params.File, _ = os.Open(localeFile.Path)
+	var err error
+	file, err := os.Open(localeFile.Path)
+	params.File = optional.NewInterface(file)
 
-	if params.LocaleId == "" {
-		switch {
-		case localeFile.ID != "":
-			params.LocaleId = localeFile.ID
-		case localeFile.Code != "":
-			params.LocaleId = localeFile.Code
-		}
+	if err != nil {
+		return nil, err
 	}
 
+	if params.LocaleId.IsSet() {
+		switch {
+		case localeFile.ID != "":
+			params.LocaleId = optional.NewString(localeFile.ID)
+		case localeFile.Code != "":
+			params.LocaleId = optional.NewString(localeFile.Code)
+		}
+	}
 	if localeFile.Tag != "" {
 		var v string
-		if params.Tags != "" {
-			v = params.Tags + ","
+		if params.Tags.IsSet() {
+			v = params.Tags.Value() + ","
 		}
 		v += localeFile.Tag
-		params.Tags = v
+		params.Tags = optional.NewString(v)
 	}
 
 	if branch != "" {
-		params.Branch = branch
+		params.Branch = optional.NewString(branch)
 	}
 
 	var upload *phrase.Upload
-	data, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, *params, &phrase.UploadCreateOpts{})
+	data, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, params)
 
 	if err := json.Unmarshal(data, &upload); err != nil {
 		return nil, err
