@@ -14,7 +14,7 @@ func initPull() {
 	params := viper.New()
 	var pullCmd = &cobra.Command{
 		Use:   "pull",
-		Short: "Pull transaltion chnages",
+		Short: "Pull translation changes",
 		Long:  "",
 		Run: func(cmd *cobra.Command, args []string) {
 			cmdPull := pull.PullCommand{

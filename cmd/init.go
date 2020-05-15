@@ -12,7 +12,7 @@ func init() {
 func initInit() {
 	var pullCmd = &cobra.Command{
 		Use:   "init",
-		Short: "Configure your PhraseApp client",
+		Short: "Configure your Phrase client",
 		Long:  "",
 		Run: func(cmd *cobra.Command, args []string) {
 			cmdInit := commands.InitCommand{}

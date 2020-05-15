@@ -15,7 +15,7 @@ func init() {
 func initInfo() {
 	var infoCmd = &cobra.Command{
 		Use:   "info",
-		Short: "Info transaltion chnages",
+		Short: "Info about CLI client for phrase",
 		Long:  "",
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Print(GetInfo())

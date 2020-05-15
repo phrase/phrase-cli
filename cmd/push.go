@@ -14,7 +14,7 @@ func initPush() {
 	params := viper.New()
 	var pushCmd = &cobra.Command{
 		Use:   "push",
-		Short: "Push transaltion chnages",
+		Short: "Push translation changes",
 		Long:  "",
 		Run: func(cmd *cobra.Command, args []string) {
 			cmdPush := push.PushCommand{
