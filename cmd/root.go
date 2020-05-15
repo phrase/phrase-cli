@@ -3,13 +3,17 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
+	"github.com/phrase/phrase-cli/cmd/internal/updatechecker"
 	"github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 var (
+	PHRASEAPP_CLIENT_VERSION string
+
 	// Used for flags.
 	cfgFile string
 	Config  *phrase.Config
@@ -22,11 +26,15 @@ var (
 )
 
 func init() {
+	PHRASEAPP_CLIENT_VERSION = "0.9.0"
+
 	Config = &phrase.Config{
 		Debug: false,
 	}
 
 	cobra.OnInitialize(initConfig)
+	// TODO: make it work for private repo
+	// cobra.OnInitialize(checkUpdate)
 
 	rootCmd.PersistentFlags().BoolVarP(&Config.Debug, "verbose", "v", false, "show more messages")
 	viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
@@ -87,6 +95,17 @@ func initConfig() {
 	}
 
 	Config = config
+}
+
+func checkUpdate() {
+	var updateChecker = updatechecker.New(
+		PHRASEAPP_CLIENT_VERSION,
+		filepath.Join(os.TempDir(), ".phraseapp.version"),
+		"https://github.com/phrase/phrase-cli/releases/latest",
+		os.Stderr,
+	)
+
+	updateChecker.Check()
 }
 
 func HandleError(msg interface{}) {

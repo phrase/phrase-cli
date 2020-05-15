@@ -89,8 +89,8 @@ func newClient() *phrase.APIClient {
 }
 
 type PullParams struct {
-	phrase.LocaleDownloadOpts
-	LocaleID string `json:"locale_id"`
+	phrase.LocaleDownloadOpts `json:",squash"`
+	LocaleID                  string `json:"locale_id"`
 }
 
 func (target *Target) Pull(client *phrase.APIClient, branch string) error {
