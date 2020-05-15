@@ -28,4 +28,4 @@ release:
     name: phrase-cli
   draft: true
   prerelease: auto
-  name_template: "{{tolower .ProjectName}}-v{{.Version}}"
+  name_template: "v{{.Version}}"
