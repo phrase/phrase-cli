@@ -12,8 +12,6 @@ import (
 )
 
 var (
-	PHRASEAPP_CLIENT_VERSION string
-
 	// Used for flags.
 	cfgFile string
 	Config  *phrase.Config
@@ -26,8 +24,6 @@ var (
 )
 
 func init() {
-	PHRASEAPP_CLIENT_VERSION = "0.9.0"
-
 	Config = &phrase.Config{
 		Debug: false,
 	}
