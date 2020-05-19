@@ -16,7 +16,7 @@ var completionCmd = &cobra.Command{
 	Short: "Generates bash completion scripts",
 	Long: `To load completion run
 
-. <(bitbucket completion)
+. <(phrase completion)
 
 To configure your bash shell to load completions for each session add to your bashrc
 
