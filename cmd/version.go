@@ -15,7 +15,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of Phrase",
 	Long:  `All software has versions. This is Phrase's`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// TODO: use real version
-		fmt.Println("Phrase  CLI v1.0")
+		fmt.Printf("%s\n", PHRASE_CLIENT_VERSION)
 	},
 }

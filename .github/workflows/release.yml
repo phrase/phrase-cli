@@ -1,29 +1,31 @@
-name: releaser
+name: release
 
 on:
   push:
     tags:
       - '*'
+
 jobs:
-  goreleaser:
+  release:
     runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Unshallow
-        run: git fetch --prune --unshallow
-      -
         name: Set up Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.14
+      - name: Version
+        id: version
+        run: |
+          echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       -
-        name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
-        with:
-          version: latest
-          args: release --rm-dist 
+        name: Release
+        run: |
+          make all
+          bash ./build/release.sh -xe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.VERSION }}
