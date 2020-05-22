@@ -29,8 +29,7 @@ func init() {
 	}
 
 	cobra.OnInitialize(initConfig)
-	// TODO: make it work for private repo
-	// cobra.OnInitialize(checkUpdate)
+	cobra.OnInitialize(checkUpdate)
 
 	rootCmd.PersistentFlags().BoolVarP(&Config.Debug, "verbose", "v", false, "show more messages")
 	viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
