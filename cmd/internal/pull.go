@@ -139,6 +139,10 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		localVarOptionals.FileFormat = optional.NewString(localeFile.FileFormat)
 	}
 
+	if branch != "" {
+		localVarOptionals.Branch = optional.NewString(branch)
+	}
+
 	localVarOptionals.FileFormat = optional.NewString("yml")
 
 	if Debug {
@@ -151,6 +155,7 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		fmt.Fprintln(os.Stderr, "IncludeEmptyTranslations", localVarOptionals.IncludeEmptyTranslations)
 		fmt.Fprintln(os.Stderr, "KeepNotranslateTags", localVarOptionals.KeepNotranslateTags)
 		fmt.Fprintln(os.Stderr, "Tag", localVarOptionals.Tag)
+		fmt.Fprintln(os.Stderr, "Branch", localVarOptionals.Branch)
 		fmt.Fprintln(os.Stderr, "FormatOptions", localVarOptionals.FormatOptions)
 	}
 
