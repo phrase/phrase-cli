@@ -8,7 +8,7 @@ require (
 	github.com/daviddengcn/go-colortext v0.0.0-20171126034257-17e75f6184bc
 	github.com/golangplus/testing v1.0.0 // indirect
 	github.com/jpillora/backoff v1.0.0
-	github.com/mitchellh/mapstructure v1.1.2
+	github.com/mitchellh/mapstructure v1.3.1
 	github.com/phrase/phrase-go v1.0.0
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.6.3
