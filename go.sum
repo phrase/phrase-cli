@@ -96,6 +96,8 @@ github.com/pelletier/go-toml v1.2.0 h1:T5zMGML61Wp+FlcbWjRDT7yAxhJNAiPPLOFECq181
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/phrase/phrase-go v1.0.0 h1:x/lXwylyiEqfN5lk9iA+hvOMUzkekJsf0fPFK2G5W8k=
 github.com/phrase/phrase-go v1.0.0/go.mod h1:Ff65KhZoEhKQfqougz5Gzc82x2idwGvB6jxINRP0pKk=
+github.com/phrase/phrase-go v1.0.1 h1:rMaR6iSl7YEpJmZtW3SAKpTNt5/7ZDsnq/X54ICHvgI=
+github.com/phrase/phrase-go v1.0.1/go.mod h1:Ff65KhZoEhKQfqougz5Gzc82x2idwGvB6jxINRP0pKk=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
