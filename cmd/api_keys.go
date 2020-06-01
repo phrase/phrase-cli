@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -23,25 +24,22 @@ func init() {
 	initKeysTag()
 	initKeysUntag()
 
-	rootCmd.AddCommand(keysApiCmd)
+	rootCmd.AddCommand(KeysApiCmd)
 }
 
-var keysApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("keysapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("KeysApi", "Api"), "API"}, " "),
+var KeysApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Keys"),
+	Short: "Keys API",
 }
-
 
 func initKeyCreate() {
 	params := viper.New()
-	var keyCreate = &cobra.Command{
+	var KeyCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeyCreate", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "Create a key",
 		Long:  `Create a new key.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -52,10 +50,11 @@ func initKeyCreate() {
 
 			localVarOptionals := api.KeyCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			keyCreateParameters := api.KeyCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyCreateParameters); err != nil {
@@ -64,8 +63,6 @@ func initKeyCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keyCreateParameters)
 			}
-			
-
 			data, api_response, err := client.KeysApi.KeyCreate(auth, projectId, keyCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -87,27 +84,22 @@ func initKeyCreate() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keyCreate)
+	KeysApiCmd.AddCommand(KeyCreate)
 
-	
-	AddFlag(keyCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(keyCreate, "string", "data", "d", "payload in JSON format", true)
-	// keyCreateParameters := api.KeyCreateParameters{}
-	
+	AddFlag(KeyCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeyCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(keyCreate.Flags())
+	AddFlag(KeyCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(KeyCreate.Flags())
 }
-
 func initKeyDelete() {
 	params := viper.New()
-	var keyDelete = &cobra.Command{
+	var KeyDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeyDelete", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "Delete a key",
 		Long:  `Delete an existing key.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -118,13 +110,15 @@ func initKeyDelete() {
 
 			localVarOptionals := api.KeyDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.KeysApi.KeyDelete(auth, projectId, id, &localVarOptionals)
 
@@ -147,26 +141,22 @@ func initKeyDelete() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keyDelete)
+	KeysApiCmd.AddCommand(KeyDelete)
 
-	
-	AddFlag(keyDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(keyDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(keyDelete.Flags())
+	AddFlag(KeyDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeyDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(KeyDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(KeyDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(KeyDelete.Flags())
 }
-
 func initKeyShow() {
 	params := viper.New()
-	var keyShow = &cobra.Command{
+	var KeyShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeyShow", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "Get a single key",
 		Long:  `Get details on a single key for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -177,13 +167,15 @@ func initKeyShow() {
 
 			localVarOptionals := api.KeyShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.KeysApi.KeyShow(auth, projectId, id, &localVarOptionals)
 
@@ -206,26 +198,22 @@ func initKeyShow() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keyShow)
+	KeysApiCmd.AddCommand(KeyShow)
 
-	
-	AddFlag(keyShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(keyShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(keyShow.Flags())
+	AddFlag(KeyShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeyShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(KeyShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(KeyShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(KeyShow.Flags())
 }
-
 func initKeyUpdate() {
 	params := viper.New()
-	var keyUpdate = &cobra.Command{
+	var KeyUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeyUpdate", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "Update a key",
 		Long:  `Update an existing key.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -236,13 +224,12 @@ func initKeyUpdate() {
 
 			localVarOptionals := api.KeyUpdateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			keyUpdateParameters := api.KeyUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyUpdateParameters); err != nil {
@@ -251,8 +238,6 @@ func initKeyUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keyUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.KeysApi.KeyUpdate(auth, projectId, id, keyUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -274,29 +259,23 @@ func initKeyUpdate() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keyUpdate)
+	KeysApiCmd.AddCommand(KeyUpdate)
 
-	
-	AddFlag(keyUpdate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(keyUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(keyUpdate, "string", "data", "d", "payload in JSON format", true)
-	// keyUpdateParameters := api.KeyUpdateParameters{}
-	
+	AddFlag(KeyUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeyUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(KeyUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(keyUpdate.Flags())
+	AddFlag(KeyUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(KeyUpdate.Flags())
 }
-
 func initKeysDelete() {
 	params := viper.New()
-	var keysDelete = &cobra.Command{
+	var KeysDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysDelete", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "Delete collection of keys",
 		Long:  `Delete all keys matching query. Same constraints as list. Please limit the number of affected keys to about 1,000 as you might experience timeouts otherwise.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -307,10 +286,20 @@ func initKeysDelete() {
 
 			localVarOptionals := api.KeysDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("q")) {
+				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("localeId")) {
+				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.KeysApi.KeysDelete(auth, projectId, &localVarOptionals)
 
@@ -333,24 +322,23 @@ func initKeysDelete() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keysDelete)
+	KeysApiCmd.AddCommand(KeysDelete)
 
-	
-	AddFlag(keysDelete, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(keysDelete.Flags())
+	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("Q"), "", "q_description_placeholder", false)
+	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale used to determine the translation state of a key when filtering for untranslated or translated keys.", false)
+	params.BindPFlags(KeysDelete.Flags())
 }
-
 func initKeysList() {
 	params := viper.New()
-	var keysList = &cobra.Command{
+	var KeysList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysList", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "List keys",
 		Long:  `List all keys for the given project. Alternatively you can POST requests to /search.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -361,10 +349,32 @@ func initKeysList() {
 
 			localVarOptionals := api.KeysListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("sort")) {
+				localVarOptionals.Sort = optional.NewString(params.GetString(helpers.ToSnakeCase("Sort")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("order")) {
+				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("q")) {
+				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("localeId")) {
+				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.KeysApi.KeysList(auth, projectId, &localVarOptionals)
 
@@ -387,24 +397,27 @@ func initKeysList() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keysList)
+	KeysApiCmd.AddCommand(KeysList)
 
-	
-	AddFlag(keysList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(keysList.Flags())
+	AddFlag(KeysList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeysList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(KeysList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(KeysList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(KeysList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(KeysList, "string", helpers.ToSnakeCase("Sort"), "", "Sort by field. Can be one of: name, created_at, updated_at.", false)
+	AddFlag(KeysList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
+	AddFlag(KeysList, "string", helpers.ToSnakeCase("Q"), "", "q_description_placeholder", false)
+	AddFlag(KeysList, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale used to determine the translation state of a key when filtering for untranslated or translated keys.", false)
+	params.BindPFlags(KeysList.Flags())
 }
-
 func initKeysSearch() {
 	params := viper.New()
-	var keysSearch = &cobra.Command{
+	var KeysSearch = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysSearch", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "Search keys",
 		Long:  `Search keys for the given project matching query.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -415,10 +428,17 @@ func initKeysSearch() {
 
 			localVarOptionals := api.KeysSearchOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			keysSearchParameters := api.KeysSearchParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysSearchParameters); err != nil {
@@ -427,8 +447,6 @@ func initKeysSearch() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keysSearchParameters)
 			}
-			
-
 			data, api_response, err := client.KeysApi.KeysSearch(auth, projectId, keysSearchParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -450,27 +468,24 @@ func initKeysSearch() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keysSearch)
+	KeysApiCmd.AddCommand(KeysSearch)
 
-	
-	AddFlag(keysSearch, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(keysSearch, "string", "data", "d", "payload in JSON format", true)
-	// keysSearchParameters := api.KeysSearchParameters{}
-	
+	AddFlag(KeysSearch, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeysSearch, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(keysSearch.Flags())
+	AddFlag(KeysSearch, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(KeysSearch.Flags())
 }
-
 func initKeysTag() {
 	params := viper.New()
-	var keysTag = &cobra.Command{
+	var KeysTag = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysTag", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "Add tags to collection of keys",
 		Long:  `Tags all keys matching query. Same constraints as list.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -481,10 +496,11 @@ func initKeysTag() {
 
 			localVarOptionals := api.KeysTagOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			keysTagParameters := api.KeysTagParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysTagParameters); err != nil {
@@ -493,8 +509,6 @@ func initKeysTag() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keysTagParameters)
 			}
-			
-
 			data, api_response, err := client.KeysApi.KeysTag(auth, projectId, keysTagParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -516,27 +530,22 @@ func initKeysTag() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keysTag)
+	KeysApiCmd.AddCommand(KeysTag)
 
-	
-	AddFlag(keysTag, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(keysTag, "string", "data", "d", "payload in JSON format", true)
-	// keysTagParameters := api.KeysTagParameters{}
-	
+	AddFlag(KeysTag, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeysTag, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(keysTag.Flags())
+	AddFlag(KeysTag, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(KeysTag.Flags())
 }
-
 func initKeysUntag() {
 	params := viper.New()
-	var keysUntag = &cobra.Command{
+	var KeysUntag = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysUntag", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
 		Short: "Remove tags from collection of keys",
 		Long:  `Removes specified tags from keys matching query.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -547,10 +556,11 @@ func initKeysUntag() {
 
 			localVarOptionals := api.KeysUntagOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			keysUntagParameters := api.KeysUntagParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysUntagParameters); err != nil {
@@ -559,8 +569,6 @@ func initKeysUntag() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keysUntagParameters)
 			}
-			
-
 			data, api_response, err := client.KeysApi.KeysUntag(auth, projectId, keysUntagParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -582,15 +590,11 @@ func initKeysUntag() {
 		},
 	}
 
-	keysApiCmd.AddCommand(keysUntag)
+	KeysApiCmd.AddCommand(KeysUntag)
 
-	
-	AddFlag(keysUntag, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(keysUntag, "string", "data", "d", "payload in JSON format", true)
-	// keysUntagParameters := api.KeysUntagParameters{}
-	
+	AddFlag(KeysUntag, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeysUntag, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(keysUntag.Flags())
+	AddFlag(KeysUntag, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(KeysUntag.Flags())
 }
-

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -16,25 +17,22 @@ func init() {
 	initAccountShow()
 	initAccountsList()
 
-	rootCmd.AddCommand(accountsApiCmd)
+	rootCmd.AddCommand(AccountsApiCmd)
 }
 
-var accountsApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("accountsapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("AccountsApi", "Api"), "API"}, " "),
+var AccountsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Accounts"),
+	Short: "Accounts API",
 }
-
 
 func initAccountShow() {
 	params := viper.New()
-	var accountShow = &cobra.Command{
+	var AccountShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AccountShow", strings.TrimSuffix("AccountsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AccountsApi", "Api"), "s"))),
 		Short: "Get a single account",
 		Long:  `Get details on a single account.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -45,10 +43,11 @@ func initAccountShow() {
 
 			localVarOptionals := api.AccountShowOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.AccountsApi.AccountShow(auth, id, &localVarOptionals)
 
@@ -71,24 +70,20 @@ func initAccountShow() {
 		},
 	}
 
-	accountsApiCmd.AddCommand(accountShow)
+	AccountsApiCmd.AddCommand(AccountShow)
 
-	
-	AddFlag(accountShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(accountShow.Flags())
+	AddFlag(AccountShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(AccountShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(AccountShow.Flags())
 }
-
 func initAccountsList() {
 	params := viper.New()
-	var accountsList = &cobra.Command{
+	var AccountsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AccountsList", strings.TrimSuffix("AccountsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AccountsApi", "Api"), "s"))),
 		Short: "List accounts",
 		Long:  `List all accounts the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -98,8 +93,15 @@ func initAccountsList() {
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.AccountsListOpts{}
-
-			
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
 			data, api_response, err := client.AccountsApi.AccountsList(auth, &localVarOptionals)
 
@@ -122,10 +124,10 @@ func initAccountsList() {
 		},
 	}
 
-	accountsApiCmd.AddCommand(accountsList)
+	AccountsApiCmd.AddCommand(AccountsList)
 
-	
-
-	params.BindPFlags(accountsList.Flags())
+	AddFlag(AccountsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(AccountsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(AccountsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(AccountsList.Flags())
 }
-

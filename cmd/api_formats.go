@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -15,25 +16,22 @@ import (
 func init() {
 	initFormatsList()
 
-	rootCmd.AddCommand(formatsApiCmd)
+	rootCmd.AddCommand(FormatsApiCmd)
 }
 
-var formatsApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("formatsapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("FormatsApi", "Api"), "API"}, " "),
+var FormatsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Formats"),
+	Short: "Formats API",
 }
-
 
 func initFormatsList() {
 	params := viper.New()
-	var formatsList = &cobra.Command{
+	var FormatsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("FormatsList", strings.TrimSuffix("FormatsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("FormatsApi", "Api"), "s"))),
 		Short: "List formats",
 		Long:  `Get a handy list of all localization file formats supported in Phrase.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -43,8 +41,9 @@ func initFormatsList() {
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.FormatsListOpts{}
-
-			
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
 			data, api_response, err := client.FormatsApi.FormatsList(auth, &localVarOptionals)
 
@@ -67,10 +66,8 @@ func initFormatsList() {
 		},
 	}
 
-	formatsApiCmd.AddCommand(formatsList)
+	FormatsApiCmd.AddCommand(FormatsList)
 
-	
-
-	params.BindPFlags(formatsList.Flags())
+	AddFlag(FormatsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(FormatsList.Flags())
 }
-

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -19,25 +20,22 @@ func init() {
 	initGlossaryShow()
 	initGlossaryUpdate()
 
-	rootCmd.AddCommand(glossaryApiCmd)
+	rootCmd.AddCommand(GlossaryApiCmd)
 }
 
-var glossaryApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("glossaryapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("GlossaryApi", "Api"), "API"}, " "),
+var GlossaryApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Glossary"),
+	Short: "Glossary API",
 }
-
 
 func initGlossariesList() {
 	params := viper.New()
-	var glossariesList = &cobra.Command{
+	var GlossariesList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossariesList", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
 		Short: "List glossaries",
 		Long:  `List all glossaries the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -48,10 +46,17 @@ func initGlossariesList() {
 
 			localVarOptionals := api.GlossariesListOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.GlossaryApi.GlossariesList(auth, accountId, &localVarOptionals)
 
@@ -74,24 +79,22 @@ func initGlossariesList() {
 		},
 	}
 
-	glossaryApiCmd.AddCommand(glossariesList)
+	GlossaryApiCmd.AddCommand(GlossariesList)
 
-	
-	AddFlag(glossariesList, "string", "accountId", "", "Account ID", true)
-	
-
-	params.BindPFlags(glossariesList.Flags())
+	AddFlag(GlossariesList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossariesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(GlossariesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(GlossariesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(GlossariesList.Flags())
 }
-
 func initGlossaryCreate() {
 	params := viper.New()
-	var glossaryCreate = &cobra.Command{
+	var GlossaryCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryCreate", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
 		Short: "Create a glossary",
 		Long:  `Create a new glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -102,10 +105,11 @@ func initGlossaryCreate() {
 
 			localVarOptionals := api.GlossaryCreateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			glossaryCreateParameters := api.GlossaryCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryCreateParameters); err != nil {
@@ -114,8 +118,6 @@ func initGlossaryCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryCreateParameters)
 			}
-			
-
 			data, api_response, err := client.GlossaryApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -137,27 +139,22 @@ func initGlossaryCreate() {
 		},
 	}
 
-	glossaryApiCmd.AddCommand(glossaryCreate)
+	GlossaryApiCmd.AddCommand(GlossaryCreate)
 
-	
-	AddFlag(glossaryCreate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(glossaryCreate, "string", "data", "d", "payload in JSON format", true)
-	// glossaryCreateParameters := api.GlossaryCreateParameters{}
-	
+	AddFlag(GlossaryCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(glossaryCreate.Flags())
+	AddFlag(GlossaryCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(GlossaryCreate.Flags())
 }
-
 func initGlossaryDelete() {
 	params := viper.New()
-	var glossaryDelete = &cobra.Command{
+	var GlossaryDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryDelete", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
 		Short: "Delete a glossary",
 		Long:  `Delete an existing glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -168,13 +165,12 @@ func initGlossaryDelete() {
 
 			localVarOptionals := api.GlossaryDeleteOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.GlossaryApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
 
@@ -197,26 +193,21 @@ func initGlossaryDelete() {
 		},
 	}
 
-	glossaryApiCmd.AddCommand(glossaryDelete)
+	GlossaryApiCmd.AddCommand(GlossaryDelete)
 
-	
-	AddFlag(glossaryDelete, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(glossaryDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(glossaryDelete.Flags())
+	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(GlossaryDelete.Flags())
 }
-
 func initGlossaryShow() {
 	params := viper.New()
-	var glossaryShow = &cobra.Command{
+	var GlossaryShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryShow", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
 		Short: "Get a single glossary",
 		Long:  `Get details on a single glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -227,13 +218,12 @@ func initGlossaryShow() {
 
 			localVarOptionals := api.GlossaryShowOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.GlossaryApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
 
@@ -256,26 +246,21 @@ func initGlossaryShow() {
 		},
 	}
 
-	glossaryApiCmd.AddCommand(glossaryShow)
+	GlossaryApiCmd.AddCommand(GlossaryShow)
 
-	
-	AddFlag(glossaryShow, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(glossaryShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(glossaryShow.Flags())
+	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(GlossaryShow.Flags())
 }
-
 func initGlossaryUpdate() {
 	params := viper.New()
-	var glossaryUpdate = &cobra.Command{
+	var GlossaryUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryUpdate", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
 		Short: "Update a glossary",
 		Long:  `Update an existing glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -286,13 +271,12 @@ func initGlossaryUpdate() {
 
 			localVarOptionals := api.GlossaryUpdateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			glossaryUpdateParameters := api.GlossaryUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryUpdateParameters); err != nil {
@@ -301,8 +285,6 @@ func initGlossaryUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.GlossaryApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -324,17 +306,12 @@ func initGlossaryUpdate() {
 		},
 	}
 
-	glossaryApiCmd.AddCommand(glossaryUpdate)
+	GlossaryApiCmd.AddCommand(GlossaryUpdate)
 
-	
-	AddFlag(glossaryUpdate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(glossaryUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(glossaryUpdate, "string", "data", "d", "payload in JSON format", true)
-	// glossaryUpdateParameters := api.GlossaryUpdateParameters{}
-	
+	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GlossaryUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(glossaryUpdate.Flags())
+	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(GlossaryUpdate.Flags())
 }
-

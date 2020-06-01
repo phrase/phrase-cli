@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -19,25 +20,22 @@ func init() {
 	initProjectUpdate()
 	initProjectsList()
 
-	rootCmd.AddCommand(projectsApiCmd)
+	rootCmd.AddCommand(ProjectsApiCmd)
 }
 
-var projectsApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("projectsapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("ProjectsApi", "Api"), "API"}, " "),
+var ProjectsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Projects"),
+	Short: "Projects API",
 }
-
 
 func initProjectCreate() {
 	params := viper.New()
-	var projectCreate = &cobra.Command{
+	var ProjectCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectCreate", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
 		Short: "Create a project",
 		Long:  `Create a new project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -48,7 +46,9 @@ func initProjectCreate() {
 
 			localVarOptionals := api.ProjectCreateOpts{}
 
-			
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
 			projectCreateParameters := api.ProjectCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &projectCreateParameters); err != nil {
@@ -57,8 +57,6 @@ func initProjectCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", projectCreateParameters)
 			}
-			
-
 			data, api_response, err := client.ProjectsApi.ProjectCreate(auth, projectCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -80,25 +78,21 @@ func initProjectCreate() {
 		},
 	}
 
-	projectsApiCmd.AddCommand(projectCreate)
+	ProjectsApiCmd.AddCommand(ProjectCreate)
 
-	
-	AddFlag(projectCreate, "string", "data", "d", "payload in JSON format", true)
-	// projectCreateParameters := api.ProjectCreateParameters{}
-	
+	AddFlag(ProjectCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(projectCreate.Flags())
+	AddFlag(ProjectCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ProjectCreate.Flags())
 }
-
 func initProjectDelete() {
 	params := viper.New()
-	var projectDelete = &cobra.Command{
+	var ProjectDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectDelete", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
 		Short: "Delete a project",
 		Long:  `Delete an existing project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -109,10 +103,11 @@ func initProjectDelete() {
 
 			localVarOptionals := api.ProjectDeleteOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ProjectsApi.ProjectDelete(auth, id, &localVarOptionals)
 
@@ -135,24 +130,20 @@ func initProjectDelete() {
 		},
 	}
 
-	projectsApiCmd.AddCommand(projectDelete)
+	ProjectsApiCmd.AddCommand(ProjectDelete)
 
-	
-	AddFlag(projectDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(projectDelete.Flags())
+	AddFlag(ProjectDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ProjectDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ProjectDelete.Flags())
 }
-
 func initProjectShow() {
 	params := viper.New()
-	var projectShow = &cobra.Command{
+	var ProjectShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectShow", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
 		Short: "Get a single project",
 		Long:  `Get details on a single project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -163,10 +154,11 @@ func initProjectShow() {
 
 			localVarOptionals := api.ProjectShowOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ProjectsApi.ProjectShow(auth, id, &localVarOptionals)
 
@@ -189,24 +181,20 @@ func initProjectShow() {
 		},
 	}
 
-	projectsApiCmd.AddCommand(projectShow)
+	ProjectsApiCmd.AddCommand(ProjectShow)
 
-	
-	AddFlag(projectShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(projectShow.Flags())
+	AddFlag(ProjectShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ProjectShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ProjectShow.Flags())
 }
-
 func initProjectUpdate() {
 	params := viper.New()
-	var projectUpdate = &cobra.Command{
+	var ProjectUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectUpdate", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
 		Short: "Update a project",
 		Long:  `Update an existing project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -217,10 +205,11 @@ func initProjectUpdate() {
 
 			localVarOptionals := api.ProjectUpdateOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			projectUpdateParameters := api.ProjectUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &projectUpdateParameters); err != nil {
@@ -229,8 +218,6 @@ func initProjectUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", projectUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.ProjectsApi.ProjectUpdate(auth, id, projectUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -252,27 +239,22 @@ func initProjectUpdate() {
 		},
 	}
 
-	projectsApiCmd.AddCommand(projectUpdate)
+	ProjectsApiCmd.AddCommand(ProjectUpdate)
 
-	
-	AddFlag(projectUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(projectUpdate, "string", "data", "d", "payload in JSON format", true)
-	// projectUpdateParameters := api.ProjectUpdateParameters{}
-	
+	AddFlag(ProjectUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ProjectUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(projectUpdate.Flags())
+	AddFlag(ProjectUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ProjectUpdate.Flags())
 }
-
 func initProjectsList() {
 	params := viper.New()
-	var projectsList = &cobra.Command{
+	var ProjectsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectsList", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
 		Short: "List projects",
 		Long:  `List all projects the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -282,8 +264,15 @@ func initProjectsList() {
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.ProjectsListOpts{}
-
-			
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
 			data, api_response, err := client.ProjectsApi.ProjectsList(auth, &localVarOptionals)
 
@@ -306,10 +295,10 @@ func initProjectsList() {
 		},
 	}
 
-	projectsApiCmd.AddCommand(projectsList)
+	ProjectsApiCmd.AddCommand(ProjectsList)
 
-	
-
-	params.BindPFlags(projectsList.Flags())
+	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(ProjectsList.Flags())
 }
-

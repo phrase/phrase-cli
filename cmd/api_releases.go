@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -20,25 +21,22 @@ func init() {
 	initReleaseUpdate()
 	initReleasesList()
 
-	rootCmd.AddCommand(releasesApiCmd)
+	rootCmd.AddCommand(ReleasesApiCmd)
 }
 
-var releasesApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("releasesapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("ReleasesApi", "Api"), "API"}, " "),
+var ReleasesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Releases"),
+	Short: "Releases API",
 }
-
 
 func initReleaseCreate() {
 	params := viper.New()
-	var releaseCreate = &cobra.Command{
+	var ReleaseCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleaseCreate", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
 		Short: "Create a release",
 		Long:  `Create a new release.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -49,13 +47,12 @@ func initReleaseCreate() {
 
 			localVarOptionals := api.ReleaseCreateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			distributionId := params.GetString("distributionId")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
 
 			releaseCreateParameters := api.ReleaseCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &releaseCreateParameters); err != nil {
@@ -64,8 +61,6 @@ func initReleaseCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", releaseCreateParameters)
 			}
-			
-
 			data, api_response, err := client.ReleasesApi.ReleaseCreate(auth, accountId, distributionId, releaseCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -87,29 +82,23 @@ func initReleaseCreate() {
 		},
 	}
 
-	releasesApiCmd.AddCommand(releaseCreate)
+	ReleasesApiCmd.AddCommand(ReleaseCreate)
 
-	
-	AddFlag(releaseCreate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(releaseCreate, "string", "distributionId", "", "Distribution ID", true)
-	
-	AddFlag(releaseCreate, "string", "data", "d", "payload in JSON format", true)
-	// releaseCreateParameters := api.ReleaseCreateParameters{}
-	
+	AddFlag(ReleaseCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(ReleaseCreate, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
+	AddFlag(ReleaseCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(releaseCreate.Flags())
+	AddFlag(ReleaseCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ReleaseCreate.Flags())
 }
-
 func initReleaseDelete() {
 	params := viper.New()
-	var releaseDelete = &cobra.Command{
+	var ReleaseDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleaseDelete", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
 		Short: "Delete a release",
 		Long:  `Delete an existing release.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -120,16 +109,13 @@ func initReleaseDelete() {
 
 			localVarOptionals := api.ReleaseDeleteOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			distributionId := params.GetString("distributionId")
-
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ReleasesApi.ReleaseDelete(auth, accountId, distributionId, id, &localVarOptionals)
 
@@ -152,28 +138,22 @@ func initReleaseDelete() {
 		},
 	}
 
-	releasesApiCmd.AddCommand(releaseDelete)
+	ReleasesApiCmd.AddCommand(ReleaseDelete)
 
-	
-	AddFlag(releaseDelete, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(releaseDelete, "string", "distributionId", "", "Distribution ID", true)
-	
-	AddFlag(releaseDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(releaseDelete.Flags())
+	AddFlag(ReleaseDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(ReleaseDelete, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
+	AddFlag(ReleaseDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ReleaseDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ReleaseDelete.Flags())
 }
-
 func initReleasePublish() {
 	params := viper.New()
-	var releasePublish = &cobra.Command{
+	var ReleasePublish = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleasePublish", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
 		Short: "Publish a release",
 		Long:  `Publish a release for production.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -184,16 +164,13 @@ func initReleasePublish() {
 
 			localVarOptionals := api.ReleasePublishOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			distributionId := params.GetString("distributionId")
-
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ReleasesApi.ReleasePublish(auth, accountId, distributionId, id, &localVarOptionals)
 
@@ -216,28 +193,22 @@ func initReleasePublish() {
 		},
 	}
 
-	releasesApiCmd.AddCommand(releasePublish)
+	ReleasesApiCmd.AddCommand(ReleasePublish)
 
-	
-	AddFlag(releasePublish, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(releasePublish, "string", "distributionId", "", "Distribution ID", true)
-	
-	AddFlag(releasePublish, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(releasePublish.Flags())
+	AddFlag(ReleasePublish, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(ReleasePublish, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
+	AddFlag(ReleasePublish, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ReleasePublish, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ReleasePublish.Flags())
 }
-
 func initReleaseShow() {
 	params := viper.New()
-	var releaseShow = &cobra.Command{
+	var ReleaseShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleaseShow", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
 		Short: "Get a single release",
 		Long:  `Get details on a single release.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -248,16 +219,13 @@ func initReleaseShow() {
 
 			localVarOptionals := api.ReleaseShowOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			distributionId := params.GetString("distributionId")
-
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ReleasesApi.ReleaseShow(auth, accountId, distributionId, id, &localVarOptionals)
 
@@ -280,28 +248,22 @@ func initReleaseShow() {
 		},
 	}
 
-	releasesApiCmd.AddCommand(releaseShow)
+	ReleasesApiCmd.AddCommand(ReleaseShow)
 
-	
-	AddFlag(releaseShow, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(releaseShow, "string", "distributionId", "", "Distribution ID", true)
-	
-	AddFlag(releaseShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(releaseShow.Flags())
+	AddFlag(ReleaseShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(ReleaseShow, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
+	AddFlag(ReleaseShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ReleaseShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ReleaseShow.Flags())
 }
-
 func initReleaseUpdate() {
 	params := viper.New()
-	var releaseUpdate = &cobra.Command{
+	var ReleaseUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleaseUpdate", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
 		Short: "Update a release",
 		Long:  `Update an existing release.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -312,16 +274,13 @@ func initReleaseUpdate() {
 
 			localVarOptionals := api.ReleaseUpdateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			distributionId := params.GetString("distributionId")
-
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			releaseUpdateParameters := api.ReleaseUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &releaseUpdateParameters); err != nil {
@@ -330,8 +289,6 @@ func initReleaseUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", releaseUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.ReleasesApi.ReleaseUpdate(auth, accountId, distributionId, id, releaseUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -353,31 +310,24 @@ func initReleaseUpdate() {
 		},
 	}
 
-	releasesApiCmd.AddCommand(releaseUpdate)
+	ReleasesApiCmd.AddCommand(ReleaseUpdate)
 
-	
-	AddFlag(releaseUpdate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(releaseUpdate, "string", "distributionId", "", "Distribution ID", true)
-	
-	AddFlag(releaseUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(releaseUpdate, "string", "data", "d", "payload in JSON format", true)
-	// releaseUpdateParameters := api.ReleaseUpdateParameters{}
-	
+	AddFlag(ReleaseUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(ReleaseUpdate, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
+	AddFlag(ReleaseUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ReleaseUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(releaseUpdate.Flags())
+	AddFlag(ReleaseUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ReleaseUpdate.Flags())
 }
-
 func initReleasesList() {
 	params := viper.New()
-	var releasesList = &cobra.Command{
+	var ReleasesList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleasesList", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
 		Short: "List releases",
 		Long:  `List all releases for the given distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -388,13 +338,18 @@ func initReleasesList() {
 
 			localVarOptionals := api.ReleasesListOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
-			distributionId := params.GetString("distributionId")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
 
 			data, api_response, err := client.ReleasesApi.ReleasesList(auth, accountId, distributionId, &localVarOptionals)
 
@@ -417,14 +372,12 @@ func initReleasesList() {
 		},
 	}
 
-	releasesApiCmd.AddCommand(releasesList)
+	ReleasesApiCmd.AddCommand(ReleasesList)
 
-	
-	AddFlag(releasesList, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(releasesList, "string", "distributionId", "", "Distribution ID", true)
-	
-
-	params.BindPFlags(releasesList.Flags())
+	AddFlag(ReleasesList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(ReleasesList, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
+	AddFlag(ReleasesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(ReleasesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(ReleasesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(ReleasesList.Flags())
 }
-

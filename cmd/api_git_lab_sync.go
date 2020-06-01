@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -21,25 +22,22 @@ func init() {
 	initGitlabSyncShow()
 	initGitlabSyncUpdate()
 
-	rootCmd.AddCommand(gitLabSyncApiCmd)
+	rootCmd.AddCommand(GitLabSyncApiCmd)
 }
 
-var gitLabSyncApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("gitlabsyncapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("GitLabSyncApi", "Api"), "API"}, " "),
+var GitLabSyncApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("GitLabSync"),
+	Short: "GitLabSync API",
 }
-
 
 func initGitlabSyncDelete() {
 	params := viper.New()
-	var gitlabSyncDelete = &cobra.Command{
+	var GitlabSyncDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncDelete", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
 		Short: "Delete single Sync Setting",
 		Long:  `Deletes a single GitLab Sync Setting.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -50,10 +48,14 @@ func initGitlabSyncDelete() {
 
 			localVarOptionals := api.GitlabSyncDeleteOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("accountId")) {
+				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncDelete(auth, id, &localVarOptionals)
 
@@ -76,24 +78,21 @@ func initGitlabSyncDelete() {
 		},
 	}
 
-	gitLabSyncApiCmd.AddCommand(gitlabSyncDelete)
+	GitLabSyncApiCmd.AddCommand(GitlabSyncDelete)
 
-	
-	AddFlag(gitlabSyncDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(gitlabSyncDelete.Flags())
+	AddFlag(GitlabSyncDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GitlabSyncDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(GitlabSyncDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+	params.BindPFlags(GitlabSyncDelete.Flags())
 }
-
 func initGitlabSyncExport() {
 	params := viper.New()
-	var gitlabSyncExport = &cobra.Command{
+	var GitlabSyncExport = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncExport", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
 		Short: "Export from Phrase to GitLab",
 		Long:  `Export translations from Phrase to GitLab according to the .phraseapp.yml file within the GitLab repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -104,10 +103,11 @@ func initGitlabSyncExport() {
 
 			localVarOptionals := api.GitlabSyncExportOpts{}
 
-			
-			gitlabSyncId := params.GetString("gitlabSyncId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
 
 			gitlabSyncExportParameters := api.GitlabSyncExportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncExportParameters); err != nil {
@@ -116,8 +116,6 @@ func initGitlabSyncExport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", gitlabSyncExportParameters)
 			}
-			
-
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncExport(auth, gitlabSyncId, gitlabSyncExportParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -139,27 +137,22 @@ func initGitlabSyncExport() {
 		},
 	}
 
-	gitLabSyncApiCmd.AddCommand(gitlabSyncExport)
+	GitLabSyncApiCmd.AddCommand(GitlabSyncExport)
 
-	
-	AddFlag(gitlabSyncExport, "string", "gitlabSyncId", "", "Gitlab Sync ID", true)
-	
-	AddFlag(gitlabSyncExport, "string", "data", "d", "payload in JSON format", true)
-	// gitlabSyncExportParameters := api.GitlabSyncExportParameters{}
-	
+	AddFlag(GitlabSyncExport, "string", helpers.ToSnakeCase("GitlabSyncId"), "", "Gitlab Sync ID", true)
+	AddFlag(GitlabSyncExport, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(gitlabSyncExport.Flags())
+	AddFlag(GitlabSyncExport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(GitlabSyncExport.Flags())
 }
-
 func initGitlabSyncHistory() {
 	params := viper.New()
-	var gitlabSyncHistory = &cobra.Command{
+	var GitlabSyncHistory = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncHistory", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
 		Short: "History of single Sync Setting",
 		Long:  `List history for a single Sync Setting.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -170,10 +163,20 @@ func initGitlabSyncHistory() {
 
 			localVarOptionals := api.GitlabSyncHistoryOpts{}
 
-			
-			gitlabSyncId := params.GetString("gitlabSyncId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("accountId")) {
+				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
+			}
 
-			
+			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncHistory(auth, gitlabSyncId, &localVarOptionals)
 
@@ -196,24 +199,23 @@ func initGitlabSyncHistory() {
 		},
 	}
 
-	gitLabSyncApiCmd.AddCommand(gitlabSyncHistory)
+	GitLabSyncApiCmd.AddCommand(GitlabSyncHistory)
 
-	
-	AddFlag(gitlabSyncHistory, "string", "gitlabSyncId", "", "Gitlab Sync ID", true)
-	
-
-	params.BindPFlags(gitlabSyncHistory.Flags())
+	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("GitlabSyncId"), "", "Gitlab Sync ID", true)
+	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(GitlabSyncHistory, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(GitlabSyncHistory, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+	params.BindPFlags(GitlabSyncHistory.Flags())
 }
-
 func initGitlabSyncImport() {
 	params := viper.New()
-	var gitlabSyncImport = &cobra.Command{
+	var GitlabSyncImport = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncImport", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
 		Short: "Import from GitLab to Phrase",
 		Long:  `Import translations from GitLab to Phrase according to the .phraseapp.yml file within the GitLab repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -224,10 +226,11 @@ func initGitlabSyncImport() {
 
 			localVarOptionals := api.GitlabSyncImportOpts{}
 
-			
-			gitlabSyncId := params.GetString("gitlabSyncId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
 
 			gitlabSyncImportParameters := api.GitlabSyncImportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncImportParameters); err != nil {
@@ -236,8 +239,6 @@ func initGitlabSyncImport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", gitlabSyncImportParameters)
 			}
-			
-
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncImport(auth, gitlabSyncId, gitlabSyncImportParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -259,27 +260,22 @@ func initGitlabSyncImport() {
 		},
 	}
 
-	gitLabSyncApiCmd.AddCommand(gitlabSyncImport)
+	GitLabSyncApiCmd.AddCommand(GitlabSyncImport)
 
-	
-	AddFlag(gitlabSyncImport, "string", "gitlabSyncId", "", "Gitlab Sync ID", true)
-	
-	AddFlag(gitlabSyncImport, "string", "data", "d", "payload in JSON format", true)
-	// gitlabSyncImportParameters := api.GitlabSyncImportParameters{}
-	
+	AddFlag(GitlabSyncImport, "string", helpers.ToSnakeCase("GitlabSyncId"), "", "Gitlab Sync ID", true)
+	AddFlag(GitlabSyncImport, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(gitlabSyncImport.Flags())
+	AddFlag(GitlabSyncImport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(GitlabSyncImport.Flags())
 }
-
 func initGitlabSyncList() {
 	params := viper.New()
-	var gitlabSyncList = &cobra.Command{
+	var GitlabSyncList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncList", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
 		Short: "List GitLab syncs",
 		Long:  `List all GitLab Sync Settings for which synchronisation with Phrase and GitLab is activated.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -289,8 +285,12 @@ func initGitlabSyncList() {
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.GitlabSyncListOpts{}
-
-			
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("accountId")) {
+				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
+			}
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncList(auth, &localVarOptionals)
 
@@ -313,22 +313,20 @@ func initGitlabSyncList() {
 		},
 	}
 
-	gitLabSyncApiCmd.AddCommand(gitlabSyncList)
+	GitLabSyncApiCmd.AddCommand(GitlabSyncList)
 
-	
-
-	params.BindPFlags(gitlabSyncList.Flags())
+	AddFlag(GitlabSyncList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(GitlabSyncList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+	params.BindPFlags(GitlabSyncList.Flags())
 }
-
 func initGitlabSyncShow() {
 	params := viper.New()
-	var gitlabSyncShow = &cobra.Command{
+	var GitlabSyncShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncShow", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
 		Short: "Get single Sync Setting",
 		Long:  `Shows a single GitLab Sync Setting.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -339,10 +337,14 @@ func initGitlabSyncShow() {
 
 			localVarOptionals := api.GitlabSyncShowOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("accountId")) {
+				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncShow(auth, id, &localVarOptionals)
 
@@ -365,24 +367,21 @@ func initGitlabSyncShow() {
 		},
 	}
 
-	gitLabSyncApiCmd.AddCommand(gitlabSyncShow)
+	GitLabSyncApiCmd.AddCommand(GitlabSyncShow)
 
-	
-	AddFlag(gitlabSyncShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(gitlabSyncShow.Flags())
+	AddFlag(GitlabSyncShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GitlabSyncShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(GitlabSyncShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+	params.BindPFlags(GitlabSyncShow.Flags())
 }
-
 func initGitlabSyncUpdate() {
 	params := viper.New()
-	var gitlabSyncUpdate = &cobra.Command{
+	var GitlabSyncUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncUpdate", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
 		Short: "Update single Sync Setting",
 		Long:  `Updates a single GitLab Sync Setting.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -393,10 +392,23 @@ func initGitlabSyncUpdate() {
 
 			localVarOptionals := api.GitlabSyncUpdateOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("accountId")) {
+				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("phraseProjectCode")) {
+				localVarOptionals.PhraseProjectCode = optional.NewString(params.GetString(helpers.ToSnakeCase("PhraseProjectCode")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("gitlabProjectId")) {
+				localVarOptionals.GitlabProjectId = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("GitlabProjectId")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("gitlabBranchName")) {
+				localVarOptionals.GitlabBranchName = optional.NewString(params.GetString(helpers.ToSnakeCase("GitlabBranchName")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncUpdate(auth, id, &localVarOptionals)
 
@@ -419,12 +431,13 @@ func initGitlabSyncUpdate() {
 		},
 	}
 
-	gitLabSyncApiCmd.AddCommand(gitlabSyncUpdate)
+	GitLabSyncApiCmd.AddCommand(GitlabSyncUpdate)
 
-	
-	AddFlag(gitlabSyncUpdate, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(gitlabSyncUpdate.Flags())
+	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("PhraseProjectCode"), "", "Code of the related Phrase Project.", false)
+	AddFlag(GitlabSyncUpdate, "int32", helpers.ToSnakeCase("GitlabProjectId"), "", "ID of the related GitLab Project.", false)
+	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("GitlabBranchName"), "", "Name of the GitLab Branch.", false)
+	params.BindPFlags(GitlabSyncUpdate.Flags())
 }
-

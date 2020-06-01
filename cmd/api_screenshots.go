@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -19,25 +20,22 @@ func init() {
 	initScreenshotUpdate()
 	initScreenshotsList()
 
-	rootCmd.AddCommand(screenshotsApiCmd)
+	rootCmd.AddCommand(ScreenshotsApiCmd)
 }
 
-var screenshotsApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("screenshotsapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("ScreenshotsApi", "Api"), "API"}, " "),
+var ScreenshotsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Screenshots"),
+	Short: "Screenshots API",
 }
-
 
 func initScreenshotCreate() {
 	params := viper.New()
-	var screenshotCreate = &cobra.Command{
+	var ScreenshotCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotCreate", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
 		Short: "Create a screenshot",
 		Long:  `Create a new screenshot.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -48,10 +46,11 @@ func initScreenshotCreate() {
 
 			localVarOptionals := api.ScreenshotCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			screenshotCreateParameters := api.ScreenshotCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotCreateParameters); err != nil {
@@ -60,8 +59,6 @@ func initScreenshotCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", screenshotCreateParameters)
 			}
-			
-
 			data, api_response, err := client.ScreenshotsApi.ScreenshotCreate(auth, projectId, screenshotCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -83,27 +80,22 @@ func initScreenshotCreate() {
 		},
 	}
 
-	screenshotsApiCmd.AddCommand(screenshotCreate)
+	ScreenshotsApiCmd.AddCommand(ScreenshotCreate)
 
-	
-	AddFlag(screenshotCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(screenshotCreate, "string", "data", "d", "payload in JSON format", true)
-	// screenshotCreateParameters := api.ScreenshotCreateParameters{}
-	
+	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(ScreenshotCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(screenshotCreate.Flags())
+	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ScreenshotCreate.Flags())
 }
-
 func initScreenshotDelete() {
 	params := viper.New()
-	var screenshotDelete = &cobra.Command{
+	var ScreenshotDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotDelete", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
 		Short: "Delete a screenshot",
 		Long:  `Delete an existing screenshot.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -114,13 +106,12 @@ func initScreenshotDelete() {
 
 			localVarOptionals := api.ScreenshotDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotDelete(auth, projectId, id, &localVarOptionals)
 
@@ -143,26 +134,21 @@ func initScreenshotDelete() {
 		},
 	}
 
-	screenshotsApiCmd.AddCommand(screenshotDelete)
+	ScreenshotsApiCmd.AddCommand(ScreenshotDelete)
 
-	
-	AddFlag(screenshotDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(screenshotDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(screenshotDelete.Flags())
+	AddFlag(ScreenshotDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(ScreenshotDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ScreenshotDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ScreenshotDelete.Flags())
 }
-
 func initScreenshotShow() {
 	params := viper.New()
-	var screenshotShow = &cobra.Command{
+	var ScreenshotShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotShow", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
 		Short: "Get a single screenshot",
 		Long:  `Get details on a single screenshot for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -173,13 +159,12 @@ func initScreenshotShow() {
 
 			localVarOptionals := api.ScreenshotShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotShow(auth, projectId, id, &localVarOptionals)
 
@@ -202,26 +187,21 @@ func initScreenshotShow() {
 		},
 	}
 
-	screenshotsApiCmd.AddCommand(screenshotShow)
+	ScreenshotsApiCmd.AddCommand(ScreenshotShow)
 
-	
-	AddFlag(screenshotShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(screenshotShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(screenshotShow.Flags())
+	AddFlag(ScreenshotShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(ScreenshotShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ScreenshotShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ScreenshotShow.Flags())
 }
-
 func initScreenshotUpdate() {
 	params := viper.New()
-	var screenshotUpdate = &cobra.Command{
+	var ScreenshotUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotUpdate", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
 		Short: "Update a screenshot",
 		Long:  `Update an existing screenshot.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -232,13 +212,12 @@ func initScreenshotUpdate() {
 
 			localVarOptionals := api.ScreenshotUpdateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			screenshotUpdateParameters := api.ScreenshotUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotUpdateParameters); err != nil {
@@ -247,8 +226,6 @@ func initScreenshotUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", screenshotUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.ScreenshotsApi.ScreenshotUpdate(auth, projectId, id, screenshotUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -270,29 +247,23 @@ func initScreenshotUpdate() {
 		},
 	}
 
-	screenshotsApiCmd.AddCommand(screenshotUpdate)
+	ScreenshotsApiCmd.AddCommand(ScreenshotUpdate)
 
-	
-	AddFlag(screenshotUpdate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(screenshotUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(screenshotUpdate, "string", "data", "d", "payload in JSON format", true)
-	// screenshotUpdateParameters := api.ScreenshotUpdateParameters{}
-	
+	AddFlag(ScreenshotUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(ScreenshotUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ScreenshotUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(screenshotUpdate.Flags())
+	AddFlag(ScreenshotUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ScreenshotUpdate.Flags())
 }
-
 func initScreenshotsList() {
 	params := viper.New()
-	var screenshotsList = &cobra.Command{
+	var ScreenshotsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotsList", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
 		Short: "List screenshots",
 		Long:  `List all screenshots for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -303,10 +274,17 @@ func initScreenshotsList() {
 
 			localVarOptionals := api.ScreenshotsListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotsList(auth, projectId, &localVarOptionals)
 
@@ -329,12 +307,11 @@ func initScreenshotsList() {
 		},
 	}
 
-	screenshotsApiCmd.AddCommand(screenshotsList)
+	ScreenshotsApiCmd.AddCommand(ScreenshotsList)
 
-	
-	AddFlag(screenshotsList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(screenshotsList.Flags())
+	AddFlag(ScreenshotsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(ScreenshotsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(ScreenshotsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(ScreenshotsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(ScreenshotsList.Flags())
 }
-

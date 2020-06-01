@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -19,25 +20,22 @@ func init() {
 	initStyleguideUpdate()
 	initStyleguidesList()
 
-	rootCmd.AddCommand(styleGuidesApiCmd)
+	rootCmd.AddCommand(StyleGuidesApiCmd)
 }
 
-var styleGuidesApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("styleguidesapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("StyleGuidesApi", "Api"), "API"}, " "),
+var StyleGuidesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("StyleGuides"),
+	Short: "StyleGuides API",
 }
-
 
 func initStyleguideCreate() {
 	params := viper.New()
-	var styleguideCreate = &cobra.Command{
+	var StyleguideCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguideCreate", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
 		Short: "Create a style guide",
 		Long:  `Create a new style guide.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -48,10 +46,11 @@ func initStyleguideCreate() {
 
 			localVarOptionals := api.StyleguideCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			styleguideCreateParameters := api.StyleguideCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &styleguideCreateParameters); err != nil {
@@ -60,8 +59,6 @@ func initStyleguideCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", styleguideCreateParameters)
 			}
-			
-
 			data, api_response, err := client.StyleGuidesApi.StyleguideCreate(auth, projectId, styleguideCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -83,27 +80,22 @@ func initStyleguideCreate() {
 		},
 	}
 
-	styleGuidesApiCmd.AddCommand(styleguideCreate)
+	StyleGuidesApiCmd.AddCommand(StyleguideCreate)
 
-	
-	AddFlag(styleguideCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(styleguideCreate, "string", "data", "d", "payload in JSON format", true)
-	// styleguideCreateParameters := api.StyleguideCreateParameters{}
-	
+	AddFlag(StyleguideCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(StyleguideCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(styleguideCreate.Flags())
+	AddFlag(StyleguideCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(StyleguideCreate.Flags())
 }
-
 func initStyleguideDelete() {
 	params := viper.New()
-	var styleguideDelete = &cobra.Command{
+	var StyleguideDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguideDelete", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
 		Short: "Delete a style guide",
 		Long:  `Delete an existing style guide.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -114,13 +106,12 @@ func initStyleguideDelete() {
 
 			localVarOptionals := api.StyleguideDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.StyleGuidesApi.StyleguideDelete(auth, projectId, id, &localVarOptionals)
 
@@ -143,26 +134,21 @@ func initStyleguideDelete() {
 		},
 	}
 
-	styleGuidesApiCmd.AddCommand(styleguideDelete)
+	StyleGuidesApiCmd.AddCommand(StyleguideDelete)
 
-	
-	AddFlag(styleguideDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(styleguideDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(styleguideDelete.Flags())
+	AddFlag(StyleguideDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(StyleguideDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(StyleguideDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(StyleguideDelete.Flags())
 }
-
 func initStyleguideShow() {
 	params := viper.New()
-	var styleguideShow = &cobra.Command{
+	var StyleguideShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguideShow", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
 		Short: "Get a single style guide",
 		Long:  `Get details on a single style guide.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -173,13 +159,12 @@ func initStyleguideShow() {
 
 			localVarOptionals := api.StyleguideShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.StyleGuidesApi.StyleguideShow(auth, projectId, id, &localVarOptionals)
 
@@ -202,26 +187,21 @@ func initStyleguideShow() {
 		},
 	}
 
-	styleGuidesApiCmd.AddCommand(styleguideShow)
+	StyleGuidesApiCmd.AddCommand(StyleguideShow)
 
-	
-	AddFlag(styleguideShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(styleguideShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(styleguideShow.Flags())
+	AddFlag(StyleguideShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(StyleguideShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(StyleguideShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(StyleguideShow.Flags())
 }
-
 func initStyleguideUpdate() {
 	params := viper.New()
-	var styleguideUpdate = &cobra.Command{
+	var StyleguideUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguideUpdate", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
 		Short: "Update a style guide",
 		Long:  `Update an existing style guide.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -232,13 +212,12 @@ func initStyleguideUpdate() {
 
 			localVarOptionals := api.StyleguideUpdateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			styleguideUpdateParameters := api.StyleguideUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &styleguideUpdateParameters); err != nil {
@@ -247,8 +226,6 @@ func initStyleguideUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", styleguideUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.StyleGuidesApi.StyleguideUpdate(auth, projectId, id, styleguideUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -270,29 +247,23 @@ func initStyleguideUpdate() {
 		},
 	}
 
-	styleGuidesApiCmd.AddCommand(styleguideUpdate)
+	StyleGuidesApiCmd.AddCommand(StyleguideUpdate)
 
-	
-	AddFlag(styleguideUpdate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(styleguideUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(styleguideUpdate, "string", "data", "d", "payload in JSON format", true)
-	// styleguideUpdateParameters := api.StyleguideUpdateParameters{}
-	
+	AddFlag(StyleguideUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(StyleguideUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(StyleguideUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(styleguideUpdate.Flags())
+	AddFlag(StyleguideUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(StyleguideUpdate.Flags())
 }
-
 func initStyleguidesList() {
 	params := viper.New()
-	var styleguidesList = &cobra.Command{
+	var StyleguidesList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguidesList", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
 		Short: "List style guides",
 		Long:  `List all styleguides for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -303,10 +274,17 @@ func initStyleguidesList() {
 
 			localVarOptionals := api.StyleguidesListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.StyleGuidesApi.StyleguidesList(auth, projectId, &localVarOptionals)
 
@@ -329,12 +307,11 @@ func initStyleguidesList() {
 		},
 	}
 
-	styleGuidesApiCmd.AddCommand(styleguidesList)
+	StyleGuidesApiCmd.AddCommand(StyleguidesList)
 
-	
-	AddFlag(styleguidesList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(styleguidesList.Flags())
+	AddFlag(StyleguidesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(StyleguidesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(StyleguidesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(StyleguidesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(StyleguidesList.Flags())
 }
-

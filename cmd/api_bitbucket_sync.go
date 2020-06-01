@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -17,25 +18,22 @@ func init() {
 	initBitbucketSyncImport()
 	initBitbucketSyncsList()
 
-	rootCmd.AddCommand(bitbucketSyncApiCmd)
+	rootCmd.AddCommand(BitbucketSyncApiCmd)
 }
 
-var bitbucketSyncApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("bitbucketsyncapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("BitbucketSyncApi", "Api"), "API"}, " "),
+var BitbucketSyncApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("BitbucketSync"),
+	Short: "BitbucketSync API",
 }
-
 
 func initBitbucketSyncExport() {
 	params := viper.New()
-	var bitbucketSyncExport = &cobra.Command{
+	var BitbucketSyncExport = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BitbucketSyncExport", strings.TrimSuffix("BitbucketSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BitbucketSyncApi", "Api"), "s"))),
 		Short: "Export from Phrase to Bitbucket",
 		Long:  `Export translations from Phrase to Bitbucket according to the .phraseapp.yml file within the Bitbucket Repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -46,10 +44,11 @@ func initBitbucketSyncExport() {
 
 			localVarOptionals := api.BitbucketSyncExportOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			bitbucketSyncExportParameters := api.BitbucketSyncExportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &bitbucketSyncExportParameters); err != nil {
@@ -58,8 +57,6 @@ func initBitbucketSyncExport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", bitbucketSyncExportParameters)
 			}
-			
-
 			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncExport(auth, id, bitbucketSyncExportParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -81,27 +78,22 @@ func initBitbucketSyncExport() {
 		},
 	}
 
-	bitbucketSyncApiCmd.AddCommand(bitbucketSyncExport)
+	BitbucketSyncApiCmd.AddCommand(BitbucketSyncExport)
 
-	
-	AddFlag(bitbucketSyncExport, "string", "id", "", "ID", true)
-	
-	AddFlag(bitbucketSyncExport, "string", "data", "d", "payload in JSON format", true)
-	// bitbucketSyncExportParameters := api.BitbucketSyncExportParameters{}
-	
+	AddFlag(BitbucketSyncExport, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(BitbucketSyncExport, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(bitbucketSyncExport.Flags())
+	AddFlag(BitbucketSyncExport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BitbucketSyncExport.Flags())
 }
-
 func initBitbucketSyncImport() {
 	params := viper.New()
-	var bitbucketSyncImport = &cobra.Command{
+	var BitbucketSyncImport = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BitbucketSyncImport", strings.TrimSuffix("BitbucketSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BitbucketSyncApi", "Api"), "s"))),
 		Short: "Import to Phrase from Bitbucket",
 		Long:  `Import translations from Bitbucket to Phrase according to the .phraseapp.yml file within the Bitbucket repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -112,10 +104,11 @@ func initBitbucketSyncImport() {
 
 			localVarOptionals := api.BitbucketSyncImportOpts{}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			bitbucketSyncImportParameters := api.BitbucketSyncImportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &bitbucketSyncImportParameters); err != nil {
@@ -124,8 +117,6 @@ func initBitbucketSyncImport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", bitbucketSyncImportParameters)
 			}
-			
-
 			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncImport(auth, id, bitbucketSyncImportParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -147,27 +138,22 @@ func initBitbucketSyncImport() {
 		},
 	}
 
-	bitbucketSyncApiCmd.AddCommand(bitbucketSyncImport)
+	BitbucketSyncApiCmd.AddCommand(BitbucketSyncImport)
 
-	
-	AddFlag(bitbucketSyncImport, "string", "id", "", "ID", true)
-	
-	AddFlag(bitbucketSyncImport, "string", "data", "d", "payload in JSON format", true)
-	// bitbucketSyncImportParameters := api.BitbucketSyncImportParameters{}
-	
+	AddFlag(BitbucketSyncImport, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(BitbucketSyncImport, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(bitbucketSyncImport.Flags())
+	AddFlag(BitbucketSyncImport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BitbucketSyncImport.Flags())
 }
-
 func initBitbucketSyncsList() {
 	params := viper.New()
-	var bitbucketSyncsList = &cobra.Command{
+	var BitbucketSyncsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BitbucketSyncsList", strings.TrimSuffix("BitbucketSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BitbucketSyncApi", "Api"), "s"))),
 		Short: "List Bitbucket syncs",
 		Long:  `List all Bitbucket repositories for which synchronisation with Phrase is activated.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -177,8 +163,12 @@ func initBitbucketSyncsList() {
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.BitbucketSyncsListOpts{}
-
-			
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("accountId")) {
+				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
+			}
 
 			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncsList(auth, &localVarOptionals)
 
@@ -201,10 +191,9 @@ func initBitbucketSyncsList() {
 		},
 	}
 
-	bitbucketSyncApiCmd.AddCommand(bitbucketSyncsList)
+	BitbucketSyncApiCmd.AddCommand(BitbucketSyncsList)
 
-	
-
-	params.BindPFlags(bitbucketSyncsList.Flags())
+	AddFlag(BitbucketSyncsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(BitbucketSyncsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the project should be created in. Required if the requesting user is a member of multiple accounts.", false)
+	params.BindPFlags(BitbucketSyncsList.Flags())
 }
-

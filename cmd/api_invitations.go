@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -20,25 +21,22 @@ func init() {
 	initInvitationUpdate()
 	initInvitationsList()
 
-	rootCmd.AddCommand(invitationsApiCmd)
+	rootCmd.AddCommand(InvitationsApiCmd)
 }
 
-var invitationsApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("invitationsapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("InvitationsApi", "Api"), "API"}, " "),
+var InvitationsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Invitations"),
+	Short: "Invitations API",
 }
-
 
 func initInvitationCreate() {
 	params := viper.New()
-	var invitationCreate = &cobra.Command{
+	var InvitationCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationCreate", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
 		Short: "Create a new invitation",
 		Long:  `Invite a person to an account. Developers and translators need &lt;code&gt;project_ids&lt;/code&gt; and &lt;code&gt;locale_ids&lt;/code&gt; assigned to access them. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -49,10 +47,11 @@ func initInvitationCreate() {
 
 			localVarOptionals := api.InvitationCreateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			invitationCreateParameters := api.InvitationCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationCreateParameters); err != nil {
@@ -61,8 +60,6 @@ func initInvitationCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", invitationCreateParameters)
 			}
-			
-
 			data, api_response, err := client.InvitationsApi.InvitationCreate(auth, accountId, invitationCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -84,27 +81,22 @@ func initInvitationCreate() {
 		},
 	}
 
-	invitationsApiCmd.AddCommand(invitationCreate)
+	InvitationsApiCmd.AddCommand(InvitationCreate)
 
-	
-	AddFlag(invitationCreate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(invitationCreate, "string", "data", "d", "payload in JSON format", true)
-	// invitationCreateParameters := api.InvitationCreateParameters{}
-	
+	AddFlag(InvitationCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(InvitationCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(invitationCreate.Flags())
+	AddFlag(InvitationCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(InvitationCreate.Flags())
 }
-
 func initInvitationDelete() {
 	params := viper.New()
-	var invitationDelete = &cobra.Command{
+	var InvitationDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationDelete", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
 		Short: "Delete an invitation",
 		Long:  `Delete an existing invitation (must not be accepted yet). Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -115,13 +107,12 @@ func initInvitationDelete() {
 
 			localVarOptionals := api.InvitationDeleteOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.InvitationsApi.InvitationDelete(auth, accountId, id, &localVarOptionals)
 
@@ -144,26 +135,21 @@ func initInvitationDelete() {
 		},
 	}
 
-	invitationsApiCmd.AddCommand(invitationDelete)
+	InvitationsApiCmd.AddCommand(InvitationDelete)
 
-	
-	AddFlag(invitationDelete, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(invitationDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(invitationDelete.Flags())
+	AddFlag(InvitationDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(InvitationDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(InvitationDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(InvitationDelete.Flags())
 }
-
 func initInvitationResend() {
 	params := viper.New()
-	var invitationResend = &cobra.Command{
+	var InvitationResend = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationResend", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
 		Short: "Resend an invitation",
 		Long:  `Resend the invitation email (must not be accepted yet). Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -174,13 +160,12 @@ func initInvitationResend() {
 
 			localVarOptionals := api.InvitationResendOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.InvitationsApi.InvitationResend(auth, accountId, id, &localVarOptionals)
 
@@ -203,26 +188,21 @@ func initInvitationResend() {
 		},
 	}
 
-	invitationsApiCmd.AddCommand(invitationResend)
+	InvitationsApiCmd.AddCommand(InvitationResend)
 
-	
-	AddFlag(invitationResend, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(invitationResend, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(invitationResend.Flags())
+	AddFlag(InvitationResend, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(InvitationResend, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(InvitationResend, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(InvitationResend.Flags())
 }
-
 func initInvitationShow() {
 	params := viper.New()
-	var invitationShow = &cobra.Command{
+	var InvitationShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationShow", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
 		Short: "Get a single invitation",
 		Long:  `Get details on a single invitation. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -233,13 +213,12 @@ func initInvitationShow() {
 
 			localVarOptionals := api.InvitationShowOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.InvitationsApi.InvitationShow(auth, accountId, id, &localVarOptionals)
 
@@ -262,26 +241,21 @@ func initInvitationShow() {
 		},
 	}
 
-	invitationsApiCmd.AddCommand(invitationShow)
+	InvitationsApiCmd.AddCommand(InvitationShow)
 
-	
-	AddFlag(invitationShow, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(invitationShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(invitationShow.Flags())
+	AddFlag(InvitationShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(InvitationShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(InvitationShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(InvitationShow.Flags())
 }
-
 func initInvitationUpdate() {
 	params := viper.New()
-	var invitationUpdate = &cobra.Command{
+	var InvitationUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationUpdate", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
 		Short: "Update an invitation",
 		Long:  `Update an existing invitation (must not be accepted yet). The &lt;code&gt;email&lt;/code&gt; cannot be updated. Developers and translators need &lt;code&gt;project_ids&lt;/code&gt; and &lt;code&gt;locale_ids&lt;/code&gt; assigned to access them. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -292,13 +266,12 @@ func initInvitationUpdate() {
 
 			localVarOptionals := api.InvitationUpdateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			invitationUpdateParameters := api.InvitationUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateParameters); err != nil {
@@ -307,8 +280,6 @@ func initInvitationUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", invitationUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.InvitationsApi.InvitationUpdate(auth, accountId, id, invitationUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -330,29 +301,23 @@ func initInvitationUpdate() {
 		},
 	}
 
-	invitationsApiCmd.AddCommand(invitationUpdate)
+	InvitationsApiCmd.AddCommand(InvitationUpdate)
 
-	
-	AddFlag(invitationUpdate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(invitationUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(invitationUpdate, "string", "data", "d", "payload in JSON format", true)
-	// invitationUpdateParameters := api.InvitationUpdateParameters{}
-	
+	AddFlag(InvitationUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(InvitationUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(InvitationUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(invitationUpdate.Flags())
+	AddFlag(InvitationUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(InvitationUpdate.Flags())
 }
-
 func initInvitationsList() {
 	params := viper.New()
-	var invitationsList = &cobra.Command{
+	var InvitationsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationsList", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
 		Short: "List invitations",
 		Long:  `List invitations for an account. It will also list the accessible resources like projects and locales the invited user has access to. In case nothing is shown the default access from the role is used. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -363,10 +328,17 @@ func initInvitationsList() {
 
 			localVarOptionals := api.InvitationsListOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.InvitationsApi.InvitationsList(auth, accountId, &localVarOptionals)
 
@@ -389,12 +361,11 @@ func initInvitationsList() {
 		},
 	}
 
-	invitationsApiCmd.AddCommand(invitationsList)
+	InvitationsApiCmd.AddCommand(InvitationsList)
 
-	
-	AddFlag(invitationsList, "string", "accountId", "", "Account ID", true)
-	
-
-	params.BindPFlags(invitationsList.Flags())
+	AddFlag(InvitationsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(InvitationsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(InvitationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(InvitationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(InvitationsList.Flags())
 }
-

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -19,25 +20,22 @@ func init() {
 	initOrderShow()
 	initOrdersList()
 
-	rootCmd.AddCommand(ordersApiCmd)
+	rootCmd.AddCommand(OrdersApiCmd)
 }
 
-var ordersApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("ordersapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("OrdersApi", "Api"), "API"}, " "),
+var OrdersApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Orders"),
+	Short: "Orders API",
 }
-
 
 func initOrderConfirm() {
 	params := viper.New()
-	var orderConfirm = &cobra.Command{
+	var OrderConfirm = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrderConfirm", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
 		Short: "Confirm an order",
 		Long:  `Confirm an existing order and send it to the provider for translation. Same constraints as for create.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -48,13 +46,12 @@ func initOrderConfirm() {
 
 			localVarOptionals := api.OrderConfirmOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			orderConfirmParameters := api.OrderConfirmParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &orderConfirmParameters); err != nil {
@@ -63,8 +60,6 @@ func initOrderConfirm() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", orderConfirmParameters)
 			}
-			
-
 			data, api_response, err := client.OrdersApi.OrderConfirm(auth, projectId, id, orderConfirmParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -86,29 +81,23 @@ func initOrderConfirm() {
 		},
 	}
 
-	ordersApiCmd.AddCommand(orderConfirm)
+	OrdersApiCmd.AddCommand(OrderConfirm)
 
-	
-	AddFlag(orderConfirm, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(orderConfirm, "string", "id", "", "ID", true)
-	
-	AddFlag(orderConfirm, "string", "data", "d", "payload in JSON format", true)
-	// orderConfirmParameters := api.OrderConfirmParameters{}
-	
+	AddFlag(OrderConfirm, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(OrderConfirm, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(OrderConfirm, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(orderConfirm.Flags())
+	AddFlag(OrderConfirm, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(OrderConfirm.Flags())
 }
-
 func initOrderCreate() {
 	params := viper.New()
-	var orderCreate = &cobra.Command{
+	var OrderCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrderCreate", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
 		Short: "Create a new order",
 		Long:  `Create a new order. Access token scope must include &lt;code&gt;orders.create&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -119,10 +108,11 @@ func initOrderCreate() {
 
 			localVarOptionals := api.OrderCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			orderCreateParameters := api.OrderCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &orderCreateParameters); err != nil {
@@ -131,8 +121,6 @@ func initOrderCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", orderCreateParameters)
 			}
-			
-
 			data, api_response, err := client.OrdersApi.OrderCreate(auth, projectId, orderCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -154,27 +142,22 @@ func initOrderCreate() {
 		},
 	}
 
-	ordersApiCmd.AddCommand(orderCreate)
+	OrdersApiCmd.AddCommand(OrderCreate)
 
-	
-	AddFlag(orderCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(orderCreate, "string", "data", "d", "payload in JSON format", true)
-	// orderCreateParameters := api.OrderCreateParameters{}
-	
+	AddFlag(OrderCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(OrderCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(orderCreate.Flags())
+	AddFlag(OrderCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(OrderCreate.Flags())
 }
-
 func initOrderDelete() {
 	params := viper.New()
-	var orderDelete = &cobra.Command{
+	var OrderDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrderDelete", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
 		Short: "Cancel an order",
 		Long:  `Cancel an existing order. Must not yet be confirmed.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -185,13 +168,15 @@ func initOrderDelete() {
 
 			localVarOptionals := api.OrderDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.OrdersApi.OrderDelete(auth, projectId, id, &localVarOptionals)
 
@@ -214,26 +199,22 @@ func initOrderDelete() {
 		},
 	}
 
-	ordersApiCmd.AddCommand(orderDelete)
+	OrdersApiCmd.AddCommand(OrderDelete)
 
-	
-	AddFlag(orderDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(orderDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(orderDelete.Flags())
+	AddFlag(OrderDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(OrderDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(OrderDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(OrderDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(OrderDelete.Flags())
 }
-
 func initOrderShow() {
 	params := viper.New()
-	var orderShow = &cobra.Command{
+	var OrderShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrderShow", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
 		Short: "Get a single order",
 		Long:  `Get details on a single order.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -244,13 +225,15 @@ func initOrderShow() {
 
 			localVarOptionals := api.OrderShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.OrdersApi.OrderShow(auth, projectId, id, &localVarOptionals)
 
@@ -273,26 +256,22 @@ func initOrderShow() {
 		},
 	}
 
-	ordersApiCmd.AddCommand(orderShow)
+	OrdersApiCmd.AddCommand(OrderShow)
 
-	
-	AddFlag(orderShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(orderShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(orderShow.Flags())
+	AddFlag(OrderShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(OrderShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(OrderShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(OrderShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(OrderShow.Flags())
 }
-
 func initOrdersList() {
 	params := viper.New()
-	var ordersList = &cobra.Command{
+	var OrdersList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrdersList", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
 		Short: "List orders",
 		Long:  `List all orders for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -303,10 +282,20 @@ func initOrdersList() {
 
 			localVarOptionals := api.OrdersListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.OrdersApi.OrdersList(auth, projectId, &localVarOptionals)
 
@@ -329,12 +318,12 @@ func initOrdersList() {
 		},
 	}
 
-	ordersApiCmd.AddCommand(ordersList)
+	OrdersApiCmd.AddCommand(OrdersList)
 
-	
-	AddFlag(ordersList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(ordersList.Flags())
+	AddFlag(OrdersList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(OrdersList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(OrdersList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(OrdersList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(OrdersList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(OrdersList.Flags())
 }
-

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -19,25 +20,22 @@ func init() {
 	initBlacklistedKeyUpdate()
 	initBlacklistedKeysList()
 
-	rootCmd.AddCommand(blacklistedKeysApiCmd)
+	rootCmd.AddCommand(BlacklistedKeysApiCmd)
 }
 
-var blacklistedKeysApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("blacklistedkeysapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("BlacklistedKeysApi", "Api"), "API"}, " "),
+var BlacklistedKeysApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("BlacklistedKeys"),
+	Short: "BlacklistedKeys API",
 }
-
 
 func initBlacklistedKeyCreate() {
 	params := viper.New()
-	var blacklistedKeyCreate = &cobra.Command{
+	var BlacklistedKeyCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeyCreate", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
 		Short: "Create a blacklisted key",
 		Long:  `Create a new rule for blacklisting keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -48,10 +46,11 @@ func initBlacklistedKeyCreate() {
 
 			localVarOptionals := api.BlacklistedKeyCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			blacklistedKeyCreateParameters := api.BlacklistedKeyCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyCreateParameters); err != nil {
@@ -60,8 +59,6 @@ func initBlacklistedKeyCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", blacklistedKeyCreateParameters)
 			}
-			
-
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyCreate(auth, projectId, blacklistedKeyCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -83,27 +80,22 @@ func initBlacklistedKeyCreate() {
 		},
 	}
 
-	blacklistedKeysApiCmd.AddCommand(blacklistedKeyCreate)
+	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyCreate)
 
-	
-	AddFlag(blacklistedKeyCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(blacklistedKeyCreate, "string", "data", "d", "payload in JSON format", true)
-	// blacklistedKeyCreateParameters := api.BlacklistedKeyCreateParameters{}
-	
+	AddFlag(BlacklistedKeyCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BlacklistedKeyCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(blacklistedKeyCreate.Flags())
+	AddFlag(BlacklistedKeyCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BlacklistedKeyCreate.Flags())
 }
-
 func initBlacklistedKeyDelete() {
 	params := viper.New()
-	var blacklistedKeyDelete = &cobra.Command{
+	var BlacklistedKeyDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeyDelete", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
 		Short: "Delete a blacklisted key",
 		Long:  `Delete an existing rule for blacklisting keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -114,13 +106,12 @@ func initBlacklistedKeyDelete() {
 
 			localVarOptionals := api.BlacklistedKeyDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyDelete(auth, projectId, id, &localVarOptionals)
 
@@ -143,26 +134,21 @@ func initBlacklistedKeyDelete() {
 		},
 	}
 
-	blacklistedKeysApiCmd.AddCommand(blacklistedKeyDelete)
+	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyDelete)
 
-	
-	AddFlag(blacklistedKeyDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(blacklistedKeyDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(blacklistedKeyDelete.Flags())
+	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BlacklistedKeyDelete.Flags())
 }
-
 func initBlacklistedKeyShow() {
 	params := viper.New()
-	var blacklistedKeyShow = &cobra.Command{
+	var BlacklistedKeyShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeyShow", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
 		Short: "Get a single blacklisted key",
 		Long:  `Get details on a single rule for blacklisting keys for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -173,13 +159,12 @@ func initBlacklistedKeyShow() {
 
 			localVarOptionals := api.BlacklistedKeyShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyShow(auth, projectId, id, &localVarOptionals)
 
@@ -202,26 +187,21 @@ func initBlacklistedKeyShow() {
 		},
 	}
 
-	blacklistedKeysApiCmd.AddCommand(blacklistedKeyShow)
+	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyShow)
 
-	
-	AddFlag(blacklistedKeyShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(blacklistedKeyShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(blacklistedKeyShow.Flags())
+	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BlacklistedKeyShow.Flags())
 }
-
 func initBlacklistedKeyUpdate() {
 	params := viper.New()
-	var blacklistedKeyUpdate = &cobra.Command{
+	var BlacklistedKeyUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeyUpdate", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
 		Short: "Update a blacklisted key",
 		Long:  `Update an existing rule for blacklisting keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -232,13 +212,12 @@ func initBlacklistedKeyUpdate() {
 
 			localVarOptionals := api.BlacklistedKeyUpdateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			blacklistedKeyUpdateParameters := api.BlacklistedKeyUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyUpdateParameters); err != nil {
@@ -247,8 +226,6 @@ func initBlacklistedKeyUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", blacklistedKeyUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyUpdate(auth, projectId, id, blacklistedKeyUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -270,29 +247,23 @@ func initBlacklistedKeyUpdate() {
 		},
 	}
 
-	blacklistedKeysApiCmd.AddCommand(blacklistedKeyUpdate)
+	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyUpdate)
 
-	
-	AddFlag(blacklistedKeyUpdate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(blacklistedKeyUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(blacklistedKeyUpdate, "string", "data", "d", "payload in JSON format", true)
-	// blacklistedKeyUpdateParameters := api.BlacklistedKeyUpdateParameters{}
-	
+	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(BlacklistedKeyUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(blacklistedKeyUpdate.Flags())
+	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BlacklistedKeyUpdate.Flags())
 }
-
 func initBlacklistedKeysList() {
 	params := viper.New()
-	var blacklistedKeysList = &cobra.Command{
+	var BlacklistedKeysList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeysList", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
 		Short: "List blacklisted keys",
 		Long:  `List all rules for blacklisting keys for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -303,10 +274,17 @@ func initBlacklistedKeysList() {
 
 			localVarOptionals := api.BlacklistedKeysListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeysList(auth, projectId, &localVarOptionals)
 
@@ -329,12 +307,11 @@ func initBlacklistedKeysList() {
 		},
 	}
 
-	blacklistedKeysApiCmd.AddCommand(blacklistedKeysList)
+	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeysList)
 
-	
-	AddFlag(blacklistedKeysList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(blacklistedKeysList.Flags())
+	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(BlacklistedKeysList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(BlacklistedKeysList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(BlacklistedKeysList.Flags())
 }
-

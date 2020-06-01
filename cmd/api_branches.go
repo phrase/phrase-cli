@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -21,25 +22,22 @@ func init() {
 	initBranchUpdate()
 	initBranchesList()
 
-	rootCmd.AddCommand(branchesApiCmd)
+	rootCmd.AddCommand(BranchesApiCmd)
 }
 
-var branchesApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("branchesapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("BranchesApi", "Api"), "API"}, " "),
+var BranchesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Branches"),
+	Short: "Branches API",
 }
-
 
 func initBranchCompare() {
 	params := viper.New()
-	var branchCompare = &cobra.Command{
+	var BranchCompare = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchCompare", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
 		Short: "Compare branches",
 		Long:  `Compare branch with main branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -50,13 +48,12 @@ func initBranchCompare() {
 
 			localVarOptionals := api.BranchCompareOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			name := params.GetString("name")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.BranchesApi.BranchCompare(auth, projectId, name, &localVarOptionals)
 
@@ -79,26 +76,21 @@ func initBranchCompare() {
 		},
 	}
 
-	branchesApiCmd.AddCommand(branchCompare)
+	BranchesApiCmd.AddCommand(BranchCompare)
 
-	
-	AddFlag(branchCompare, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(branchCompare, "string", "name", "", "name", true)
-	
-
-	params.BindPFlags(branchCompare.Flags())
+	AddFlag(BranchCompare, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchCompare, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(BranchCompare, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BranchCompare.Flags())
 }
-
 func initBranchCreate() {
 	params := viper.New()
-	var branchCreate = &cobra.Command{
+	var BranchCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchCreate", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
 		Short: "Create a branch",
 		Long:  `Create a new branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -109,10 +101,11 @@ func initBranchCreate() {
 
 			localVarOptionals := api.BranchCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			branchCreateParameters := api.BranchCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchCreateParameters); err != nil {
@@ -121,8 +114,6 @@ func initBranchCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", branchCreateParameters)
 			}
-			
-
 			data, api_response, err := client.BranchesApi.BranchCreate(auth, projectId, branchCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -144,27 +135,22 @@ func initBranchCreate() {
 		},
 	}
 
-	branchesApiCmd.AddCommand(branchCreate)
+	BranchesApiCmd.AddCommand(BranchCreate)
 
-	
-	AddFlag(branchCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(branchCreate, "string", "data", "d", "payload in JSON format", true)
-	// branchCreateParameters := api.BranchCreateParameters{}
-	
+	AddFlag(BranchCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(branchCreate.Flags())
+	AddFlag(BranchCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BranchCreate.Flags())
 }
-
 func initBranchDelete() {
 	params := viper.New()
-	var branchDelete = &cobra.Command{
+	var BranchDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchDelete", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
 		Short: "Delete a branch",
 		Long:  `Delete an existing branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -175,13 +161,12 @@ func initBranchDelete() {
 
 			localVarOptionals := api.BranchDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			name := params.GetString("name")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.BranchesApi.BranchDelete(auth, projectId, name, &localVarOptionals)
 
@@ -204,26 +189,21 @@ func initBranchDelete() {
 		},
 	}
 
-	branchesApiCmd.AddCommand(branchDelete)
+	BranchesApiCmd.AddCommand(BranchDelete)
 
-	
-	AddFlag(branchDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(branchDelete, "string", "name", "", "name", true)
-	
-
-	params.BindPFlags(branchDelete.Flags())
+	AddFlag(BranchDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchDelete, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(BranchDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BranchDelete.Flags())
 }
-
 func initBranchMerge() {
 	params := viper.New()
-	var branchMerge = &cobra.Command{
+	var BranchMerge = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchMerge", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
 		Short: "Merge a branch",
 		Long:  `Merge an existing branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -234,13 +214,12 @@ func initBranchMerge() {
 
 			localVarOptionals := api.BranchMergeOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			name := params.GetString("name")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			branchMergeParameters := api.BranchMergeParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchMergeParameters); err != nil {
@@ -249,8 +228,6 @@ func initBranchMerge() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", branchMergeParameters)
 			}
-			
-
 			data, api_response, err := client.BranchesApi.BranchMerge(auth, projectId, name, branchMergeParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -272,29 +249,23 @@ func initBranchMerge() {
 		},
 	}
 
-	branchesApiCmd.AddCommand(branchMerge)
+	BranchesApiCmd.AddCommand(BranchMerge)
 
-	
-	AddFlag(branchMerge, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(branchMerge, "string", "name", "", "name", true)
-	
-	AddFlag(branchMerge, "string", "data", "d", "payload in JSON format", true)
-	// branchMergeParameters := api.BranchMergeParameters{}
-	
+	AddFlag(BranchMerge, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchMerge, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(BranchMerge, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(branchMerge.Flags())
+	AddFlag(BranchMerge, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BranchMerge.Flags())
 }
-
 func initBranchShow() {
 	params := viper.New()
-	var branchShow = &cobra.Command{
+	var BranchShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchShow", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
 		Short: "Get a single branch",
 		Long:  `Get details on a single branch for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -305,13 +276,12 @@ func initBranchShow() {
 
 			localVarOptionals := api.BranchShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			name := params.GetString("name")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.BranchesApi.BranchShow(auth, projectId, name, &localVarOptionals)
 
@@ -334,26 +304,21 @@ func initBranchShow() {
 		},
 	}
 
-	branchesApiCmd.AddCommand(branchShow)
+	BranchesApiCmd.AddCommand(BranchShow)
 
-	
-	AddFlag(branchShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(branchShow, "string", "name", "", "name", true)
-	
-
-	params.BindPFlags(branchShow.Flags())
+	AddFlag(BranchShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchShow, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(BranchShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BranchShow.Flags())
 }
-
 func initBranchUpdate() {
 	params := viper.New()
-	var branchUpdate = &cobra.Command{
+	var BranchUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchUpdate", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
 		Short: "Update a branch",
 		Long:  `Update an existing branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -364,13 +329,12 @@ func initBranchUpdate() {
 
 			localVarOptionals := api.BranchUpdateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			name := params.GetString("name")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			branchUpdateParameters := api.BranchUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchUpdateParameters); err != nil {
@@ -379,8 +343,6 @@ func initBranchUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", branchUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.BranchesApi.BranchUpdate(auth, projectId, name, branchUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -402,29 +364,23 @@ func initBranchUpdate() {
 		},
 	}
 
-	branchesApiCmd.AddCommand(branchUpdate)
+	BranchesApiCmd.AddCommand(BranchUpdate)
 
-	
-	AddFlag(branchUpdate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(branchUpdate, "string", "name", "", "name", true)
-	
-	AddFlag(branchUpdate, "string", "data", "d", "payload in JSON format", true)
-	// branchUpdateParameters := api.BranchUpdateParameters{}
-	
+	AddFlag(BranchUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchUpdate, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(BranchUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(branchUpdate.Flags())
+	AddFlag(BranchUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(BranchUpdate.Flags())
 }
-
 func initBranchesList() {
 	params := viper.New()
-	var branchesList = &cobra.Command{
+	var BranchesList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchesList", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
 		Short: "List branches",
 		Long:  `List all branches the of the current project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -435,10 +391,17 @@ func initBranchesList() {
 
 			localVarOptionals := api.BranchesListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.BranchesApi.BranchesList(auth, projectId, &localVarOptionals)
 
@@ -461,12 +424,11 @@ func initBranchesList() {
 		},
 	}
 
-	branchesApiCmd.AddCommand(branchesList)
+	BranchesApiCmd.AddCommand(BranchesList)
 
-	
-	AddFlag(branchesList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(branchesList.Flags())
+	AddFlag(BranchesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(BranchesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(BranchesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(BranchesList.Flags())
 }
-

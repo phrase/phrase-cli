@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -22,25 +23,22 @@ func init() {
 	initSpacesProjectsDelete()
 	initSpacesProjectsList()
 
-	rootCmd.AddCommand(spacesApiCmd)
+	rootCmd.AddCommand(SpacesApiCmd)
 }
 
-var spacesApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("spacesapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("SpacesApi", "Api"), "API"}, " "),
+var SpacesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Spaces"),
+	Short: "Spaces API",
 }
-
 
 func initSpaceCreate() {
 	params := viper.New()
-	var spaceCreate = &cobra.Command{
+	var SpaceCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpaceCreate", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
 		Short: "Create a Space",
 		Long:  `Create a new Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -51,10 +49,11 @@ func initSpaceCreate() {
 
 			localVarOptionals := api.SpaceCreateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			spaceCreateParameters := api.SpaceCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceCreateParameters); err != nil {
@@ -63,8 +62,6 @@ func initSpaceCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", spaceCreateParameters)
 			}
-			
-
 			data, api_response, err := client.SpacesApi.SpaceCreate(auth, accountId, spaceCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -86,27 +83,22 @@ func initSpaceCreate() {
 		},
 	}
 
-	spacesApiCmd.AddCommand(spaceCreate)
+	SpacesApiCmd.AddCommand(SpaceCreate)
 
-	
-	AddFlag(spaceCreate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(spaceCreate, "string", "data", "d", "payload in JSON format", true)
-	// spaceCreateParameters := api.SpaceCreateParameters{}
-	
+	AddFlag(SpaceCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(SpaceCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(spaceCreate.Flags())
+	AddFlag(SpaceCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(SpaceCreate.Flags())
 }
-
 func initSpaceDelete() {
 	params := viper.New()
-	var spaceDelete = &cobra.Command{
+	var SpaceDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpaceDelete", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
 		Short: "Delete Space",
 		Long:  `Delete the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -117,13 +109,12 @@ func initSpaceDelete() {
 
 			localVarOptionals := api.SpaceDeleteOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.SpacesApi.SpaceDelete(auth, accountId, id, &localVarOptionals)
 
@@ -146,26 +137,21 @@ func initSpaceDelete() {
 		},
 	}
 
-	spacesApiCmd.AddCommand(spaceDelete)
+	SpacesApiCmd.AddCommand(SpaceDelete)
 
-	
-	AddFlag(spaceDelete, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(spaceDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(spaceDelete.Flags())
+	AddFlag(SpaceDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(SpaceDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(SpaceDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(SpaceDelete.Flags())
 }
-
 func initSpaceShow() {
 	params := viper.New()
-	var spaceShow = &cobra.Command{
+	var SpaceShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpaceShow", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
 		Short: "Get Space",
 		Long:  `Show the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -176,13 +162,12 @@ func initSpaceShow() {
 
 			localVarOptionals := api.SpaceShowOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.SpacesApi.SpaceShow(auth, accountId, id, &localVarOptionals)
 
@@ -205,26 +190,21 @@ func initSpaceShow() {
 		},
 	}
 
-	spacesApiCmd.AddCommand(spaceShow)
+	SpacesApiCmd.AddCommand(SpaceShow)
 
-	
-	AddFlag(spaceShow, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(spaceShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(spaceShow.Flags())
+	AddFlag(SpaceShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(SpaceShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(SpaceShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(SpaceShow.Flags())
 }
-
 func initSpaceUpdate() {
 	params := viper.New()
-	var spaceUpdate = &cobra.Command{
+	var SpaceUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpaceUpdate", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
 		Short: "Update Space",
 		Long:  `Update the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -235,13 +215,12 @@ func initSpaceUpdate() {
 
 			localVarOptionals := api.SpaceUpdateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			spaceUpdateParameters := api.SpaceUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceUpdateParameters); err != nil {
@@ -250,8 +229,6 @@ func initSpaceUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", spaceUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.SpacesApi.SpaceUpdate(auth, accountId, id, spaceUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -273,29 +250,23 @@ func initSpaceUpdate() {
 		},
 	}
 
-	spacesApiCmd.AddCommand(spaceUpdate)
+	SpacesApiCmd.AddCommand(SpaceUpdate)
 
-	
-	AddFlag(spaceUpdate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(spaceUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(spaceUpdate, "string", "data", "d", "payload in JSON format", true)
-	// spaceUpdateParameters := api.SpaceUpdateParameters{}
-	
+	AddFlag(SpaceUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(SpaceUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(SpaceUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(spaceUpdate.Flags())
+	AddFlag(SpaceUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(SpaceUpdate.Flags())
 }
-
 func initSpacesList() {
 	params := viper.New()
-	var spacesList = &cobra.Command{
+	var SpacesList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpacesList", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
 		Short: "List Spaces",
 		Long:  `List all Spaces for the given account.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -306,10 +277,17 @@ func initSpacesList() {
 
 			localVarOptionals := api.SpacesListOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.SpacesApi.SpacesList(auth, accountId, &localVarOptionals)
 
@@ -332,24 +310,22 @@ func initSpacesList() {
 		},
 	}
 
-	spacesApiCmd.AddCommand(spacesList)
+	SpacesApiCmd.AddCommand(SpacesList)
 
-	
-	AddFlag(spacesList, "string", "accountId", "", "Account ID", true)
-	
-
-	params.BindPFlags(spacesList.Flags())
+	AddFlag(SpacesList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(SpacesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(SpacesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(SpacesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(SpacesList.Flags())
 }
-
 func initSpacesProjectsCreate() {
 	params := viper.New()
-	var spacesProjectsCreate = &cobra.Command{
+	var SpacesProjectsCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpacesProjectsCreate", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
 		Short: "Add Project",
 		Long:  `Adds an existing project to the space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -360,13 +336,12 @@ func initSpacesProjectsCreate() {
 
 			localVarOptionals := api.SpacesProjectsCreateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			spaceId := params.GetString("spaceId")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
 
 			spacesProjectsCreateParameters := api.SpacesProjectsCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spacesProjectsCreateParameters); err != nil {
@@ -375,8 +350,6 @@ func initSpacesProjectsCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", spacesProjectsCreateParameters)
 			}
-			
-
 			data, api_response, err := client.SpacesApi.SpacesProjectsCreate(auth, accountId, spaceId, spacesProjectsCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -398,29 +371,23 @@ func initSpacesProjectsCreate() {
 		},
 	}
 
-	spacesApiCmd.AddCommand(spacesProjectsCreate)
+	SpacesApiCmd.AddCommand(SpacesProjectsCreate)
 
-	
-	AddFlag(spacesProjectsCreate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(spacesProjectsCreate, "string", "spaceId", "", "Space ID", true)
-	
-	AddFlag(spacesProjectsCreate, "string", "data", "d", "payload in JSON format", true)
-	// spacesProjectsCreateParameters := api.SpacesProjectsCreateParameters{}
-	
+	AddFlag(SpacesProjectsCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(SpacesProjectsCreate, "string", helpers.ToSnakeCase("SpaceId"), "", "Space ID", true)
+	AddFlag(SpacesProjectsCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(spacesProjectsCreate.Flags())
+	AddFlag(SpacesProjectsCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(SpacesProjectsCreate.Flags())
 }
-
 func initSpacesProjectsDelete() {
 	params := viper.New()
-	var spacesProjectsDelete = &cobra.Command{
+	var SpacesProjectsDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpacesProjectsDelete", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
 		Short: "Remove Project",
 		Long:  `Removes a specified project from the specified space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -431,16 +398,13 @@ func initSpacesProjectsDelete() {
 
 			localVarOptionals := api.SpacesProjectsDeleteOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			spaceId := params.GetString("spaceId")
-
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsDelete(auth, accountId, spaceId, id, &localVarOptionals)
 
@@ -463,28 +427,22 @@ func initSpacesProjectsDelete() {
 		},
 	}
 
-	spacesApiCmd.AddCommand(spacesProjectsDelete)
+	SpacesApiCmd.AddCommand(SpacesProjectsDelete)
 
-	
-	AddFlag(spacesProjectsDelete, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(spacesProjectsDelete, "string", "spaceId", "", "Space ID", true)
-	
-	AddFlag(spacesProjectsDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(spacesProjectsDelete.Flags())
+	AddFlag(SpacesProjectsDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(SpacesProjectsDelete, "string", helpers.ToSnakeCase("SpaceId"), "", "Space ID", true)
+	AddFlag(SpacesProjectsDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(SpacesProjectsDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(SpacesProjectsDelete.Flags())
 }
-
 func initSpacesProjectsList() {
 	params := viper.New()
-	var spacesProjectsList = &cobra.Command{
+	var SpacesProjectsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpacesProjectsList", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
 		Short: "List Projects",
 		Long:  `List all projects for the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -495,13 +453,18 @@ func initSpacesProjectsList() {
 
 			localVarOptionals := api.SpacesProjectsListOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
-			spaceId := params.GetString("spaceId")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsList(auth, accountId, spaceId, &localVarOptionals)
 
@@ -524,14 +487,12 @@ func initSpacesProjectsList() {
 		},
 	}
 
-	spacesApiCmd.AddCommand(spacesProjectsList)
+	SpacesApiCmd.AddCommand(SpacesProjectsList)
 
-	
-	AddFlag(spacesProjectsList, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(spacesProjectsList, "string", "spaceId", "", "Space ID", true)
-	
-
-	params.BindPFlags(spacesProjectsList.Flags())
+	AddFlag(SpacesProjectsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(SpacesProjectsList, "string", helpers.ToSnakeCase("SpaceId"), "", "Space ID", true)
+	AddFlag(SpacesProjectsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(SpacesProjectsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(SpacesProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(SpacesProjectsList.Flags())
 }
-

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -18,25 +19,22 @@ func init() {
 	initTagShow()
 	initTagsList()
 
-	rootCmd.AddCommand(tagsApiCmd)
+	rootCmd.AddCommand(TagsApiCmd)
 }
 
-var tagsApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("tagsapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("TagsApi", "Api"), "API"}, " "),
+var TagsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Tags"),
+	Short: "Tags API",
 }
-
 
 func initTagCreate() {
 	params := viper.New()
-	var tagCreate = &cobra.Command{
+	var TagCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TagCreate", strings.TrimSuffix("TagsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TagsApi", "Api"), "s"))),
 		Short: "Create a tag",
 		Long:  `Create a new tag.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -47,10 +45,11 @@ func initTagCreate() {
 
 			localVarOptionals := api.TagCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			tagCreateParameters := api.TagCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &tagCreateParameters); err != nil {
@@ -59,8 +58,6 @@ func initTagCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", tagCreateParameters)
 			}
-			
-
 			data, api_response, err := client.TagsApi.TagCreate(auth, projectId, tagCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -82,27 +79,22 @@ func initTagCreate() {
 		},
 	}
 
-	tagsApiCmd.AddCommand(tagCreate)
+	TagsApiCmd.AddCommand(TagCreate)
 
-	
-	AddFlag(tagCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(tagCreate, "string", "data", "d", "payload in JSON format", true)
-	// tagCreateParameters := api.TagCreateParameters{}
-	
+	AddFlag(TagCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TagCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(tagCreate.Flags())
+	AddFlag(TagCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(TagCreate.Flags())
 }
-
 func initTagDelete() {
 	params := viper.New()
-	var tagDelete = &cobra.Command{
+	var TagDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TagDelete", strings.TrimSuffix("TagsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TagsApi", "Api"), "s"))),
 		Short: "Delete a tag",
 		Long:  `Delete an existing tag.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -113,13 +105,15 @@ func initTagDelete() {
 
 			localVarOptionals := api.TagDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			name := params.GetString("name")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.TagsApi.TagDelete(auth, projectId, name, &localVarOptionals)
 
@@ -142,26 +136,22 @@ func initTagDelete() {
 		},
 	}
 
-	tagsApiCmd.AddCommand(tagDelete)
+	TagsApiCmd.AddCommand(TagDelete)
 
-	
-	AddFlag(tagDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(tagDelete, "string", "name", "", "name", true)
-	
-
-	params.BindPFlags(tagDelete.Flags())
+	AddFlag(TagDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TagDelete, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(TagDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(TagDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(TagDelete.Flags())
 }
-
 func initTagShow() {
 	params := viper.New()
-	var tagShow = &cobra.Command{
+	var TagShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TagShow", strings.TrimSuffix("TagsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TagsApi", "Api"), "s"))),
 		Short: "Get a single tag",
 		Long:  `Get details and progress information on a single tag for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -172,13 +162,15 @@ func initTagShow() {
 
 			localVarOptionals := api.TagShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			name := params.GetString("name")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.TagsApi.TagShow(auth, projectId, name, &localVarOptionals)
 
@@ -201,26 +193,22 @@ func initTagShow() {
 		},
 	}
 
-	tagsApiCmd.AddCommand(tagShow)
+	TagsApiCmd.AddCommand(TagShow)
 
-	
-	AddFlag(tagShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(tagShow, "string", "name", "", "name", true)
-	
-
-	params.BindPFlags(tagShow.Flags())
+	AddFlag(TagShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TagShow, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(TagShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(TagShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(TagShow.Flags())
 }
-
 func initTagsList() {
 	params := viper.New()
-	var tagsList = &cobra.Command{
+	var TagsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TagsList", strings.TrimSuffix("TagsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TagsApi", "Api"), "s"))),
 		Short: "List tags",
 		Long:  `List all tags for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -231,10 +219,20 @@ func initTagsList() {
 
 			localVarOptionals := api.TagsListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.TagsApi.TagsList(auth, projectId, &localVarOptionals)
 
@@ -257,12 +255,12 @@ func initTagsList() {
 		},
 	}
 
-	tagsApiCmd.AddCommand(tagsList)
+	TagsApiCmd.AddCommand(TagsList)
 
-	
-	AddFlag(tagsList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(tagsList.Flags())
+	AddFlag(TagsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TagsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(TagsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(TagsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(TagsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(TagsList.Flags())
 }
-

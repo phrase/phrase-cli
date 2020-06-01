@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -16,25 +17,22 @@ func init() {
 	initVersionShow()
 	initVersionsList()
 
-	rootCmd.AddCommand(versionsHistoryApiCmd)
+	rootCmd.AddCommand(VersionsHistoryApiCmd)
 }
 
-var versionsHistoryApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("versionshistoryapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("VersionsHistoryApi", "Api"), "API"}, " "),
+var VersionsHistoryApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("VersionsHistory"),
+	Short: "VersionsHistory API",
 }
-
 
 func initVersionShow() {
 	params := viper.New()
-	var versionShow = &cobra.Command{
+	var VersionShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("VersionShow", strings.TrimSuffix("VersionsHistoryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("VersionsHistoryApi", "Api"), "s"))),
 		Short: "Get a single version",
 		Long:  `Get details on a single version.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -45,16 +43,16 @@ func initVersionShow() {
 
 			localVarOptionals := api.VersionShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			translationId := params.GetString("translationId")
-
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			translationId := params.GetString(helpers.ToSnakeCase("TranslationId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.VersionsHistoryApi.VersionShow(auth, projectId, translationId, id, &localVarOptionals)
 
@@ -77,28 +75,23 @@ func initVersionShow() {
 		},
 	}
 
-	versionsHistoryApiCmd.AddCommand(versionShow)
+	VersionsHistoryApiCmd.AddCommand(VersionShow)
 
-	
-	AddFlag(versionShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(versionShow, "string", "translationId", "", "Translation ID", true)
-	
-	AddFlag(versionShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(versionShow.Flags())
+	AddFlag(VersionShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(VersionShow, "string", helpers.ToSnakeCase("TranslationId"), "", "Translation ID", true)
+	AddFlag(VersionShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(VersionShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(VersionShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(VersionShow.Flags())
 }
-
 func initVersionsList() {
 	params := viper.New()
-	var versionsList = &cobra.Command{
+	var VersionsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("VersionsList", strings.TrimSuffix("VersionsHistoryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("VersionsHistoryApi", "Api"), "s"))),
 		Short: "List all versions",
 		Long:  `List all versions for the given translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -109,13 +102,21 @@ func initVersionsList() {
 
 			localVarOptionals := api.VersionsListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			translationId := params.GetString("translationId")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			translationId := params.GetString(helpers.ToSnakeCase("TranslationId"))
 
 			data, api_response, err := client.VersionsHistoryApi.VersionsList(auth, projectId, translationId, &localVarOptionals)
 
@@ -138,14 +139,13 @@ func initVersionsList() {
 		},
 	}
 
-	versionsHistoryApiCmd.AddCommand(versionsList)
+	VersionsHistoryApiCmd.AddCommand(VersionsList)
 
-	
-	AddFlag(versionsList, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(versionsList, "string", "translationId", "", "Translation ID", true)
-	
-
-	params.BindPFlags(versionsList.Flags())
+	AddFlag(VersionsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(VersionsList, "string", helpers.ToSnakeCase("TranslationId"), "", "Translation ID", true)
+	AddFlag(VersionsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(VersionsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(VersionsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(VersionsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(VersionsList.Flags())
 }
-

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -24,25 +25,22 @@ func init() {
 	initJobUpdate()
 	initJobsList()
 
-	rootCmd.AddCommand(jobsApiCmd)
+	rootCmd.AddCommand(JobsApiCmd)
 }
 
-var jobsApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("jobsapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("JobsApi", "Api"), "API"}, " "),
+var JobsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Jobs"),
+	Short: "Jobs API",
 }
-
 
 func initJobComplete() {
 	params := viper.New()
-	var jobComplete = &cobra.Command{
+	var JobComplete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobComplete", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Complete a job",
 		Long:  `Mark a job as completed.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -53,13 +51,12 @@ func initJobComplete() {
 
 			localVarOptionals := api.JobCompleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			jobCompleteParameters := api.JobCompleteParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCompleteParameters); err != nil {
@@ -68,8 +65,6 @@ func initJobComplete() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobCompleteParameters)
 			}
-			
-
 			data, api_response, err := client.JobsApi.JobComplete(auth, projectId, id, jobCompleteParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -91,29 +86,23 @@ func initJobComplete() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobComplete)
+	JobsApiCmd.AddCommand(JobComplete)
 
-	
-	AddFlag(jobComplete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobComplete, "string", "id", "", "ID", true)
-	
-	AddFlag(jobComplete, "string", "data", "d", "payload in JSON format", true)
-	// jobCompleteParameters := api.JobCompleteParameters{}
-	
+	AddFlag(JobComplete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobComplete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobComplete, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobComplete.Flags())
+	AddFlag(JobComplete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobComplete.Flags())
 }
-
 func initJobCreate() {
 	params := viper.New()
-	var jobCreate = &cobra.Command{
+	var JobCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobCreate", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Create a job",
 		Long:  `Create a new job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -124,10 +113,11 @@ func initJobCreate() {
 
 			localVarOptionals := api.JobCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			jobCreateParameters := api.JobCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCreateParameters); err != nil {
@@ -136,8 +126,6 @@ func initJobCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobCreateParameters)
 			}
-			
-
 			data, api_response, err := client.JobsApi.JobCreate(auth, projectId, jobCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -159,27 +147,22 @@ func initJobCreate() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobCreate)
+	JobsApiCmd.AddCommand(JobCreate)
 
-	
-	AddFlag(jobCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobCreate, "string", "data", "d", "payload in JSON format", true)
-	// jobCreateParameters := api.JobCreateParameters{}
-	
+	AddFlag(JobCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobCreate.Flags())
+	AddFlag(JobCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobCreate.Flags())
 }
-
 func initJobDelete() {
 	params := viper.New()
-	var jobDelete = &cobra.Command{
+	var JobDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobDelete", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Delete a job",
 		Long:  `Delete an existing job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -190,13 +173,15 @@ func initJobDelete() {
 
 			localVarOptionals := api.JobDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.JobsApi.JobDelete(auth, projectId, id, &localVarOptionals)
 
@@ -219,26 +204,22 @@ func initJobDelete() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobDelete)
+	JobsApiCmd.AddCommand(JobDelete)
 
-	
-	AddFlag(jobDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(jobDelete.Flags())
+	AddFlag(JobDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(JobDelete.Flags())
 }
-
 func initJobKeysCreate() {
 	params := viper.New()
-	var jobKeysCreate = &cobra.Command{
+	var JobKeysCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobKeysCreate", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Add keys to job",
 		Long:  `Add multiple keys to a existing job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -249,13 +230,12 @@ func initJobKeysCreate() {
 
 			localVarOptionals := api.JobKeysCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			jobKeysCreateParameters := api.JobKeysCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobKeysCreateParameters); err != nil {
@@ -264,8 +244,6 @@ func initJobKeysCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobKeysCreateParameters)
 			}
-			
-
 			data, api_response, err := client.JobsApi.JobKeysCreate(auth, projectId, id, jobKeysCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -287,29 +265,23 @@ func initJobKeysCreate() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobKeysCreate)
+	JobsApiCmd.AddCommand(JobKeysCreate)
 
-	
-	AddFlag(jobKeysCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobKeysCreate, "string", "id", "", "ID", true)
-	
-	AddFlag(jobKeysCreate, "string", "data", "d", "payload in JSON format", true)
-	// jobKeysCreateParameters := api.JobKeysCreateParameters{}
-	
+	AddFlag(JobKeysCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobKeysCreate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobKeysCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobKeysCreate.Flags())
+	AddFlag(JobKeysCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobKeysCreate.Flags())
 }
-
 func initJobKeysDelete() {
 	params := viper.New()
-	var jobKeysDelete = &cobra.Command{
+	var JobKeysDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobKeysDelete", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Remove keys from job",
 		Long:  `Remove multiple keys from existing job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -320,13 +292,15 @@ func initJobKeysDelete() {
 
 			localVarOptionals := api.JobKeysDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, &localVarOptionals)
 
@@ -349,26 +323,24 @@ func initJobKeysDelete() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobKeysDelete)
+	JobsApiCmd.AddCommand(JobKeysDelete)
 
-	
-	AddFlag(jobKeysDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobKeysDelete, "string", "id", "", "ID", true)
-	
+	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobKeysDelete, "string", "data", "d", "payload in JSON format", false)
 
-	params.BindPFlags(jobKeysDelete.Flags())
+	params.BindPFlags(JobKeysDelete.Flags())
 }
-
 func initJobReopen() {
 	params := viper.New()
-	var jobReopen = &cobra.Command{
+	var JobReopen = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobReopen", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Reopen a job",
 		Long:  `Mark a job as uncompleted.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -379,13 +351,12 @@ func initJobReopen() {
 
 			localVarOptionals := api.JobReopenOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			jobReopenParameters := api.JobReopenParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobReopenParameters); err != nil {
@@ -394,8 +365,6 @@ func initJobReopen() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobReopenParameters)
 			}
-			
-
 			data, api_response, err := client.JobsApi.JobReopen(auth, projectId, id, jobReopenParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -417,29 +386,23 @@ func initJobReopen() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobReopen)
+	JobsApiCmd.AddCommand(JobReopen)
 
-	
-	AddFlag(jobReopen, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobReopen, "string", "id", "", "ID", true)
-	
-	AddFlag(jobReopen, "string", "data", "d", "payload in JSON format", true)
-	// jobReopenParameters := api.JobReopenParameters{}
-	
+	AddFlag(JobReopen, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobReopen, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobReopen, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobReopen.Flags())
+	AddFlag(JobReopen, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobReopen.Flags())
 }
-
 func initJobShow() {
 	params := viper.New()
-	var jobShow = &cobra.Command{
+	var JobShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobShow", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Get a single job",
 		Long:  `Get details on a single job for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -450,13 +413,15 @@ func initJobShow() {
 
 			localVarOptionals := api.JobShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.JobsApi.JobShow(auth, projectId, id, &localVarOptionals)
 
@@ -479,26 +444,22 @@ func initJobShow() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobShow)
+	JobsApiCmd.AddCommand(JobShow)
 
-	
-	AddFlag(jobShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(jobShow.Flags())
+	AddFlag(JobShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(JobShow.Flags())
 }
-
 func initJobStart() {
 	params := viper.New()
-	var jobStart = &cobra.Command{
+	var JobStart = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobStart", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Start a job",
 		Long:  `Starts an existing job in state draft.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -509,13 +470,12 @@ func initJobStart() {
 
 			localVarOptionals := api.JobStartOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			jobStartParameters := api.JobStartParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobStartParameters); err != nil {
@@ -524,8 +484,6 @@ func initJobStart() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobStartParameters)
 			}
-			
-
 			data, api_response, err := client.JobsApi.JobStart(auth, projectId, id, jobStartParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -547,29 +505,23 @@ func initJobStart() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobStart)
+	JobsApiCmd.AddCommand(JobStart)
 
-	
-	AddFlag(jobStart, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobStart, "string", "id", "", "ID", true)
-	
-	AddFlag(jobStart, "string", "data", "d", "payload in JSON format", true)
-	// jobStartParameters := api.JobStartParameters{}
-	
+	AddFlag(JobStart, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobStart, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobStart, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobStart.Flags())
+	AddFlag(JobStart, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobStart.Flags())
 }
-
 func initJobUpdate() {
 	params := viper.New()
-	var jobUpdate = &cobra.Command{
+	var JobUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobUpdate", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "Update a job",
 		Long:  `Update an existing job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -580,13 +532,12 @@ func initJobUpdate() {
 
 			localVarOptionals := api.JobUpdateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			jobUpdateParameters := api.JobUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobUpdateParameters); err != nil {
@@ -595,8 +546,6 @@ func initJobUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.JobsApi.JobUpdate(auth, projectId, id, jobUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -618,29 +567,23 @@ func initJobUpdate() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobUpdate)
+	JobsApiCmd.AddCommand(JobUpdate)
 
-	
-	AddFlag(jobUpdate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(jobUpdate, "string", "data", "d", "payload in JSON format", true)
-	// jobUpdateParameters := api.JobUpdateParameters{}
-	
+	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobUpdate.Flags())
+	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobUpdate.Flags())
 }
-
 func initJobsList() {
 	params := viper.New()
-	var jobsList = &cobra.Command{
+	var JobsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobsList", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
 		Short: "List jobs",
 		Long:  `List all jobs for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -651,10 +594,29 @@ func initJobsList() {
 
 			localVarOptionals := api.JobsListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("ownedBy")) {
+				localVarOptionals.OwnedBy = optional.NewString(params.GetString(helpers.ToSnakeCase("OwnedBy")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("assignedTo")) {
+				localVarOptionals.AssignedTo = optional.NewString(params.GetString(helpers.ToSnakeCase("AssignedTo")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("state")) {
+				localVarOptionals.State = optional.NewString(params.GetString(helpers.ToSnakeCase("State")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.JobsApi.JobsList(auth, projectId, &localVarOptionals)
 
@@ -677,12 +639,15 @@ func initJobsList() {
 		},
 	}
 
-	jobsApiCmd.AddCommand(jobsList)
+	JobsApiCmd.AddCommand(JobsList)
 
-	
-	AddFlag(jobsList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(jobsList.Flags())
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(JobsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("OwnedBy"), "", "filter by user owning job", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("AssignedTo"), "", "filter by user assigned to job", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("State"), "", "filter by state of job Valid states are <code>draft</code>, <code>in_progress</code>, <code>completed</code>", false)
+	params.BindPFlags(JobsList.Flags())
 }
-

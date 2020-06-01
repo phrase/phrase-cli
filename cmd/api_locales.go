@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -20,25 +21,22 @@ func init() {
 	initLocaleUpdate()
 	initLocalesList()
 
-	rootCmd.AddCommand(localesApiCmd)
+	rootCmd.AddCommand(LocalesApiCmd)
 }
 
-var localesApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("localesapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("LocalesApi", "Api"), "API"}, " "),
+var LocalesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Locales"),
+	Short: "Locales API",
 }
-
 
 func initLocaleCreate() {
 	params := viper.New()
-	var localeCreate = &cobra.Command{
+	var LocaleCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleCreate", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
 		Short: "Create a locale",
 		Long:  `Create a new locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -49,10 +47,11 @@ func initLocaleCreate() {
 
 			localVarOptionals := api.LocaleCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			localeCreateParameters := api.LocaleCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &localeCreateParameters); err != nil {
@@ -61,8 +60,6 @@ func initLocaleCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", localeCreateParameters)
 			}
-			
-
 			data, api_response, err := client.LocalesApi.LocaleCreate(auth, projectId, localeCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -84,27 +81,22 @@ func initLocaleCreate() {
 		},
 	}
 
-	localesApiCmd.AddCommand(localeCreate)
+	LocalesApiCmd.AddCommand(LocaleCreate)
 
-	
-	AddFlag(localeCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(localeCreate, "string", "data", "d", "payload in JSON format", true)
-	// localeCreateParameters := api.LocaleCreateParameters{}
-	
+	AddFlag(LocaleCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(LocaleCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(localeCreate.Flags())
+	AddFlag(LocaleCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(LocaleCreate.Flags())
 }
-
 func initLocaleDelete() {
 	params := viper.New()
-	var localeDelete = &cobra.Command{
+	var LocaleDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleDelete", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
 		Short: "Delete a locale",
 		Long:  `Delete an existing locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -115,13 +107,15 @@ func initLocaleDelete() {
 
 			localVarOptionals := api.LocaleDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.LocalesApi.LocaleDelete(auth, projectId, id, &localVarOptionals)
 
@@ -144,26 +138,22 @@ func initLocaleDelete() {
 		},
 	}
 
-	localesApiCmd.AddCommand(localeDelete)
+	LocalesApiCmd.AddCommand(LocaleDelete)
 
-	
-	AddFlag(localeDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(localeDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(localeDelete.Flags())
+	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(LocaleDelete.Flags())
 }
-
 func initLocaleDownload() {
 	params := viper.New()
-	var localeDownload = &cobra.Command{
+	var LocaleDownload = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleDownload", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
 		Short: "Download a locale",
 		Long:  `Download a locale in a specific file format.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -174,13 +164,52 @@ func initLocaleDownload() {
 
 			localVarOptionals := api.LocaleDownloadOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("fileFormat")) {
+				localVarOptionals.FileFormat = optional.NewString(params.GetString(helpers.ToSnakeCase("FileFormat")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("tags")) {
+				localVarOptionals.Tags = optional.NewString(params.GetString(helpers.ToSnakeCase("Tags")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("tag")) {
+				localVarOptionals.Tag = optional.NewString(params.GetString(helpers.ToSnakeCase("Tag")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("includeEmptyTranslations")) {
+				localVarOptionals.IncludeEmptyTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeEmptyTranslations")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("includeTranslatedKeys")) {
+				localVarOptionals.IncludeTranslatedKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeTranslatedKeys")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("keepNotranslateTags")) {
+				localVarOptionals.KeepNotranslateTags = optional.NewBool(params.GetBool(helpers.ToSnakeCase("KeepNotranslateTags")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("convertEmoji")) {
+				localVarOptionals.ConvertEmoji = optional.NewBool(params.GetBool(helpers.ToSnakeCase("ConvertEmoji")))
+			}
 
-			
-			id := params.GetString("id")
+			if params.IsSet(helpers.ToSnakeCase("encoding")) {
+				localVarOptionals.Encoding = optional.NewString(params.GetString(helpers.ToSnakeCase("Encoding")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("skipUnverifiedTranslations")) {
+				localVarOptionals.SkipUnverifiedTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("SkipUnverifiedTranslations")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("includeUnverifiedTranslations")) {
+				localVarOptionals.IncludeUnverifiedTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeUnverifiedTranslations")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("useLastReviewedVersion")) {
+				localVarOptionals.UseLastReviewedVersion = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UseLastReviewedVersion")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("fallbackLocaleId")) {
+				localVarOptionals.FallbackLocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("FallbackLocaleId")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
 
@@ -203,26 +232,36 @@ func initLocaleDownload() {
 		},
 	}
 
-	localesApiCmd.AddCommand(localeDownload)
+	LocalesApiCmd.AddCommand(LocaleDownload)
 
-	
-	AddFlag(localeDownload, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(localeDownload, "string", "id", "", "ID", true)
-	
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FileFormat"), "", "File format name. See the format guide for all supported file formats.", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Tags"), "", "Limit results to keys tagged with a list of comma separated tag names.", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Tag"), "", "Limit download to tagged keys. This parameter is deprecated. Please use the \"tags\" parameter instead", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeEmptyTranslations"), "", "Indicates whether keys without translations should be included in the output as well.", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeTranslatedKeys"), "", "Include translated keys in the locale file. Use in combination with include_empty_translations to obtain only untranslated keys.", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("KeepNotranslateTags"), "", "Indicates whether [NOTRANSLATE] tags should be kept.", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("ConvertEmoji"), "", "This option is obsolete. Projects that were created on or after Nov 29th 2019 or that did not contain emoji by then will not require this flag any longer since emoji are now supported natively.", false)
+	AddFlag(LocaleDownload, "string", "data", "d", "payload in JSON format", false)
 
-	params.BindPFlags(localeDownload.Flags())
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Encoding"), "", "Enforces a specific encoding on the file contents. Valid options are \"UTF-8\", \"UTF-16\" and \"ISO-8859-1\".", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("SkipUnverifiedTranslations"), "", "Indicates whether the locale file should skip all unverified translations. This parameter is deprecated and should be replaced with <code>include_unverified_translations</code>.", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeUnverifiedTranslations"), "", "if set to false unverified translations are excluded", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("UseLastReviewedVersion"), "", "If set to true the last reviewed version of a translation is used. This is only available if the review workflow (currently in beta) is enabled for the project.", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FallbackLocaleId"), "", "If a key has no translation in the locale being downloaded the translation in the fallback locale will be used. Provide the public ID of the locale that should be used as the fallback. Requires include_empty_translations to be set to <code>true</code>.", false)
+	params.BindPFlags(LocaleDownload.Flags())
 }
-
 func initLocaleShow() {
 	params := viper.New()
-	var localeShow = &cobra.Command{
+	var LocaleShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleShow", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
 		Short: "Get a single locale",
 		Long:  `Get details on a single locale for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -233,13 +272,15 @@ func initLocaleShow() {
 
 			localVarOptionals := api.LocaleShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.LocalesApi.LocaleShow(auth, projectId, id, &localVarOptionals)
 
@@ -262,26 +303,22 @@ func initLocaleShow() {
 		},
 	}
 
-	localesApiCmd.AddCommand(localeShow)
+	LocalesApiCmd.AddCommand(LocaleShow)
 
-	
-	AddFlag(localeShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(localeShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(localeShow.Flags())
+	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(LocaleShow.Flags())
 }
-
 func initLocaleUpdate() {
 	params := viper.New()
-	var localeUpdate = &cobra.Command{
+	var LocaleUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleUpdate", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
 		Short: "Update a locale",
 		Long:  `Update an existing locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -292,13 +329,12 @@ func initLocaleUpdate() {
 
 			localVarOptionals := api.LocaleUpdateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			localeUpdateParameters := api.LocaleUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &localeUpdateParameters); err != nil {
@@ -307,8 +343,6 @@ func initLocaleUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", localeUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.LocalesApi.LocaleUpdate(auth, projectId, id, localeUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -330,29 +364,23 @@ func initLocaleUpdate() {
 		},
 	}
 
-	localesApiCmd.AddCommand(localeUpdate)
+	LocalesApiCmd.AddCommand(LocaleUpdate)
 
-	
-	AddFlag(localeUpdate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(localeUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(localeUpdate, "string", "data", "d", "payload in JSON format", true)
-	// localeUpdateParameters := api.LocaleUpdateParameters{}
-	
+	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(LocaleUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(localeUpdate.Flags())
+	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(LocaleUpdate.Flags())
 }
-
 func initLocalesList() {
 	params := viper.New()
-	var localesList = &cobra.Command{
+	var LocalesList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocalesList", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
 		Short: "List locales",
 		Long:  `List all locales for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -363,10 +391,20 @@ func initLocalesList() {
 
 			localVarOptionals := api.LocalesListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.LocalesApi.LocalesList(auth, projectId, &localVarOptionals)
 
@@ -389,12 +427,12 @@ func initLocalesList() {
 		},
 	}
 
-	localesApiCmd.AddCommand(localesList)
+	LocalesApiCmd.AddCommand(LocalesList)
 
-	
-	AddFlag(localesList, "string", "projectId", "", "Project ID", true)
-	
-
-	params.BindPFlags(localesList.Flags())
+	AddFlag(LocalesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(LocalesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(LocalesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(LocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(LocalesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(LocalesList.Flags())
 }
-

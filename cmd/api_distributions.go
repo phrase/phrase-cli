@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -19,25 +20,22 @@ func init() {
 	initDistributionUpdate()
 	initDistributionsList()
 
-	rootCmd.AddCommand(distributionsApiCmd)
+	rootCmd.AddCommand(DistributionsApiCmd)
 }
 
-var distributionsApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("distributionsapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("DistributionsApi", "Api"), "API"}, " "),
+var DistributionsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Distributions"),
+	Short: "Distributions API",
 }
-
 
 func initDistributionCreate() {
 	params := viper.New()
-	var distributionCreate = &cobra.Command{
+	var DistributionCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionCreate", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
 		Short: "Create a distribution",
 		Long:  `Create a new distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -48,10 +46,11 @@ func initDistributionCreate() {
 
 			localVarOptionals := api.DistributionCreateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			distributionCreateParameters := api.DistributionCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &distributionCreateParameters); err != nil {
@@ -60,8 +59,6 @@ func initDistributionCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", distributionCreateParameters)
 			}
-			
-
 			data, api_response, err := client.DistributionsApi.DistributionCreate(auth, accountId, distributionCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -83,27 +80,22 @@ func initDistributionCreate() {
 		},
 	}
 
-	distributionsApiCmd.AddCommand(distributionCreate)
+	DistributionsApiCmd.AddCommand(DistributionCreate)
 
-	
-	AddFlag(distributionCreate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(distributionCreate, "string", "data", "d", "payload in JSON format", true)
-	// distributionCreateParameters := api.DistributionCreateParameters{}
-	
+	AddFlag(DistributionCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(DistributionCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(distributionCreate.Flags())
+	AddFlag(DistributionCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(DistributionCreate.Flags())
 }
-
 func initDistributionDelete() {
 	params := viper.New()
-	var distributionDelete = &cobra.Command{
+	var DistributionDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionDelete", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
 		Short: "Delete a distribution",
 		Long:  `Delete an existing distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -114,13 +106,12 @@ func initDistributionDelete() {
 
 			localVarOptionals := api.DistributionDeleteOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.DistributionsApi.DistributionDelete(auth, accountId, id, &localVarOptionals)
 
@@ -143,26 +134,21 @@ func initDistributionDelete() {
 		},
 	}
 
-	distributionsApiCmd.AddCommand(distributionDelete)
+	DistributionsApiCmd.AddCommand(DistributionDelete)
 
-	
-	AddFlag(distributionDelete, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(distributionDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(distributionDelete.Flags())
+	AddFlag(DistributionDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(DistributionDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(DistributionDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(DistributionDelete.Flags())
 }
-
 func initDistributionShow() {
 	params := viper.New()
-	var distributionShow = &cobra.Command{
+	var DistributionShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionShow", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
 		Short: "Get a single distribution",
 		Long:  `Get details on a single distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -173,13 +159,12 @@ func initDistributionShow() {
 
 			localVarOptionals := api.DistributionShowOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.DistributionsApi.DistributionShow(auth, accountId, id, &localVarOptionals)
 
@@ -202,26 +187,21 @@ func initDistributionShow() {
 		},
 	}
 
-	distributionsApiCmd.AddCommand(distributionShow)
+	DistributionsApiCmd.AddCommand(DistributionShow)
 
-	
-	AddFlag(distributionShow, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(distributionShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(distributionShow.Flags())
+	AddFlag(DistributionShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(DistributionShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(DistributionShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(DistributionShow.Flags())
 }
-
 func initDistributionUpdate() {
 	params := viper.New()
-	var distributionUpdate = &cobra.Command{
+	var DistributionUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionUpdate", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
 		Short: "Update a distribution",
 		Long:  `Update an existing distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -232,13 +212,12 @@ func initDistributionUpdate() {
 
 			localVarOptionals := api.DistributionUpdateOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			id := params.GetString("id")
-
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			distributionUpdateParameters := api.DistributionUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &distributionUpdateParameters); err != nil {
@@ -247,8 +226,6 @@ func initDistributionUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", distributionUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.DistributionsApi.DistributionUpdate(auth, accountId, id, distributionUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -270,29 +247,23 @@ func initDistributionUpdate() {
 		},
 	}
 
-	distributionsApiCmd.AddCommand(distributionUpdate)
+	DistributionsApiCmd.AddCommand(DistributionUpdate)
 
-	
-	AddFlag(distributionUpdate, "string", "accountId", "", "Account ID", true)
-	
-	AddFlag(distributionUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(distributionUpdate, "string", "data", "d", "payload in JSON format", true)
-	// distributionUpdateParameters := api.DistributionUpdateParameters{}
-	
+	AddFlag(DistributionUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(DistributionUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(DistributionUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(distributionUpdate.Flags())
+	AddFlag(DistributionUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(DistributionUpdate.Flags())
 }
-
 func initDistributionsList() {
 	params := viper.New()
-	var distributionsList = &cobra.Command{
+	var DistributionsList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionsList", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
 		Short: "List distributions",
 		Long:  `List all distributions for the given account.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -303,10 +274,17 @@ func initDistributionsList() {
 
 			localVarOptionals := api.DistributionsListOpts{}
 
-			
-			accountId := params.GetString("accountId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
 
-			
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.DistributionsApi.DistributionsList(auth, accountId, &localVarOptionals)
 
@@ -329,12 +307,11 @@ func initDistributionsList() {
 		},
 	}
 
-	distributionsApiCmd.AddCommand(distributionsList)
+	DistributionsApiCmd.AddCommand(DistributionsList)
 
-	
-	AddFlag(distributionsList, "string", "accountId", "", "Account ID", true)
-	
-
-	params.BindPFlags(distributionsList.Flags())
+	AddFlag(DistributionsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(DistributionsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(DistributionsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(DistributionsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	params.BindPFlags(DistributionsList.Flags())
 }
-

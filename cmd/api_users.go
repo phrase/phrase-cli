@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -15,25 +16,22 @@ import (
 func init() {
 	initShowUser()
 
-	rootCmd.AddCommand(usersApiCmd)
+	rootCmd.AddCommand(UsersApiCmd)
 }
 
-var usersApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("usersapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("UsersApi", "Api"), "API"}, " "),
+var UsersApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Users"),
+	Short: "Users API",
 }
-
 
 func initShowUser() {
 	params := viper.New()
-	var showUser = &cobra.Command{
+	var ShowUser = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ShowUser", strings.TrimSuffix("UsersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("UsersApi", "Api"), "s"))),
 		Short: "Show current User",
 		Long:  `Show details for current User.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -43,8 +41,9 @@ func initShowUser() {
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.ShowUserOpts{}
-
-			
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
 			data, api_response, err := client.UsersApi.ShowUser(auth, &localVarOptionals)
 
@@ -67,10 +66,8 @@ func initShowUser() {
 		},
 	}
 
-	usersApiCmd.AddCommand(showUser)
+	UsersApiCmd.AddCommand(ShowUser)
 
-	
-
-	params.BindPFlags(showUser.Flags())
+	AddFlag(ShowUser, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(ShowUser.Flags())
 }
-

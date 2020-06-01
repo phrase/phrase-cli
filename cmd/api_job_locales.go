@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
@@ -21,25 +22,22 @@ func init() {
 	initJobLocalesCreate()
 	initJobLocalesList()
 
-	rootCmd.AddCommand(jobLocalesApiCmd)
+	rootCmd.AddCommand(JobLocalesApiCmd)
 }
 
-var jobLocalesApiCmd = &cobra.Command{
-	// this weird approach is due to mustache template limitations
-	Use:   strings.TrimSuffix("joblocalesapi", "api"),
-	Short: strings.Join([]string{strings.TrimSuffix("JobLocalesApi", "Api"), "API"}, " "),
+var JobLocalesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("JobLocales"),
+	Short: "JobLocales API",
 }
-
 
 func initJobLocaleComplete() {
 	params := viper.New()
-	var jobLocaleComplete = &cobra.Command{
+	var JobLocaleComplete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleComplete", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
 		Short: "Complete a job locale",
 		Long:  `Mark a job locale as completed.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -50,16 +48,13 @@ func initJobLocaleComplete() {
 
 			localVarOptionals := api.JobLocaleCompleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			jobId := params.GetString("jobId")
-
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			jobLocaleCompleteParameters := api.JobLocaleCompleteParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteParameters); err != nil {
@@ -68,8 +63,6 @@ func initJobLocaleComplete() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocaleCompleteParameters)
 			}
-			
-
 			data, api_response, err := client.JobLocalesApi.JobLocaleComplete(auth, projectId, jobId, id, jobLocaleCompleteParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -91,31 +84,24 @@ func initJobLocaleComplete() {
 		},
 	}
 
-	jobLocalesApiCmd.AddCommand(jobLocaleComplete)
+	JobLocalesApiCmd.AddCommand(JobLocaleComplete)
 
-	
-	AddFlag(jobLocaleComplete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobLocaleComplete, "string", "jobId", "", "Job ID", true)
-	
-	AddFlag(jobLocaleComplete, "string", "id", "", "ID", true)
-	
-	AddFlag(jobLocaleComplete, "string", "data", "d", "payload in JSON format", true)
-	// jobLocaleCompleteParameters := api.JobLocaleCompleteParameters{}
-	
+	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
+	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobLocaleComplete, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobLocaleComplete.Flags())
+	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobLocaleComplete.Flags())
 }
-
 func initJobLocaleDelete() {
 	params := viper.New()
-	var jobLocaleDelete = &cobra.Command{
+	var JobLocaleDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleDelete", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
 		Short: "Delete a job locale",
 		Long:  `Delete an existing job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -126,16 +112,16 @@ func initJobLocaleDelete() {
 
 			localVarOptionals := api.JobLocaleDeleteOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			jobId := params.GetString("jobId")
-
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, &localVarOptionals)
 
@@ -158,28 +144,23 @@ func initJobLocaleDelete() {
 		},
 	}
 
-	jobLocalesApiCmd.AddCommand(jobLocaleDelete)
+	JobLocalesApiCmd.AddCommand(JobLocaleDelete)
 
-	
-	AddFlag(jobLocaleDelete, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobLocaleDelete, "string", "jobId", "", "Job ID", true)
-	
-	AddFlag(jobLocaleDelete, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(jobLocaleDelete.Flags())
+	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
+	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(JobLocaleDelete.Flags())
 }
-
 func initJobLocaleReopen() {
 	params := viper.New()
-	var jobLocaleReopen = &cobra.Command{
+	var JobLocaleReopen = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleReopen", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
 		Short: "Reopen a job locale",
 		Long:  `Mark a job locale as uncompleted.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -190,16 +171,13 @@ func initJobLocaleReopen() {
 
 			localVarOptionals := api.JobLocaleReopenOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			jobId := params.GetString("jobId")
-
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			jobLocaleReopenParameters := api.JobLocaleReopenParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleReopenParameters); err != nil {
@@ -208,8 +186,6 @@ func initJobLocaleReopen() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocaleReopenParameters)
 			}
-			
-
 			data, api_response, err := client.JobLocalesApi.JobLocaleReopen(auth, projectId, jobId, id, jobLocaleReopenParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -231,31 +207,24 @@ func initJobLocaleReopen() {
 		},
 	}
 
-	jobLocalesApiCmd.AddCommand(jobLocaleReopen)
+	JobLocalesApiCmd.AddCommand(JobLocaleReopen)
 
-	
-	AddFlag(jobLocaleReopen, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobLocaleReopen, "string", "jobId", "", "Job ID", true)
-	
-	AddFlag(jobLocaleReopen, "string", "id", "", "ID", true)
-	
-	AddFlag(jobLocaleReopen, "string", "data", "d", "payload in JSON format", true)
-	// jobLocaleReopenParameters := api.JobLocaleReopenParameters{}
-	
+	AddFlag(JobLocaleReopen, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLocaleReopen, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
+	AddFlag(JobLocaleReopen, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobLocaleReopen, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobLocaleReopen.Flags())
+	AddFlag(JobLocaleReopen, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobLocaleReopen.Flags())
 }
-
 func initJobLocaleShow() {
 	params := viper.New()
-	var jobLocaleShow = &cobra.Command{
+	var JobLocaleShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleShow", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
 		Short: "Get a single job locale",
 		Long:  `Get a single job locale for a given job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -266,16 +235,16 @@ func initJobLocaleShow() {
 
 			localVarOptionals := api.JobLocaleShowOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			jobId := params.GetString("jobId")
-
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleShow(auth, projectId, jobId, id, &localVarOptionals)
 
@@ -298,28 +267,23 @@ func initJobLocaleShow() {
 		},
 	}
 
-	jobLocalesApiCmd.AddCommand(jobLocaleShow)
+	JobLocalesApiCmd.AddCommand(JobLocaleShow)
 
-	
-	AddFlag(jobLocaleShow, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobLocaleShow, "string", "jobId", "", "Job ID", true)
-	
-	AddFlag(jobLocaleShow, "string", "id", "", "ID", true)
-	
-
-	params.BindPFlags(jobLocaleShow.Flags())
+	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
+	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(JobLocaleShow.Flags())
 }
-
 func initJobLocaleUpdate() {
 	params := viper.New()
-	var jobLocaleUpdate = &cobra.Command{
+	var JobLocaleUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleUpdate", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
 		Short: "Update a job locale",
 		Long:  `Update an existing job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -330,16 +294,13 @@ func initJobLocaleUpdate() {
 
 			localVarOptionals := api.JobLocaleUpdateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			jobId := params.GetString("jobId")
-
-			
-			id := params.GetString("id")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			jobLocaleUpdateParameters := api.JobLocaleUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleUpdateParameters); err != nil {
@@ -348,8 +309,6 @@ func initJobLocaleUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocaleUpdateParameters)
 			}
-			
-
 			data, api_response, err := client.JobLocalesApi.JobLocaleUpdate(auth, projectId, jobId, id, jobLocaleUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -371,31 +330,24 @@ func initJobLocaleUpdate() {
 		},
 	}
 
-	jobLocalesApiCmd.AddCommand(jobLocaleUpdate)
+	JobLocalesApiCmd.AddCommand(JobLocaleUpdate)
 
-	
-	AddFlag(jobLocaleUpdate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobLocaleUpdate, "string", "jobId", "", "Job ID", true)
-	
-	AddFlag(jobLocaleUpdate, "string", "id", "", "ID", true)
-	
-	AddFlag(jobLocaleUpdate, "string", "data", "d", "payload in JSON format", true)
-	// jobLocaleUpdateParameters := api.JobLocaleUpdateParameters{}
-	
+	AddFlag(JobLocaleUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLocaleUpdate, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
+	AddFlag(JobLocaleUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobLocaleUpdate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobLocaleUpdate.Flags())
+	AddFlag(JobLocaleUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobLocaleUpdate.Flags())
 }
-
 func initJobLocalesCreate() {
 	params := viper.New()
-	var jobLocalesCreate = &cobra.Command{
+	var JobLocalesCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocalesCreate", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
 		Short: "Create a job locale",
 		Long:  `Create a new job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -406,13 +358,12 @@ func initJobLocalesCreate() {
 
 			localVarOptionals := api.JobLocalesCreateOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
-			
-			jobId := params.GetString("jobId")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 
 			jobLocalesCreateParameters := api.JobLocalesCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocalesCreateParameters); err != nil {
@@ -421,8 +372,6 @@ func initJobLocalesCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocalesCreateParameters)
 			}
-			
-
 			data, api_response, err := client.JobLocalesApi.JobLocalesCreate(auth, projectId, jobId, jobLocalesCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode == 200 {
@@ -444,29 +393,23 @@ func initJobLocalesCreate() {
 		},
 	}
 
-	jobLocalesApiCmd.AddCommand(jobLocalesCreate)
+	JobLocalesApiCmd.AddCommand(JobLocalesCreate)
 
-	
-	AddFlag(jobLocalesCreate, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobLocalesCreate, "string", "jobId", "", "Job ID", true)
-	
-	AddFlag(jobLocalesCreate, "string", "data", "d", "payload in JSON format", true)
-	// jobLocalesCreateParameters := api.JobLocalesCreateParameters{}
-	
+	AddFlag(JobLocalesCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLocalesCreate, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
+	AddFlag(JobLocalesCreate, "string", "data", "d", "payload in JSON format", true)
 
-	params.BindPFlags(jobLocalesCreate.Flags())
+	AddFlag(JobLocalesCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	params.BindPFlags(JobLocalesCreate.Flags())
 }
-
 func initJobLocalesList() {
 	params := viper.New()
-	var jobLocalesList = &cobra.Command{
+	var JobLocalesList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
 		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocalesList", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
 		Short: "List job locales",
 		Long:  `List all job locales for a given job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
 			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 				Key:    Config.Credentials.Token,
 				Prefix: "token",
@@ -477,13 +420,21 @@ func initJobLocalesList() {
 
 			localVarOptionals := api.JobLocalesListOpts{}
 
-			
-			projectId := params.GetString("projectId")
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			
-			jobId := params.GetString("jobId")
-
-			
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 
 			data, api_response, err := client.JobLocalesApi.JobLocalesList(auth, projectId, jobId, &localVarOptionals)
 
@@ -506,14 +457,13 @@ func initJobLocalesList() {
 		},
 	}
 
-	jobLocalesApiCmd.AddCommand(jobLocalesList)
+	JobLocalesApiCmd.AddCommand(JobLocalesList)
 
-	
-	AddFlag(jobLocalesList, "string", "projectId", "", "Project ID", true)
-	
-	AddFlag(jobLocalesList, "string", "jobId", "", "Job ID", true)
-	
-
-	params.BindPFlags(jobLocalesList.Flags())
+	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
+	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobLocalesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(JobLocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	params.BindPFlags(JobLocalesList.Flags())
 }
-
