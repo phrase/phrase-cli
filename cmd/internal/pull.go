@@ -143,8 +143,6 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		localVarOptionals.Branch = optional.NewString(branch)
 	}
 
-	localVarOptionals.FileFormat = optional.NewString("yml")
-
 	if Debug {
 		fmt.Fprintln(os.Stderr, "Target file pattern:", target.File)
 		fmt.Fprintln(os.Stderr, "Actual file path", localeFile.Path)
