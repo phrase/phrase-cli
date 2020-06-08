@@ -40,7 +40,7 @@ func initUploadCreate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.UploadCreateOpts{}
@@ -102,7 +102,7 @@ func initUploadCreate() {
 
 			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -153,7 +153,7 @@ func initUploadShow() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.UploadShowOpts{}
@@ -170,7 +170,7 @@ func initUploadShow() {
 
 			data, api_response, err := client.UploadsApi.UploadShow(auth, projectId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -210,7 +210,7 @@ func initUploadsList() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.UploadsListOpts{}
@@ -232,7 +232,7 @@ func initUploadsList() {
 
 			data, api_response, err := client.UploadsApi.UploadsList(auth, projectId, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)

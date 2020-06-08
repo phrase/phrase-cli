@@ -43,7 +43,7 @@ func initJobLocaleComplete() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.JobLocaleCompleteOpts{}
@@ -65,7 +65,7 @@ func initJobLocaleComplete() {
 			}
 			data, api_response, err := client.JobLocalesApi.JobLocaleComplete(auth, projectId, jobId, id, jobLocaleCompleteParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -107,7 +107,7 @@ func initJobLocaleDelete() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.JobLocaleDeleteOpts{}
@@ -125,7 +125,7 @@ func initJobLocaleDelete() {
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -166,7 +166,7 @@ func initJobLocaleReopen() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.JobLocaleReopenOpts{}
@@ -188,7 +188,7 @@ func initJobLocaleReopen() {
 			}
 			data, api_response, err := client.JobLocalesApi.JobLocaleReopen(auth, projectId, jobId, id, jobLocaleReopenParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -230,7 +230,7 @@ func initJobLocaleShow() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.JobLocaleShowOpts{}
@@ -248,7 +248,7 @@ func initJobLocaleShow() {
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleShow(auth, projectId, jobId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -289,7 +289,7 @@ func initJobLocaleUpdate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.JobLocaleUpdateOpts{}
@@ -311,7 +311,7 @@ func initJobLocaleUpdate() {
 			}
 			data, api_response, err := client.JobLocalesApi.JobLocaleUpdate(auth, projectId, jobId, id, jobLocaleUpdateParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -353,7 +353,7 @@ func initJobLocalesCreate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.JobLocalesCreateOpts{}
@@ -374,7 +374,7 @@ func initJobLocalesCreate() {
 			}
 			data, api_response, err := client.JobLocalesApi.JobLocalesCreate(auth, projectId, jobId, jobLocalesCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -415,7 +415,7 @@ func initJobLocalesList() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.JobLocalesListOpts{}
@@ -438,7 +438,7 @@ func initJobLocalesList() {
 
 			data, api_response, err := client.JobLocalesApi.JobLocalesList(auth, projectId, jobId, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)

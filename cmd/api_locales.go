@@ -42,7 +42,7 @@ func initLocaleCreate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.LocaleCreateOpts{}
@@ -62,7 +62,7 @@ func initLocaleCreate() {
 			}
 			data, api_response, err := client.LocalesApi.LocaleCreate(auth, projectId, localeCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -102,7 +102,7 @@ func initLocaleDelete() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.LocaleDeleteOpts{}
@@ -119,7 +119,7 @@ func initLocaleDelete() {
 
 			data, api_response, err := client.LocalesApi.LocaleDelete(auth, projectId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -159,7 +159,7 @@ func initLocaleDownload() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.LocaleDownloadOpts{}
@@ -213,7 +213,7 @@ func initLocaleDownload() {
 
 			data, api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -267,7 +267,7 @@ func initLocaleShow() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.LocaleShowOpts{}
@@ -284,7 +284,7 @@ func initLocaleShow() {
 
 			data, api_response, err := client.LocalesApi.LocaleShow(auth, projectId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -324,7 +324,7 @@ func initLocaleUpdate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.LocaleUpdateOpts{}
@@ -345,7 +345,7 @@ func initLocaleUpdate() {
 			}
 			data, api_response, err := client.LocalesApi.LocaleUpdate(auth, projectId, id, localeUpdateParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -386,7 +386,7 @@ func initLocalesList() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.LocalesListOpts{}
@@ -408,7 +408,7 @@ func initLocalesList() {
 
 			data, api_response, err := client.LocalesApi.LocalesList(auth, projectId, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)

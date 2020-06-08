@@ -41,7 +41,7 @@ func initDistributionCreate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.DistributionCreateOpts{}
@@ -61,7 +61,7 @@ func initDistributionCreate() {
 			}
 			data, api_response, err := client.DistributionsApi.DistributionCreate(auth, accountId, distributionCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -101,7 +101,7 @@ func initDistributionDelete() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.DistributionDeleteOpts{}
@@ -115,7 +115,7 @@ func initDistributionDelete() {
 
 			data, api_response, err := client.DistributionsApi.DistributionDelete(auth, accountId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -154,7 +154,7 @@ func initDistributionShow() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.DistributionShowOpts{}
@@ -168,7 +168,7 @@ func initDistributionShow() {
 
 			data, api_response, err := client.DistributionsApi.DistributionShow(auth, accountId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -207,7 +207,7 @@ func initDistributionUpdate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.DistributionUpdateOpts{}
@@ -228,7 +228,7 @@ func initDistributionUpdate() {
 			}
 			data, api_response, err := client.DistributionsApi.DistributionUpdate(auth, accountId, id, distributionUpdateParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -269,7 +269,7 @@ func initDistributionsList() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.DistributionsListOpts{}
@@ -288,7 +288,7 @@ func initDistributionsList() {
 
 			data, api_response, err := client.DistributionsApi.DistributionsList(auth, accountId, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)

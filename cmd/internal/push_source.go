@@ -230,18 +230,13 @@ func (source *Source) createLocale(client *phrase.APIClient, localeFile *LocaleF
 		localeParams.Branch = branch
 	}
 
-	var localeDetail *phrase.LocaleDetails
-	data, _, err := client.LocalesApi.LocaleCreate(Auth, source.ProjectID, *localeParams, &phrase.LocaleCreateOpts{})
+	localeDetailsData, _, err := client.LocalesApi.LocaleCreate(Auth, source.ProjectID, *localeParams, &phrase.LocaleCreateOpts{})
 
 	if err != nil {
 		return nil, err
 	}
 
-	if err := json.Unmarshal(data, &localeDetail); err != nil {
-		return nil, err
-	}
-
-	return localeDetails, nil
+	return &localeDetailsData, nil
 }
 
 func (source *Source) getLocaleIfExist(client *phrase.APIClient, localeFile *LocaleFile, branch string) (*phrase.LocaleDetails, bool, error) {

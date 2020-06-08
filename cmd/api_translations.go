@@ -53,7 +53,7 @@ func initTranslationCreate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationCreateOpts{}
@@ -73,7 +73,7 @@ func initTranslationCreate() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationCreate(auth, projectId, translationCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -113,7 +113,7 @@ func initTranslationExclude() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationExcludeOpts{}
@@ -134,7 +134,7 @@ func initTranslationExclude() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationExclude(auth, projectId, id, translationExcludeParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -175,7 +175,7 @@ func initTranslationInclude() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationIncludeOpts{}
@@ -196,7 +196,7 @@ func initTranslationInclude() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationInclude(auth, projectId, id, translationIncludeParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -237,7 +237,7 @@ func initTranslationReview() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationReviewOpts{}
@@ -258,7 +258,7 @@ func initTranslationReview() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationReview(auth, projectId, id, translationReviewParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -299,7 +299,7 @@ func initTranslationShow() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationShowOpts{}
@@ -316,7 +316,7 @@ func initTranslationShow() {
 
 			data, api_response, err := client.TranslationsApi.TranslationShow(auth, projectId, id, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -356,7 +356,7 @@ func initTranslationUnverify() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationUnverifyOpts{}
@@ -377,7 +377,7 @@ func initTranslationUnverify() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationUnverify(auth, projectId, id, translationUnverifyParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -418,7 +418,7 @@ func initTranslationUpdate() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationUpdateOpts{}
@@ -439,7 +439,7 @@ func initTranslationUpdate() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationUpdate(auth, projectId, id, translationUpdateParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -480,7 +480,7 @@ func initTranslationVerify() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationVerifyOpts{}
@@ -501,7 +501,7 @@ func initTranslationVerify() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationVerify(auth, projectId, id, translationVerifyParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -542,7 +542,7 @@ func initTranslationsByKey() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsByKeyOpts{}
@@ -574,7 +574,7 @@ func initTranslationsByKey() {
 
 			data, api_response, err := client.TranslationsApi.TranslationsByKey(auth, projectId, keyId, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -619,7 +619,7 @@ func initTranslationsByLocale() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsByLocaleOpts{}
@@ -651,7 +651,7 @@ func initTranslationsByLocale() {
 
 			data, api_response, err := client.TranslationsApi.TranslationsByLocale(auth, projectId, localeId, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -696,7 +696,7 @@ func initTranslationsExclude() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsExcludeOpts{}
@@ -716,7 +716,7 @@ func initTranslationsExclude() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationsExclude(auth, projectId, translationsExcludeParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -756,7 +756,7 @@ func initTranslationsInclude() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsIncludeOpts{}
@@ -776,7 +776,7 @@ func initTranslationsInclude() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationsInclude(auth, projectId, translationsIncludeParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -816,7 +816,7 @@ func initTranslationsList() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsListOpts{}
@@ -847,7 +847,7 @@ func initTranslationsList() {
 
 			data, api_response, err := client.TranslationsApi.TranslationsList(auth, projectId, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -891,7 +891,7 @@ func initTranslationsReview() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsReviewOpts{}
@@ -911,7 +911,7 @@ func initTranslationsReview() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationsReview(auth, projectId, translationsReviewParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -951,7 +951,7 @@ func initTranslationsSearch() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsSearchOpts{}
@@ -977,7 +977,7 @@ func initTranslationsSearch() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationsSearch(auth, projectId, translationsSearchParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -1019,7 +1019,7 @@ func initTranslationsUnverify() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsUnverifyOpts{}
@@ -1039,7 +1039,7 @@ func initTranslationsUnverify() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationsUnverify(auth, projectId, translationsUnverifyParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)
@@ -1079,7 +1079,7 @@ func initTranslationsVerify() {
 				Prefix: "token",
 			})
 
-			cfg := api.NewConfiguration()
+			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 
 			localVarOptionals := api.TranslationsVerifyOpts{}
@@ -1099,7 +1099,7 @@ func initTranslationsVerify() {
 			}
 			data, api_response, err := client.TranslationsApi.TranslationsVerify(auth, projectId, translationsVerifyParameters, &localVarOptionals)
 
-			if api_response.StatusCode == 200 {
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
 				if jsonErr != nil {
 					fmt.Printf("%v\n", data)

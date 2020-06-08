@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -233,9 +232,7 @@ func (cmd *InitCommand) newProject() error {
 		return err
 	}
 
-	if err := json.Unmarshal(data, &details); err != nil {
-		return err
-	}
+	details = &data
 
 	print.Success("Using project %v", details.Name)
 

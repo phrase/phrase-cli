@@ -84,7 +84,7 @@ func newClient() *phrase.APIClient {
 		Prefix: "token",
 	})
 
-	cfg := phrase.NewConfiguration()
+	cfg := phrase.NewConfiguration(Config)
 	return phrase.NewAPIClient(cfg)
 }
 

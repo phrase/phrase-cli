@@ -35,6 +35,14 @@ func init() {
 	viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
 	viper.SetDefault("verbose", false)
 
+	rootCmd.PersistentFlags().StringVarP(&Config.Credentials.Host, "host", "", "", "Host to send Request to")
+	viper.BindPFlag("host", rootCmd.PersistentFlags().Lookup("host"))
+	viper.SetDefault("host", false)
+
+	rootCmd.PersistentFlags().StringVarP(&Config.Credentials.Token, "access_token", "t", "", "access token used for authentication")
+	viper.BindPFlag("access_token", rootCmd.PersistentFlags().Lookup("access_token"))
+	viper.SetDefault("access_token", false)
+
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yaml fallback to $HOME/.phrase.yaml)")
 }
 
@@ -83,6 +91,14 @@ func initConfig() {
 	// flag overwrites debug option from file
 	if Config.Debug {
 		config.Debug = Config.Debug
+	}
+
+	if Config.Credentials.Host != "" {
+		config.Credentials.Host = Config.Credentials.Host
+	}
+
+	if Config.Credentials.Token != "" {
+		config.Credentials.Token = Config.Credentials.Token
 	}
 
 	if config.Debug {
