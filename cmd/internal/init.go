@@ -222,7 +222,7 @@ func (cmd *InitCommand) newProject() error {
 		}
 	}
 
-	var details *phrase.Project
+	var details *phrase.ProjectDetails
 
 	data, _, err := cmd.client.ProjectsApi.ProjectCreate(Auth, params, &phrase.ProjectCreateOpts{})
 	if err != nil {

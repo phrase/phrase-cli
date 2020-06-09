@@ -32,9 +32,11 @@ var JobLocalesApiCmd = &cobra.Command{
 
 func initJobLocaleComplete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_locale/complete", "/")[1:], "_")
 	var JobLocaleComplete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleComplete", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Complete a job locale",
 		Long:  `Mark a job locale as completed.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -96,9 +98,11 @@ func initJobLocaleComplete() {
 }
 func initJobLocaleDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_locale/delete", "/")[1:], "_")
 	var JobLocaleDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleDelete", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a job locale",
 		Long:  `Delete an existing job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -155,9 +159,11 @@ func initJobLocaleDelete() {
 }
 func initJobLocaleReopen() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_locale/reopen", "/")[1:], "_")
 	var JobLocaleReopen = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleReopen", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Reopen a job locale",
 		Long:  `Mark a job locale as uncompleted.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -219,9 +225,11 @@ func initJobLocaleReopen() {
 }
 func initJobLocaleShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_locale/show", "/")[1:], "_")
 	var JobLocaleShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleShow", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single job locale",
 		Long:  `Get a single job locale for a given job.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -278,9 +286,11 @@ func initJobLocaleShow() {
 }
 func initJobLocaleUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_locale/update", "/")[1:], "_")
 	var JobLocaleUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocaleUpdate", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a job locale",
 		Long:  `Update an existing job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -342,9 +352,11 @@ func initJobLocaleUpdate() {
 }
 func initJobLocalesCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_locales/create", "/")[1:], "_")
 	var JobLocalesCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocalesCreate", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a job locale",
 		Long:  `Create a new job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -404,9 +416,11 @@ func initJobLocalesCreate() {
 }
 func initJobLocalesList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_locales/list", "/")[1:], "_")
 	var JobLocalesList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobLocalesList", strings.TrimSuffix("JobLocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobLocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List job locales",
 		Long:  `List all job locales for a given job.`,
 		Run: func(cmd *cobra.Command, args []string) {

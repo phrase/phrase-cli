@@ -30,9 +30,11 @@ var AuthorizationsApiCmd = &cobra.Command{
 
 func initAuthorizationCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("authorization/create", "/")[1:], "_")
 	var AuthorizationCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AuthorizationCreate", strings.TrimSuffix("AuthorizationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AuthorizationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create an authorization",
 		Long:  `Create a new authorization.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -87,9 +89,11 @@ func initAuthorizationCreate() {
 }
 func initAuthorizationDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("authorization/delete", "/")[1:], "_")
 	var AuthorizationDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AuthorizationDelete", strings.TrimSuffix("AuthorizationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AuthorizationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete an authorization",
 		Long:  `Delete an existing authorization. API calls using that token will stop working.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -138,9 +142,11 @@ func initAuthorizationDelete() {
 }
 func initAuthorizationShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("authorization/show", "/")[1:], "_")
 	var AuthorizationShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AuthorizationShow", strings.TrimSuffix("AuthorizationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AuthorizationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single authorization",
 		Long:  `Get details on a single authorization.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -189,9 +195,11 @@ func initAuthorizationShow() {
 }
 func initAuthorizationUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("authorization/update", "/")[1:], "_")
 	var AuthorizationUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AuthorizationUpdate", strings.TrimSuffix("AuthorizationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AuthorizationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update an authorization",
 		Long:  `Update an existing authorization.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -249,9 +257,11 @@ func initAuthorizationUpdate() {
 }
 func initAuthorizationsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("authorizations/list", "/")[1:], "_")
 	var AuthorizationsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AuthorizationsList", strings.TrimSuffix("AuthorizationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AuthorizationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List authorizations",
 		Long:  `List all your authorizations.`,
 		Run: func(cmd *cobra.Command, args []string) {

@@ -28,9 +28,11 @@ var GlossaryTermTranslationsApiCmd = &cobra.Command{
 
 func initGlossaryTermTranslationCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("glossary_term_translation/create", "/")[1:], "_")
 	var GlossaryTermTranslationCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryTermTranslationCreate", strings.TrimSuffix("GlossaryTermTranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryTermTranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a glossary term translation",
 		Long:  `Create a new glossary term translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -92,9 +94,11 @@ func initGlossaryTermTranslationCreate() {
 }
 func initGlossaryTermTranslationDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("glossary_term_translation/delete", "/")[1:], "_")
 	var GlossaryTermTranslationDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryTermTranslationDelete", strings.TrimSuffix("GlossaryTermTranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryTermTranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a glossary term translation",
 		Long:  `Delete an existing glossary term translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -149,9 +153,11 @@ func initGlossaryTermTranslationDelete() {
 }
 func initGlossaryTermTranslationUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("glossary_term_translation/update", "/")[1:], "_")
 	var GlossaryTermTranslationUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryTermTranslationUpdate", strings.TrimSuffix("GlossaryTermTranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryTermTranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a glossary term translation",
 		Long:  `Update an existing glossary term translation.`,
 		Run: func(cmd *cobra.Command, args []string) {

@@ -30,9 +30,11 @@ var OrdersApiCmd = &cobra.Command{
 
 func initOrderConfirm() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("order/confirm", "/")[1:], "_")
 	var OrderConfirm = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrderConfirm", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Confirm an order",
 		Long:  `Confirm an existing order and send it to the provider for translation. Same constraints as for create.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -92,9 +94,11 @@ func initOrderConfirm() {
 }
 func initOrderCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("order/create", "/")[1:], "_")
 	var OrderCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrderCreate", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a new order",
 		Long:  `Create a new order. Access token scope must include &lt;code&gt;orders.create&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -152,9 +156,11 @@ func initOrderCreate() {
 }
 func initOrderDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("order/delete", "/")[1:], "_")
 	var OrderDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrderDelete", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Cancel an order",
 		Long:  `Cancel an existing order. Must not yet be confirmed.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -209,9 +215,11 @@ func initOrderDelete() {
 }
 func initOrderShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("order/show", "/")[1:], "_")
 	var OrderShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrderShow", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single order",
 		Long:  `Get details on a single order.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -266,9 +274,11 @@ func initOrderShow() {
 }
 func initOrdersList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("orders/list", "/")[1:], "_")
 	var OrdersList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("OrdersList", strings.TrimSuffix("OrdersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("OrdersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List orders",
 		Long:  `List all orders for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

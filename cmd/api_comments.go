@@ -33,9 +33,11 @@ var CommentsApiCmd = &cobra.Command{
 
 func initCommentCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("comment/create", "/")[1:], "_")
 	var CommentCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("CommentCreate", strings.TrimSuffix("CommentsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("CommentsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a comment",
 		Long:  `Create a new comment for a key.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -95,9 +97,11 @@ func initCommentCreate() {
 }
 func initCommentDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("comment/delete", "/")[1:], "_")
 	var CommentDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("CommentDelete", strings.TrimSuffix("CommentsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("CommentsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a comment",
 		Long:  `Delete an existing comment.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -154,9 +158,11 @@ func initCommentDelete() {
 }
 func initCommentMarkCheck() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("comment/mark/check", "/")[1:], "_")
 	var CommentMarkCheck = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("CommentMarkCheck", strings.TrimSuffix("CommentsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("CommentsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Check if comment is read",
 		Long:  `Check if comment was marked as read. Returns 204 if read, 404 if unread.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -213,9 +219,11 @@ func initCommentMarkCheck() {
 }
 func initCommentMarkRead() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("comment/mark/read", "/")[1:], "_")
 	var CommentMarkRead = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("CommentMarkRead", strings.TrimSuffix("CommentsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("CommentsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Mark a comment as read",
 		Long:  `Mark a comment as read.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -277,9 +285,11 @@ func initCommentMarkRead() {
 }
 func initCommentMarkUnread() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("comment/mark/unread", "/")[1:], "_")
 	var CommentMarkUnread = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("CommentMarkUnread", strings.TrimSuffix("CommentsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("CommentsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Mark a comment as unread",
 		Long:  `Mark a comment as unread.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -336,9 +346,11 @@ func initCommentMarkUnread() {
 }
 func initCommentShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("comment/show", "/")[1:], "_")
 	var CommentShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("CommentShow", strings.TrimSuffix("CommentsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("CommentsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single comment",
 		Long:  `Get details on a single comment.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -395,9 +407,11 @@ func initCommentShow() {
 }
 func initCommentUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("comment/update", "/")[1:], "_")
 	var CommentUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("CommentUpdate", strings.TrimSuffix("CommentsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("CommentsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a comment",
 		Long:  `Update an existing comment.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -459,9 +473,11 @@ func initCommentUpdate() {
 }
 func initCommentsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("comments/list", "/")[1:], "_")
 	var CommentsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("CommentsList", strings.TrimSuffix("CommentsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("CommentsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List comments",
 		Long:  `List all comments for a key.`,
 		Run: func(cmd *cobra.Command, args []string) {

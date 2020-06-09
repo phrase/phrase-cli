@@ -26,9 +26,11 @@ var UsersApiCmd = &cobra.Command{
 
 func initShowUser() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("show/user", "/")[1:], "_")
 	var ShowUser = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ShowUser", strings.TrimSuffix("UsersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("UsersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Show current User",
 		Long:  `Show details for current User.`,
 		Run: func(cmd *cobra.Command, args []string) {

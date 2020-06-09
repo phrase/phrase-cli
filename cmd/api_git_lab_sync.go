@@ -32,9 +32,11 @@ var GitLabSyncApiCmd = &cobra.Command{
 
 func initGitlabSyncDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("gitlab_sync/delete", "/")[1:], "_")
 	var GitlabSyncDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncDelete", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete single Sync Setting",
 		Long:  `Deletes a single GitLab Sync Setting.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -87,9 +89,11 @@ func initGitlabSyncDelete() {
 }
 func initGitlabSyncExport() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("gitlab_sync/export", "/")[1:], "_")
 	var GitlabSyncExport = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncExport", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Export from Phrase to GitLab",
 		Long:  `Export translations from Phrase to GitLab according to the .phraseapp.yml file within the GitLab repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -147,9 +151,11 @@ func initGitlabSyncExport() {
 }
 func initGitlabSyncHistory() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("gitlab_sync/history", "/")[1:], "_")
 	var GitlabSyncHistory = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncHistory", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "History of single Sync Setting",
 		Long:  `List history for a single Sync Setting.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -210,9 +216,11 @@ func initGitlabSyncHistory() {
 }
 func initGitlabSyncImport() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("gitlab_sync/import", "/")[1:], "_")
 	var GitlabSyncImport = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncImport", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Import from GitLab to Phrase",
 		Long:  `Import translations from GitLab to Phrase according to the .phraseapp.yml file within the GitLab repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -270,9 +278,11 @@ func initGitlabSyncImport() {
 }
 func initGitlabSyncList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("gitlab_sync/list", "/")[1:], "_")
 	var GitlabSyncList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncList", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List GitLab syncs",
 		Long:  `List all GitLab Sync Settings for which synchronisation with Phrase and GitLab is activated.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -321,9 +331,11 @@ func initGitlabSyncList() {
 }
 func initGitlabSyncShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("gitlab_sync/show", "/")[1:], "_")
 	var GitlabSyncShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncShow", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get single Sync Setting",
 		Long:  `Shows a single GitLab Sync Setting.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -376,9 +388,11 @@ func initGitlabSyncShow() {
 }
 func initGitlabSyncUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("gitlab_sync/update", "/")[1:], "_")
 	var GitlabSyncUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GitlabSyncUpdate", strings.TrimSuffix("GitLabSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GitLabSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update single Sync Setting",
 		Long:  `Updates a single GitLab Sync Setting.`,
 		Run: func(cmd *cobra.Command, args []string) {

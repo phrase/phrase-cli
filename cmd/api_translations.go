@@ -42,9 +42,11 @@ var TranslationsApiCmd = &cobra.Command{
 
 func initTranslationCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/create", "/")[1:], "_")
 	var TranslationCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationCreate", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a translation",
 		Long:  `Create a translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -102,9 +104,11 @@ func initTranslationCreate() {
 }
 func initTranslationExclude() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/exclude", "/")[1:], "_")
 	var TranslationExclude = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationExclude", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Exclude a translation from export",
 		Long:  `Set exclude from export flag on an existing translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -164,9 +168,11 @@ func initTranslationExclude() {
 }
 func initTranslationInclude() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/include", "/")[1:], "_")
 	var TranslationInclude = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationInclude", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Revoke exclusion of a translation in export",
 		Long:  `Remove exclude from export flag from an existing translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -226,9 +232,11 @@ func initTranslationInclude() {
 }
 func initTranslationReview() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/review", "/")[1:], "_")
 	var TranslationReview = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationReview", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Review a translation",
 		Long:  `Mark an existing translation as reviewed.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -288,9 +296,11 @@ func initTranslationReview() {
 }
 func initTranslationShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/show", "/")[1:], "_")
 	var TranslationShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationShow", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single translation",
 		Long:  `Get details on a single translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -345,9 +355,11 @@ func initTranslationShow() {
 }
 func initTranslationUnverify() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/unverify", "/")[1:], "_")
 	var TranslationUnverify = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationUnverify", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Mark a translation as unverified",
 		Long:  `Mark an existing translation as unverified.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -407,9 +419,11 @@ func initTranslationUnverify() {
 }
 func initTranslationUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/update", "/")[1:], "_")
 	var TranslationUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationUpdate", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a translation",
 		Long:  `Update an existing translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -469,9 +483,11 @@ func initTranslationUpdate() {
 }
 func initTranslationVerify() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/verify", "/")[1:], "_")
 	var TranslationVerify = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationVerify", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Verify a translation",
 		Long:  `Verify an existing translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -531,9 +547,11 @@ func initTranslationVerify() {
 }
 func initTranslationsByKey() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/by_key", "/")[1:], "_")
 	var TranslationsByKey = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsByKey", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List translations by key",
 		Long:  `List translations for a specific key.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -608,9 +626,11 @@ func initTranslationsByKey() {
 }
 func initTranslationsByLocale() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/by_locale", "/")[1:], "_")
 	var TranslationsByLocale = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsByLocale", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List translations by locale",
 		Long:  `List translations for a specific locale. If you want to download all translations for one locale we recommend to use the &lt;code&gt;locales#download&lt;/code&gt; endpoint.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -685,9 +705,11 @@ func initTranslationsByLocale() {
 }
 func initTranslationsExclude() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/exclude", "/")[1:], "_")
 	var TranslationsExclude = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsExclude", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Set exclude from export flag on translations selected by query",
 		Long:  `Exclude translations matching query from locale export.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -745,9 +767,11 @@ func initTranslationsExclude() {
 }
 func initTranslationsInclude() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/include", "/")[1:], "_")
 	var TranslationsInclude = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsInclude", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Remove exlude from import flag from translations selected by query",
 		Long:  `Include translations matching query in locale export.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -805,9 +829,11 @@ func initTranslationsInclude() {
 }
 func initTranslationsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/list", "/")[1:], "_")
 	var TranslationsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsList", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List all translations",
 		Long:  `List translations for the given project. If you want to download all translations for one locale we recommend to use the &lt;code&gt;locales#download&lt;/code&gt; endpoint.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -880,9 +906,11 @@ func initTranslationsList() {
 }
 func initTranslationsReview() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/review", "/")[1:], "_")
 	var TranslationsReview = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsReview", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Review translations selected by query",
 		Long:  `Review translations matching query.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -940,9 +968,11 @@ func initTranslationsReview() {
 }
 func initTranslationsSearch() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/search", "/")[1:], "_")
 	var TranslationsSearch = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsSearch", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Search translations",
 		Long:  `Search translations for the given project. Provides the same search interface as &lt;code&gt;translations#index&lt;/code&gt; but allows POST requests to avoid limitations imposed by GET requests. If you want to download all translations for one locale we recommend to use the &lt;code&gt;locales#download&lt;/code&gt; endpoint.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -1008,9 +1038,11 @@ func initTranslationsSearch() {
 }
 func initTranslationsUnverify() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/unverify", "/")[1:], "_")
 	var TranslationsUnverify = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsUnverify", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Mark translations selected by query as unverified",
 		Long:  `Mark translations matching query as unverified.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -1068,9 +1100,11 @@ func initTranslationsUnverify() {
 }
 func initTranslationsVerify() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/verify", "/")[1:], "_")
 	var TranslationsVerify = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TranslationsVerify", strings.TrimSuffix("TranslationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TranslationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Verify translations selected by query",
 		Long:  `Verify translations matching query.`,
 		Run: func(cmd *cobra.Command, args []string) {

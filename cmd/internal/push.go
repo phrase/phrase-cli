@@ -2,7 +2,6 @@ package internal
 
 import (
 	"bufio"
-	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -86,13 +85,8 @@ func (cmd *PushCommand) Run() error {
 				}
 
 				branchParams := &phrase.BranchCreateParameters{Name: cmd.Branch}
-				var branch *phrase.Branch
-				data, _, err := client.BranchesApi.BranchCreate(Auth, projectId, *branchParams, nil)
+				branch, _, err := client.BranchesApi.BranchCreate(Auth, projectId, *branchParams, nil)
 				if err != nil {
-					return err
-				}
-
-				if err := json.Unmarshal(data, &branch); err != nil {
 					return err
 				}
 
@@ -103,7 +97,7 @@ func (cmd *PushCommand) Run() error {
 
 				fmt.Printf("Waiting for branch %s is created!", branch.Name)
 				spinner.While(func() {
-					branchCreateResult, err := getBranchCreateResult(client, projectId, branch)
+					branchCreateResult, err := getBranchCreateResult(client, projectId, &branch)
 					taskResult <- branchCreateResult
 					taskErr <- err
 				})
@@ -365,7 +359,7 @@ func (localeFile *LocaleFile) shouldCreateLocale(source *Source, branch string) 
 		return false
 	}
 
-	if source.Format.IncludesLocaleInformation {
+	if *source.Format.IncludesLocaleInformation {
 		return false
 	}
 

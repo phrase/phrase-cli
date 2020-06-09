@@ -2,7 +2,6 @@ package internal
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -187,14 +186,9 @@ func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFil
 		params.Branch = optional.NewString(branch)
 	}
 
-	var upload *phrase.Upload
-	data, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, params)
+	upload, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, params)
 
-	if err := json.Unmarshal(data, &upload); err != nil {
-		return nil, err
-	}
-
-	return upload, err
+	return &upload, err
 }
 
 func (source *Source) createLocale(client *phrase.APIClient, localeFile *LocaleFile, branch string) (*phrase.LocaleDetails, error) {

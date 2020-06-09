@@ -31,9 +31,11 @@ var LocalesApiCmd = &cobra.Command{
 
 func initLocaleCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("locale/create", "/")[1:], "_")
 	var LocaleCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleCreate", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a locale",
 		Long:  `Create a new locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -91,9 +93,11 @@ func initLocaleCreate() {
 }
 func initLocaleDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("locale/delete", "/")[1:], "_")
 	var LocaleDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleDelete", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a locale",
 		Long:  `Delete an existing locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -148,9 +152,11 @@ func initLocaleDelete() {
 }
 func initLocaleDownload() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("locale/download", "/")[1:], "_")
 	var LocaleDownload = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleDownload", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Download a locale",
 		Long:  `Download a locale in a specific file format.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -256,9 +262,11 @@ func initLocaleDownload() {
 }
 func initLocaleShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("locale/show", "/")[1:], "_")
 	var LocaleShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleShow", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single locale",
 		Long:  `Get details on a single locale for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -313,9 +321,11 @@ func initLocaleShow() {
 }
 func initLocaleUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("locale/update", "/")[1:], "_")
 	var LocaleUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocaleUpdate", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a locale",
 		Long:  `Update an existing locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -375,9 +385,11 @@ func initLocaleUpdate() {
 }
 func initLocalesList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("locales/list", "/")[1:], "_")
 	var LocalesList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("LocalesList", strings.TrimSuffix("LocalesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("LocalesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List locales",
 		Long:  `List all locales for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

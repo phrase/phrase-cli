@@ -29,9 +29,11 @@ var UploadsApiCmd = &cobra.Command{
 
 func initUploadCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("upload/create", "/")[1:], "_")
 	var UploadCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("UploadCreate", strings.TrimSuffix("UploadsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("UploadsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Upload a new file",
 		Long:  `Upload a new language file. Creates necessary resources in your project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -142,9 +144,11 @@ func initUploadCreate() {
 }
 func initUploadShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("upload/show", "/")[1:], "_")
 	var UploadShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("UploadShow", strings.TrimSuffix("UploadsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("UploadsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "View upload details",
 		Long:  `View details and summary for a single upload.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -199,9 +203,11 @@ func initUploadShow() {
 }
 func initUploadsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("uploads/list", "/")[1:], "_")
 	var UploadsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("UploadsList", strings.TrimSuffix("UploadsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("UploadsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List uploads",
 		Long:  `List all uploads for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

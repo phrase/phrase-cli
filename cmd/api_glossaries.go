@@ -30,9 +30,11 @@ var GlossariesApiCmd = &cobra.Command{
 
 func initGlossariesList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("glossaries/list", "/")[1:], "_")
 	var GlossariesList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossariesList", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List glossaries",
 		Long:  `List all glossaries the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -89,9 +91,11 @@ func initGlossariesList() {
 }
 func initGlossaryCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("glossary/create", "/")[1:], "_")
 	var GlossaryCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryCreate", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a glossary",
 		Long:  `Create a new glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -149,9 +153,11 @@ func initGlossaryCreate() {
 }
 func initGlossaryDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("glossary/delete", "/")[1:], "_")
 	var GlossaryDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryDelete", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a glossary",
 		Long:  `Delete an existing glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -202,9 +208,11 @@ func initGlossaryDelete() {
 }
 func initGlossaryShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("glossary/show", "/")[1:], "_")
 	var GlossaryShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryShow", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single glossary",
 		Long:  `Get details on a single glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -255,9 +263,11 @@ func initGlossaryShow() {
 }
 func initGlossaryUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("glossary/update", "/")[1:], "_")
 	var GlossaryUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryUpdate", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a glossary",
 		Long:  `Update an existing glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {

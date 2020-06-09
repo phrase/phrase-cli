@@ -35,9 +35,11 @@ var JobsApiCmd = &cobra.Command{
 
 func initJobComplete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/complete", "/")[1:], "_")
 	var JobComplete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobComplete", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Complete a job",
 		Long:  `Mark a job as completed.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -97,9 +99,11 @@ func initJobComplete() {
 }
 func initJobCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/create", "/")[1:], "_")
 	var JobCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobCreate", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a job",
 		Long:  `Create a new job.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -157,9 +161,11 @@ func initJobCreate() {
 }
 func initJobDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/delete", "/")[1:], "_")
 	var JobDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobDelete", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a job",
 		Long:  `Delete an existing job.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -214,9 +220,11 @@ func initJobDelete() {
 }
 func initJobKeysCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/keys/create", "/")[1:], "_")
 	var JobKeysCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobKeysCreate", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Add keys to job",
 		Long:  `Add multiple keys to a existing job.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -276,9 +284,11 @@ func initJobKeysCreate() {
 }
 func initJobKeysDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/keys/delete", "/")[1:], "_")
 	var JobKeysDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobKeysDelete", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Remove keys from job",
 		Long:  `Remove multiple keys from existing job.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -335,9 +345,11 @@ func initJobKeysDelete() {
 }
 func initJobReopen() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/reopen", "/")[1:], "_")
 	var JobReopen = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobReopen", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Reopen a job",
 		Long:  `Mark a job as uncompleted.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -397,9 +409,11 @@ func initJobReopen() {
 }
 func initJobShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/show", "/")[1:], "_")
 	var JobShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobShow", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single job",
 		Long:  `Get details on a single job for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -454,9 +468,11 @@ func initJobShow() {
 }
 func initJobStart() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/start", "/")[1:], "_")
 	var JobStart = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobStart", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Start a job",
 		Long:  `Starts an existing job in state draft.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -516,9 +532,11 @@ func initJobStart() {
 }
 func initJobUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/update", "/")[1:], "_")
 	var JobUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobUpdate", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a job",
 		Long:  `Update an existing job.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -578,9 +596,11 @@ func initJobUpdate() {
 }
 func initJobsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("jobs/list", "/")[1:], "_")
 	var JobsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("JobsList", strings.TrimSuffix("JobsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("JobsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List jobs",
 		Long:  `List all jobs for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

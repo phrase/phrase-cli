@@ -32,9 +32,11 @@ var BranchesApiCmd = &cobra.Command{
 
 func initBranchCompare() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branch/compare", "/")[1:], "_")
 	var BranchCompare = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchCompare", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Compare branches",
 		Long:  `Compare branch with main branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -85,9 +87,11 @@ func initBranchCompare() {
 }
 func initBranchCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branch/create", "/")[1:], "_")
 	var BranchCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchCreate", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a branch",
 		Long:  `Create a new branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -145,9 +149,11 @@ func initBranchCreate() {
 }
 func initBranchDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branch/delete", "/")[1:], "_")
 	var BranchDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchDelete", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a branch",
 		Long:  `Delete an existing branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -198,9 +204,11 @@ func initBranchDelete() {
 }
 func initBranchMerge() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branch/merge", "/")[1:], "_")
 	var BranchMerge = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchMerge", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Merge a branch",
 		Long:  `Merge an existing branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -260,9 +268,11 @@ func initBranchMerge() {
 }
 func initBranchShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branch/show", "/")[1:], "_")
 	var BranchShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchShow", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single branch",
 		Long:  `Get details on a single branch for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -313,9 +323,11 @@ func initBranchShow() {
 }
 func initBranchUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branch/update", "/")[1:], "_")
 	var BranchUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchUpdate", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a branch",
 		Long:  `Update an existing branch.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -375,9 +387,11 @@ func initBranchUpdate() {
 }
 func initBranchesList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branches/list", "/")[1:], "_")
 	var BranchesList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BranchesList", strings.TrimSuffix("BranchesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BranchesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List branches",
 		Long:  `List all branches the of the current project.`,
 		Run: func(cmd *cobra.Command, args []string) {

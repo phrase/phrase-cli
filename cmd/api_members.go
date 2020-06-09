@@ -29,9 +29,11 @@ var MembersApiCmd = &cobra.Command{
 
 func initMemberDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("member/delete", "/")[1:], "_")
 	var MemberDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("MemberDelete", strings.TrimSuffix("MembersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("MembersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Remove a user from the account",
 		Long:  `Remove a user from the account. The user will be removed from the account but not deleted from Phrase. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -82,9 +84,11 @@ func initMemberDelete() {
 }
 func initMemberShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("member/show", "/")[1:], "_")
 	var MemberShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("MemberShow", strings.TrimSuffix("MembersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("MembersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get single member",
 		Long:  `Get details on a single user in the account. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -135,9 +139,11 @@ func initMemberShow() {
 }
 func initMemberUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("member/update", "/")[1:], "_")
 	var MemberUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("MemberUpdate", strings.TrimSuffix("MembersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("MembersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a member",
 		Long:  `Update user permissions in the account. Developers and translators need &lt;code&gt;project_ids&lt;/code&gt; and &lt;code&gt;locale_ids&lt;/code&gt; assigned to access them. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -197,9 +203,11 @@ func initMemberUpdate() {
 }
 func initMembersList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("members/list", "/")[1:], "_")
 	var MembersList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("MembersList", strings.TrimSuffix("MembersApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("MembersApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List members",
 		Long:  `Get all users active in the account. It also lists resources like projects and locales the member has access to. In case nothing is shown the default access from the role is used. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {

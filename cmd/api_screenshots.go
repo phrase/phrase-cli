@@ -30,9 +30,11 @@ var ScreenshotsApiCmd = &cobra.Command{
 
 func initScreenshotCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("screenshot/create", "/")[1:], "_")
 	var ScreenshotCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotCreate", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a screenshot",
 		Long:  `Create a new screenshot.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -90,9 +92,11 @@ func initScreenshotCreate() {
 }
 func initScreenshotDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("screenshot/delete", "/")[1:], "_")
 	var ScreenshotDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotDelete", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a screenshot",
 		Long:  `Delete an existing screenshot.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -143,9 +147,11 @@ func initScreenshotDelete() {
 }
 func initScreenshotShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("screenshot/show", "/")[1:], "_")
 	var ScreenshotShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotShow", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single screenshot",
 		Long:  `Get details on a single screenshot for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -196,9 +202,11 @@ func initScreenshotShow() {
 }
 func initScreenshotUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("screenshot/update", "/")[1:], "_")
 	var ScreenshotUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotUpdate", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a screenshot",
 		Long:  `Update an existing screenshot.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -258,9 +266,11 @@ func initScreenshotUpdate() {
 }
 func initScreenshotsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("screenshots/list", "/")[1:], "_")
 	var ScreenshotsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ScreenshotsList", strings.TrimSuffix("ScreenshotsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ScreenshotsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List screenshots",
 		Long:  `List all screenshots for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

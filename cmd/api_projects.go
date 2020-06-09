@@ -30,9 +30,11 @@ var ProjectsApiCmd = &cobra.Command{
 
 func initProjectCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("project/create", "/")[1:], "_")
 	var ProjectCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectCreate", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a project",
 		Long:  `Create a new project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -87,9 +89,11 @@ func initProjectCreate() {
 }
 func initProjectDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("project/delete", "/")[1:], "_")
 	var ProjectDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectDelete", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a project",
 		Long:  `Delete an existing project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -138,9 +142,11 @@ func initProjectDelete() {
 }
 func initProjectShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("project/show", "/")[1:], "_")
 	var ProjectShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectShow", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single project",
 		Long:  `Get details on a single project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -189,9 +195,11 @@ func initProjectShow() {
 }
 func initProjectUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("project/update", "/")[1:], "_")
 	var ProjectUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectUpdate", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a project",
 		Long:  `Update an existing project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -249,9 +257,11 @@ func initProjectUpdate() {
 }
 func initProjectsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("projects/list", "/")[1:], "_")
 	var ProjectsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ProjectsList", strings.TrimSuffix("ProjectsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ProjectsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List projects",
 		Long:  `List all projects the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {

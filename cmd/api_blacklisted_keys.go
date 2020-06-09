@@ -30,9 +30,11 @@ var BlacklistedKeysApiCmd = &cobra.Command{
 
 func initBlacklistedKeyCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("blacklisted_key/create", "/")[1:], "_")
 	var BlacklistedKeyCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeyCreate", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a blacklisted key",
 		Long:  `Create a new rule for blacklisting keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -90,9 +92,11 @@ func initBlacklistedKeyCreate() {
 }
 func initBlacklistedKeyDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("blacklisted_key/delete", "/")[1:], "_")
 	var BlacklistedKeyDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeyDelete", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a blacklisted key",
 		Long:  `Delete an existing rule for blacklisting keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -143,9 +147,11 @@ func initBlacklistedKeyDelete() {
 }
 func initBlacklistedKeyShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("blacklisted_key/show", "/")[1:], "_")
 	var BlacklistedKeyShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeyShow", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single blacklisted key",
 		Long:  `Get details on a single rule for blacklisting keys for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -196,9 +202,11 @@ func initBlacklistedKeyShow() {
 }
 func initBlacklistedKeyUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("blacklisted_key/update", "/")[1:], "_")
 	var BlacklistedKeyUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeyUpdate", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a blacklisted key",
 		Long:  `Update an existing rule for blacklisting keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -258,9 +266,11 @@ func initBlacklistedKeyUpdate() {
 }
 func initBlacklistedKeysList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("blacklisted_keys/list", "/")[1:], "_")
 	var BlacklistedKeysList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BlacklistedKeysList", strings.TrimSuffix("BlacklistedKeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BlacklistedKeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List blacklisted keys",
 		Long:  `List all rules for blacklisting keys for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

@@ -27,9 +27,11 @@ var AccountsApiCmd = &cobra.Command{
 
 func initAccountShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("account/show", "/")[1:], "_")
 	var AccountShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AccountShow", strings.TrimSuffix("AccountsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AccountsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single account",
 		Long:  `Get details on a single account.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -78,9 +80,11 @@ func initAccountShow() {
 }
 func initAccountsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("accounts/list", "/")[1:], "_")
 	var AccountsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("AccountsList", strings.TrimSuffix("AccountsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("AccountsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List accounts",
 		Long:  `List all accounts the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {

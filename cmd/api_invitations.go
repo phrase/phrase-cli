@@ -31,9 +31,11 @@ var InvitationsApiCmd = &cobra.Command{
 
 func initInvitationCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("invitation/create", "/")[1:], "_")
 	var InvitationCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationCreate", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a new invitation",
 		Long:  `Invite a person to an account. Developers and translators need &lt;code&gt;project_ids&lt;/code&gt; and &lt;code&gt;locale_ids&lt;/code&gt; assigned to access them. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -91,9 +93,11 @@ func initInvitationCreate() {
 }
 func initInvitationDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("invitation/delete", "/")[1:], "_")
 	var InvitationDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationDelete", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete an invitation",
 		Long:  `Delete an existing invitation (must not be accepted yet). Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -144,9 +148,11 @@ func initInvitationDelete() {
 }
 func initInvitationResend() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("invitation/resend", "/")[1:], "_")
 	var InvitationResend = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationResend", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Resend an invitation",
 		Long:  `Resend the invitation email (must not be accepted yet). Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -197,9 +203,11 @@ func initInvitationResend() {
 }
 func initInvitationShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("invitation/show", "/")[1:], "_")
 	var InvitationShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationShow", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single invitation",
 		Long:  `Get details on a single invitation. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -250,9 +258,11 @@ func initInvitationShow() {
 }
 func initInvitationUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("invitation/update", "/")[1:], "_")
 	var InvitationUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationUpdate", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update an invitation",
 		Long:  `Update an existing invitation (must not be accepted yet). The &lt;code&gt;email&lt;/code&gt; cannot be updated. Developers and translators need &lt;code&gt;project_ids&lt;/code&gt; and &lt;code&gt;locale_ids&lt;/code&gt; assigned to access them. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -312,9 +322,11 @@ func initInvitationUpdate() {
 }
 func initInvitationsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("invitations/list", "/")[1:], "_")
 	var InvitationsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("InvitationsList", strings.TrimSuffix("InvitationsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("InvitationsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List invitations",
 		Long:  `List invitations for an account. It will also list the accessible resources like projects and locales the invited user has access to. In case nothing is shown the default access from the role is used. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
 		Run: func(cmd *cobra.Command, args []string) {

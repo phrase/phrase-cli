@@ -26,9 +26,11 @@ var FormatsApiCmd = &cobra.Command{
 
 func initFormatsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("formats/list", "/")[1:], "_")
 	var FormatsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("FormatsList", strings.TrimSuffix("FormatsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("FormatsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List formats",
 		Long:  `Get a handy list of all localization file formats supported in Phrase.`,
 		Run: func(cmd *cobra.Command, args []string) {

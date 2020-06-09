@@ -33,9 +33,11 @@ var SpacesApiCmd = &cobra.Command{
 
 func initSpaceCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("space/create", "/")[1:], "_")
 	var SpaceCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpaceCreate", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a Space",
 		Long:  `Create a new Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -93,9 +95,11 @@ func initSpaceCreate() {
 }
 func initSpaceDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("space/delete", "/")[1:], "_")
 	var SpaceDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpaceDelete", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete Space",
 		Long:  `Delete the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -146,9 +150,11 @@ func initSpaceDelete() {
 }
 func initSpaceShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("space/show", "/")[1:], "_")
 	var SpaceShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpaceShow", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get Space",
 		Long:  `Show the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -199,9 +205,11 @@ func initSpaceShow() {
 }
 func initSpaceUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("space/update", "/")[1:], "_")
 	var SpaceUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpaceUpdate", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update Space",
 		Long:  `Update the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -261,9 +269,11 @@ func initSpaceUpdate() {
 }
 func initSpacesList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("spaces/list", "/")[1:], "_")
 	var SpacesList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpacesList", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List Spaces",
 		Long:  `List all Spaces for the given account.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -320,9 +330,11 @@ func initSpacesList() {
 }
 func initSpacesProjectsCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("spaces/projects/create", "/")[1:], "_")
 	var SpacesProjectsCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpacesProjectsCreate", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Add Project",
 		Long:  `Adds an existing project to the space.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -382,9 +394,11 @@ func initSpacesProjectsCreate() {
 }
 func initSpacesProjectsDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("spaces/projects/delete", "/")[1:], "_")
 	var SpacesProjectsDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpacesProjectsDelete", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Remove Project",
 		Long:  `Removes a specified project from the specified space.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -437,9 +451,11 @@ func initSpacesProjectsDelete() {
 }
 func initSpacesProjectsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("spaces/projects/list", "/")[1:], "_")
 	var SpacesProjectsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("SpacesProjectsList", strings.TrimSuffix("SpacesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("SpacesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List Projects",
 		Long:  `List all projects for the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {

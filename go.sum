@@ -177,8 +177,8 @@ github.com/pelletier/go-toml v1.2.0 h1:T5zMGML61Wp+FlcbWjRDT7yAxhJNAiPPLOFECq181
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/pelletier/go-toml v1.8.0 h1:Keo9qb7iRJs2voHvunFtuuYFsbWeOBh8/P9v/kVMFtw=
 github.com/pelletier/go-toml v1.8.0/go.mod h1:D6yutnOGMveHEPV7VQOuvI/gXY61bv+9bAOTRnLElKs=
-github.com/phrase/phrase-go v1.0.2 h1:3GXtZUD7pFMBY1PYzegV1xyTIPQbvlVmB5pAhZnIkTk=
-github.com/phrase/phrase-go v1.0.2/go.mod h1:BXgF/mv+yrmhBzVxpd099YsF77G3g6g5OL5NSdvx8wI=
+github.com/phrase/phrase-go v1.0.3 h1:5FtYfsiIrs01sd+MOmDI0jXaYS4QiKrX3kBKvdKiO8A=
+github.com/phrase/phrase-go v1.0.3/go.mod h1:BXgF/mv+yrmhBzVxpd099YsF77G3g6g5OL5NSdvx8wI=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

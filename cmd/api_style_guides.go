@@ -30,9 +30,11 @@ var StyleGuidesApiCmd = &cobra.Command{
 
 func initStyleguideCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("styleguide/create", "/")[1:], "_")
 	var StyleguideCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguideCreate", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a style guide",
 		Long:  `Create a new style guide.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -90,9 +92,11 @@ func initStyleguideCreate() {
 }
 func initStyleguideDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("styleguide/delete", "/")[1:], "_")
 	var StyleguideDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguideDelete", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a style guide",
 		Long:  `Delete an existing style guide.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -143,9 +147,11 @@ func initStyleguideDelete() {
 }
 func initStyleguideShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("styleguide/show", "/")[1:], "_")
 	var StyleguideShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguideShow", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single style guide",
 		Long:  `Get details on a single style guide.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -196,9 +202,11 @@ func initStyleguideShow() {
 }
 func initStyleguideUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("styleguide/update", "/")[1:], "_")
 	var StyleguideUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguideUpdate", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a style guide",
 		Long:  `Update an existing style guide.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -258,9 +266,11 @@ func initStyleguideUpdate() {
 }
 func initStyleguidesList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("styleguides/list", "/")[1:], "_")
 	var StyleguidesList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("StyleguidesList", strings.TrimSuffix("StyleGuidesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("StyleGuidesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List style guides",
 		Long:  `List all styleguides for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

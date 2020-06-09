@@ -29,9 +29,11 @@ var TagsApiCmd = &cobra.Command{
 
 func initTagCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("tag/create", "/")[1:], "_")
 	var TagCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TagCreate", strings.TrimSuffix("TagsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TagsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a tag",
 		Long:  `Create a new tag.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -89,9 +91,11 @@ func initTagCreate() {
 }
 func initTagDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("tag/delete", "/")[1:], "_")
 	var TagDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TagDelete", strings.TrimSuffix("TagsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TagsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a tag",
 		Long:  `Delete an existing tag.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -146,9 +150,11 @@ func initTagDelete() {
 }
 func initTagShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("tag/show", "/")[1:], "_")
 	var TagShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TagShow", strings.TrimSuffix("TagsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TagsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single tag",
 		Long:  `Get details and progress information on a single tag for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -203,9 +209,11 @@ func initTagShow() {
 }
 func initTagsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("tags/list", "/")[1:], "_")
 	var TagsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("TagsList", strings.TrimSuffix("TagsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("TagsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List tags",
 		Long:  `List all tags for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

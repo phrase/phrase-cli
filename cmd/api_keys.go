@@ -34,9 +34,11 @@ var KeysApiCmd = &cobra.Command{
 
 func initKeyCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("key/create", "/")[1:], "_")
 	var KeyCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeyCreate", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a key",
 		Long:  `Create a new key.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -94,9 +96,11 @@ func initKeyCreate() {
 }
 func initKeyDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("key/delete", "/")[1:], "_")
 	var KeyDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeyDelete", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a key",
 		Long:  `Delete an existing key.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -151,9 +155,11 @@ func initKeyDelete() {
 }
 func initKeyShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("key/show", "/")[1:], "_")
 	var KeyShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeyShow", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single key",
 		Long:  `Get details on a single key for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -208,9 +214,11 @@ func initKeyShow() {
 }
 func initKeyUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("key/update", "/")[1:], "_")
 	var KeyUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeyUpdate", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a key",
 		Long:  `Update an existing key.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -270,9 +278,11 @@ func initKeyUpdate() {
 }
 func initKeysDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("keys/delete", "/")[1:], "_")
 	var KeysDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysDelete", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete collection of keys",
 		Long:  `Delete all keys matching query. Same constraints as list. Please limit the number of affected keys to about 1,000 as you might experience timeouts otherwise.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -333,9 +343,11 @@ func initKeysDelete() {
 }
 func initKeysList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("keys/list", "/")[1:], "_")
 	var KeysList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysList", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List keys",
 		Long:  `List all keys for the given project. Alternatively you can POST requests to /search.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -412,9 +424,11 @@ func initKeysList() {
 }
 func initKeysSearch() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("keys/search", "/")[1:], "_")
 	var KeysSearch = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysSearch", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Search keys",
 		Long:  `Search keys for the given project matching query.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -480,9 +494,11 @@ func initKeysSearch() {
 }
 func initKeysTag() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("keys/tag", "/")[1:], "_")
 	var KeysTag = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysTag", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Add tags to collection of keys",
 		Long:  `Tags all keys matching query. Same constraints as list.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -540,9 +556,11 @@ func initKeysTag() {
 }
 func initKeysUntag() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("keys/untag", "/")[1:], "_")
 	var KeysUntag = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("KeysUntag", strings.TrimSuffix("KeysApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("KeysApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Remove tags from collection of keys",
 		Long:  `Removes specified tags from keys matching query.`,
 		Run: func(cmd *cobra.Command, args []string) {

@@ -31,9 +31,11 @@ var ReleasesApiCmd = &cobra.Command{
 
 func initReleaseCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("release/create", "/")[1:], "_")
 	var ReleaseCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleaseCreate", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a release",
 		Long:  `Create a new release.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -93,9 +95,11 @@ func initReleaseCreate() {
 }
 func initReleaseDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("release/delete", "/")[1:], "_")
 	var ReleaseDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleaseDelete", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a release",
 		Long:  `Delete an existing release.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -148,9 +152,11 @@ func initReleaseDelete() {
 }
 func initReleasePublish() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("release/publish", "/")[1:], "_")
 	var ReleasePublish = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleasePublish", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Publish a release",
 		Long:  `Publish a release for production.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -203,9 +209,11 @@ func initReleasePublish() {
 }
 func initReleaseShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("release/show", "/")[1:], "_")
 	var ReleaseShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleaseShow", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single release",
 		Long:  `Get details on a single release.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -258,9 +266,11 @@ func initReleaseShow() {
 }
 func initReleaseUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("release/update", "/")[1:], "_")
 	var ReleaseUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleaseUpdate", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a release",
 		Long:  `Update an existing release.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -322,9 +332,11 @@ func initReleaseUpdate() {
 }
 func initReleasesList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("releases/list", "/")[1:], "_")
 	var ReleasesList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("ReleasesList", strings.TrimSuffix("ReleasesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("ReleasesApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List releases",
 		Long:  `List all releases for the given distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {

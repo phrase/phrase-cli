@@ -28,9 +28,11 @@ var BitbucketSyncApiCmd = &cobra.Command{
 
 func initBitbucketSyncExport() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("bitbucket_sync/export", "/")[1:], "_")
 	var BitbucketSyncExport = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BitbucketSyncExport", strings.TrimSuffix("BitbucketSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BitbucketSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Export from Phrase to Bitbucket",
 		Long:  `Export translations from Phrase to Bitbucket according to the .phraseapp.yml file within the Bitbucket Repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -88,9 +90,11 @@ func initBitbucketSyncExport() {
 }
 func initBitbucketSyncImport() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("bitbucket_sync/import", "/")[1:], "_")
 	var BitbucketSyncImport = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BitbucketSyncImport", strings.TrimSuffix("BitbucketSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BitbucketSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Import to Phrase from Bitbucket",
 		Long:  `Import translations from Bitbucket to Phrase according to the .phraseapp.yml file within the Bitbucket repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -148,9 +152,11 @@ func initBitbucketSyncImport() {
 }
 func initBitbucketSyncsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("bitbucket_syncs/list", "/")[1:], "_")
 	var BitbucketSyncsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("BitbucketSyncsList", strings.TrimSuffix("BitbucketSyncApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("BitbucketSyncApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List Bitbucket syncs",
 		Long:  `List all Bitbucket repositories for which synchronisation with Phrase is activated.`,
 		Run: func(cmd *cobra.Command, args []string) {

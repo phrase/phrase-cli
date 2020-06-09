@@ -31,9 +31,11 @@ var WebhooksApiCmd = &cobra.Command{
 
 func initWebhookCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("webhook/create", "/")[1:], "_")
 	var WebhookCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("WebhookCreate", strings.TrimSuffix("WebhooksApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("WebhooksApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a webhook",
 		Long:  `Create a new webhook.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -91,9 +93,11 @@ func initWebhookCreate() {
 }
 func initWebhookDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("webhook/delete", "/")[1:], "_")
 	var WebhookDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("WebhookDelete", strings.TrimSuffix("WebhooksApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("WebhooksApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a webhook",
 		Long:  `Delete an existing webhook.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -144,9 +148,11 @@ func initWebhookDelete() {
 }
 func initWebhookShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("webhook/show", "/")[1:], "_")
 	var WebhookShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("WebhookShow", strings.TrimSuffix("WebhooksApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("WebhooksApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single webhook",
 		Long:  `Get details on a single webhook.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -197,9 +203,11 @@ func initWebhookShow() {
 }
 func initWebhookTest() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("webhook/test", "/")[1:], "_")
 	var WebhookTest = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("WebhookTest", strings.TrimSuffix("WebhooksApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("WebhooksApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Test a webhook",
 		Long:  `Perform a test request for a webhook.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -250,9 +258,11 @@ func initWebhookTest() {
 }
 func initWebhookUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("webhook/update", "/")[1:], "_")
 	var WebhookUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("WebhookUpdate", strings.TrimSuffix("WebhooksApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("WebhooksApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a webhook",
 		Long:  `Update an existing webhook.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -312,9 +322,11 @@ func initWebhookUpdate() {
 }
 func initWebhooksList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("webhooks/list", "/")[1:], "_")
 	var WebhooksList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("WebhooksList", strings.TrimSuffix("WebhooksApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("WebhooksApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List webhooks",
 		Long:  `List all webhooks for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {

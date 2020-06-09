@@ -27,9 +27,11 @@ var VersionsHistoryApiCmd = &cobra.Command{
 
 func initVersionShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("version/show", "/")[1:], "_")
 	var VersionShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("VersionShow", strings.TrimSuffix("VersionsHistoryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("VersionsHistoryApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single version",
 		Long:  `Get details on a single version.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -86,9 +88,11 @@ func initVersionShow() {
 }
 func initVersionsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("versions/list", "/")[1:], "_")
 	var VersionsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("VersionsList", strings.TrimSuffix("VersionsHistoryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("VersionsHistoryApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List all versions",
 		Long:  `List all versions for the given translation.`,
 		Run: func(cmd *cobra.Command, args []string) {

@@ -30,9 +30,11 @@ var DistributionsApiCmd = &cobra.Command{
 
 func initDistributionCreate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("distribution/create", "/")[1:], "_")
 	var DistributionCreate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionCreate", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Create a distribution",
 		Long:  `Create a new distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -90,9 +92,11 @@ func initDistributionCreate() {
 }
 func initDistributionDelete() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("distribution/delete", "/")[1:], "_")
 	var DistributionDelete = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionDelete", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Delete a distribution",
 		Long:  `Delete an existing distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -143,9 +147,11 @@ func initDistributionDelete() {
 }
 func initDistributionShow() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("distribution/show", "/")[1:], "_")
 	var DistributionShow = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionShow", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Get a single distribution",
 		Long:  `Get details on a single distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -196,9 +202,11 @@ func initDistributionShow() {
 }
 func initDistributionUpdate() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("distribution/update", "/")[1:], "_")
 	var DistributionUpdate = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionUpdate", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "Update a distribution",
 		Long:  `Update an existing distribution.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -258,9 +266,11 @@ func initDistributionUpdate() {
 }
 func initDistributionsList() {
 	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("distributions/list", "/")[1:], "_")
 	var DistributionsList = &cobra.Command{
-		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("DistributionsList", strings.TrimSuffix("DistributionsApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("DistributionsApi", "Api"), "s"))),
+		Use:   use,
 		Short: "List distributions",
 		Long:  `List all distributions for the given account.`,
 		Run: func(cmd *cobra.Command, args []string) {
