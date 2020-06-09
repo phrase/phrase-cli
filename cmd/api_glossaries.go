@@ -20,19 +20,19 @@ func init() {
 	initGlossaryShow()
 	initGlossaryUpdate()
 
-	rootCmd.AddCommand(GlossaryApiCmd)
+	rootCmd.AddCommand(GlossariesApiCmd)
 }
 
-var GlossaryApiCmd = &cobra.Command{
-	Use:   helpers.ToSnakeCase("Glossary"),
-	Short: "Glossary API",
+var GlossariesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Glossaries"),
+	Short: "Glossaries API",
 }
 
 func initGlossariesList() {
 	params := viper.New()
 	var GlossariesList = &cobra.Command{
 		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossariesList", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
+		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossariesList", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
 		Short: "List glossaries",
 		Long:  `List all glossaries the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -58,7 +58,7 @@ func initGlossariesList() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			data, api_response, err := client.GlossaryApi.GlossariesList(auth, accountId, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossariesList(auth, accountId, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -79,7 +79,7 @@ func initGlossariesList() {
 		},
 	}
 
-	GlossaryApiCmd.AddCommand(GlossariesList)
+	GlossariesApiCmd.AddCommand(GlossariesList)
 
 	AddFlag(GlossariesList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossariesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -91,7 +91,7 @@ func initGlossaryCreate() {
 	params := viper.New()
 	var GlossaryCreate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryCreate", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
+		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryCreate", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
 		Short: "Create a glossary",
 		Long:  `Create a new glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -118,7 +118,7 @@ func initGlossaryCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryCreateParameters)
 			}
-			data, api_response, err := client.GlossaryApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -139,7 +139,7 @@ func initGlossaryCreate() {
 		},
 	}
 
-	GlossaryApiCmd.AddCommand(GlossaryCreate)
+	GlossariesApiCmd.AddCommand(GlossaryCreate)
 
 	AddFlag(GlossaryCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryCreate, "string", "data", "d", "payload in JSON format", true)
@@ -151,7 +151,7 @@ func initGlossaryDelete() {
 	params := viper.New()
 	var GlossaryDelete = &cobra.Command{
 		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryDelete", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
+		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryDelete", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
 		Short: "Delete a glossary",
 		Long:  `Delete an existing glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -172,7 +172,7 @@ func initGlossaryDelete() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.GlossaryApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -193,7 +193,7 @@ func initGlossaryDelete() {
 		},
 	}
 
-	GlossaryApiCmd.AddCommand(GlossaryDelete)
+	GlossariesApiCmd.AddCommand(GlossaryDelete)
 
 	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
@@ -204,7 +204,7 @@ func initGlossaryShow() {
 	params := viper.New()
 	var GlossaryShow = &cobra.Command{
 		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryShow", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
+		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryShow", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
 		Short: "Get a single glossary",
 		Long:  `Get details on a single glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -225,7 +225,7 @@ func initGlossaryShow() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.GlossaryApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -246,7 +246,7 @@ func initGlossaryShow() {
 		},
 	}
 
-	GlossaryApiCmd.AddCommand(GlossaryShow)
+	GlossariesApiCmd.AddCommand(GlossaryShow)
 
 	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
@@ -257,7 +257,7 @@ func initGlossaryUpdate() {
 	params := viper.New()
 	var GlossaryUpdate = &cobra.Command{
 		// this weird approach is due to mustache template limitations
-		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryUpdate", strings.TrimSuffix("GlossaryApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossaryApi", "Api"), "s"))),
+		Use:   helpers.ToSnakeCase(strings.TrimPrefix(strings.TrimPrefix("GlossaryUpdate", strings.TrimSuffix("GlossariesApi", "Api")), strings.TrimSuffix(strings.TrimSuffix("GlossariesApi", "Api"), "s"))),
 		Short: "Update a glossary",
 		Long:  `Update an existing glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -285,7 +285,7 @@ func initGlossaryUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryUpdateParameters)
 			}
-			data, api_response, err := client.GlossaryApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -306,7 +306,7 @@ func initGlossaryUpdate() {
 		},
 	}
 
-	GlossaryApiCmd.AddCommand(GlossaryUpdate)
+	GlossariesApiCmd.AddCommand(GlossaryUpdate)
 
 	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
