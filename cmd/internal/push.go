@@ -402,7 +402,8 @@ func getBranchCreateResult(client *phrase.APIClient, projectId string, branch *p
 
 	for ; result != "success" && result != "error"; result = branch.State {
 		time.Sleep(b.Duration())
-		_, _, err := client.BranchesApi.BranchShow(Auth, projectId, branch.Name, nil)
+		branchDetails, _, err := client.BranchesApi.BranchShow(Auth, projectId, branch.Name, nil)
+		branch = &branchDetails
 		if err != nil {
 			break
 		}
