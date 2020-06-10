@@ -45,7 +45,6 @@ func initOrderConfirm() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.OrderConfirmOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -84,12 +83,11 @@ func initOrderConfirm() {
 	}
 
 	OrdersApiCmd.AddCommand(OrderConfirm)
-
 	AddFlag(OrderConfirm, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(OrderConfirm, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(OrderConfirm, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(OrderConfirm, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(OrderConfirm.Flags())
 }
 func initOrderCreate() {
@@ -109,7 +107,6 @@ func initOrderCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.OrderCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -147,11 +144,10 @@ func initOrderCreate() {
 	}
 
 	OrdersApiCmd.AddCommand(OrderCreate)
-
 	AddFlag(OrderCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(OrderCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(OrderCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(OrderCreate.Flags())
 }
 func initOrderDelete() {
@@ -171,7 +167,6 @@ func initOrderDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.OrderDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -206,11 +201,11 @@ func initOrderDelete() {
 	}
 
 	OrdersApiCmd.AddCommand(OrderDelete)
-
 	AddFlag(OrderDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(OrderDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(OrderDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(OrderDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(OrderDelete.Flags())
 }
 func initOrderShow() {
@@ -230,7 +225,6 @@ func initOrderShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.OrderShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -265,11 +259,11 @@ func initOrderShow() {
 	}
 
 	OrdersApiCmd.AddCommand(OrderShow)
-
 	AddFlag(OrderShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(OrderShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(OrderShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(OrderShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(OrderShow.Flags())
 }
 func initOrdersList() {
@@ -289,7 +283,6 @@ func initOrdersList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.OrdersListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -329,11 +322,11 @@ func initOrdersList() {
 	}
 
 	OrdersApiCmd.AddCommand(OrdersList)
-
 	AddFlag(OrdersList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(OrdersList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(OrdersList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(OrdersList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
 	AddFlag(OrdersList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(OrdersList.Flags())
 }

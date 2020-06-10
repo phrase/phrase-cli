@@ -48,7 +48,6 @@ func initSpaceCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.SpaceCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -86,11 +85,10 @@ func initSpaceCreate() {
 	}
 
 	SpacesApiCmd.AddCommand(SpaceCreate)
-
 	AddFlag(SpaceCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(SpaceCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(SpaceCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(SpaceCreate.Flags())
 }
 func initSpaceDelete() {
@@ -110,7 +108,6 @@ func initSpaceDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.SpaceDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -142,10 +139,10 @@ func initSpaceDelete() {
 	}
 
 	SpacesApiCmd.AddCommand(SpaceDelete)
-
 	AddFlag(SpaceDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(SpaceDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(SpaceDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(SpaceDelete.Flags())
 }
 func initSpaceShow() {
@@ -165,7 +162,6 @@ func initSpaceShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.SpaceShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -197,10 +193,10 @@ func initSpaceShow() {
 	}
 
 	SpacesApiCmd.AddCommand(SpaceShow)
-
 	AddFlag(SpaceShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(SpaceShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(SpaceShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(SpaceShow.Flags())
 }
 func initSpaceUpdate() {
@@ -220,7 +216,6 @@ func initSpaceUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.SpaceUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -259,12 +254,11 @@ func initSpaceUpdate() {
 	}
 
 	SpacesApiCmd.AddCommand(SpaceUpdate)
-
 	AddFlag(SpaceUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(SpaceUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(SpaceUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(SpaceUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(SpaceUpdate.Flags())
 }
 func initSpacesList() {
@@ -284,7 +278,6 @@ func initSpacesList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.SpacesListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -321,11 +314,11 @@ func initSpacesList() {
 	}
 
 	SpacesApiCmd.AddCommand(SpacesList)
-
 	AddFlag(SpacesList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(SpacesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(SpacesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(SpacesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(SpacesList.Flags())
 }
 func initSpacesProjectsCreate() {
@@ -345,7 +338,6 @@ func initSpacesProjectsCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.SpacesProjectsCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -384,12 +376,11 @@ func initSpacesProjectsCreate() {
 	}
 
 	SpacesApiCmd.AddCommand(SpacesProjectsCreate)
-
 	AddFlag(SpacesProjectsCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(SpacesProjectsCreate, "string", helpers.ToSnakeCase("SpaceId"), "", "Space ID", true)
 	AddFlag(SpacesProjectsCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(SpacesProjectsCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(SpacesProjectsCreate.Flags())
 }
 func initSpacesProjectsDelete() {
@@ -409,7 +400,6 @@ func initSpacesProjectsDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.SpacesProjectsDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -442,11 +432,11 @@ func initSpacesProjectsDelete() {
 	}
 
 	SpacesApiCmd.AddCommand(SpacesProjectsDelete)
-
 	AddFlag(SpacesProjectsDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(SpacesProjectsDelete, "string", helpers.ToSnakeCase("SpaceId"), "", "Space ID", true)
 	AddFlag(SpacesProjectsDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(SpacesProjectsDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(SpacesProjectsDelete.Flags())
 }
 func initSpacesProjectsList() {
@@ -466,7 +456,6 @@ func initSpacesProjectsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.SpacesProjectsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -504,11 +493,11 @@ func initSpacesProjectsList() {
 	}
 
 	SpacesApiCmd.AddCommand(SpacesProjectsList)
-
 	AddFlag(SpacesProjectsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(SpacesProjectsList, "string", helpers.ToSnakeCase("SpaceId"), "", "Space ID", true)
 	AddFlag(SpacesProjectsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(SpacesProjectsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(SpacesProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(SpacesProjectsList.Flags())
 }

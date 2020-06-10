@@ -45,7 +45,6 @@ func initStyleguideCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.StyleguideCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -83,11 +82,10 @@ func initStyleguideCreate() {
 	}
 
 	StyleGuidesApiCmd.AddCommand(StyleguideCreate)
-
 	AddFlag(StyleguideCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(StyleguideCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(StyleguideCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(StyleguideCreate.Flags())
 }
 func initStyleguideDelete() {
@@ -107,7 +105,6 @@ func initStyleguideDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.StyleguideDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -139,10 +136,10 @@ func initStyleguideDelete() {
 	}
 
 	StyleGuidesApiCmd.AddCommand(StyleguideDelete)
-
 	AddFlag(StyleguideDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(StyleguideDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(StyleguideDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(StyleguideDelete.Flags())
 }
 func initStyleguideShow() {
@@ -162,7 +159,6 @@ func initStyleguideShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.StyleguideShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -194,10 +190,10 @@ func initStyleguideShow() {
 	}
 
 	StyleGuidesApiCmd.AddCommand(StyleguideShow)
-
 	AddFlag(StyleguideShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(StyleguideShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(StyleguideShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(StyleguideShow.Flags())
 }
 func initStyleguideUpdate() {
@@ -217,7 +213,6 @@ func initStyleguideUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.StyleguideUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -256,12 +251,11 @@ func initStyleguideUpdate() {
 	}
 
 	StyleGuidesApiCmd.AddCommand(StyleguideUpdate)
-
 	AddFlag(StyleguideUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(StyleguideUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(StyleguideUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(StyleguideUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(StyleguideUpdate.Flags())
 }
 func initStyleguidesList() {
@@ -281,7 +275,6 @@ func initStyleguidesList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.StyleguidesListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -318,10 +311,10 @@ func initStyleguidesList() {
 	}
 
 	StyleGuidesApiCmd.AddCommand(StyleguidesList)
-
 	AddFlag(StyleguidesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(StyleguidesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(StyleguidesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(StyleguidesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(StyleguidesList.Flags())
 }

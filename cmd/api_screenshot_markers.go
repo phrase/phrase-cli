@@ -45,7 +45,6 @@ func initScreenshotMarkerCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotMarkerCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -84,12 +83,11 @@ func initScreenshotMarkerCreate() {
 	}
 
 	ScreenshotMarkersApiCmd.AddCommand(ScreenshotMarkerCreate)
-
 	AddFlag(ScreenshotMarkerCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotMarkerCreate, "string", helpers.ToSnakeCase("ScreenshotId"), "", "Screenshot ID", true)
 	AddFlag(ScreenshotMarkerCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(ScreenshotMarkerCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ScreenshotMarkerCreate.Flags())
 }
 func initScreenshotMarkerDelete() {
@@ -109,7 +107,6 @@ func initScreenshotMarkerDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotMarkerDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -141,10 +138,10 @@ func initScreenshotMarkerDelete() {
 	}
 
 	ScreenshotMarkersApiCmd.AddCommand(ScreenshotMarkerDelete)
-
 	AddFlag(ScreenshotMarkerDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotMarkerDelete, "string", helpers.ToSnakeCase("ScreenshotId"), "", "Screenshot ID", true)
 	AddFlag(ScreenshotMarkerDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ScreenshotMarkerDelete.Flags())
 }
 func initScreenshotMarkerShow() {
@@ -164,7 +161,6 @@ func initScreenshotMarkerShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotMarkerShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -197,11 +193,11 @@ func initScreenshotMarkerShow() {
 	}
 
 	ScreenshotMarkersApiCmd.AddCommand(ScreenshotMarkerShow)
-
 	AddFlag(ScreenshotMarkerShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotMarkerShow, "string", helpers.ToSnakeCase("ScreenshotId"), "", "Screenshot ID", true)
 	AddFlag(ScreenshotMarkerShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ScreenshotMarkerShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ScreenshotMarkerShow.Flags())
 }
 func initScreenshotMarkerUpdate() {
@@ -221,7 +217,6 @@ func initScreenshotMarkerUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotMarkerUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -260,12 +255,11 @@ func initScreenshotMarkerUpdate() {
 	}
 
 	ScreenshotMarkersApiCmd.AddCommand(ScreenshotMarkerUpdate)
-
 	AddFlag(ScreenshotMarkerUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotMarkerUpdate, "string", helpers.ToSnakeCase("ScreenshotId"), "", "Screenshot ID", true)
 	AddFlag(ScreenshotMarkerUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(ScreenshotMarkerUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ScreenshotMarkerUpdate.Flags())
 }
 func initScreenshotMarkersList() {
@@ -285,7 +279,6 @@ func initScreenshotMarkersList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotMarkersListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -323,11 +316,11 @@ func initScreenshotMarkersList() {
 	}
 
 	ScreenshotMarkersApiCmd.AddCommand(ScreenshotMarkersList)
-
 	AddFlag(ScreenshotMarkersList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotMarkersList, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ScreenshotMarkersList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ScreenshotMarkersList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(ScreenshotMarkersList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(ScreenshotMarkersList.Flags())
 }

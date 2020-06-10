@@ -48,7 +48,6 @@ func initCommentCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.CommentCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -87,12 +86,11 @@ func initCommentCreate() {
 	}
 
 	CommentsApiCmd.AddCommand(CommentCreate)
-
 	AddFlag(CommentCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentCreate, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(CommentCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(CommentCreate.Flags())
 }
 func initCommentDelete() {
@@ -112,7 +110,6 @@ func initCommentDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.CommentDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -148,12 +145,12 @@ func initCommentDelete() {
 	}
 
 	CommentsApiCmd.AddCommand(CommentDelete)
-
 	AddFlag(CommentDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentDelete, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(CommentDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(CommentDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(CommentDelete.Flags())
 }
 func initCommentMarkCheck() {
@@ -173,7 +170,6 @@ func initCommentMarkCheck() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.CommentMarkCheckOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -209,12 +205,12 @@ func initCommentMarkCheck() {
 	}
 
 	CommentsApiCmd.AddCommand(CommentMarkCheck)
-
 	AddFlag(CommentMarkCheck, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentMarkCheck, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentMarkCheck, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(CommentMarkCheck, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(CommentMarkCheck, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(CommentMarkCheck.Flags())
 }
 func initCommentMarkRead() {
@@ -234,7 +230,6 @@ func initCommentMarkRead() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.CommentMarkReadOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -274,13 +269,12 @@ func initCommentMarkRead() {
 	}
 
 	CommentsApiCmd.AddCommand(CommentMarkRead)
-
 	AddFlag(CommentMarkRead, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentMarkRead, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentMarkRead, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(CommentMarkRead, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(CommentMarkRead, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(CommentMarkRead.Flags())
 }
 func initCommentMarkUnread() {
@@ -300,7 +294,6 @@ func initCommentMarkUnread() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.CommentMarkUnreadOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -336,12 +329,12 @@ func initCommentMarkUnread() {
 	}
 
 	CommentsApiCmd.AddCommand(CommentMarkUnread)
-
 	AddFlag(CommentMarkUnread, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentMarkUnread, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentMarkUnread, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(CommentMarkUnread, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(CommentMarkUnread, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(CommentMarkUnread.Flags())
 }
 func initCommentShow() {
@@ -361,7 +354,6 @@ func initCommentShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.CommentShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -397,12 +389,12 @@ func initCommentShow() {
 	}
 
 	CommentsApiCmd.AddCommand(CommentShow)
-
 	AddFlag(CommentShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentShow, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(CommentShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(CommentShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(CommentShow.Flags())
 }
 func initCommentUpdate() {
@@ -422,7 +414,6 @@ func initCommentUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.CommentUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -462,13 +453,12 @@ func initCommentUpdate() {
 	}
 
 	CommentsApiCmd.AddCommand(CommentUpdate)
-
 	AddFlag(CommentUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentUpdate, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(CommentUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(CommentUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(CommentUpdate.Flags())
 }
 func initCommentsList() {
@@ -488,7 +478,6 @@ func initCommentsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.CommentsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -529,12 +518,12 @@ func initCommentsList() {
 	}
 
 	CommentsApiCmd.AddCommand(CommentsList)
-
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(CommentsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(CommentsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(CommentsList.Flags())
 }

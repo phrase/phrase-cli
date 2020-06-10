@@ -45,7 +45,6 @@ func initScreenshotCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -83,11 +82,10 @@ func initScreenshotCreate() {
 	}
 
 	ScreenshotsApiCmd.AddCommand(ScreenshotCreate)
-
 	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ScreenshotCreate.Flags())
 }
 func initScreenshotDelete() {
@@ -107,7 +105,6 @@ func initScreenshotDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -139,10 +136,10 @@ func initScreenshotDelete() {
 	}
 
 	ScreenshotsApiCmd.AddCommand(ScreenshotDelete)
-
 	AddFlag(ScreenshotDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ScreenshotDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ScreenshotDelete.Flags())
 }
 func initScreenshotShow() {
@@ -162,7 +159,6 @@ func initScreenshotShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -194,10 +190,10 @@ func initScreenshotShow() {
 	}
 
 	ScreenshotsApiCmd.AddCommand(ScreenshotShow)
-
 	AddFlag(ScreenshotShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ScreenshotShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ScreenshotShow.Flags())
 }
 func initScreenshotUpdate() {
@@ -217,7 +213,6 @@ func initScreenshotUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -256,12 +251,11 @@ func initScreenshotUpdate() {
 	}
 
 	ScreenshotsApiCmd.AddCommand(ScreenshotUpdate)
-
 	AddFlag(ScreenshotUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ScreenshotUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(ScreenshotUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ScreenshotUpdate.Flags())
 }
 func initScreenshotsList() {
@@ -281,7 +275,6 @@ func initScreenshotsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ScreenshotsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -318,10 +311,10 @@ func initScreenshotsList() {
 	}
 
 	ScreenshotsApiCmd.AddCommand(ScreenshotsList)
-
 	AddFlag(ScreenshotsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ScreenshotsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(ScreenshotsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(ScreenshotsList.Flags())
 }

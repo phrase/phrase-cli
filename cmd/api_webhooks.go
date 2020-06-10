@@ -46,7 +46,6 @@ func initWebhookCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.WebhookCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -84,11 +83,10 @@ func initWebhookCreate() {
 	}
 
 	WebhooksApiCmd.AddCommand(WebhookCreate)
-
 	AddFlag(WebhookCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(WebhookCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(WebhookCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(WebhookCreate.Flags())
 }
 func initWebhookDelete() {
@@ -108,7 +106,6 @@ func initWebhookDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.WebhookDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -140,10 +137,10 @@ func initWebhookDelete() {
 	}
 
 	WebhooksApiCmd.AddCommand(WebhookDelete)
-
 	AddFlag(WebhookDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(WebhookDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(WebhookDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(WebhookDelete.Flags())
 }
 func initWebhookShow() {
@@ -163,7 +160,6 @@ func initWebhookShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.WebhookShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -195,10 +191,10 @@ func initWebhookShow() {
 	}
 
 	WebhooksApiCmd.AddCommand(WebhookShow)
-
 	AddFlag(WebhookShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(WebhookShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(WebhookShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(WebhookShow.Flags())
 }
 func initWebhookTest() {
@@ -218,7 +214,6 @@ func initWebhookTest() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.WebhookTestOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -250,10 +245,10 @@ func initWebhookTest() {
 	}
 
 	WebhooksApiCmd.AddCommand(WebhookTest)
-
 	AddFlag(WebhookTest, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(WebhookTest, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(WebhookTest, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(WebhookTest.Flags())
 }
 func initWebhookUpdate() {
@@ -273,7 +268,6 @@ func initWebhookUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.WebhookUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -312,12 +306,11 @@ func initWebhookUpdate() {
 	}
 
 	WebhooksApiCmd.AddCommand(WebhookUpdate)
-
 	AddFlag(WebhookUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(WebhookUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(WebhookUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(WebhookUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(WebhookUpdate.Flags())
 }
 func initWebhooksList() {
@@ -337,7 +330,6 @@ func initWebhooksList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.WebhooksListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -374,10 +366,10 @@ func initWebhooksList() {
 	}
 
 	WebhooksApiCmd.AddCommand(WebhooksList)
-
 	AddFlag(WebhooksList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(WebhooksList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(WebhooksList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(WebhooksList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(WebhooksList.Flags())
 }

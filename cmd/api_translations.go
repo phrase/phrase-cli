@@ -57,7 +57,6 @@ func initTranslationCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -95,11 +94,10 @@ func initTranslationCreate() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationCreate)
-
 	AddFlag(TranslationCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationCreate.Flags())
 }
 func initTranslationExclude() {
@@ -119,7 +117,6 @@ func initTranslationExclude() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationExcludeOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -158,12 +155,11 @@ func initTranslationExclude() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationExclude)
-
 	AddFlag(TranslationExclude, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationExclude, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(TranslationExclude, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationExclude, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationExclude.Flags())
 }
 func initTranslationInclude() {
@@ -183,7 +179,6 @@ func initTranslationInclude() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationIncludeOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -222,12 +217,11 @@ func initTranslationInclude() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationInclude)
-
 	AddFlag(TranslationInclude, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationInclude, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(TranslationInclude, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationInclude, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationInclude.Flags())
 }
 func initTranslationReview() {
@@ -247,7 +241,6 @@ func initTranslationReview() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationReviewOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -286,12 +279,11 @@ func initTranslationReview() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationReview)
-
 	AddFlag(TranslationReview, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationReview, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(TranslationReview, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationReview, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationReview.Flags())
 }
 func initTranslationShow() {
@@ -311,7 +303,6 @@ func initTranslationShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -346,11 +337,11 @@ func initTranslationShow() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationShow)
-
 	AddFlag(TranslationShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(TranslationShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(TranslationShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(TranslationShow.Flags())
 }
 func initTranslationUnverify() {
@@ -370,7 +361,6 @@ func initTranslationUnverify() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationUnverifyOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -409,12 +399,11 @@ func initTranslationUnverify() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationUnverify)
-
 	AddFlag(TranslationUnverify, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationUnverify, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(TranslationUnverify, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationUnverify, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationUnverify.Flags())
 }
 func initTranslationUpdate() {
@@ -434,7 +423,6 @@ func initTranslationUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -473,12 +461,11 @@ func initTranslationUpdate() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationUpdate)
-
 	AddFlag(TranslationUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(TranslationUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationUpdate.Flags())
 }
 func initTranslationVerify() {
@@ -498,7 +485,6 @@ func initTranslationVerify() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationVerifyOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -537,12 +523,11 @@ func initTranslationVerify() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationVerify)
-
 	AddFlag(TranslationVerify, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationVerify, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(TranslationVerify, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationVerify, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationVerify.Flags())
 }
 func initTranslationsByKey() {
@@ -562,7 +547,6 @@ func initTranslationsByKey() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsByKeyOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -612,7 +596,6 @@ func initTranslationsByKey() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsByKey)
-
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -622,6 +605,7 @@ func initTranslationsByKey() {
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("Q"), "", "q_description_placeholder", false)
+
 	params.BindPFlags(TranslationsByKey.Flags())
 }
 func initTranslationsByLocale() {
@@ -641,7 +625,6 @@ func initTranslationsByLocale() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsByLocaleOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -691,7 +674,6 @@ func initTranslationsByLocale() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsByLocale)
-
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale ID", true)
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -701,6 +683,7 @@ func initTranslationsByLocale() {
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Q"), "", "q_description_placeholder", false)
+
 	params.BindPFlags(TranslationsByLocale.Flags())
 }
 func initTranslationsExclude() {
@@ -720,7 +703,6 @@ func initTranslationsExclude() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsExcludeOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -758,11 +740,10 @@ func initTranslationsExclude() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsExclude)
-
 	AddFlag(TranslationsExclude, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsExclude, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationsExclude, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationsExclude.Flags())
 }
 func initTranslationsInclude() {
@@ -782,7 +763,6 @@ func initTranslationsInclude() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsIncludeOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -820,11 +800,10 @@ func initTranslationsInclude() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsInclude)
-
 	AddFlag(TranslationsInclude, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsInclude, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationsInclude, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationsInclude.Flags())
 }
 func initTranslationsList() {
@@ -844,7 +823,6 @@ func initTranslationsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -893,7 +871,6 @@ func initTranslationsList() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsList)
-
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(TranslationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
@@ -902,6 +879,7 @@ func initTranslationsList() {
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Q"), "", "q_description_placeholder", false)
+
 	params.BindPFlags(TranslationsList.Flags())
 }
 func initTranslationsReview() {
@@ -921,7 +899,6 @@ func initTranslationsReview() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsReviewOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -959,11 +936,10 @@ func initTranslationsReview() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsReview)
-
 	AddFlag(TranslationsReview, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsReview, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationsReview, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationsReview.Flags())
 }
 func initTranslationsSearch() {
@@ -983,7 +959,6 @@ func initTranslationsSearch() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsSearchOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -1027,13 +1002,12 @@ func initTranslationsSearch() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsSearch)
-
 	AddFlag(TranslationsSearch, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsSearch, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationsSearch, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(TranslationsSearch, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(TranslationsSearch, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(TranslationsSearch.Flags())
 }
 func initTranslationsUnverify() {
@@ -1053,7 +1027,6 @@ func initTranslationsUnverify() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsUnverifyOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -1091,11 +1064,10 @@ func initTranslationsUnverify() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsUnverify)
-
 	AddFlag(TranslationsUnverify, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsUnverify, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationsUnverify, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationsUnverify.Flags())
 }
 func initTranslationsVerify() {
@@ -1115,7 +1087,6 @@ func initTranslationsVerify() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TranslationsVerifyOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -1153,10 +1124,9 @@ func initTranslationsVerify() {
 	}
 
 	TranslationsApiCmd.AddCommand(TranslationsVerify)
-
 	AddFlag(TranslationsVerify, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsVerify, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TranslationsVerify, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TranslationsVerify.Flags())
 }

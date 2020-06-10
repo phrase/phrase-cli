@@ -46,7 +46,6 @@ func initInvitationCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.InvitationCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -84,11 +83,10 @@ func initInvitationCreate() {
 	}
 
 	InvitationsApiCmd.AddCommand(InvitationCreate)
-
 	AddFlag(InvitationCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(InvitationCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(InvitationCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(InvitationCreate.Flags())
 }
 func initInvitationDelete() {
@@ -108,7 +106,6 @@ func initInvitationDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.InvitationDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -140,10 +137,10 @@ func initInvitationDelete() {
 	}
 
 	InvitationsApiCmd.AddCommand(InvitationDelete)
-
 	AddFlag(InvitationDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(InvitationDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(InvitationDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(InvitationDelete.Flags())
 }
 func initInvitationResend() {
@@ -163,7 +160,6 @@ func initInvitationResend() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.InvitationResendOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -195,10 +191,10 @@ func initInvitationResend() {
 	}
 
 	InvitationsApiCmd.AddCommand(InvitationResend)
-
 	AddFlag(InvitationResend, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(InvitationResend, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(InvitationResend, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(InvitationResend.Flags())
 }
 func initInvitationShow() {
@@ -218,7 +214,6 @@ func initInvitationShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.InvitationShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -250,10 +245,10 @@ func initInvitationShow() {
 	}
 
 	InvitationsApiCmd.AddCommand(InvitationShow)
-
 	AddFlag(InvitationShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(InvitationShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(InvitationShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(InvitationShow.Flags())
 }
 func initInvitationUpdate() {
@@ -273,7 +268,6 @@ func initInvitationUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.InvitationUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -312,12 +306,11 @@ func initInvitationUpdate() {
 	}
 
 	InvitationsApiCmd.AddCommand(InvitationUpdate)
-
 	AddFlag(InvitationUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(InvitationUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(InvitationUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(InvitationUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(InvitationUpdate.Flags())
 }
 func initInvitationsList() {
@@ -337,7 +330,6 @@ func initInvitationsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.InvitationsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -374,10 +366,10 @@ func initInvitationsList() {
 	}
 
 	InvitationsApiCmd.AddCommand(InvitationsList)
-
 	AddFlag(InvitationsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(InvitationsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(InvitationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(InvitationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(InvitationsList.Flags())
 }

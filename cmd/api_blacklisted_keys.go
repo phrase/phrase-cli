@@ -45,7 +45,6 @@ func initBlacklistedKeyCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BlacklistedKeyCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -83,11 +82,10 @@ func initBlacklistedKeyCreate() {
 	}
 
 	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyCreate)
-
 	AddFlag(BlacklistedKeyCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BlacklistedKeyCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(BlacklistedKeyCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BlacklistedKeyCreate.Flags())
 }
 func initBlacklistedKeyDelete() {
@@ -107,7 +105,6 @@ func initBlacklistedKeyDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BlacklistedKeyDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -139,10 +136,10 @@ func initBlacklistedKeyDelete() {
 	}
 
 	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyDelete)
-
 	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BlacklistedKeyDelete.Flags())
 }
 func initBlacklistedKeyShow() {
@@ -162,7 +159,6 @@ func initBlacklistedKeyShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BlacklistedKeyShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -194,10 +190,10 @@ func initBlacklistedKeyShow() {
 	}
 
 	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyShow)
-
 	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BlacklistedKeyShow.Flags())
 }
 func initBlacklistedKeyUpdate() {
@@ -217,7 +213,6 @@ func initBlacklistedKeyUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BlacklistedKeyUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -256,12 +251,11 @@ func initBlacklistedKeyUpdate() {
 	}
 
 	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyUpdate)
-
 	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(BlacklistedKeyUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BlacklistedKeyUpdate.Flags())
 }
 func initBlacklistedKeysList() {
@@ -281,7 +275,6 @@ func initBlacklistedKeysList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BlacklistedKeysListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -318,10 +311,10 @@ func initBlacklistedKeysList() {
 	}
 
 	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeysList)
-
 	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(BlacklistedKeysList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(BlacklistedKeysList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(BlacklistedKeysList.Flags())
 }

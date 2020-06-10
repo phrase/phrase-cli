@@ -46,7 +46,6 @@ func initReleaseCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ReleaseCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -85,12 +84,11 @@ func initReleaseCreate() {
 	}
 
 	ReleasesApiCmd.AddCommand(ReleaseCreate)
-
 	AddFlag(ReleaseCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(ReleaseCreate, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
 	AddFlag(ReleaseCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(ReleaseCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ReleaseCreate.Flags())
 }
 func initReleaseDelete() {
@@ -110,7 +108,6 @@ func initReleaseDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ReleaseDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -143,11 +140,11 @@ func initReleaseDelete() {
 	}
 
 	ReleasesApiCmd.AddCommand(ReleaseDelete)
-
 	AddFlag(ReleaseDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(ReleaseDelete, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
 	AddFlag(ReleaseDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ReleaseDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ReleaseDelete.Flags())
 }
 func initReleasePublish() {
@@ -167,7 +164,6 @@ func initReleasePublish() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ReleasePublishOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -200,11 +196,11 @@ func initReleasePublish() {
 	}
 
 	ReleasesApiCmd.AddCommand(ReleasePublish)
-
 	AddFlag(ReleasePublish, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(ReleasePublish, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
 	AddFlag(ReleasePublish, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ReleasePublish, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ReleasePublish.Flags())
 }
 func initReleaseShow() {
@@ -224,7 +220,6 @@ func initReleaseShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ReleaseShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -257,11 +252,11 @@ func initReleaseShow() {
 	}
 
 	ReleasesApiCmd.AddCommand(ReleaseShow)
-
 	AddFlag(ReleaseShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(ReleaseShow, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
 	AddFlag(ReleaseShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ReleaseShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ReleaseShow.Flags())
 }
 func initReleaseUpdate() {
@@ -281,7 +276,6 @@ func initReleaseUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ReleaseUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -321,13 +315,12 @@ func initReleaseUpdate() {
 	}
 
 	ReleasesApiCmd.AddCommand(ReleaseUpdate)
-
 	AddFlag(ReleaseUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(ReleaseUpdate, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
 	AddFlag(ReleaseUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ReleaseUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(ReleaseUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ReleaseUpdate.Flags())
 }
 func initReleasesList() {
@@ -347,7 +340,6 @@ func initReleasesList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ReleasesListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -385,11 +377,11 @@ func initReleasesList() {
 	}
 
 	ReleasesApiCmd.AddCommand(ReleasesList)
-
 	AddFlag(ReleasesList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(ReleasesList, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
 	AddFlag(ReleasesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ReleasesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(ReleasesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(ReleasesList.Flags())
 }

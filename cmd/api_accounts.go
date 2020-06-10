@@ -42,7 +42,6 @@ func initAccountShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.AccountShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -73,9 +72,9 @@ func initAccountShow() {
 	}
 
 	AccountsApiCmd.AddCommand(AccountShow)
-
 	AddFlag(AccountShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(AccountShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(AccountShow.Flags())
 }
 func initAccountsList() {
@@ -95,7 +94,6 @@ func initAccountsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.AccountsListOpts{}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -129,9 +127,9 @@ func initAccountsList() {
 	}
 
 	AccountsApiCmd.AddCommand(AccountsList)
-
 	AddFlag(AccountsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(AccountsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(AccountsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(AccountsList.Flags())
 }

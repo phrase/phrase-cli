@@ -47,7 +47,6 @@ func initJobLocaleComplete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobLocaleCompleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -87,13 +86,12 @@ func initJobLocaleComplete() {
 	}
 
 	JobLocalesApiCmd.AddCommand(JobLocaleComplete)
-
 	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobLocaleComplete, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobLocaleComplete.Flags())
 }
 func initJobLocaleDelete() {
@@ -113,7 +111,6 @@ func initJobLocaleDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobLocaleDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -149,12 +146,12 @@ func initJobLocaleDelete() {
 	}
 
 	JobLocalesApiCmd.AddCommand(JobLocaleDelete)
-
 	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(JobLocaleDelete.Flags())
 }
 func initJobLocaleReopen() {
@@ -174,7 +171,6 @@ func initJobLocaleReopen() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobLocaleReopenOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -214,13 +210,12 @@ func initJobLocaleReopen() {
 	}
 
 	JobLocalesApiCmd.AddCommand(JobLocaleReopen)
-
 	AddFlag(JobLocaleReopen, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobLocaleReopen, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocaleReopen, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobLocaleReopen, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobLocaleReopen, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobLocaleReopen.Flags())
 }
 func initJobLocaleShow() {
@@ -240,7 +235,6 @@ func initJobLocaleShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobLocaleShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -276,12 +270,12 @@ func initJobLocaleShow() {
 	}
 
 	JobLocalesApiCmd.AddCommand(JobLocaleShow)
-
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(JobLocaleShow.Flags())
 }
 func initJobLocaleUpdate() {
@@ -301,7 +295,6 @@ func initJobLocaleUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobLocaleUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -341,13 +334,12 @@ func initJobLocaleUpdate() {
 	}
 
 	JobLocalesApiCmd.AddCommand(JobLocaleUpdate)
-
 	AddFlag(JobLocaleUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobLocaleUpdate, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocaleUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobLocaleUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobLocaleUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobLocaleUpdate.Flags())
 }
 func initJobLocalesCreate() {
@@ -367,7 +359,6 @@ func initJobLocalesCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobLocalesCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -406,12 +397,11 @@ func initJobLocalesCreate() {
 	}
 
 	JobLocalesApiCmd.AddCommand(JobLocalesCreate)
-
 	AddFlag(JobLocalesCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobLocalesCreate, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocalesCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobLocalesCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobLocalesCreate.Flags())
 }
 func initJobLocalesList() {
@@ -431,7 +421,6 @@ func initJobLocalesList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobLocalesListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -472,12 +461,12 @@ func initJobLocalesList() {
 	}
 
 	JobLocalesApiCmd.AddCommand(JobLocalesList)
-
 	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobLocalesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(JobLocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
 	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(JobLocalesList.Flags())
 }

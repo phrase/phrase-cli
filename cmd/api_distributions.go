@@ -45,7 +45,6 @@ func initDistributionCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.DistributionCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -83,11 +82,10 @@ func initDistributionCreate() {
 	}
 
 	DistributionsApiCmd.AddCommand(DistributionCreate)
-
 	AddFlag(DistributionCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(DistributionCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(DistributionCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(DistributionCreate.Flags())
 }
 func initDistributionDelete() {
@@ -107,7 +105,6 @@ func initDistributionDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.DistributionDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -139,10 +136,10 @@ func initDistributionDelete() {
 	}
 
 	DistributionsApiCmd.AddCommand(DistributionDelete)
-
 	AddFlag(DistributionDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(DistributionDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(DistributionDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(DistributionDelete.Flags())
 }
 func initDistributionShow() {
@@ -162,7 +159,6 @@ func initDistributionShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.DistributionShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -194,10 +190,10 @@ func initDistributionShow() {
 	}
 
 	DistributionsApiCmd.AddCommand(DistributionShow)
-
 	AddFlag(DistributionShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(DistributionShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(DistributionShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(DistributionShow.Flags())
 }
 func initDistributionUpdate() {
@@ -217,7 +213,6 @@ func initDistributionUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.DistributionUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -256,12 +251,11 @@ func initDistributionUpdate() {
 	}
 
 	DistributionsApiCmd.AddCommand(DistributionUpdate)
-
 	AddFlag(DistributionUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(DistributionUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(DistributionUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(DistributionUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(DistributionUpdate.Flags())
 }
 func initDistributionsList() {
@@ -281,7 +275,6 @@ func initDistributionsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.DistributionsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -318,10 +311,10 @@ func initDistributionsList() {
 	}
 
 	DistributionsApiCmd.AddCommand(DistributionsList)
-
 	AddFlag(DistributionsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(DistributionsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(DistributionsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(DistributionsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(DistributionsList.Flags())
 }

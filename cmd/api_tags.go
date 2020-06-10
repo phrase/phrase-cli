@@ -44,7 +44,6 @@ func initTagCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TagCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -82,11 +81,10 @@ func initTagCreate() {
 	}
 
 	TagsApiCmd.AddCommand(TagCreate)
-
 	AddFlag(TagCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TagCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(TagCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(TagCreate.Flags())
 }
 func initTagDelete() {
@@ -106,7 +104,6 @@ func initTagDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TagDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -141,11 +138,11 @@ func initTagDelete() {
 	}
 
 	TagsApiCmd.AddCommand(TagDelete)
-
 	AddFlag(TagDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TagDelete, "string", helpers.ToSnakeCase("Name"), "", "name", true)
 	AddFlag(TagDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(TagDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(TagDelete.Flags())
 }
 func initTagShow() {
@@ -165,7 +162,6 @@ func initTagShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TagShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -200,11 +196,11 @@ func initTagShow() {
 	}
 
 	TagsApiCmd.AddCommand(TagShow)
-
 	AddFlag(TagShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TagShow, "string", helpers.ToSnakeCase("Name"), "", "name", true)
 	AddFlag(TagShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(TagShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(TagShow.Flags())
 }
 func initTagsList() {
@@ -224,7 +220,6 @@ func initTagsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.TagsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -264,11 +259,11 @@ func initTagsList() {
 	}
 
 	TagsApiCmd.AddCommand(TagsList)
-
 	AddFlag(TagsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TagsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(TagsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(TagsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
 	AddFlag(TagsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(TagsList.Flags())
 }

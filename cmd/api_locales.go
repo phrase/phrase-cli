@@ -46,7 +46,6 @@ func initLocaleCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.LocaleCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -84,11 +83,10 @@ func initLocaleCreate() {
 	}
 
 	LocalesApiCmd.AddCommand(LocaleCreate)
-
 	AddFlag(LocaleCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(LocaleCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(LocaleCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(LocaleCreate.Flags())
 }
 func initLocaleDelete() {
@@ -108,7 +106,6 @@ func initLocaleDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.LocaleDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -143,11 +140,11 @@ func initLocaleDelete() {
 	}
 
 	LocalesApiCmd.AddCommand(LocaleDelete)
-
 	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(LocaleDelete.Flags())
 }
 func initLocaleDownload() {
@@ -167,7 +164,6 @@ func initLocaleDownload() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.LocaleDownloadOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -197,7 +193,13 @@ func initLocaleDownload() {
 			if params.IsSet(helpers.ToSnakeCase("convertEmoji")) {
 				localVarOptionals.ConvertEmoji = optional.NewBool(params.GetBool(helpers.ToSnakeCase("ConvertEmoji")))
 			}
-
+			if params.IsSet(helpers.ToSnakeCase("formatOptions")) {
+				var formatOptions map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("FormatOptions"))), &formatOptions); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.FormatOptions = optional.NewInterface(formatOptions)
+			}
 			if params.IsSet(helpers.ToSnakeCase("encoding")) {
 				localVarOptionals.Encoding = optional.NewString(params.GetString(helpers.ToSnakeCase("Encoding")))
 			}
@@ -239,7 +241,6 @@ func initLocaleDownload() {
 	}
 
 	LocalesApiCmd.AddCommand(LocaleDownload)
-
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -251,13 +252,13 @@ func initLocaleDownload() {
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeTranslatedKeys"), "", "Include translated keys in the locale file. Use in combination with include_empty_translations to obtain only untranslated keys.", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("KeepNotranslateTags"), "", "Indicates whether [NOTRANSLATE] tags should be kept.", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("ConvertEmoji"), "", "This option is obsolete. Projects that were created on or after Nov 29th 2019 or that did not contain emoji by then will not require this flag any longer since emoji are now supported natively.", false)
-	AddFlag(LocaleDownload, "string", "data", "d", "payload in JSON format", false)
-
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FormatOptions"), "", "payload in JSON format", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Encoding"), "", "Enforces a specific encoding on the file contents. Valid options are \"UTF-8\", \"UTF-16\" and \"ISO-8859-1\".", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("SkipUnverifiedTranslations"), "", "Indicates whether the locale file should skip all unverified translations. This parameter is deprecated and should be replaced with <code>include_unverified_translations</code>.", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeUnverifiedTranslations"), "", "if set to false unverified translations are excluded", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("UseLastReviewedVersion"), "", "If set to true the last reviewed version of a translation is used. This is only available if the review workflow (currently in beta) is enabled for the project.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FallbackLocaleId"), "", "If a key has no translation in the locale being downloaded the translation in the fallback locale will be used. Provide the public ID of the locale that should be used as the fallback. Requires include_empty_translations to be set to <code>true</code>.", false)
+
 	params.BindPFlags(LocaleDownload.Flags())
 }
 func initLocaleShow() {
@@ -277,7 +278,6 @@ func initLocaleShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.LocaleShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -312,11 +312,11 @@ func initLocaleShow() {
 	}
 
 	LocalesApiCmd.AddCommand(LocaleShow)
-
 	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(LocaleShow.Flags())
 }
 func initLocaleUpdate() {
@@ -336,7 +336,6 @@ func initLocaleUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.LocaleUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -375,12 +374,11 @@ func initLocaleUpdate() {
 	}
 
 	LocalesApiCmd.AddCommand(LocaleUpdate)
-
 	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(LocaleUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(LocaleUpdate.Flags())
 }
 func initLocalesList() {
@@ -400,7 +398,6 @@ func initLocalesList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.LocalesListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -440,11 +437,11 @@ func initLocalesList() {
 	}
 
 	LocalesApiCmd.AddCommand(LocalesList)
-
 	AddFlag(LocalesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(LocalesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(LocalesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(LocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
 	AddFlag(LocalesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(LocalesList.Flags())
 }

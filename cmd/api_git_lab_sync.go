@@ -47,7 +47,6 @@ func initGitlabSyncDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GitlabSyncDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -81,10 +80,10 @@ func initGitlabSyncDelete() {
 	}
 
 	GitLabSyncApiCmd.AddCommand(GitlabSyncDelete)
-
 	AddFlag(GitlabSyncDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GitlabSyncDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GitlabSyncDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+
 	params.BindPFlags(GitlabSyncDelete.Flags())
 }
 func initGitlabSyncExport() {
@@ -104,7 +103,6 @@ func initGitlabSyncExport() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GitlabSyncExportOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -142,11 +140,10 @@ func initGitlabSyncExport() {
 	}
 
 	GitLabSyncApiCmd.AddCommand(GitlabSyncExport)
-
 	AddFlag(GitlabSyncExport, "string", helpers.ToSnakeCase("GitlabSyncId"), "", "Gitlab Sync ID", true)
 	AddFlag(GitlabSyncExport, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(GitlabSyncExport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GitlabSyncExport.Flags())
 }
 func initGitlabSyncHistory() {
@@ -166,7 +163,6 @@ func initGitlabSyncHistory() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GitlabSyncHistoryOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -206,12 +202,12 @@ func initGitlabSyncHistory() {
 	}
 
 	GitLabSyncApiCmd.AddCommand(GitlabSyncHistory)
-
 	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("GitlabSyncId"), "", "Gitlab Sync ID", true)
 	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GitlabSyncHistory, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(GitlabSyncHistory, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
 	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+
 	params.BindPFlags(GitlabSyncHistory.Flags())
 }
 func initGitlabSyncImport() {
@@ -231,7 +227,6 @@ func initGitlabSyncImport() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GitlabSyncImportOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -269,11 +264,10 @@ func initGitlabSyncImport() {
 	}
 
 	GitLabSyncApiCmd.AddCommand(GitlabSyncImport)
-
 	AddFlag(GitlabSyncImport, "string", helpers.ToSnakeCase("GitlabSyncId"), "", "Gitlab Sync ID", true)
 	AddFlag(GitlabSyncImport, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(GitlabSyncImport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GitlabSyncImport.Flags())
 }
 func initGitlabSyncList() {
@@ -293,7 +287,6 @@ func initGitlabSyncList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GitlabSyncListOpts{}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -324,9 +317,9 @@ func initGitlabSyncList() {
 	}
 
 	GitLabSyncApiCmd.AddCommand(GitlabSyncList)
-
 	AddFlag(GitlabSyncList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GitlabSyncList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+
 	params.BindPFlags(GitlabSyncList.Flags())
 }
 func initGitlabSyncShow() {
@@ -346,7 +339,6 @@ func initGitlabSyncShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GitlabSyncShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -380,10 +372,10 @@ func initGitlabSyncShow() {
 	}
 
 	GitLabSyncApiCmd.AddCommand(GitlabSyncShow)
-
 	AddFlag(GitlabSyncShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GitlabSyncShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GitlabSyncShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
+
 	params.BindPFlags(GitlabSyncShow.Flags())
 }
 func initGitlabSyncUpdate() {
@@ -403,7 +395,6 @@ func initGitlabSyncUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GitlabSyncUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -446,12 +437,12 @@ func initGitlabSyncUpdate() {
 	}
 
 	GitLabSyncApiCmd.AddCommand(GitlabSyncUpdate)
-
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("PhraseProjectCode"), "", "Code of the related Phrase Project.", false)
 	AddFlag(GitlabSyncUpdate, "int32", helpers.ToSnakeCase("GitlabProjectId"), "", "ID of the related GitLab Project.", false)
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("GitlabBranchName"), "", "Name of the GitLab Branch.", false)
+
 	params.BindPFlags(GitlabSyncUpdate.Flags())
 }

@@ -50,7 +50,6 @@ func initJobComplete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobCompleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -89,12 +88,11 @@ func initJobComplete() {
 	}
 
 	JobsApiCmd.AddCommand(JobComplete)
-
 	AddFlag(JobComplete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobComplete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobComplete, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobComplete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobComplete.Flags())
 }
 func initJobCreate() {
@@ -114,7 +112,6 @@ func initJobCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -152,11 +149,10 @@ func initJobCreate() {
 	}
 
 	JobsApiCmd.AddCommand(JobCreate)
-
 	AddFlag(JobCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobCreate.Flags())
 }
 func initJobDelete() {
@@ -176,7 +172,6 @@ func initJobDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -211,11 +206,11 @@ func initJobDelete() {
 	}
 
 	JobsApiCmd.AddCommand(JobDelete)
-
 	AddFlag(JobDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(JobDelete.Flags())
 }
 func initJobKeysCreate() {
@@ -235,7 +230,6 @@ func initJobKeysCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobKeysCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -274,12 +268,11 @@ func initJobKeysCreate() {
 	}
 
 	JobsApiCmd.AddCommand(JobKeysCreate)
-
 	AddFlag(JobKeysCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobKeysCreate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobKeysCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobKeysCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobKeysCreate.Flags())
 }
 func initJobKeysDelete() {
@@ -299,7 +292,6 @@ func initJobKeysDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobKeysDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -307,6 +299,13 @@ func initJobKeysDelete() {
 			}
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("translationKeyIds")) {
+				var translationKeyIds map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("TranslationKeyIds"))), &translationKeyIds); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.TranslationKeyIds = optional.NewInterface(translationKeyIds)
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
@@ -334,12 +333,11 @@ func initJobKeysDelete() {
 	}
 
 	JobsApiCmd.AddCommand(JobKeysDelete)
-
 	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
-	AddFlag(JobKeysDelete, "string", "data", "d", "payload in JSON format", false)
+	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("TranslationKeyIds"), "", "payload in JSON format", false)
 
 	params.BindPFlags(JobKeysDelete.Flags())
 }
@@ -360,7 +358,6 @@ func initJobReopen() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobReopenOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -399,12 +396,11 @@ func initJobReopen() {
 	}
 
 	JobsApiCmd.AddCommand(JobReopen)
-
 	AddFlag(JobReopen, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobReopen, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobReopen, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobReopen, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobReopen.Flags())
 }
 func initJobShow() {
@@ -424,7 +420,6 @@ func initJobShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -459,11 +454,11 @@ func initJobShow() {
 	}
 
 	JobsApiCmd.AddCommand(JobShow)
-
 	AddFlag(JobShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(JobShow.Flags())
 }
 func initJobStart() {
@@ -483,7 +478,6 @@ func initJobStart() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobStartOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -522,12 +516,11 @@ func initJobStart() {
 	}
 
 	JobsApiCmd.AddCommand(JobStart)
-
 	AddFlag(JobStart, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobStart, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobStart, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobStart, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobStart.Flags())
 }
 func initJobUpdate() {
@@ -547,7 +540,6 @@ func initJobUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -586,12 +578,11 @@ func initJobUpdate() {
 	}
 
 	JobsApiCmd.AddCommand(JobUpdate)
-
 	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(JobUpdate.Flags())
 }
 func initJobsList() {
@@ -611,7 +602,6 @@ func initJobsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.JobsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -660,7 +650,6 @@ func initJobsList() {
 	}
 
 	JobsApiCmd.AddCommand(JobsList)
-
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
@@ -669,5 +658,6 @@ func initJobsList() {
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("OwnedBy"), "", "filter by user owning job", false)
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("AssignedTo"), "", "filter by user assigned to job", false)
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("State"), "", "filter by state of job Valid states are <code>draft</code>, <code>in_progress</code>, <code>completed</code>", false)
+
 	params.BindPFlags(JobsList.Flags())
 }

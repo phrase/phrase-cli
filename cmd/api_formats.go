@@ -41,7 +41,6 @@ func initFormatsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.FormatsListOpts{}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -69,7 +68,7 @@ func initFormatsList() {
 	}
 
 	FormatsApiCmd.AddCommand(FormatsList)
-
 	AddFlag(FormatsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(FormatsList.Flags())
 }

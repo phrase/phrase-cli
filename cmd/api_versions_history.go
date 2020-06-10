@@ -42,7 +42,6 @@ func initVersionShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.VersionShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -78,12 +77,12 @@ func initVersionShow() {
 	}
 
 	VersionsHistoryApiCmd.AddCommand(VersionShow)
-
 	AddFlag(VersionShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(VersionShow, "string", helpers.ToSnakeCase("TranslationId"), "", "Translation ID", true)
 	AddFlag(VersionShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(VersionShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(VersionShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(VersionShow.Flags())
 }
 func initVersionsList() {
@@ -103,7 +102,6 @@ func initVersionsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.VersionsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -144,12 +142,12 @@ func initVersionsList() {
 	}
 
 	VersionsHistoryApiCmd.AddCommand(VersionsList)
-
 	AddFlag(VersionsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(VersionsList, "string", helpers.ToSnakeCase("TranslationId"), "", "Translation ID", true)
 	AddFlag(VersionsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(VersionsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(VersionsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
 	AddFlag(VersionsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(VersionsList.Flags())
 }

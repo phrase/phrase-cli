@@ -43,7 +43,6 @@ func initBitbucketSyncExport() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BitbucketSyncExportOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -81,11 +80,10 @@ func initBitbucketSyncExport() {
 	}
 
 	BitbucketSyncApiCmd.AddCommand(BitbucketSyncExport)
-
 	AddFlag(BitbucketSyncExport, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(BitbucketSyncExport, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(BitbucketSyncExport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BitbucketSyncExport.Flags())
 }
 func initBitbucketSyncImport() {
@@ -105,7 +103,6 @@ func initBitbucketSyncImport() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BitbucketSyncImportOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -143,11 +140,10 @@ func initBitbucketSyncImport() {
 	}
 
 	BitbucketSyncApiCmd.AddCommand(BitbucketSyncImport)
-
 	AddFlag(BitbucketSyncImport, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(BitbucketSyncImport, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(BitbucketSyncImport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BitbucketSyncImport.Flags())
 }
 func initBitbucketSyncsList() {
@@ -167,7 +163,6 @@ func initBitbucketSyncsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BitbucketSyncsListOpts{}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -198,8 +193,8 @@ func initBitbucketSyncsList() {
 	}
 
 	BitbucketSyncApiCmd.AddCommand(BitbucketSyncsList)
-
 	AddFlag(BitbucketSyncsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(BitbucketSyncsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the project should be created in. Required if the requesting user is a member of multiple accounts.", false)
+
 	params.BindPFlags(BitbucketSyncsList.Flags())
 }

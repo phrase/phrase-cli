@@ -45,7 +45,6 @@ func initProjectCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ProjectCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -81,10 +80,9 @@ func initProjectCreate() {
 	}
 
 	ProjectsApiCmd.AddCommand(ProjectCreate)
-
 	AddFlag(ProjectCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(ProjectCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ProjectCreate.Flags())
 }
 func initProjectDelete() {
@@ -104,7 +102,6 @@ func initProjectDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ProjectDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -135,9 +132,9 @@ func initProjectDelete() {
 	}
 
 	ProjectsApiCmd.AddCommand(ProjectDelete)
-
 	AddFlag(ProjectDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ProjectDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ProjectDelete.Flags())
 }
 func initProjectShow() {
@@ -157,7 +154,6 @@ func initProjectShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ProjectShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -188,9 +184,9 @@ func initProjectShow() {
 	}
 
 	ProjectsApiCmd.AddCommand(ProjectShow)
-
 	AddFlag(ProjectShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ProjectShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ProjectShow.Flags())
 }
 func initProjectUpdate() {
@@ -210,7 +206,6 @@ func initProjectUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ProjectUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -248,11 +243,10 @@ func initProjectUpdate() {
 	}
 
 	ProjectsApiCmd.AddCommand(ProjectUpdate)
-
 	AddFlag(ProjectUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ProjectUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(ProjectUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ProjectUpdate.Flags())
 }
 func initProjectsList() {
@@ -272,7 +266,6 @@ func initProjectsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ProjectsListOpts{}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -306,9 +299,9 @@ func initProjectsList() {
 	}
 
 	ProjectsApiCmd.AddCommand(ProjectsList)
-
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(ProjectsList.Flags())
 }

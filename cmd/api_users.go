@@ -41,7 +41,6 @@ func initShowUser() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.ShowUserOpts{}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -69,7 +68,7 @@ func initShowUser() {
 	}
 
 	UsersApiCmd.AddCommand(ShowUser)
-
 	AddFlag(ShowUser, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(ShowUser.Flags())
 }

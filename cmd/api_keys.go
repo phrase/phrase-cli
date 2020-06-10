@@ -49,7 +49,6 @@ func initKeyCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeyCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -87,11 +86,10 @@ func initKeyCreate() {
 	}
 
 	KeysApiCmd.AddCommand(KeyCreate)
-
 	AddFlag(KeyCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeyCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(KeyCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(KeyCreate.Flags())
 }
 func initKeyDelete() {
@@ -111,7 +109,6 @@ func initKeyDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeyDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -146,11 +143,11 @@ func initKeyDelete() {
 	}
 
 	KeysApiCmd.AddCommand(KeyDelete)
-
 	AddFlag(KeyDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeyDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(KeyDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeyDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(KeyDelete.Flags())
 }
 func initKeyShow() {
@@ -170,7 +167,6 @@ func initKeyShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeyShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -205,11 +201,11 @@ func initKeyShow() {
 	}
 
 	KeysApiCmd.AddCommand(KeyShow)
-
 	AddFlag(KeyShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeyShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(KeyShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeyShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
 	params.BindPFlags(KeyShow.Flags())
 }
 func initKeyUpdate() {
@@ -229,7 +225,6 @@ func initKeyUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeyUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -268,12 +263,11 @@ func initKeyUpdate() {
 	}
 
 	KeysApiCmd.AddCommand(KeyUpdate)
-
 	AddFlag(KeyUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeyUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(KeyUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(KeyUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(KeyUpdate.Flags())
 }
 func initKeysDelete() {
@@ -293,7 +287,6 @@ func initKeysDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeysDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -333,12 +326,12 @@ func initKeysDelete() {
 	}
 
 	KeysApiCmd.AddCommand(KeysDelete)
-
 	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("Q"), "", "q_description_placeholder", false)
 	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale used to determine the translation state of a key when filtering for untranslated or translated keys.", false)
+
 	params.BindPFlags(KeysDelete.Flags())
 }
 func initKeysList() {
@@ -358,7 +351,6 @@ func initKeysList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeysListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -410,7 +402,6 @@ func initKeysList() {
 	}
 
 	KeysApiCmd.AddCommand(KeysList)
-
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeysList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
@@ -420,6 +411,7 @@ func initKeysList() {
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("Q"), "", "q_description_placeholder", false)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale used to determine the translation state of a key when filtering for untranslated or translated keys.", false)
+
 	params.BindPFlags(KeysList.Flags())
 }
 func initKeysSearch() {
@@ -439,7 +431,6 @@ func initKeysSearch() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeysSearchOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -483,13 +474,12 @@ func initKeysSearch() {
 	}
 
 	KeysApiCmd.AddCommand(KeysSearch)
-
 	AddFlag(KeysSearch, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeysSearch, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(KeysSearch, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(KeysSearch.Flags())
 }
 func initKeysTag() {
@@ -509,7 +499,6 @@ func initKeysTag() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeysTagOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -547,11 +536,10 @@ func initKeysTag() {
 	}
 
 	KeysApiCmd.AddCommand(KeysTag)
-
 	AddFlag(KeysTag, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeysTag, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(KeysTag, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(KeysTag.Flags())
 }
 func initKeysUntag() {
@@ -571,7 +559,6 @@ func initKeysUntag() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.KeysUntagOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -609,10 +596,9 @@ func initKeysUntag() {
 	}
 
 	KeysApiCmd.AddCommand(KeysUntag)
-
 	AddFlag(KeysUntag, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeysUntag, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(KeysUntag, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(KeysUntag.Flags())
 }

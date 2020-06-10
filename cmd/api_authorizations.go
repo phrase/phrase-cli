@@ -45,7 +45,6 @@ func initAuthorizationCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.AuthorizationCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -81,10 +80,9 @@ func initAuthorizationCreate() {
 	}
 
 	AuthorizationsApiCmd.AddCommand(AuthorizationCreate)
-
 	AddFlag(AuthorizationCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(AuthorizationCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(AuthorizationCreate.Flags())
 }
 func initAuthorizationDelete() {
@@ -104,7 +102,6 @@ func initAuthorizationDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.AuthorizationDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -135,9 +132,9 @@ func initAuthorizationDelete() {
 	}
 
 	AuthorizationsApiCmd.AddCommand(AuthorizationDelete)
-
 	AddFlag(AuthorizationDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(AuthorizationDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(AuthorizationDelete.Flags())
 }
 func initAuthorizationShow() {
@@ -157,7 +154,6 @@ func initAuthorizationShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.AuthorizationShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -188,9 +184,9 @@ func initAuthorizationShow() {
 	}
 
 	AuthorizationsApiCmd.AddCommand(AuthorizationShow)
-
 	AddFlag(AuthorizationShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(AuthorizationShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(AuthorizationShow.Flags())
 }
 func initAuthorizationUpdate() {
@@ -210,7 +206,6 @@ func initAuthorizationUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.AuthorizationUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -248,11 +243,10 @@ func initAuthorizationUpdate() {
 	}
 
 	AuthorizationsApiCmd.AddCommand(AuthorizationUpdate)
-
 	AddFlag(AuthorizationUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(AuthorizationUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(AuthorizationUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(AuthorizationUpdate.Flags())
 }
 func initAuthorizationsList() {
@@ -272,7 +266,6 @@ func initAuthorizationsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.AuthorizationsListOpts{}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -306,9 +299,9 @@ func initAuthorizationsList() {
 	}
 
 	AuthorizationsApiCmd.AddCommand(AuthorizationsList)
-
 	AddFlag(AuthorizationsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(AuthorizationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(AuthorizationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(AuthorizationsList.Flags())
 }

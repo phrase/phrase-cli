@@ -44,7 +44,6 @@ func initMemberDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.MemberDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -76,10 +75,10 @@ func initMemberDelete() {
 	}
 
 	MembersApiCmd.AddCommand(MemberDelete)
-
 	AddFlag(MemberDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(MemberDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(MemberDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(MemberDelete.Flags())
 }
 func initMemberShow() {
@@ -99,7 +98,6 @@ func initMemberShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.MemberShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -131,10 +129,10 @@ func initMemberShow() {
 	}
 
 	MembersApiCmd.AddCommand(MemberShow)
-
 	AddFlag(MemberShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(MemberShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(MemberShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(MemberShow.Flags())
 }
 func initMemberUpdate() {
@@ -154,7 +152,6 @@ func initMemberUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.MemberUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -193,12 +190,11 @@ func initMemberUpdate() {
 	}
 
 	MembersApiCmd.AddCommand(MemberUpdate)
-
 	AddFlag(MemberUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(MemberUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(MemberUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(MemberUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(MemberUpdate.Flags())
 }
 func initMembersList() {
@@ -218,7 +214,6 @@ func initMembersList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.MembersListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -255,10 +250,10 @@ func initMembersList() {
 	}
 
 	MembersApiCmd.AddCommand(MembersList)
-
 	AddFlag(MembersList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(MembersList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(MembersList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(MembersList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(MembersList.Flags())
 }

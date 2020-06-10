@@ -47,7 +47,6 @@ func initBranchCompare() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BranchCompareOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -79,10 +78,10 @@ func initBranchCompare() {
 	}
 
 	BranchesApiCmd.AddCommand(BranchCompare)
-
 	AddFlag(BranchCompare, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BranchCompare, "string", helpers.ToSnakeCase("Name"), "", "name", true)
 	AddFlag(BranchCompare, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BranchCompare.Flags())
 }
 func initBranchCreate() {
@@ -102,7 +101,6 @@ func initBranchCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BranchCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -140,11 +138,10 @@ func initBranchCreate() {
 	}
 
 	BranchesApiCmd.AddCommand(BranchCreate)
-
 	AddFlag(BranchCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BranchCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(BranchCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BranchCreate.Flags())
 }
 func initBranchDelete() {
@@ -164,7 +161,6 @@ func initBranchDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BranchDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -196,10 +192,10 @@ func initBranchDelete() {
 	}
 
 	BranchesApiCmd.AddCommand(BranchDelete)
-
 	AddFlag(BranchDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BranchDelete, "string", helpers.ToSnakeCase("Name"), "", "name", true)
 	AddFlag(BranchDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BranchDelete.Flags())
 }
 func initBranchMerge() {
@@ -219,7 +215,6 @@ func initBranchMerge() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BranchMergeOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -258,12 +253,11 @@ func initBranchMerge() {
 	}
 
 	BranchesApiCmd.AddCommand(BranchMerge)
-
 	AddFlag(BranchMerge, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BranchMerge, "string", helpers.ToSnakeCase("Name"), "", "name", true)
 	AddFlag(BranchMerge, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(BranchMerge, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BranchMerge.Flags())
 }
 func initBranchShow() {
@@ -283,7 +277,6 @@ func initBranchShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BranchShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -315,10 +308,10 @@ func initBranchShow() {
 	}
 
 	BranchesApiCmd.AddCommand(BranchShow)
-
 	AddFlag(BranchShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BranchShow, "string", helpers.ToSnakeCase("Name"), "", "name", true)
 	AddFlag(BranchShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BranchShow.Flags())
 }
 func initBranchUpdate() {
@@ -338,7 +331,6 @@ func initBranchUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BranchUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -377,12 +369,11 @@ func initBranchUpdate() {
 	}
 
 	BranchesApiCmd.AddCommand(BranchUpdate)
-
 	AddFlag(BranchUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BranchUpdate, "string", helpers.ToSnakeCase("Name"), "", "name", true)
 	AddFlag(BranchUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(BranchUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(BranchUpdate.Flags())
 }
 func initBranchesList() {
@@ -402,7 +393,6 @@ func initBranchesList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.BranchesListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -439,10 +429,10 @@ func initBranchesList() {
 	}
 
 	BranchesApiCmd.AddCommand(BranchesList)
-
 	AddFlag(BranchesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(BranchesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(BranchesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(BranchesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(BranchesList.Flags())
 }

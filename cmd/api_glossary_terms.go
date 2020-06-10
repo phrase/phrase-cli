@@ -45,7 +45,6 @@ func initGlossaryTermCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GlossaryTermCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -84,12 +83,11 @@ func initGlossaryTermCreate() {
 	}
 
 	GlossaryTermsApiCmd.AddCommand(GlossaryTermCreate)
-
 	AddFlag(GlossaryTermCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermCreate, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(GlossaryTermCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GlossaryTermCreate.Flags())
 }
 func initGlossaryTermDelete() {
@@ -109,7 +107,6 @@ func initGlossaryTermDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GlossaryTermDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -142,11 +139,11 @@ func initGlossaryTermDelete() {
 	}
 
 	GlossaryTermsApiCmd.AddCommand(GlossaryTermDelete)
-
 	AddFlag(GlossaryTermDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermDelete, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryTermDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GlossaryTermDelete.Flags())
 }
 func initGlossaryTermShow() {
@@ -166,7 +163,6 @@ func initGlossaryTermShow() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GlossaryTermShowOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -199,11 +195,11 @@ func initGlossaryTermShow() {
 	}
 
 	GlossaryTermsApiCmd.AddCommand(GlossaryTermShow)
-
 	AddFlag(GlossaryTermShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermShow, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryTermShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GlossaryTermShow.Flags())
 }
 func initGlossaryTermUpdate() {
@@ -223,7 +219,6 @@ func initGlossaryTermUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GlossaryTermUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -263,13 +258,12 @@ func initGlossaryTermUpdate() {
 	}
 
 	GlossaryTermsApiCmd.AddCommand(GlossaryTermUpdate)
-
 	AddFlag(GlossaryTermUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermUpdate, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryTermUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(GlossaryTermUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GlossaryTermUpdate.Flags())
 }
 func initGlossaryTermsList() {
@@ -289,7 +283,6 @@ func initGlossaryTermsList() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GlossaryTermsListOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -327,11 +320,11 @@ func initGlossaryTermsList() {
 	}
 
 	GlossaryTermsApiCmd.AddCommand(GlossaryTermsList)
-
 	AddFlag(GlossaryTermsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermsList, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GlossaryTermsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(GlossaryTermsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+
 	params.BindPFlags(GlossaryTermsList.Flags())
 }

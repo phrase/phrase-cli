@@ -43,7 +43,6 @@ func initGlossaryTermTranslationCreate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GlossaryTermTranslationCreateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -83,13 +82,12 @@ func initGlossaryTermTranslationCreate() {
 	}
 
 	GlossaryTermTranslationsApiCmd.AddCommand(GlossaryTermTranslationCreate)
-
 	AddFlag(GlossaryTermTranslationCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermTranslationCreate, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermTranslationCreate, "string", helpers.ToSnakeCase("TermId"), "", "Term ID", true)
 	AddFlag(GlossaryTermTranslationCreate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(GlossaryTermTranslationCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GlossaryTermTranslationCreate.Flags())
 }
 func initGlossaryTermTranslationDelete() {
@@ -109,7 +107,6 @@ func initGlossaryTermTranslationDelete() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GlossaryTermTranslationDeleteOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -143,12 +140,12 @@ func initGlossaryTermTranslationDelete() {
 	}
 
 	GlossaryTermTranslationsApiCmd.AddCommand(GlossaryTermTranslationDelete)
-
 	AddFlag(GlossaryTermTranslationDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermTranslationDelete, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermTranslationDelete, "string", helpers.ToSnakeCase("TermId"), "", "Term ID", true)
 	AddFlag(GlossaryTermTranslationDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryTermTranslationDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GlossaryTermTranslationDelete.Flags())
 }
 func initGlossaryTermTranslationUpdate() {
@@ -168,7 +165,6 @@ func initGlossaryTermTranslationUpdate() {
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
-
 			localVarOptionals := api.GlossaryTermTranslationUpdateOpts{}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
@@ -209,13 +205,12 @@ func initGlossaryTermTranslationUpdate() {
 	}
 
 	GlossaryTermTranslationsApiCmd.AddCommand(GlossaryTermTranslationUpdate)
-
 	AddFlag(GlossaryTermTranslationUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermTranslationUpdate, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermTranslationUpdate, "string", helpers.ToSnakeCase("TermId"), "", "Term ID", true)
 	AddFlag(GlossaryTermTranslationUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryTermTranslationUpdate, "string", "data", "d", "payload in JSON format", true)
-
 	AddFlag(GlossaryTermTranslationUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
 	params.BindPFlags(GlossaryTermTranslationUpdate.Flags())
 }
