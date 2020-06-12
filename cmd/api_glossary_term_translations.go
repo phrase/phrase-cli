@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -121,13 +122,7 @@ func initGlossaryTermTranslationDelete() {
 			data, api_response, err := client.GlossaryTermTranslationsApi.GlossaryTermTranslationDelete(auth, accountId, glossaryId, termId, id, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-
-				fmt.Printf("%s\n", string(jsonBuf))
+				os.Stdout.Write(data)
 			}
 			if err != nil {
 				HandleError(err)

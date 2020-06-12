@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -59,13 +60,7 @@ func initBranchCompare() {
 			data, api_response, err := client.BranchesApi.BranchCompare(auth, projectId, name, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-
-				fmt.Printf("%s\n", string(jsonBuf))
+				os.Stdout.Write(data)
 			}
 			if err != nil {
 				HandleError(err)
@@ -173,13 +168,7 @@ func initBranchDelete() {
 			data, api_response, err := client.BranchesApi.BranchDelete(auth, projectId, name, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-
-				fmt.Printf("%s\n", string(jsonBuf))
+				os.Stdout.Write(data)
 			}
 			if err != nil {
 				HandleError(err)
@@ -234,13 +223,7 @@ func initBranchMerge() {
 			data, api_response, err := client.BranchesApi.BranchMerge(auth, projectId, name, branchMergeParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-
-				fmt.Printf("%s\n", string(jsonBuf))
+				os.Stdout.Write(data)
 			}
 			if err != nil {
 				HandleError(err)
