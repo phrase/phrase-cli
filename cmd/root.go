@@ -111,7 +111,7 @@ func initConfig() {
 func checkUpdate() {
 	var updateChecker = updatechecker.New(
 		PHRASE_CLIENT_VERSION,
-		filepath.Join(os.TempDir(), ".phraseapp.version"),
+		filepath.Join(os.TempDir(), ".phrase.version"),
 		"https://github.com/phrase/phrase-cli/releases/latest",
 		os.Stderr,
 	)
