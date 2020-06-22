@@ -141,7 +141,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(UploadCreate, "*os.File", helpers.ToSnakeCase("File"), "", "File to be imported", false)
-	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FileFormat"), "", "File format. Auto-detected when possible and not specified.", false)
+	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FileFormat"), "", "File format. Auto-detected when possible and not specified. See the [format guide](https://help.phrase.com/help/supported-platforms-and-formats) for all supported file formats.", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale of the file's content. Can be the name or public id of the locale. Preferred is the public id.", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Tags"), "", "List of tags separated by comma to be associated with the new keys contained in the upload.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslations"), "", "Indicates whether existing translations should be updated with the file content.", false)
