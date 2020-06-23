@@ -383,7 +383,8 @@ func getUploadResult(client *phrase.APIClient, projectId string, upload *phrase.
 		uploadShowOpts := phrase.UploadShowOpts{
 			Branch: optional.NewString(branch),
 		}
-		_, _, err := client.UploadsApi.UploadShow(Auth, projectId, upload.Id, &uploadShowOpts)
+		uploadhDetails, _, err := client.UploadsApi.UploadShow(Auth, projectId, upload.Id, &uploadShowOpts)
+		upload = &uploadhDetails
 		if err != nil {
 			break
 		}
