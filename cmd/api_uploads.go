@@ -92,6 +92,20 @@ func initUploadCreate() {
 					HandleError(err)
 				}
 			}
+			if params.IsSet(helpers.ToSnakeCase("localeMapping")) {
+				var localeMapping map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("LocaleMapping"))), &localeMapping); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.LocaleMapping = optional.NewInterface(localeMapping)
+			}
+			if params.IsSet(helpers.ToSnakeCase("formatOptions")) {
+				var formatOptions map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("FormatOptions"))), &formatOptions); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.FormatOptions = optional.NewInterface(formatOptions)
+			}
 			if params.IsSet(helpers.ToSnakeCase("autotranslate")) {
 				localVarOptionals.Autotranslate = optional.NewBool(params.GetBool(helpers.ToSnakeCase("Autotranslate")))
 			}
@@ -136,6 +150,8 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("SkipUploadTags"), "", "Indicates whether the upload should not create upload tags.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("SkipUnverification"), "", "Indicates whether the upload should unverify updated translations.", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FileEncoding"), "", "Enforces a specific encoding on the file contents. Valid options are \\\"UTF-8\\\", \\\"UTF-16\\\" and \\\"ISO-8859-1\\\".", false)
+	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("LocaleMapping"), "", "payload in JSON format", false)
+	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FormatOptions"), "", "payload in JSON format", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("Autotranslate"), "", "If set, translations for the uploaded language will be fetched automatically.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("MarkReviewed"), "", "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow (currently beta) is enabled for the project.", false)
 
