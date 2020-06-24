@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -40,14 +39,15 @@ func initLocaleCreate() {
 		Short: "Create a locale",
 		Long:  `Create a new locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.LocaleCreateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -100,14 +100,15 @@ func initLocaleDelete() {
 		Short: "Delete a locale",
 		Long:  `Delete an existing locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.LocaleDeleteOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -152,14 +153,15 @@ func initLocaleDownload() {
 		Short: "Download a locale",
 		Long:  `Download a locale in a specific file format.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.LocaleDownloadOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -260,14 +262,15 @@ func initLocaleShow() {
 		Short: "Get a single locale",
 		Long:  `Get details on a single locale for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.LocaleShowOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -318,14 +321,15 @@ func initLocaleUpdate() {
 		Short: "Update a locale",
 		Long:  `Update an existing locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.LocaleUpdateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -380,14 +384,15 @@ func initLocalesList() {
 		Short: "List locales",
 		Long:  `List all locales for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.LocalesListOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))

@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -42,14 +41,15 @@ func initSpaceCreate() {
 		Short: "Create a Space",
 		Long:  `Create a new Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpaceCreateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -102,14 +102,15 @@ func initSpaceDelete() {
 		Short: "Delete Space",
 		Long:  `Delete the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpaceDeleteOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -150,14 +151,15 @@ func initSpaceShow() {
 		Short: "Get Space",
 		Long:  `Show the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpaceShowOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -204,14 +206,15 @@ func initSpaceUpdate() {
 		Short: "Update Space",
 		Long:  `Update the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpaceUpdateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -266,14 +269,15 @@ func initSpacesList() {
 		Short: "List Spaces",
 		Long:  `List all Spaces for the given account.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpacesListOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -326,14 +330,15 @@ func initSpacesProjectsCreate() {
 		Short: "Add Project",
 		Long:  `Adds an existing project to the space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpacesProjectsCreateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -382,14 +387,15 @@ func initSpacesProjectsDelete() {
 		Short: "Remove Project",
 		Long:  `Removes a specified project from the specified space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpacesProjectsDeleteOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -432,14 +438,15 @@ func initSpacesProjectsList() {
 		Short: "List Projects",
 		Long:  `List all projects for the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpacesProjectsListOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))

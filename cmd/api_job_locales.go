@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -41,14 +40,15 @@ func initJobLocaleComplete() {
 		Short: "Complete a job locale",
 		Long:  `Mark a job locale as completed.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.JobLocaleCompleteOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -105,14 +105,15 @@ func initJobLocaleDelete() {
 		Short: "Delete a job locale",
 		Long:  `Delete an existing job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.JobLocaleDeleteOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -159,14 +160,15 @@ func initJobLocaleReopen() {
 		Short: "Reopen a job locale",
 		Long:  `Mark a job locale as uncompleted.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.JobLocaleReopenOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -223,14 +225,15 @@ func initJobLocaleShow() {
 		Short: "Get a single job locale",
 		Long:  `Get a single job locale for a given job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.JobLocaleShowOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -283,14 +286,15 @@ func initJobLocaleUpdate() {
 		Short: "Update a job locale",
 		Long:  `Update an existing job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.JobLocaleUpdateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -347,14 +351,15 @@ func initJobLocalesCreate() {
 		Short: "Create a job locale",
 		Long:  `Create a new job locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.JobLocalesCreateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -409,14 +414,15 @@ func initJobLocalesList() {
 		Short: "List job locales",
 		Long:  `List all job locales for a given job.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.JobLocalesListOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))

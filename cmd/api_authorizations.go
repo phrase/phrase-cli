@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -39,14 +38,15 @@ func initAuthorizationCreate() {
 		Short: "Create an authorization",
 		Long:  `Create a new authorization.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationCreateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -96,14 +96,15 @@ func initAuthorizationDelete() {
 		Short: "Delete an authorization",
 		Long:  `Delete an existing authorization. API calls using that token will stop working.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationDeleteOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -142,14 +143,15 @@ func initAuthorizationShow() {
 		Short: "Get a single authorization",
 		Long:  `Get details on a single authorization.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationShowOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -194,14 +196,15 @@ func initAuthorizationUpdate() {
 		Short: "Update an authorization",
 		Long:  `Update an existing authorization.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationUpdateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
@@ -254,14 +257,15 @@ func initAuthorizationsList() {
 		Short: "List authorizations",
 		Long:  `List all your authorizations.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			auth := context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
-				Key:    Config.Credentials.Token,
-				Prefix: "token",
-			})
+			auth := Auth()
 
 			cfg := api.NewConfiguration(Config)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationsListOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

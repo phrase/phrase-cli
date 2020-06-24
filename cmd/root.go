@@ -1,12 +1,15 @@
 package cmd
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"path/filepath"
 
+	"github.com/bgentry/speakeasy"
 	"github.com/phrase/phrase-cli/cmd/internal/updatechecker"
 	"github.com/phrase/phrase-go"
+	api "github.com/phrase/phrase-go"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -42,6 +45,14 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&Config.Credentials.Token, "access_token", "t", "", "access token used for authentication")
 	viper.BindPFlag("access_token", rootCmd.PersistentFlags().Lookup("access_token"))
 	viper.SetDefault("access_token", false)
+
+	rootCmd.PersistentFlags().StringVarP(&Config.Credentials.Username, "username", "u", "", "username used for authentication")
+	viper.BindPFlag("username", rootCmd.PersistentFlags().Lookup("username"))
+	viper.SetDefault("username", false)
+
+	rootCmd.PersistentFlags().BoolVarP(&Config.Credentials.TFA, "tfa", "", false, "use Two-Factor Authentication")
+	viper.BindPFlag("tfa", rootCmd.PersistentFlags().Lookup("tfa"))
+	viper.SetDefault("tfa", false)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yaml fallback to $HOME/.phrase.yaml)")
 }
@@ -101,11 +112,50 @@ func initConfig() {
 		config.Credentials.Token = Config.Credentials.Token
 	}
 
+	if Config.Credentials.Username != "" {
+		config.Credentials.Username = Config.Credentials.Username
+	}
+
+	if Config.Credentials.TFA {
+		config.Credentials.TFA = Config.Credentials.TFA
+	}
+
 	if config.Debug {
 		fmt.Printf("%+v\n", config)
 	}
 
 	Config = config
+}
+
+func Auth() context.Context {
+	if Config.Credentials.Token != "" {
+		return context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
+			Key:    Config.Credentials.Token,
+			Prefix: "token",
+		})
+	} else if Config.Credentials.Username != "" {
+		pwd, err := speakeasy.Ask("Password: ")
+		fmt.Printf("%+v\n", pwd)
+		if err != nil {
+			HandleError(err)
+		}
+
+		if Config.Credentials.TFA { // TFA only required for username+password based login.
+			token, err := speakeasy.Ask("TFA-Token: ")
+			if err != nil {
+				HandleError(err)
+			}
+			Config.Credentials.TFAToken = token
+		}
+		return context.WithValue(context.Background(), api.ContextBasicAuth, api.BasicAuth{
+			UserName: Config.Credentials.Username,
+			Password: pwd,
+		})
+	} else {
+		HandleError(fmt.Errorf("either username or token must be given"))
+	}
+
+	return nil
 }
 
 func checkUpdate() {

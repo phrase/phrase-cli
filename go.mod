@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/antihax/optional v1.0.0
+	github.com/bgentry/speakeasy v0.1.0
 	github.com/coreos/go-semver v0.3.0
 	github.com/daviddengcn/go-colortext v1.0.0
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
