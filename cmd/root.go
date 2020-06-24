@@ -135,7 +135,6 @@ func Auth() context.Context {
 		})
 	} else if Config.Credentials.Username != "" {
 		pwd, err := speakeasy.Ask("Password: ")
-		fmt.Printf("%+v\n", pwd)
 		if err != nil {
 			HandleError(err)
 		}
