@@ -165,7 +165,7 @@ func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFil
 		return nil, err
 	}
 
-	if params.LocaleId.IsSet() {
+	if !params.LocaleId.IsSet() {
 		switch {
 		case localeFile.ID != "":
 			params.LocaleId = optional.NewString(localeFile.ID)
