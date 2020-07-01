@@ -116,6 +116,16 @@ func initConfig() {
 		config.Credentials.Username = Config.Credentials.Username
 	}
 
+	phraseappAccessToken := os.Getenv("PHRASEAPP_ACCESS_TOKEN")
+	if phraseappAccessToken != "" && config.Credentials.Token == "" && config.Credentials.Username == "" {
+		config.Credentials.Token = phraseappAccessToken
+	}
+
+	phraseAccessToken := os.Getenv("PHRASE_ACCESS_TOKEN")
+	if phraseAccessToken != "" && config.Credentials.Token == "" && config.Credentials.Username == "" {
+		config.Credentials.Token = phraseAccessToken
+	}
+
 	if Config.Credentials.TFA {
 		config.Credentials.TFA = Config.Credentials.TFA
 	}
