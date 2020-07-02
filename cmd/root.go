@@ -28,7 +28,8 @@ var (
 
 func init() {
 	Config = &phrase.Config{
-		Debug: false,
+		Debug:     false,
+		UserAgent: "Phrase CLI (" + PHRASE_CLIENT_VERSION + ")",
 	}
 
 	cobra.OnInitialize(initConfig)
@@ -103,6 +104,7 @@ func initConfig() {
 	if Config.Debug {
 		config.Debug = Config.Debug
 	}
+	config.UserAgent = Config.UserAgent
 
 	if Config.Credentials.Host != "" {
 		config.Credentials.Host = Config.Credentials.Host
