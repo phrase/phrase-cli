@@ -89,7 +89,7 @@ func newClient() *phrase.APIClient {
 }
 
 type PullParams struct {
-	phrase.LocaleDownloadOpts `json:",squash"`
+	phrase.LocaleDownloadOpts `json:",squash" mapstructure:",squash"`
 	LocaleID                  string `json:"locale_id"`
 }
 

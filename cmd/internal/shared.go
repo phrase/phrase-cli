@@ -94,6 +94,7 @@ func ViperStructTag() viper.DecoderConfigOption {
 			mapstructure.StringToSliceHookFunc(","),
 			StringToOptionalString(),
 			StringToOptionalBool(),
+			StringToInterface(),
 		)
 	}
 }
@@ -101,10 +102,7 @@ func ViperStructTag() viper.DecoderConfigOption {
 // StringToOptionalString returns a DecodeHookFunc that converts
 // strings to optional.String.
 func StringToOptionalString() mapstructure.DecodeHookFunc {
-	return func(
-		f reflect.Type,
-		t reflect.Type,
-		data interface{}) (interface{}, error) {
+	return func(f reflect.Type, t reflect.Type, data interface{}) (interface{}, error) {
 		if f.Kind() != reflect.String {
 			return data, nil
 		}
@@ -119,10 +117,7 @@ func StringToOptionalString() mapstructure.DecodeHookFunc {
 // StringToOptionalBool returns a DecodeHookFunc that converts
 // strings to optional.Bool.
 func StringToOptionalBool() mapstructure.DecodeHookFunc {
-	return func(
-		f reflect.Type,
-		t reflect.Type,
-		data interface{}) (interface{}, error) {
+	return func(f reflect.Type, t reflect.Type, data interface{}) (interface{}, error) {
 		if f.Kind() != reflect.Bool {
 			return data, nil
 		}
@@ -131,5 +126,39 @@ func StringToOptionalBool() mapstructure.DecodeHookFunc {
 		}
 
 		return optional.NewBool(data.(bool)), nil
+	}
+}
+
+// StringToInterface returns a DecodeHookFunc that converts
+// strings to optional.Interface.
+func StringToInterface() mapstructure.DecodeHookFunc {
+	return func(f reflect.Type, t reflect.Type, data interface{}) (interface{}, error) {
+		if f.Kind() != reflect.Map {
+			return data, nil
+		}
+		if t != reflect.TypeOf(optional.Interface{}) {
+			return data, nil
+		}
+
+		var params map[string]interface{}
+		config := &mapstructure.DecoderConfig{
+			Result: &params,
+			DecodeHook: mapstructure.ComposeDecodeHookFunc(
+				StringToOptionalString(),
+				StringToOptionalBool(),
+			),
+		}
+
+		decoder, err := mapstructure.NewDecoder(config)
+		if err != nil {
+			return data, nil
+		}
+
+		err = decoder.Decode(data)
+		if err != nil {
+			return data, nil
+		}
+
+		return optional.NewInterface(params), nil
 	}
 }

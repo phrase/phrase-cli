@@ -24,11 +24,11 @@ func (targets Targets) ProjectIds() []string {
 }
 
 type Target struct {
-	File          string `json:"file"`
-	ProjectID     string `json:"project_id"`
-	AccessToken   string `json:"access_token"`
-	FileFormat    string `json:"file_format"`
-	Params        *PullParams
+	File          string      `json:"file"`
+	ProjectID     string      `json:"project_id"`
+	AccessToken   string      `json:"access_token"`
+	FileFormat    string      `json:"file_format"`
+	Params        *PullParams `json:"params" mapstructure:"omittable-nested,omitempty"`
 	RemoteLocales []*phrase.Locale
 }
 
