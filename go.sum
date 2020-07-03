@@ -186,6 +186,8 @@ github.com/phrase/phrase-go v1.0.5 h1:NyHowQnxotn78wINM//sftaPYBa2rexV7f30eIzmTR
 github.com/phrase/phrase-go v1.0.5/go.mod h1:BXgF/mv+yrmhBzVxpd099YsF77G3g6g5OL5NSdvx8wI=
 github.com/phrase/phrase-go v1.0.6 h1:y3Qpzs3PYRQFvxU92XzsjsnCEp2IOnmosYt//78FECE=
 github.com/phrase/phrase-go v1.0.6/go.mod h1:BXgF/mv+yrmhBzVxpd099YsF77G3g6g5OL5NSdvx8wI=
+github.com/phrase/phrase-go v1.0.7 h1:cVzMTnx3Gm/dHsW51uFQm9Zhj6oRwuiJyB0cRjLntdo=
+github.com/phrase/phrase-go v1.0.7/go.mod h1:BXgF/mv+yrmhBzVxpd099YsF77G3g6g5OL5NSdvx8wI=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/sftp v1.10.1/go.mod h1:lYOWFsE0bwd1+KfKJaKeuokY15vzFx25BLbzYYoAxZI=
