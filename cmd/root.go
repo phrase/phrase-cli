@@ -55,7 +55,7 @@ func init() {
 	viper.BindPFlag("tfa", rootCmd.PersistentFlags().Lookup("tfa"))
 	viper.SetDefault("tfa", false)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yaml fallback to $HOME/.phrase.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./.phrase.yml fallback to $HOME/.phrase.yml)")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
