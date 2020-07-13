@@ -54,7 +54,7 @@ func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Loca
 
 	localVarOptionals := phrase.LocalesListOpts{
 		Page:    optional.NewInt32(int32(page)),
-		PerPage: optional.NewInt32(int32(25)),
+		PerPage: optional.NewInt32(100),
 	}
 
 	if key.Branch != "" {
@@ -66,11 +66,11 @@ func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Loca
 		return nil, http_response, err
 	}
 	result := locales
-	for len(locales) == 25 {
+	for http_response.NextPage > 0 {
 		page = page + 1
 		localVarOptionals.Page = optional.NewInt32(int32(page))
 
-		locales, http_response, err := client.LocalesApi.LocalesList(Auth, key.ProjectID, &localVarOptionals)
+		locales, http_response, err = client.LocalesApi.LocalesList(Auth, key.ProjectID, &localVarOptionals)
 		if err != nil {
 			return nil, http_response, err
 		}

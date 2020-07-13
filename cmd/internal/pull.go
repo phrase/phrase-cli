@@ -157,17 +157,17 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		fmt.Fprintln(os.Stderr, "FormatOptions", localVarOptionals.FormatOptions)
 	}
 
-	data, _, err := client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &localVarOptionals)
+	data, response, err := client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &localVarOptionals)
 	if err != nil {
-		// if rateLimitError, ok := (err).(*phrase.RateLimitingError); ok {
-		// 	waitForRateLimit(rateLimitError)
-		// 	res, err = client.LocaleDownload(target.ProjectID, localeFile.ID, downloadParams)
-		// 	if err != nil {
-		// 		return err
-		// 	}
-		// } else {
-		return err
-		// }
+		if response.Rate.Remaining == 0 {
+			waitForRateLimit(response.Rate)
+			data, _, err = client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &localVarOptionals)
+			if err != nil {
+				return err
+			}
+		} else {
+			return err
+		}
 	}
 
 	err = ioutil.WriteFile(localeFile.Path, data, 0700)
@@ -231,14 +231,12 @@ func (target *Target) createLocaleFiles(remoteLocale *phrase.Locale) (LocaleFile
 	return files, nil
 }
 
-// func waitForRateLimit(rateLimitError *phrase.RateLimitingError) {
-// 	if rateLimitError.Remaining == 0 {
-// 		reset := rateLimitError.Reset
-// 		resetTime := reset.Add(time.Second * 5).Sub(time.Now())
-// 		fmt.Printf("Rate limit exceeded. Download will resume in %d seconds\n", int64(resetTime.Seconds()))
-// 		time.Sleep(resetTime)
-// 	}
-// }
+func waitForRateLimit(response phrase.Rate) {
+	var reset time.Time
+	resetTime := reset.Add(time.Second * 5).Sub(time.Now())
+	fmt.Printf("Rate limit exceeded. Download will resume in %d seconds\n", int64(resetTime.Seconds()))
+	time.Sleep(resetTime)
+}
 
 func createLocaleFile(target *Target, remoteLocale *phrase.Locale, tag string) (*LocaleFile, error) {
 	localeFile := &LocaleFile{
