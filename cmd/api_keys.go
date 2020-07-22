@@ -44,7 +44,8 @@ func initKeyCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeyCreateOpts{}
 
@@ -105,7 +106,8 @@ func initKeyDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeyDeleteOpts{}
 
@@ -158,7 +160,8 @@ func initKeyShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeyShowOpts{}
 
@@ -217,7 +220,8 @@ func initKeyUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeyUpdateOpts{}
 
@@ -280,7 +284,8 @@ func initKeysDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeysDeleteOpts{}
 
@@ -345,7 +350,8 @@ func initKeysList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeysListOpts{}
 
@@ -426,7 +432,8 @@ func initKeysSearch() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeysSearchOpts{}
 
@@ -495,7 +502,8 @@ func initKeysTag() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeysTagOpts{}
 
@@ -556,7 +564,8 @@ func initKeysUntag() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.KeysUntagOpts{}
 

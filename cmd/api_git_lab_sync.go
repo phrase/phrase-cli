@@ -42,7 +42,8 @@ func initGitlabSyncDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GitlabSyncDeleteOpts{}
 
@@ -93,7 +94,8 @@ func initGitlabSyncExport() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GitlabSyncExportOpts{}
 
@@ -154,7 +156,8 @@ func initGitlabSyncHistory() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GitlabSyncHistoryOpts{}
 
@@ -219,7 +222,8 @@ func initGitlabSyncImport() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GitlabSyncImportOpts{}
 
@@ -280,7 +284,8 @@ func initGitlabSyncList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GitlabSyncListOpts{}
 
@@ -333,7 +338,8 @@ func initGitlabSyncShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GitlabSyncShowOpts{}
 
@@ -390,7 +396,8 @@ func initGitlabSyncUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GitlabSyncUpdateOpts{}
 

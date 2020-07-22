@@ -40,7 +40,8 @@ func initAuthorizationCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationCreateOpts{}
 
@@ -98,7 +99,8 @@ func initAuthorizationDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationDeleteOpts{}
 
@@ -145,7 +147,8 @@ func initAuthorizationShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationShowOpts{}
 
@@ -198,7 +201,8 @@ func initAuthorizationUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationUpdateOpts{}
 
@@ -259,7 +263,8 @@ func initAuthorizationsList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.AuthorizationsListOpts{}
 

@@ -41,7 +41,8 @@ func initWebhookCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookCreateOpts{}
 
@@ -102,7 +103,8 @@ func initWebhookDelete() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookDeleteOpts{}
 
@@ -151,7 +153,8 @@ func initWebhookShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookShowOpts{}
 
@@ -206,7 +209,8 @@ func initWebhookTest() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookTestOpts{}
 
@@ -255,7 +259,8 @@ func initWebhookUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookUpdateOpts{}
 
@@ -318,7 +323,8 @@ func initWebhooksList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhooksListOpts{}
 

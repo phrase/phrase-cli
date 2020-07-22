@@ -51,7 +51,8 @@ func initTranslationCreate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationCreateOpts{}
 
@@ -112,7 +113,8 @@ func initTranslationExclude() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationExcludeOpts{}
 
@@ -175,7 +177,8 @@ func initTranslationInclude() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationIncludeOpts{}
 
@@ -238,7 +241,8 @@ func initTranslationReview() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationReviewOpts{}
 
@@ -301,7 +305,8 @@ func initTranslationShow() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationShowOpts{}
 
@@ -360,7 +365,8 @@ func initTranslationUnverify() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationUnverifyOpts{}
 
@@ -423,7 +429,8 @@ func initTranslationUpdate() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationUpdateOpts{}
 
@@ -486,7 +493,8 @@ func initTranslationVerify() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationVerifyOpts{}
 
@@ -549,7 +557,8 @@ func initTranslationsByKey() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsByKeyOpts{}
 
@@ -628,7 +637,8 @@ func initTranslationsByLocale() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsByLocaleOpts{}
 
@@ -707,7 +717,8 @@ func initTranslationsExclude() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsExcludeOpts{}
 
@@ -768,7 +779,8 @@ func initTranslationsInclude() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsIncludeOpts{}
 
@@ -829,7 +841,8 @@ func initTranslationsList() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsListOpts{}
 
@@ -906,7 +919,8 @@ func initTranslationsReview() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsReviewOpts{}
 
@@ -967,7 +981,8 @@ func initTranslationsSearch() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsSearchOpts{}
 
@@ -1036,7 +1051,8 @@ func initTranslationsUnverify() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsUnverifyOpts{}
 
@@ -1097,7 +1113,8 @@ func initTranslationsVerify() {
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
-			cfg := api.NewConfiguration(Config)
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.TranslationsVerifyOpts{}
 
