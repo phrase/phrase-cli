@@ -11,7 +11,7 @@ require (
 	github.com/jpillora/backoff v1.0.0
 	github.com/mitchellh/mapstructure v1.3.2
 	github.com/pelletier/go-toml v1.8.0 // indirect
-	github.com/phrase/phrase-go v1.0.8
+	github.com/phrase/phrase-go v1.0.10
 	github.com/spf13/afero v1.3.1 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.0.0
