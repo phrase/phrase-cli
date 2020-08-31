@@ -290,6 +290,9 @@ func initBlacklistedKeysList() {
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
@@ -319,6 +322,7 @@ func initBlacklistedKeysList() {
 	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(BlacklistedKeysList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(BlacklistedKeysList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(BlacklistedKeysList.Flags())
 }
