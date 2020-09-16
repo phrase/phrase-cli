@@ -205,7 +205,7 @@ func initGitlabSyncHistory() {
 	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("GitlabSyncId"), "", "Gitlab Sync ID", true)
 	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GitlabSyncHistory, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(GitlabSyncHistory, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(GitlabSyncHistory, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
 	AddFlag(GitlabSyncHistory, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
 
 	params.BindPFlags(GitlabSyncHistory.Flags())

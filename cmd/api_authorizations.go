@@ -305,7 +305,7 @@ func initAuthorizationsList() {
 	AuthorizationsApiCmd.AddCommand(AuthorizationsList)
 	AddFlag(AuthorizationsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(AuthorizationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(AuthorizationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(AuthorizationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
 
 	params.BindPFlags(AuthorizationsList.Flags())
 }

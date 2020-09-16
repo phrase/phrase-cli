@@ -387,7 +387,7 @@ func initReleasesList() {
 	AddFlag(ReleasesList, "string", helpers.ToSnakeCase("DistributionId"), "", "Distribution ID", true)
 	AddFlag(ReleasesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ReleasesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(ReleasesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(ReleasesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
 
 	params.BindPFlags(ReleasesList.Flags())
 }

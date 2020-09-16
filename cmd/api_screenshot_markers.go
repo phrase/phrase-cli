@@ -324,7 +324,7 @@ func initScreenshotMarkersList() {
 	AddFlag(ScreenshotMarkersList, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ScreenshotMarkersList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ScreenshotMarkersList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(ScreenshotMarkersList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 10 by default", false)
+	AddFlag(ScreenshotMarkersList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
 
 	params.BindPFlags(ScreenshotMarkersList.Flags())
 }
