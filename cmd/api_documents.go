@@ -3,6 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -13,6 +14,7 @@ import (
 )
 
 func init() {
+	initDocumentDelete()
 	initDocumentsList()
 
 	rootCmd.AddCommand(DocumentsApiCmd)
@@ -23,6 +25,56 @@ var DocumentsApiCmd = &cobra.Command{
 	Short: "Documents API",
 }
 
+func initDocumentDelete() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("document/delete", "/")[1:], "_")
+	var DocumentDelete = &cobra.Command{
+		Use:   use,
+		Short: "Delete document",
+		Long:  `Delete an existing document.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.DocumentDeleteOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			data, api_response, err := client.DocumentsApi.DocumentDelete(auth, projectId, id, &localVarOptionals)
+
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
+			}
+			if err != nil {
+				HandleError(err)
+			}
+
+			if Config.Debug {
+				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+			}
+		},
+	}
+
+	DocumentsApiCmd.AddCommand(DocumentDelete)
+	AddFlag(DocumentDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(DocumentDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(DocumentDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(DocumentDelete.Flags())
+}
 func initDocumentsList() {
 	params := viper.New()
 	var use string
@@ -43,6 +95,7 @@ func initDocumentsList() {
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -53,7 +106,9 @@ func initDocumentsList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
-			data, api_response, err := client.DocumentsApi.DocumentsList(auth, &localVarOptionals)
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
+			data, api_response, err := client.DocumentsApi.DocumentsList(auth, projectId, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -75,6 +130,7 @@ func initDocumentsList() {
 	}
 
 	DocumentsApiCmd.AddCommand(DocumentsList)
+	AddFlag(DocumentsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(DocumentsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(DocumentsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(DocumentsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
