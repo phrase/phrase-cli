@@ -11,9 +11,14 @@ sed -e "s/VERSION/${VERSION}/g" ./build/innosetup/phrase-cli.iss.template > ./bu
 ./build/innosetup/create_installer.sh
 
 # build docker image
+
 IMAGE=phrase-cli:${VERSION}
-docker build --tag phrase-cli:latest --tag ${IMAGE} -f ./Dockerfile
-# push to dockerhub
+
+echo build docker image ${IMAGE}
+docker build --tag phrase-cli:latest --tag ${IMAGE} -f ./Dockerfile .
+
+echo push docker image ${IMAGE}
+docker push ${IMAGE}
 
 # Create release
 function create_release_data()
