@@ -21,7 +21,11 @@ docker build --tag ${IMAGE} -f ./Dockerfile .
 echo push image ${IMAGE}
 docker push ${IMAGE}
 
-env | grep -i branch
+if env | sort | grep -v -i docker; then
+  echo found something
+else
+  echo found nothing
+fi
 
 # Create release
 function create_release_data()
