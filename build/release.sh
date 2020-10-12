@@ -12,12 +12,13 @@ sed -e "s/VERSION/${VERSION}/g" ./build/innosetup/phrase-cli.iss.template > ./bu
 
 # build docker image
 
-IMAGE=phrase/phrase-cli:${VERSION}
+IMAGE_PREFIX=phrase/phrase-cli
+IMAGE=${IMAGE_PREFIX}:${VERSION}
 
 echo build docker image ${IMAGE}
-docker build --tag phrase-cli:latest --tag ${IMAGE} -f ./Dockerfile .
+docker build --tag ${IMAGE} -f ./Dockerfile .
 
-echo push docker image ${IMAGE}
+echo push image ${IMAGE}
 docker push ${IMAGE}
 
 # Create release
