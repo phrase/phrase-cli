@@ -1,9 +1,6 @@
 name: release
 
-on:
-  push:
-    tags:
-      - '*'
+on: [push]
 
 jobs:
   release:
@@ -21,6 +18,12 @@ jobs:
         id: version
         run: |
           echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       -
         name: Release
         run: |
