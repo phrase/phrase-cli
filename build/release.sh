@@ -12,7 +12,7 @@ sed -e "s/VERSION/${VERSION}/g" ./build/innosetup/phrase-cli.iss.template > ./bu
 
 # build docker image
 
-IMAGE=phrase-cli:${VERSION}
+IMAGE=phrase/phrase-cli:${VERSION}
 
 echo build docker image ${IMAGE}
 docker build --tag phrase-cli:latest --tag ${IMAGE} -f ./Dockerfile .
