@@ -12,7 +12,6 @@ sed -e "s/VERSION/${VERSION}/g" ./build/innosetup/phrase-cli.iss.template > ./bu
 ./build/innosetup/create_installer.sh
 
 # build docker image
-
 IMAGE=phrase-cli:${VERSION}
 docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
 docker build --tag phrase-cli:latest --tag ${IMAGE} -f ./Dockerfile
@@ -38,20 +37,20 @@ release_id=$(echo $response | python -c "import sys, json; print json.load(sys.s
 
 if [ -z "$release_id" ]
 then
-      echo "Failed to create GitHub release"
-      echo $response
-      exit 1
+  echo "Failed to create GitHub release"
+  echo $response
+  exit 1
 else
-      echo "New release created created with id: ${release_id}"
+  echo "New release created created with id: ${release_id}"
 fi
 
 # Upload artifacts
 DIST_DIR="./dist"
 for file in "$DIST_DIR"/*; do
-    echo "Uploading ${file}"
-    asset="https://uploads.github.com/repos/phrase/phrase-cli/releases/${release_id}/assets?name=$(basename "$file")&access_token=${GITHUB_TOKEN}"
-    curl -sS --data-binary @"$file" -H "Content-Type: application/octet-stream" $asset > /dev/null
-    echo Hash: $(sha256sum $file)
+  echo "Uploading ${file}"
+  asset="https://uploads.github.com/repos/phrase/phrase-cli/releases/${release_id}/assets?name=$(basename "$file")&access_token=${GITHUB_TOKEN}"
+  curl -sS --data-binary @"$file" -H "Content-Type: application/octet-stream" $asset > /dev/null
+  echo Hash: $(sha256sum $file)
 done
 
 echo "Release successful"
