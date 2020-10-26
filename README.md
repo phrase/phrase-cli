@@ -51,7 +51,19 @@ Use the `pull` command to download the most recent locale files back into your p
 
     $ phrase pull
 
-#### 5. More
+#### 5. Docker
+
+You can also use `phrase` through a docker image, without installing the cli on your computer.
+
+    $ docker run --rm phrase/phrase-cli:2.0.15 help
+
+Some commands are interactive and require the `-it` flag.
+
+    $ docker run -it phrase/phrase-cli:2.0.15 init
+
+You can also use the docker image as base for more complex images.
+
+#### 6. More
 
 To see a list of all available commands, simply execute:
 
