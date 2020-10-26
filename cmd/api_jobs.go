@@ -23,6 +23,7 @@ func init() {
 	initJobShow()
 	initJobStart()
 	initJobUpdate()
+	initJobsByAccount()
 	initJobsList()
 
 	rootCmd.AddCommand(JobsApiCmd)
@@ -590,6 +591,80 @@ func initJobUpdate() {
 	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(JobUpdate.Flags())
+}
+func initJobsByAccount() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("jobs/by_account", "/")[1:], "_")
+	var JobsByAccount = &cobra.Command{
+		Use:   use,
+		Short: "List account jobs",
+		Long:  `List all jobs for the given account.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.JobsByAccountOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("ownedBy")) {
+				localVarOptionals.OwnedBy = optional.NewString(params.GetString(helpers.ToSnakeCase("OwnedBy")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("assignedTo")) {
+				localVarOptionals.AssignedTo = optional.NewString(params.GetString(helpers.ToSnakeCase("AssignedTo")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("state")) {
+				localVarOptionals.State = optional.NewString(params.GetString(helpers.ToSnakeCase("State")))
+			}
+
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
+			data, api_response, err := client.JobsApi.JobsByAccount(auth, accountId, &localVarOptionals)
+
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
+			if err != nil {
+				HandleError(err)
+			}
+
+			if Config.Debug {
+				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+			}
+		},
+	}
+
+	JobsApiCmd.AddCommand(JobsByAccount)
+	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobsByAccount, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(JobsByAccount, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("OwnedBy"), "", "filter by user owning job", false)
+	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("AssignedTo"), "", "filter by user assigned to job", false)
+	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("State"), "", "filter by state of job Valid states are <code>draft</code>, <code>in_progress</code>, <code>completed</code>", false)
+
+	params.BindPFlags(JobsByAccount.Flags())
 }
 func initJobsList() {
 	params := viper.New()
