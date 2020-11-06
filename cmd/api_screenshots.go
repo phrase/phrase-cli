@@ -290,6 +290,9 @@ func initScreenshotsList() {
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("keyId")) {
+				localVarOptionals.KeyId = optional.NewString(params.GetString(helpers.ToSnakeCase("KeyId")))
+			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
@@ -319,6 +322,7 @@ func initScreenshotsList() {
 	AddFlag(ScreenshotsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ScreenshotsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(ScreenshotsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(ScreenshotsList, "string", helpers.ToSnakeCase("KeyId"), "", "filter by key", false)
 
 	params.BindPFlags(ScreenshotsList.Flags())
 }
