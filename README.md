@@ -21,7 +21,7 @@ This quick start will guide you through the basic steps to get up and running wi
 
 #### 1. Install
 
-[Download and install](https://phrase.com/cli) the client for your platform. See our [detailed installation guide](https://help.phrase.com/phrase-for-developers/phrase-client/installation) for more information.
+[Download and install](https://phrase.com/cli) the client for your platform. See our [detailed installation guide](https://help.phrase.com/help/installation-1) for more information.
 
 ##### Homebrew
 
