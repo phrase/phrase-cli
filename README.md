@@ -41,13 +41,13 @@ Initialize your project by executing the `init` command. This lets you define yo
 
 #### 3. Upload your locale files
 
-Use the `push` command to upload your locale files from your defined [sources](https://help.phrase.com/phrase-for-developers/phrase-client/configuration#push):
+Use the `push` command to upload your locale files from your defined [sources](https://help.phrase.com/help/configuration):
 
     $ phrase push
 
 #### 4. Download your locale files
 
-Use the `pull` command to download the most recent locale files back into your project according to your [targets](https://help.phrase.com/phrase-for-developers/phrase-client/configuration#pull):
+Use the `pull` command to download the most recent locale files back into your project according to your [targets](https://help.phrase.com/help/configuration):
 
     $ phrase pull
 
@@ -73,14 +73,14 @@ To see all supported options for a command, simple use the `--help` flag:
 
     $ phrase locales list --help
 
-See our [detailed guides](https://help.phrase.com/phrase-for-developers/phrase-client/phrase-in-your-terminal) for in-depth instructions on how to use the PhraseApp Client.
+See our [detailed guides](https://help.phrase.com/help/phrase-in-your-terminal) for in-depth instructions on how to use the PhraseApp Client.
 
 ## Contributing
 
 This tool and it's source code are auto-generated from templates that run against a API specification file. Therefore we can not accept any pull requests in this repository. Please use the GitHub Issue Tracker to report bugs.
 
 ## Further reading
-* [PhraseApp Client Download Page](https://phrase.com/cli)
+* [Phrase Client Download Page](https://phrase.com/cli)
 
 ## Licenses
 
