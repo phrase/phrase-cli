@@ -80,8 +80,14 @@ func initTeamCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -131,8 +137,14 @@ func initTeamDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -188,8 +200,14 @@ func initTeamShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -252,8 +270,14 @@ func initTeamUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -315,8 +339,14 @@ func initTeamsList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -374,8 +404,14 @@ func initTeamsProjectsCreate() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -427,8 +463,14 @@ func initTeamsProjectsDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -486,8 +528,14 @@ func initTeamsSpacesCreate() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -539,8 +587,14 @@ func initTeamsSpacesDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -598,8 +652,14 @@ func initTeamsUsersCreate() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -651,8 +711,14 @@ func initTeamsUsersDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {

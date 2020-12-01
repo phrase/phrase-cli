@@ -85,8 +85,14 @@ func initTranslationCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -149,8 +155,14 @@ func initTranslationExclude() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -214,8 +226,14 @@ func initTranslationInclude() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -279,8 +297,14 @@ func initTranslationReview() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -340,8 +364,14 @@ func initTranslationShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -405,8 +435,14 @@ func initTranslationUnverify() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -470,8 +506,14 @@ func initTranslationUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -535,8 +577,14 @@ func initTranslationVerify() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -611,8 +659,14 @@ func initTranslationsByKey() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -692,8 +746,14 @@ func initTranslationsByLocale() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -761,8 +821,14 @@ func initTranslationsExclude() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -824,8 +890,14 @@ func initTranslationsInclude() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -898,8 +970,14 @@ func initTranslationsList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -966,8 +1044,14 @@ func initTranslationsReview() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -1035,8 +1119,14 @@ func initTranslationsSearch() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -1100,8 +1190,14 @@ func initTranslationsUnverify() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -1163,8 +1259,14 @@ func initTranslationsVerify() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {

@@ -78,8 +78,14 @@ func initJobLocaleComplete() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -135,8 +141,14 @@ func initJobLocaleDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -202,8 +214,14 @@ func initJobLocaleReopen() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -265,8 +283,14 @@ func initJobLocaleShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -332,8 +356,14 @@ func initJobLocaleUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -398,8 +428,14 @@ func initJobLocalesCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -465,8 +501,14 @@ func initJobLocalesList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {

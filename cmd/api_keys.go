@@ -78,8 +78,14 @@ func initKeyCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -132,8 +138,14 @@ func initKeyDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -193,8 +205,14 @@ func initKeyShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -258,8 +276,14 @@ func initKeyUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -324,8 +348,14 @@ func initKeysDelete() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -403,8 +433,14 @@ func initKeysList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -478,8 +514,14 @@ func initKeysSearch() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -543,8 +585,14 @@ func initKeysTag() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -606,8 +654,14 @@ func initKeysUntag() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {

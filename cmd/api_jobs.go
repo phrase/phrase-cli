@@ -81,8 +81,14 @@ func initJobComplete() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -145,8 +151,14 @@ func initJobCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -199,8 +211,14 @@ func initJobDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -264,8 +282,14 @@ func initJobKeysCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -326,8 +350,14 @@ func initJobKeysDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -392,8 +422,14 @@ func initJobReopen() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -453,8 +489,14 @@ func initJobShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -518,8 +560,14 @@ func initJobStart() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -583,8 +631,14 @@ func initJobUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -655,8 +709,14 @@ func initJobsByAccount() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
@@ -733,8 +793,14 @@ func initJobsList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
-				fmt.Printf("%s\n\n", data)
-				HandleError(err)
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
 			}
 
 			if Config.Debug {
