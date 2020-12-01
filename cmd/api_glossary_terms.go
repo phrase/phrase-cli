@@ -75,6 +75,7 @@ func initGlossaryTermCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -127,6 +128,7 @@ func initGlossaryTermDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -185,6 +187,7 @@ func initGlossaryTermShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -250,6 +253,7 @@ func initGlossaryTermUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -314,6 +318,7 @@ func initGlossaryTermsList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 

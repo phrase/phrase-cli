@@ -72,6 +72,7 @@ func initAuthorizationCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -120,6 +121,7 @@ func initAuthorizationDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -174,6 +176,7 @@ func initAuthorizationShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -235,6 +238,7 @@ func initAuthorizationUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -293,6 +297,7 @@ func initAuthorizationsList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 

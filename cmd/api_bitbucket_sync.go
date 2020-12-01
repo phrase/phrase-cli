@@ -72,6 +72,7 @@ func initBitbucketSyncExport() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -128,6 +129,7 @@ func initBitbucketSyncImport() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -183,6 +185,7 @@ func initBitbucketSyncsList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 

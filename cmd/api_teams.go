@@ -80,6 +80,7 @@ func initTeamCreate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -130,6 +131,7 @@ func initTeamDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -186,6 +188,7 @@ func initTeamShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -249,6 +252,7 @@ func initTeamUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -311,6 +315,7 @@ func initTeamsList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -369,6 +374,7 @@ func initTeamsProjectsCreate() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -421,6 +427,7 @@ func initTeamsProjectsDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -479,6 +486,7 @@ func initTeamsSpacesCreate() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -531,6 +539,7 @@ func initTeamsSpacesDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -589,6 +598,7 @@ func initTeamsUsersCreate() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -641,6 +651,7 @@ func initTeamsUsersDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 

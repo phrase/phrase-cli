@@ -66,6 +66,7 @@ func initGitlabSyncDelete() {
 				os.Stdout.Write(data)
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -128,6 +129,7 @@ func initGitlabSyncExport() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -192,6 +194,7 @@ func initGitlabSyncHistory() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -256,6 +259,7 @@ func initGitlabSyncImport() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -311,6 +315,7 @@ func initGitlabSyncList() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -368,6 +373,7 @@ func initGitlabSyncShow() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
@@ -435,6 +441,7 @@ func initGitlabSyncUpdate() {
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
+				fmt.Printf("%s\n\n", data)
 				HandleError(err)
 			}
 
