@@ -198,6 +198,9 @@ func initLocaleDownload() {
 			if params.IsSet(helpers.ToSnakeCase("includeEmptyTranslations")) {
 				localVarOptionals.IncludeEmptyTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeEmptyTranslations")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("excludeEmptyZeroForms")) {
+				localVarOptionals.ExcludeEmptyZeroForms = optional.NewBool(params.GetBool(helpers.ToSnakeCase("ExcludeEmptyZeroForms")))
+			}
 			if params.IsSet(helpers.ToSnakeCase("includeTranslatedKeys")) {
 				localVarOptionals.IncludeTranslatedKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeTranslatedKeys")))
 			}
@@ -264,6 +267,7 @@ func initLocaleDownload() {
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Tags"), "", "Limit results to keys tagged with a list of comma separated tag names.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Tag"), "", "Limit download to tagged keys. This parameter is deprecated. Please use the \"tags\" parameter instead", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeEmptyTranslations"), "", "Indicates whether keys without translations should be included in the output as well.", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("ExcludeEmptyZeroForms"), "", "Indicates whether zero forms should be included when empty in pluralized keys.", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeTranslatedKeys"), "", "Include translated keys in the locale file. Use in combination with include_empty_translations to obtain only untranslated keys.", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("KeepNotranslateTags"), "", "Indicates whether [NOTRANSLATE] tags should be kept.", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("ConvertEmoji"), "", "This option is obsolete. Projects that were created on or after Nov 29th 2019 or that did not contain emoji by then will not require this flag any longer since emoji are now supported natively.", false)
