@@ -10,7 +10,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/jpillora/backoff v1.0.0
 	github.com/magiconair/properties v1.8.4 // indirect
-	github.com/mitchellh/mapstructure v1.3.3
+	github.com/mitchellh/mapstructure v1.4.0
 	github.com/pelletier/go-toml v1.8.1 // indirect
 	github.com/phrase/phrase-go v1.0.13
 	github.com/spf13/afero v1.4.1 // indirect
@@ -23,5 +23,5 @@ require (
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43 // indirect
 	golang.org/x/sys v0.0.0-20201005172224-997123666555 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
-	gopkg.in/yaml.v2 v2.3.0
+	gopkg.in/yaml.v2 v2.4.0
 )
