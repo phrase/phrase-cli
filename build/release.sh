@@ -58,4 +58,13 @@ for file in "$DIST_DIR"/*; do
   echo Hash: $(sha256sum $file)
 done
 
+echo "Publishing release"
+curl \
+  --silent \
+  -X PATCH \
+  -H "Authorization: token ${GITHUB_TOKEN}" \
+  -H "Accept: application/vnd.github.v3+json" \
+  "https://api.github.com/repos/phrase/phrase-cli/releases/${release_id}" \
+  -d '{"draft": false}' > /dev/null
+
 echo "Release successful"
