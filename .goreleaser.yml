@@ -26,6 +26,6 @@ release:
   github:
     owner: phrase
     name: phrase-cli
-  draft: true
+  draft: false
   prerelease: auto
   name_template: "v{{.Version}}"
