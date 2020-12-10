@@ -33,5 +33,6 @@ jobs:
           make all
           bash ./build/release.sh -xe
         env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.version.outputs.VERSION }}
