@@ -4,7 +4,7 @@ set -eo pipefail
 
 brew_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 
-if ! git clone --depth 1 https://$API_TOKEN_GITHUB@github.com/phrase/homebrew-brewed.git $brew_dir &> clone.log; then
+if ! git clone --depth 1 https://$GITHUB_TOKEN@github.com/phrase/homebrew-brewed.git $brew_dir &> clone.log; then
   cat clone.log > /dev/stderr
   exit 1
 fi
@@ -15,11 +15,11 @@ FILES_FOR_BREW=("phrase_linux_386.tar.gz" "phrase_linux_amd64.tar.gz" "phrase_ma
 # Change the sha256 in Formula/phrase.rb
 for file in ${FILES_FOR_BREW[@]}; do
   sha256=$(sha256sum "$DIST_DIR/$file" | awk '{ print $1 }')
-  sed -i '' "s/sha256 \".*\" # $file/sha256 \"$sha256\" # $file/g" "$brew_dir/Formula/phrase.rb"
+  sed -i "s/sha256 \".*\" # $file/sha256 \"$sha256\" # $file/g" "$brew_dir/Formula/phrase.rb"
 done
 
 # Change the version in Formula/phrase.rb
-sed -i '' "s/version \".*\"/version \"$VERSION\"/g" "$brew_dir/Formula/phrase.rb"
+sed -i "s/version \".*\"/version \"$VERSION\"/g" "$brew_dir/Formula/phrase.rb"
 
 current=$(pwd)
 cd $brew_dir
