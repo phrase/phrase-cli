@@ -68,3 +68,6 @@ curl \
   -d '{"draft": false}' > /dev/null
 
 echo "Release successful"
+
+# update homebrew-brewed
+./build/update_brew.sh
