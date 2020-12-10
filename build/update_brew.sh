@@ -4,6 +4,8 @@ set -eo pipefail
 
 brew_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 
+git config --global credential.helper cache
+
 if ! git clone --depth 1 https://$GITHUB_TOKEN@github.com/phrase/homebrew-brewed.git $brew_dir &> clone.log; then
   cat clone.log > /dev/stderr
   exit 1
@@ -27,7 +29,7 @@ git config --global user.email "support@phrase.com"
 git config --global user.name "Phrase"
 git add Formula/phrase.rb
 git commit -m "Release version $VERSION"
-git push origin master
+git push "https://$GITHUB_TOKEN@github.com/phrase/homebrew-brewed.git" -f
 rm -rf $brew_dir
 cd $current
 echo "Brew release successful"
