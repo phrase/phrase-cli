@@ -17,6 +17,7 @@ func init() {
 	initMemberDelete()
 	initMemberShow()
 	initMemberUpdate()
+	initMemberUpdateSettings()
 	initMembersList()
 
 	rootCmd.AddCommand(MembersApiCmd)
@@ -217,6 +218,77 @@ func initMemberUpdate() {
 	AddFlag(MemberUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(MemberUpdate.Flags())
+}
+func initMemberUpdateSettings() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("member/update_settings", "/")[1:], "_")
+	var MemberUpdateSettings = &cobra.Command{
+		Use:   use,
+		Short: "Update a member's project settings",
+		Long:  `Update user settings in the project. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.MemberUpdateSettingsOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			memberUpdateSettingsParameters := api.MemberUpdateSettingsParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &memberUpdateSettingsParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", memberUpdateSettingsParameters)
+			}
+			data, api_response, err := client.MembersApi.MemberUpdateSettings(auth, projectId, id, memberUpdateSettingsParameters, &localVarOptionals)
+
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			}
+
+			if Config.Debug {
+				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+			}
+		},
+	}
+
+	MembersApiCmd.AddCommand(MemberUpdateSettings)
+	AddFlag(MemberUpdateSettings, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(MemberUpdateSettings, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(MemberUpdateSettings, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(MemberUpdateSettings, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(MemberUpdateSettings.Flags())
 }
 func initMembersList() {
 	params := viper.New()
