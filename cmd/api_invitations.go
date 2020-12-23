@@ -19,6 +19,7 @@ func init() {
 	initInvitationResend()
 	initInvitationShow()
 	initInvitationUpdate()
+	initInvitationUpdateSettings()
 	initInvitationsList()
 
 	rootCmd.AddCommand(InvitationsApiCmd)
@@ -351,6 +352,77 @@ func initInvitationUpdate() {
 	AddFlag(InvitationUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(InvitationUpdate.Flags())
+}
+func initInvitationUpdateSettings() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("invitation/update_settings", "/")[1:], "_")
+	var InvitationUpdateSettings = &cobra.Command{
+		Use:   use,
+		Short: "Update a member's invitation access",
+		Long:  `Update member&#x27;s settings in the invitations. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.InvitationUpdateSettingsOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			invitationUpdateSettingsParameters := api.InvitationUpdateSettingsParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateSettingsParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", invitationUpdateSettingsParameters)
+			}
+			data, api_response, err := client.InvitationsApi.InvitationUpdateSettings(auth, projectId, id, invitationUpdateSettingsParameters, &localVarOptionals)
+
+			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+
+				fmt.Printf("%s\n", string(jsonBuf))
+			}
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			}
+
+			if Config.Debug {
+				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+			}
+		},
+	}
+
+	InvitationsApiCmd.AddCommand(InvitationUpdateSettings)
+	AddFlag(InvitationUpdateSettings, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(InvitationUpdateSettings, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(InvitationUpdateSettings, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(InvitationUpdateSettings, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(InvitationUpdateSettings.Flags())
 }
 func initInvitationsList() {
 	params := viper.New()
