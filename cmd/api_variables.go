@@ -245,14 +245,14 @@ func initVariableUpdate() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
 
-			branchUpdateParameters := api.BranchUpdateParameters{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &branchUpdateParameters); err != nil {
+			variableUpdateParameters := api.VariableUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &variableUpdateParameters); err != nil {
 				HandleError(err)
 			}
 			if Config.Debug {
-				fmt.Printf("%+v\n", branchUpdateParameters)
+				fmt.Printf("%+v\n", variableUpdateParameters)
 			}
-			data, api_response, err := client.VariablesApi.VariableUpdate(auth, projectId, name, branchUpdateParameters, &localVarOptionals)
+			data, api_response, err := client.VariablesApi.VariableUpdate(auth, projectId, name, variableUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")

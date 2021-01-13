@@ -369,14 +369,14 @@ func initBranchUpdate() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
 
-			branchUpdateParameters1 := api.BranchUpdateParameters1{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &branchUpdateParameters1); err != nil {
+			branchUpdateParameters := api.BranchUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &branchUpdateParameters); err != nil {
 				HandleError(err)
 			}
 			if Config.Debug {
-				fmt.Printf("%+v\n", branchUpdateParameters1)
+				fmt.Printf("%+v\n", branchUpdateParameters)
 			}
-			data, api_response, err := client.BranchesApi.BranchUpdate(auth, projectId, name, branchUpdateParameters1, &localVarOptionals)
+			data, api_response, err := client.BranchesApi.BranchUpdate(auth, projectId, name, branchUpdateParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
