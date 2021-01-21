@@ -123,6 +123,9 @@ func initScreenshotMarkerDelete() {
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
@@ -153,6 +156,7 @@ func initScreenshotMarkerDelete() {
 	AddFlag(ScreenshotMarkerDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ScreenshotMarkerDelete, "string", helpers.ToSnakeCase("ScreenshotId"), "", "Screenshot ID", true)
 	AddFlag(ScreenshotMarkerDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(ScreenshotMarkerDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(ScreenshotMarkerDelete.Flags())
 }
@@ -179,6 +183,9 @@ func initScreenshotMarkerShow() {
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
@@ -218,6 +225,7 @@ func initScreenshotMarkerShow() {
 	AddFlag(ScreenshotMarkerShow, "string", helpers.ToSnakeCase("ScreenshotId"), "", "Screenshot ID", true)
 	AddFlag(ScreenshotMarkerShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(ScreenshotMarkerShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(ScreenshotMarkerShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(ScreenshotMarkerShow.Flags())
 }
@@ -322,6 +330,9 @@ func initScreenshotMarkersList() {
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
@@ -360,6 +371,7 @@ func initScreenshotMarkersList() {
 	AddFlag(ScreenshotMarkersList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ScreenshotMarkersList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(ScreenshotMarkersList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(ScreenshotMarkersList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(ScreenshotMarkersList.Flags())
 }
