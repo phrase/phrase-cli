@@ -18,7 +18,7 @@ func init() {
 	initKeyDelete()
 	initKeyShow()
 	initKeyUpdate()
-	initKeysDelete()
+	initKeysDeleteCollection()
 	initKeysList()
 	initKeysSearch()
 	initKeysTag()
@@ -300,12 +300,12 @@ func initKeyUpdate() {
 
 	params.BindPFlags(KeyUpdate.Flags())
 }
-func initKeysDelete() {
+func initKeysDeleteCollection() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("keys/delete", "/")[1:], "_")
-	var KeysDelete = &cobra.Command{
+	use = strings.Join(strings.Split("keys/delete-collection", "/")[1:], "_")
+	var KeysDeleteCollection = &cobra.Command{
 		Use:   use,
 		Short: "Delete collection of keys",
 		Long:  `Delete all keys matching query. Same constraints as list. Please limit the number of affected keys to about 1,000 as you might experience timeouts otherwise.`,
@@ -315,7 +315,7 @@ func initKeysDelete() {
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.KeysDeleteOpts{}
+			localVarOptionals := api.KeysDeleteCollectionOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -336,7 +336,7 @@ func initKeysDelete() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
-			data, api_response, err := client.KeysApi.KeysDelete(auth, projectId, &localVarOptionals)
+			data, api_response, err := client.KeysApi.KeysDeleteCollection(auth, projectId, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -364,14 +364,14 @@ func initKeysDelete() {
 		},
 	}
 
-	KeysApiCmd.AddCommand(KeysDelete)
-	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
-	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to do broad search for keys by name (including wildcards).<br><br> The following qualifiers are also supported in the search term:<br> <ul>   <li><code>ids:key_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>name:key_name</code> for text queries on exact key names - whitespaces need to be prefixed with a backspace (\\\"\\\\\\\")</li>   <li><code>tags:tag_name</code> to filter for keys with certain tags</li>   <li><code>translated:{true|false}</code> for translation status (also requires <code>locale_id</code> to be specified)</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li>   <li><code>unmentioned_in_upload:upload_id</code> to filter keys unmentioned within upload</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
-	AddFlag(KeysDelete, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale used to determine the translation state of a key when filtering for untranslated or translated keys.", false)
+	KeysApiCmd.AddCommand(KeysDeleteCollection)
+	AddFlag(KeysDeleteCollection, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeysDeleteCollection, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(KeysDeleteCollection, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(KeysDeleteCollection, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to do broad search for keys by name (including wildcards).<br><br> The following qualifiers are also supported in the search term:<br> <ul>   <li><code>ids:key_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>name:key_name</code> for text queries on exact key names - whitespaces need to be prefixed with a backspace (\\\"\\\\\\\")</li>   <li><code>tags:tag_name</code> to filter for keys with certain tags</li>   <li><code>translated:{true|false}</code> for translation status (also requires <code>locale_id</code> to be specified)</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li>   <li><code>unmentioned_in_upload:upload_id</code> to filter keys unmentioned within upload</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
+	AddFlag(KeysDeleteCollection, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale used to determine the translation state of a key when filtering for untranslated or translated keys.", false)
 
-	params.BindPFlags(KeysDelete.Flags())
+	params.BindPFlags(KeysDeleteCollection.Flags())
 }
 func initKeysList() {
 	params := viper.New()

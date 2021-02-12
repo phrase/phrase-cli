@@ -23,13 +23,13 @@ func init() {
 	initTranslationVerify()
 	initTranslationsByKey()
 	initTranslationsByLocale()
-	initTranslationsExclude()
-	initTranslationsInclude()
+	initTranslationsExcludeCollection()
+	initTranslationsIncludeCollection()
 	initTranslationsList()
-	initTranslationsReview()
+	initTranslationsReviewCollection()
 	initTranslationsSearch()
-	initTranslationsUnverify()
-	initTranslationsVerify()
+	initTranslationsUnverifyCollection()
+	initTranslationsVerifyCollection()
 
 	rootCmd.AddCommand(TranslationsApiCmd)
 }
@@ -775,12 +775,12 @@ func initTranslationsByLocale() {
 
 	params.BindPFlags(TranslationsByLocale.Flags())
 }
-func initTranslationsExclude() {
+func initTranslationsExcludeCollection() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("translations/exclude", "/")[1:], "_")
-	var TranslationsExclude = &cobra.Command{
+	use = strings.Join(strings.Split("translations/exclude-collection", "/")[1:], "_")
+	var TranslationsExcludeCollection = &cobra.Command{
 		Use:   use,
 		Short: "Set exclude from export flag on translations selected by query",
 		Long:  `Exclude translations matching query from locale export.`,
@@ -790,7 +790,7 @@ func initTranslationsExclude() {
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.TranslationsExcludeOpts{}
+			localVarOptionals := api.TranslationsExcludeCollectionOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -809,7 +809,7 @@ func initTranslationsExclude() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsExcludeParameters)
 			}
-			data, api_response, err := client.TranslationsApi.TranslationsExclude(auth, projectId, translationsExcludeParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationsExcludeCollection(auth, projectId, translationsExcludeParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -837,19 +837,19 @@ func initTranslationsExclude() {
 		},
 	}
 
-	TranslationsApiCmd.AddCommand(TranslationsExclude)
-	AddFlag(TranslationsExclude, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(TranslationsExclude, "string", "data", "d", "payload in JSON format", true)
-	AddFlag(TranslationsExclude, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TranslationsApiCmd.AddCommand(TranslationsExcludeCollection)
+	AddFlag(TranslationsExcludeCollection, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TranslationsExcludeCollection, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(TranslationsExcludeCollection, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(TranslationsExclude.Flags())
+	params.BindPFlags(TranslationsExcludeCollection.Flags())
 }
-func initTranslationsInclude() {
+func initTranslationsIncludeCollection() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("translations/include", "/")[1:], "_")
-	var TranslationsInclude = &cobra.Command{
+	use = strings.Join(strings.Split("translations/include-collection", "/")[1:], "_")
+	var TranslationsIncludeCollection = &cobra.Command{
 		Use:   use,
 		Short: "Remove exlude from import flag from translations selected by query",
 		Long:  `Include translations matching query in locale export.`,
@@ -859,7 +859,7 @@ func initTranslationsInclude() {
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.TranslationsIncludeOpts{}
+			localVarOptionals := api.TranslationsIncludeCollectionOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -878,7 +878,7 @@ func initTranslationsInclude() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsIncludeParameters)
 			}
-			data, api_response, err := client.TranslationsApi.TranslationsInclude(auth, projectId, translationsIncludeParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationsIncludeCollection(auth, projectId, translationsIncludeParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -906,12 +906,12 @@ func initTranslationsInclude() {
 		},
 	}
 
-	TranslationsApiCmd.AddCommand(TranslationsInclude)
-	AddFlag(TranslationsInclude, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(TranslationsInclude, "string", "data", "d", "payload in JSON format", true)
-	AddFlag(TranslationsInclude, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TranslationsApiCmd.AddCommand(TranslationsIncludeCollection)
+	AddFlag(TranslationsIncludeCollection, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TranslationsIncludeCollection, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(TranslationsIncludeCollection, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(TranslationsInclude.Flags())
+	params.BindPFlags(TranslationsIncludeCollection.Flags())
 }
 func initTranslationsList() {
 	params := viper.New()
@@ -998,12 +998,12 @@ func initTranslationsList() {
 
 	params.BindPFlags(TranslationsList.Flags())
 }
-func initTranslationsReview() {
+func initTranslationsReviewCollection() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("translations/review", "/")[1:], "_")
-	var TranslationsReview = &cobra.Command{
+	use = strings.Join(strings.Split("translations/review-collection", "/")[1:], "_")
+	var TranslationsReviewCollection = &cobra.Command{
 		Use:   use,
 		Short: "Review translations selected by query",
 		Long:  `Review translations matching query.`,
@@ -1013,7 +1013,7 @@ func initTranslationsReview() {
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.TranslationsReviewOpts{}
+			localVarOptionals := api.TranslationsReviewCollectionOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -1032,7 +1032,7 @@ func initTranslationsReview() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsReviewParameters)
 			}
-			data, api_response, err := client.TranslationsApi.TranslationsReview(auth, projectId, translationsReviewParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationsReviewCollection(auth, projectId, translationsReviewParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -1060,12 +1060,12 @@ func initTranslationsReview() {
 		},
 	}
 
-	TranslationsApiCmd.AddCommand(TranslationsReview)
-	AddFlag(TranslationsReview, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(TranslationsReview, "string", "data", "d", "payload in JSON format", true)
-	AddFlag(TranslationsReview, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TranslationsApiCmd.AddCommand(TranslationsReviewCollection)
+	AddFlag(TranslationsReviewCollection, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TranslationsReviewCollection, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(TranslationsReviewCollection, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(TranslationsReview.Flags())
+	params.BindPFlags(TranslationsReviewCollection.Flags())
 }
 func initTranslationsSearch() {
 	params := viper.New()
@@ -1144,12 +1144,12 @@ func initTranslationsSearch() {
 
 	params.BindPFlags(TranslationsSearch.Flags())
 }
-func initTranslationsUnverify() {
+func initTranslationsUnverifyCollection() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("translations/unverify", "/")[1:], "_")
-	var TranslationsUnverify = &cobra.Command{
+	use = strings.Join(strings.Split("translations/unverify-collection", "/")[1:], "_")
+	var TranslationsUnverifyCollection = &cobra.Command{
 		Use:   use,
 		Short: "Mark translations selected by query as unverified",
 		Long:  `Mark translations matching query as unverified.`,
@@ -1159,7 +1159,7 @@ func initTranslationsUnverify() {
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.TranslationsUnverifyOpts{}
+			localVarOptionals := api.TranslationsUnverifyCollectionOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -1178,7 +1178,7 @@ func initTranslationsUnverify() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsUnverifyParameters)
 			}
-			data, api_response, err := client.TranslationsApi.TranslationsUnverify(auth, projectId, translationsUnverifyParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationsUnverifyCollection(auth, projectId, translationsUnverifyParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -1206,19 +1206,19 @@ func initTranslationsUnverify() {
 		},
 	}
 
-	TranslationsApiCmd.AddCommand(TranslationsUnverify)
-	AddFlag(TranslationsUnverify, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(TranslationsUnverify, "string", "data", "d", "payload in JSON format", true)
-	AddFlag(TranslationsUnverify, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TranslationsApiCmd.AddCommand(TranslationsUnverifyCollection)
+	AddFlag(TranslationsUnverifyCollection, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TranslationsUnverifyCollection, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(TranslationsUnverifyCollection, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(TranslationsUnverify.Flags())
+	params.BindPFlags(TranslationsUnverifyCollection.Flags())
 }
-func initTranslationsVerify() {
+func initTranslationsVerifyCollection() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("translations/verify", "/")[1:], "_")
-	var TranslationsVerify = &cobra.Command{
+	use = strings.Join(strings.Split("translations/verify-collection", "/")[1:], "_")
+	var TranslationsVerifyCollection = &cobra.Command{
 		Use:   use,
 		Short: "Verify translations selected by query",
 		Long:  `Verify translations matching query.`,
@@ -1228,7 +1228,7 @@ func initTranslationsVerify() {
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.TranslationsVerifyOpts{}
+			localVarOptionals := api.TranslationsVerifyCollectionOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -1247,7 +1247,7 @@ func initTranslationsVerify() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsVerifyParameters)
 			}
-			data, api_response, err := client.TranslationsApi.TranslationsVerify(auth, projectId, translationsVerifyParameters, &localVarOptionals)
+			data, api_response, err := client.TranslationsApi.TranslationsVerifyCollection(auth, projectId, translationsVerifyParameters, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
 				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
@@ -1275,10 +1275,10 @@ func initTranslationsVerify() {
 		},
 	}
 
-	TranslationsApiCmd.AddCommand(TranslationsVerify)
-	AddFlag(TranslationsVerify, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(TranslationsVerify, "string", "data", "d", "payload in JSON format", true)
-	AddFlag(TranslationsVerify, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TranslationsApiCmd.AddCommand(TranslationsVerifyCollection)
+	AddFlag(TranslationsVerifyCollection, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TranslationsVerifyCollection, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(TranslationsVerifyCollection, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(TranslationsVerify.Flags())
+	params.BindPFlags(TranslationsVerifyCollection.Flags())
 }
