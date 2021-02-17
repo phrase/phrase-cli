@@ -22,7 +22,7 @@ func initPush() {
 				Wait:               params.GetBool("wait"),
 				Branch:             params.GetString("branch"),
 				UseLocalBranchName: params.GetBool("use-local-branch-name"),
-				Tag:             	params.GetString("tag"),
+				Tag:                params.GetString("tag"),
 			}
 			err := cmdPush.Run()
 			if err != nil {
