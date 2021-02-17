@@ -129,7 +129,7 @@ func (cmd *PushCommand) Run() error {
 	}
 
 	for _, source := range sources {
-		err := source.Push(client, cmd.Wait, cmd.Branch)
+		err := source.Push(client, cmd.Wait, cmd.Branch, cmd.Tag)
 		if err != nil {
 			return err
 		}
@@ -138,7 +138,7 @@ func (cmd *PushCommand) Run() error {
 	return nil
 }
 
-func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch string) error {
+func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch string, tag string) error {
 	localeFiles, err := source.LocaleFiles()
 	if err != nil {
 		return err
@@ -159,7 +159,7 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 			}
 		}
 
-		upload, err := source.uploadFile(client, localeFile, branch)
+		upload, err := source.uploadFile(client, localeFile, branch, tag)
 		if err != nil {
 			return err
 		}

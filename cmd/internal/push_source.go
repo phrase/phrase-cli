@@ -148,7 +148,7 @@ func (sources Sources) ProjectIds() []string {
 	}
 	return projectIds
 }
-func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFile, branch string) (*phrase.Upload, error) {
+func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFile, branch string, tag string) (*phrase.Upload, error) {
 	if Debug {
 		fmt.Fprintln(os.Stdout, "Source file pattern:", source.File)
 		fmt.Fprintln(os.Stdout, "Actual file location:", localeFile.Path)
@@ -184,6 +184,10 @@ func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFil
 
 	if branch != "" {
 		params.Branch = optional.NewString(branch)
+	}
+
+	if tag != "" {
+		params.Tag = optional.NewString(tag)
 	}
 
 	upload, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, params)
