@@ -180,15 +180,15 @@ func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFil
 		}
 		v += localeFile.Tag
 		params.Tags = optional.NewString(v)
-	}
+	} 
+
+    if tag != "" {
+        params.Tags = optional.NewString(tag)
+    }
 
 	if branch != "" {
 		params.Branch = optional.NewString(branch)
 	}
-
-    if tag != "" {
-        params.Tag = optional.NewString(tag)
-    }
 
 	upload, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, params)
 
