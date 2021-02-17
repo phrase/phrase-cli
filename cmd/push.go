@@ -35,6 +35,6 @@ func initPush() {
 	AddFlag(pushCmd, "bool", "wait", "w", "Wait for files to be processed", false)
 	AddFlag(pushCmd, "string", "branch", "b", "branch", false)
 	AddFlag(pushCmd, "bool", "use-local-branch-name", "", "push from the branch with the name of your currently checked out branch (git or mercurial)", false)
-	AddFlag(pushCmd, "string", "tag", "", "tag", false)
+	AddFlag(pushCmd, "string", "tag", "", "Pre tag the uploaded keys with a specific tag", false)
 	params.BindPFlags(pushCmd.Flags())
 }
