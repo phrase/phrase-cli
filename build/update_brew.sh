@@ -10,7 +10,7 @@ if ! git clone --depth 1 https://$API_TOKEN_GITHUB@github.com/phrase/homebrew-br
 fi
 
 DIST_DIR="./dist"
-FILES_FOR_BREW=("phrase_linux_386.tar.gz" "phrase_linux_amd64.tar.gz" "phrase_macosx_amd64.tar.gz")
+FILES_FOR_BREW=("phrase_linux_386.tar.gz" "phrase_linux_amd64.tar.gz" "phrase_macosx_amd64.tar.gz" "phrase_macosx_arm64.tar.gz")
 
 # Change the sha256 in Formula/phrase.rb
 for file in ${FILES_FOR_BREW[@]}; do
