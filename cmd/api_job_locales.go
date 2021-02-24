@@ -74,7 +74,6 @@ func initJobLocaleComplete() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -210,7 +209,6 @@ func initJobLocaleReopen() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -279,7 +277,6 @@ func initJobLocaleShow() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -352,7 +349,6 @@ func initJobLocaleUpdate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -424,7 +420,6 @@ func initJobLocalesCreate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -497,7 +492,6 @@ func initJobLocalesList() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {

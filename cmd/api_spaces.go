@@ -73,7 +73,6 @@ func initSpaceCreate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -193,7 +192,6 @@ func initSpaceShow() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -263,7 +261,6 @@ func initSpaceUpdate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -332,7 +329,6 @@ func initSpacesList() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -526,7 +522,6 @@ func initSpacesProjectsList() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {

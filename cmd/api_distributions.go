@@ -70,7 +70,6 @@ func initDistributionCreate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -190,7 +189,6 @@ func initDistributionShow() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -260,7 +258,6 @@ func initDistributionUpdate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -329,7 +326,6 @@ func initDistributionsList() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {

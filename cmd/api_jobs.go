@@ -77,7 +77,6 @@ func initJobComplete() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -147,7 +146,6 @@ func initJobCreate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -278,7 +276,6 @@ func initJobKeysCreate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -418,7 +415,6 @@ func initJobReopen() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -485,7 +481,6 @@ func initJobShow() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -556,7 +551,6 @@ func initJobStart() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -627,7 +621,6 @@ func initJobUpdate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -705,7 +698,6 @@ func initJobsByAccount() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -789,7 +781,6 @@ func initJobsList() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {

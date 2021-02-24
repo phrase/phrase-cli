@@ -68,7 +68,6 @@ func initProjectCreate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -184,7 +183,6 @@ func initProjectShow() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -252,7 +250,6 @@ func initProjectUpdate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -317,7 +314,6 @@ func initProjectsList() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {

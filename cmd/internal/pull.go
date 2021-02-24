@@ -158,11 +158,11 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		fmt.Fprintln(os.Stderr, "FormatOptions", localVarOptionals.FormatOptions)
 	}
 
-	data, response, err := client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &localVarOptionals)
+	file, response, err := client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &localVarOptionals)
 	if err != nil {
 		if response.Rate.Remaining == 0 {
 			waitForRateLimit(response.Rate)
-			data, _, err = client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &localVarOptionals)
+			file, _, err = client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &localVarOptionals)
 			if err != nil {
 				return err
 			}
@@ -171,6 +171,9 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		}
 	}
 
+	data, _ := ioutil.ReadAll(file)
+	file.Close()
+	os.Remove(file.Name())
 	err = ioutil.WriteFile(localeFile.Path, data, 0700)
 	return err
 }

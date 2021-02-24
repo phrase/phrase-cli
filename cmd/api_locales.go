@@ -3,6 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 
@@ -71,7 +72,6 @@ func initLocaleCreate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -239,7 +239,10 @@ func initLocaleDownload() {
 			data, api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
 
 			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
+				content, _ := ioutil.ReadAll(data)
+				fmt.Printf("%s", string(content))
+				data.Close()
+				os.Remove(data.Name())
 			}
 			if err != nil {
 				switch castedError := err.(type) {
@@ -319,7 +322,6 @@ func initLocaleShow() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -390,7 +392,6 @@ func initLocaleUpdate() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
@@ -462,7 +463,6 @@ func initLocalesList() {
 					fmt.Printf("%v\n", data)
 					HandleError(err)
 				}
-
 				fmt.Printf("%s\n", string(jsonBuf))
 			}
 			if err != nil {
