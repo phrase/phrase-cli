@@ -86,6 +86,9 @@ func newClient() *phrase.APIClient {
 
 	cfg := phrase.NewConfiguration()
 	cfg.SetUserAgent(Config.UserAgent)
+	if Config.Credentials.Host != "" {
+		cfg.BasePath = Config.Credentials.Host
+	}
 	return phrase.NewAPIClient(cfg)
 }
 

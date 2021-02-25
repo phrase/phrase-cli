@@ -42,6 +42,10 @@ func initGlossaryTermCreate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GlossaryTermCreateOpts{}
 
@@ -65,14 +69,6 @@ func initGlossaryTermCreate() {
 			}
 			data, api_response, err := client.GlossaryTermsApi.GlossaryTermCreate(auth, accountId, glossaryId, glossaryTermCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -82,10 +78,17 @@ func initGlossaryTermCreate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -112,6 +115,10 @@ func initGlossaryTermDelete() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GlossaryTermDeleteOpts{}
 
@@ -129,9 +136,6 @@ func initGlossaryTermDelete() {
 
 			data, api_response, err := client.GlossaryTermsApi.GlossaryTermDelete(auth, accountId, glossaryId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -141,10 +145,12 @@ func initGlossaryTermDelete() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -171,6 +177,10 @@ func initGlossaryTermShow() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GlossaryTermShowOpts{}
 
@@ -188,14 +198,6 @@ func initGlossaryTermShow() {
 
 			data, api_response, err := client.GlossaryTermsApi.GlossaryTermShow(auth, accountId, glossaryId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -205,10 +207,17 @@ func initGlossaryTermShow() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -235,6 +244,10 @@ func initGlossaryTermUpdate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GlossaryTermUpdateOpts{}
 
@@ -259,14 +272,6 @@ func initGlossaryTermUpdate() {
 			}
 			data, api_response, err := client.GlossaryTermsApi.GlossaryTermUpdate(auth, accountId, glossaryId, id, glossaryTermUpdateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -276,10 +281,17 @@ func initGlossaryTermUpdate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -307,6 +319,10 @@ func initGlossaryTermsList() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.GlossaryTermsListOpts{}
 
@@ -329,14 +345,6 @@ func initGlossaryTermsList() {
 
 			data, api_response, err := client.GlossaryTermsApi.GlossaryTermsList(auth, accountId, glossaryId, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -346,10 +354,17 @@ func initGlossaryTermsList() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}

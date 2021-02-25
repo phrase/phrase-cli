@@ -43,6 +43,10 @@ func initWebhookCreate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookCreateOpts{}
 
@@ -65,14 +69,6 @@ func initWebhookCreate() {
 			}
 			data, api_response, err := client.WebhooksApi.WebhookCreate(auth, projectId, webhookCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -82,10 +78,17 @@ func initWebhookCreate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -111,6 +114,10 @@ func initWebhookDelete() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookDeleteOpts{}
 
@@ -127,9 +134,6 @@ func initWebhookDelete() {
 
 			data, api_response, err := client.WebhooksApi.WebhookDelete(auth, projectId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -139,10 +143,12 @@ func initWebhookDelete() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -168,6 +174,10 @@ func initWebhookShow() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookShowOpts{}
 
@@ -184,14 +194,6 @@ func initWebhookShow() {
 
 			data, api_response, err := client.WebhooksApi.WebhookShow(auth, projectId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -201,10 +203,17 @@ func initWebhookShow() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -230,6 +239,10 @@ func initWebhookTest() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookTestOpts{}
 
@@ -246,9 +259,6 @@ func initWebhookTest() {
 
 			data, api_response, err := client.WebhooksApi.WebhookTest(auth, projectId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -258,10 +268,12 @@ func initWebhookTest() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -287,6 +299,10 @@ func initWebhookUpdate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhookUpdateOpts{}
 
@@ -310,14 +326,6 @@ func initWebhookUpdate() {
 			}
 			data, api_response, err := client.WebhooksApi.WebhookUpdate(auth, projectId, id, webhookUpdateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -327,10 +335,17 @@ func initWebhookUpdate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -357,6 +372,10 @@ func initWebhooksList() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.WebhooksListOpts{}
 
@@ -378,14 +397,6 @@ func initWebhooksList() {
 
 			data, api_response, err := client.WebhooksApi.WebhooksList(auth, projectId, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -395,10 +406,17 @@ func initWebhooksList() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}

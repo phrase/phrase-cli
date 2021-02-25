@@ -45,6 +45,10 @@ func initCommentCreate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.CommentCreateOpts{}
 
@@ -68,14 +72,6 @@ func initCommentCreate() {
 			}
 			data, api_response, err := client.CommentsApi.CommentCreate(auth, projectId, keyId, commentCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -85,10 +81,17 @@ func initCommentCreate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -115,6 +118,10 @@ func initCommentDelete() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.CommentDeleteOpts{}
 
@@ -135,9 +142,6 @@ func initCommentDelete() {
 
 			data, api_response, err := client.CommentsApi.CommentDelete(auth, projectId, keyId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -147,10 +151,12 @@ func initCommentDelete() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -178,6 +184,10 @@ func initCommentMarkCheck() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.CommentMarkCheckOpts{}
 
@@ -198,9 +208,6 @@ func initCommentMarkCheck() {
 
 			data, api_response, err := client.CommentsApi.CommentMarkCheck(auth, projectId, keyId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -210,10 +217,12 @@ func initCommentMarkCheck() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -241,6 +250,10 @@ func initCommentMarkRead() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.CommentMarkReadOpts{}
 
@@ -265,9 +278,6 @@ func initCommentMarkRead() {
 			}
 			data, api_response, err := client.CommentsApi.CommentMarkRead(auth, projectId, keyId, id, commentMarkReadParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -277,10 +287,12 @@ func initCommentMarkRead() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -308,6 +320,10 @@ func initCommentMarkUnread() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.CommentMarkUnreadOpts{}
 
@@ -328,9 +344,6 @@ func initCommentMarkUnread() {
 
 			data, api_response, err := client.CommentsApi.CommentMarkUnread(auth, projectId, keyId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -340,10 +353,12 @@ func initCommentMarkUnread() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -371,6 +386,10 @@ func initCommentShow() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.CommentShowOpts{}
 
@@ -391,14 +410,6 @@ func initCommentShow() {
 
 			data, api_response, err := client.CommentsApi.CommentShow(auth, projectId, keyId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -408,10 +419,17 @@ func initCommentShow() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -439,6 +457,10 @@ func initCommentUpdate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.CommentUpdateOpts{}
 
@@ -463,14 +485,6 @@ func initCommentUpdate() {
 			}
 			data, api_response, err := client.CommentsApi.CommentUpdate(auth, projectId, keyId, id, commentUpdateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -480,10 +494,17 @@ func initCommentUpdate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -511,6 +532,10 @@ func initCommentsList() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.CommentsListOpts{}
 
@@ -536,14 +561,6 @@ func initCommentsList() {
 
 			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -553,10 +570,17 @@ func initCommentsList() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}

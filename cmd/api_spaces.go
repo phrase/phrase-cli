@@ -45,6 +45,10 @@ func initSpaceCreate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpaceCreateOpts{}
 
@@ -67,14 +71,6 @@ func initSpaceCreate() {
 			}
 			data, api_response, err := client.SpacesApi.SpaceCreate(auth, accountId, spaceCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -84,10 +80,17 @@ func initSpaceCreate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -113,6 +116,10 @@ func initSpaceDelete() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpaceDeleteOpts{}
 
@@ -129,9 +136,6 @@ func initSpaceDelete() {
 
 			data, api_response, err := client.SpacesApi.SpaceDelete(auth, accountId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -141,10 +145,12 @@ func initSpaceDelete() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -170,6 +176,10 @@ func initSpaceShow() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpaceShowOpts{}
 
@@ -186,14 +196,6 @@ func initSpaceShow() {
 
 			data, api_response, err := client.SpacesApi.SpaceShow(auth, accountId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -203,10 +205,17 @@ func initSpaceShow() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -232,6 +241,10 @@ func initSpaceUpdate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpaceUpdateOpts{}
 
@@ -255,14 +268,6 @@ func initSpaceUpdate() {
 			}
 			data, api_response, err := client.SpacesApi.SpaceUpdate(auth, accountId, id, spaceUpdateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -272,10 +277,17 @@ func initSpaceUpdate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -302,6 +314,10 @@ func initSpacesList() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpacesListOpts{}
 
@@ -323,14 +339,6 @@ func initSpacesList() {
 
 			data, api_response, err := client.SpacesApi.SpacesList(auth, accountId, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -340,10 +348,17 @@ func initSpacesList() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -370,6 +385,10 @@ func initSpacesProjectsCreate() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpacesProjectsCreateOpts{}
 
@@ -393,9 +412,6 @@ func initSpacesProjectsCreate() {
 			}
 			data, api_response, err := client.SpacesApi.SpacesProjectsCreate(auth, accountId, spaceId, spacesProjectsCreateParameters, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -405,10 +421,12 @@ func initSpacesProjectsCreate() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -435,6 +453,10 @@ func initSpacesProjectsDelete() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpacesProjectsDeleteOpts{}
 
@@ -452,9 +474,6 @@ func initSpacesProjectsDelete() {
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsDelete(auth, accountId, spaceId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -464,10 +483,12 @@ func initSpacesProjectsDelete() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -494,6 +515,10 @@ func initSpacesProjectsList() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.SpacesProjectsListOpts{}
 
@@ -516,14 +541,6 @@ func initSpacesProjectsList() {
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsList(auth, accountId, spaceId, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -533,10 +550,17 @@ func initSpacesProjectsList() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}

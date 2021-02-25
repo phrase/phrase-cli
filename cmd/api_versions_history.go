@@ -38,6 +38,10 @@ func initVersionShow() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.VersionShowOpts{}
 
@@ -58,14 +62,6 @@ func initVersionShow() {
 
 			data, api_response, err := client.VersionsHistoryApi.VersionShow(auth, projectId, translationId, id, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -75,10 +71,17 @@ func initVersionShow() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
@@ -106,6 +109,10 @@ func initVersionsList() {
 
 			cfg := api.NewConfiguration()
 			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
 			client := api.NewAPIClient(cfg)
 			localVarOptionals := api.VersionsListOpts{}
 
@@ -131,14 +138,6 @@ func initVersionsList() {
 
 			data, api_response, err := client.VersionsHistoryApi.VersionsList(auth, projectId, translationId, &localVarOptionals)
 
-			if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-			}
 			if err != nil {
 				switch castedError := err.(type) {
 				case api.GenericOpenAPIError:
@@ -148,10 +147,17 @@ func initVersionsList() {
 				default:
 					HandleError(castedError)
 				}
-			}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
 			}
 		},
 	}
