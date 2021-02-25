@@ -8,8 +8,8 @@ import (
 
 	"github.com/bgentry/speakeasy"
 	"github.com/phrase/phrase-cli/cmd/internal/updatechecker"
-	"github.com/phrase/phrase-go"
-	api "github.com/phrase/phrase-go"
+	"github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v2"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

@@ -5,7 +5,7 @@ import (
 
 	"github.com/antihax/optional"
 	"github.com/mitchellh/mapstructure"
-	"github.com/phrase/phrase-go"
+	"github.com/phrase/phrase-go/v2"
 	"github.com/spf13/viper"
 )
 

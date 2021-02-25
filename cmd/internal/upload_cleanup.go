@@ -7,7 +7,7 @@ import (
 
 	"github.com/antihax/optional"
 	prompt "github.com/phrase/phrase-cli/cmd/internal/prompt"
-	"github.com/phrase/phrase-go"
+	"github.com/phrase/phrase-go/v2"
 )
 
 type UploadCleanupCommand struct {

@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	"github.com/phrase/phrase-cli/cmd/internal/paths"
-	"github.com/phrase/phrase-go"
+	"github.com/phrase/phrase-go/v2"
 	"github.com/spf13/viper"
 )
 

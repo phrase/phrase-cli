@@ -14,7 +14,7 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/print"
 
 	"github.com/antihax/optional"
-	"github.com/phrase/phrase-go"
+	"github.com/phrase/phrase-go/v2"
 )
 
 const (

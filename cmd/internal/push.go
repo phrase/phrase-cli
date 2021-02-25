@@ -15,7 +15,7 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/placeholders"
 	"github.com/phrase/phrase-cli/cmd/internal/print"
 	"github.com/phrase/phrase-cli/cmd/internal/spinner"
-	"github.com/phrase/phrase-go"
+	"github.com/phrase/phrase-go/v2"
 )
 
 type PushCommand struct {
