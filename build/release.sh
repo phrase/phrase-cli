@@ -38,7 +38,7 @@ EOF
 echo "Create release $VERSION"
 api_url="https://api.github.com/repos/phrase/phrase-cli/releases?access_token=${GITHUB_TOKEN}"
 response="$(curl --data "$(create_release_data)" ${api_url})"
-release_id=$(echo $response | python -c "import sys, json; print json.load(sys.stdin)['id']")
+release_id=$(echo $response | python -c "import sys, json; print(json.load(sys.stdin)['id'])")
 
 if [ -z "$release_id" ]
 then
