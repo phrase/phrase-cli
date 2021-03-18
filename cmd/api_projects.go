@@ -321,6 +321,9 @@ func initProjectsList() {
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("accountId")) {
+				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
+			}
 			if params.IsSet(helpers.ToSnakeCase("sortBy")) {
 				localVarOptionals.SortBy = optional.NewString(params.GetString(helpers.ToSnakeCase("SortBy")))
 			}
@@ -355,6 +358,7 @@ func initProjectsList() {
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("AccountId"), "", "Filter by Account ID", false)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("SortBy"), "", "Sort projects. Valid options are \"name_asc\", \"name_desc\", \"updated_at_asc\", \"updated_at_desc\", \"space_asc\" and \"space_desc\".", false)
 
 	params.BindPFlags(ProjectsList.Flags())
