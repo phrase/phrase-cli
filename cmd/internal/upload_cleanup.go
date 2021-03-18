@@ -14,6 +14,7 @@ type UploadCleanupCommand struct {
 	phrase.Config
 	ID      string
 	Confirm bool
+	Branch  string
 }
 
 func (cmd *UploadCleanupCommand) Run() error {
@@ -29,6 +30,7 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 		Page:    optional.NewInt32(1),
 		PerPage: optional.NewInt32(100),
 		Q:       optional.NewString(q),
+		Branch:  optional.NewString(cmd.Branch),
 	}
 	keys, _, err := client.KeysApi.KeysList(Auth, cmd.Config.DefaultProjectID, &keysListLocalVarOptionals)
 	if err != nil {
@@ -67,7 +69,8 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 
 		q := "ids:" + strings.Join(ids, ",")
 		keysDeletelocalVarOptionals := phrase.KeysDeleteCollectionOpts{
-			Q: optional.NewString(q),
+			Q:      optional.NewString(q),
+			Branch: optional.NewString(cmd.Branch),
 		}
 		affected, _, err := client.KeysApi.KeysDeleteCollection(Auth, cmd.Config.DefaultProjectID, &keysDeletelocalVarOptionals)
 

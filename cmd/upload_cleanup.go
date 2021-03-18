@@ -12,7 +12,7 @@ func init() {
 
 func initUpoadCleanup() {
 	params := viper.New()
-	var upoadCleanupCmd = &cobra.Command{
+	var uploadCleanupCmd = &cobra.Command{
 		Use:   "cleanup",
 		Short: "Delete unmentioned keys for given upload",
 		Long:  "",
@@ -21,6 +21,7 @@ func initUpoadCleanup() {
 				Config:  *Config,
 				ID:      params.GetString("id"),
 				Confirm: params.GetBool("confirm"),
+				Branch:  params.GetString("branch"),
 			}
 			err := cmduploadCleanup.Run()
 			if err != nil {
@@ -28,8 +29,9 @@ func initUpoadCleanup() {
 			}
 		},
 	}
-	UploadsApiCmd.AddCommand(upoadCleanupCmd)
-	AddFlag(upoadCleanupCmd, "bool", "confirm", "y", "Don’t ask for confirmation", false)
-	AddFlag(upoadCleanupCmd, "string", "id", "", "Upload id", true)
-	params.BindPFlags(upoadCleanupCmd.Flags())
+	UploadsApiCmd.AddCommand(uploadCleanupCmd)
+	AddFlag(uploadCleanupCmd, "bool", "confirm", "y", "Don’t ask for confirmation", false)
+	AddFlag(uploadCleanupCmd, "string", "id", "", "Upload id", true)
+	AddFlag(uploadCleanupCmd, "string", "branch", "", "Branch", false)
+	params.BindPFlags(uploadCleanupCmd.Flags())
 }
