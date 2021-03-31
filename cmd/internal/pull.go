@@ -174,9 +174,16 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		}
 	}
 
-	data, _ := ioutil.ReadAll(file)
-	file.Close()
-	os.Remove(file.Name())
+	var data []byte
+	if file != nil {
+		data, err = ioutil.ReadAll(file)
+		if err != nil {
+			return err
+		}
+		file.Close()
+		os.Remove(file.Name())
+	}
+
 	err = ioutil.WriteFile(localeFile.Path, data, 0700)
 	return err
 }
