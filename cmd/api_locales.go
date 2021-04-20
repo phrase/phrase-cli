@@ -468,6 +468,9 @@ func initLocalesList() {
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("sortBy")) {
+				localVarOptionals.SortBy = optional.NewString(params.GetString(helpers.ToSnakeCase("SortBy")))
+			}
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
@@ -505,6 +508,7 @@ func initLocalesList() {
 	AddFlag(LocalesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(LocalesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(LocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(LocalesList, "string", helpers.ToSnakeCase("SortBy"), "", "Sort locales. Valid options are \"name_asc\", \"name_desc\", \"default_asc\", \"default_desc\".", false)
 	AddFlag(LocalesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(LocalesList.Flags())
