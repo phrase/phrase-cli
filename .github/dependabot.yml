@@ -1,0 +1,19 @@
+version: 2
+updates:
+- package-ecosystem: gomod
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: github.com/mitchellh/mapstructure
+    versions:
+    - 1.4.1
+  - dependency-name: github.com/spf13/cobra
+    versions:
+    - 1.1.2
+    - 1.1.3
+  - dependency-name: github.com/phrase/phrase-go
+    versions:
+    - 1.0.20
