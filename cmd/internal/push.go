@@ -215,7 +215,8 @@ func formatsByApiName(client *phrase.APIClient) (map[string]*phrase.Format, erro
 
 // Return all locale files from disk that match the source pattern.
 func (source *Source) LocaleFiles() (LocaleFiles, error) {
-	filePaths, err := paths.Glob(placeholders.ToGlobbingPattern(source.File))
+	sourcePattern := toOsSeparator(source.File)
+	filePaths, err := paths.Glob(placeholders.ToGlobbingPattern(sourcePattern))
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +228,7 @@ func (source *Source) LocaleFiles() (LocaleFiles, error) {
 		}
 
 		localeFile := new(LocaleFile)
-		localeFile.fillFromPath(path, source.File)
+		localeFile.fillFromPath(path, sourcePattern)
 
 		localeFile.Path, err = filepath.Abs(path)
 		if err != nil {
@@ -323,8 +324,15 @@ func (source *Source) getRemoteLocaleForLocaleFile(localeFile *LocaleFile) *phra
 	}
 }
 
+func toOsSeparator(pattern string) string {
+	if filepath.Separator == '/' {
+		return strings.ReplaceAll(pattern, "\\", "/")
+	} else {
+		return filepath.FromSlash(pattern)
+	}
+}
+
 func (localeFile *LocaleFile) fillFromPath(path, pattern string) {
-	path = filepath.ToSlash(path)
 	pathStart, patternStart, pathEnd, patternEnd, err := paths.SplitAtDirGlobOperator(path, pattern)
 	if err != nil {
 		print.Error(err)
