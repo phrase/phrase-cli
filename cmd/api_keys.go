@@ -19,6 +19,8 @@ func init() {
 	initKeyShow()
 	initKeyUpdate()
 	initKeysDeleteCollection()
+	initKeysExclude()
+	initKeysInclude()
 	initKeysList()
 	initKeysSearch()
 	initKeysTag()
@@ -383,6 +385,148 @@ func initKeysDeleteCollection() {
 	AddFlag(KeysDeleteCollection, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale used to determine the translation state of a key when filtering for untranslated or translated keys.", false)
 
 	params.BindPFlags(KeysDeleteCollection.Flags())
+}
+func initKeysExclude() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("keys/exclude", "/")[1:], "_")
+	var KeysExclude = &cobra.Command{
+		Use:   use,
+		Short: "Exclude a locale on a collection of keys",
+		Long:  `Exclude a locale on keys matching query. Same constraints as list.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.KeysExcludeOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
+			keysExcludeParameters := api.KeysExcludeParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &keysExcludeParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", keysExcludeParameters)
+			}
+			data, api_response, err := client.KeysApi.KeysExclude(auth, projectId, keysExcludeParameters, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	KeysApiCmd.AddCommand(KeysExclude)
+	AddFlag(KeysExclude, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeysExclude, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(KeysExclude, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(KeysExclude.Flags())
+}
+func initKeysInclude() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("keys/include", "/")[1:], "_")
+	var KeysInclude = &cobra.Command{
+		Use:   use,
+		Short: "Include a locale on a collection of keys",
+		Long:  `Include a locale on keys matching query. Same constraints as list.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.KeysIncludeOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
+			keysIncludeParameters := api.KeysIncludeParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &keysIncludeParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", keysIncludeParameters)
+			}
+			data, api_response, err := client.KeysApi.KeysInclude(auth, projectId, keysIncludeParameters, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	KeysApiCmd.AddCommand(KeysInclude)
+	AddFlag(KeysInclude, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeysInclude, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(KeysInclude, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(KeysInclude.Flags())
 }
 func initKeysList() {
 	params := viper.New()
