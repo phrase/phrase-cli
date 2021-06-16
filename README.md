@@ -18,7 +18,7 @@ If you are looking for old CLI v1, please go to [https://github.com/phrase/phras
 
 ## Quick Start
 
-This quick start will guide you through the basic steps to get up and running with the PhraseApp Client.
+This quick start will guide you through the basic steps to get up and running with the Phrase Client.
 
 #### 1. Install
 
@@ -74,7 +74,7 @@ To see all supported options for a command, simple use the `--help` flag:
 
     $ phrase locales list --help
 
-See our [detailed guides](https://help.phrase.com/help/phrase-in-your-terminal) for in-depth instructions on how to use the PhraseApp Client.
+See our [detailed guides](https://help.phrase.com/help/phrase-in-your-terminal) for in-depth instructions on how to use the Phrase Client.
 
 ## Contributing
 
