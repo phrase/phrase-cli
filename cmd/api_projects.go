@@ -327,6 +327,13 @@ func initProjectsList() {
 			if params.IsSet(helpers.ToSnakeCase("sortBy")) {
 				localVarOptionals.SortBy = optional.NewString(params.GetString(helpers.ToSnakeCase("SortBy")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("filters")) {
+				var filters map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("Filters"))), &filters); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.Filters = optional.NewInterface(filters)
+			}
 
 			data, api_response, err := client.ProjectsApi.ProjectsList(auth, &localVarOptionals)
 
@@ -360,6 +367,7 @@ func initProjectsList() {
 	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("AccountId"), "", "Filter by Account ID", false)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("SortBy"), "", "Sort projects. Valid options are \"name_asc\", \"name_desc\", \"updated_at_asc\", \"updated_at_desc\", \"space_asc\" and \"space_desc\".", false)
+	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("Filters"), "", "payload in JSON format", false)
 
 	params.BindPFlags(ProjectsList.Flags())
 }
