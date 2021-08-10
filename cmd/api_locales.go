@@ -55,6 +55,7 @@ func initAccountLocales() {
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -65,7 +66,9 @@ func initAccountLocales() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
-			data, api_response, err := client.LocalesApi.AccountLocales(auth, &localVarOptionals)
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			data, api_response, err := client.LocalesApi.AccountLocales(auth, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -92,6 +95,7 @@ func initAccountLocales() {
 	}
 
 	LocalesApiCmd.AddCommand(AccountLocales)
+	AddFlag(AccountLocales, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(AccountLocales, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(AccountLocales, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(AccountLocales, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
