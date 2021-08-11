@@ -314,6 +314,9 @@ func initLocaleDownload() {
 			if params.IsSet(helpers.ToSnakeCase("fallbackLocaleId")) {
 				localVarOptionals.FallbackLocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("FallbackLocaleId")))
 			}
+			if params.IsSet(helpers.ToSnakeCase("sourceLocaleId")) {
+				localVarOptionals.SourceLocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("SourceLocaleId")))
+			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
@@ -361,6 +364,7 @@ func initLocaleDownload() {
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeUnverifiedTranslations"), "", "if set to false unverified translations are excluded", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("UseLastReviewedVersion"), "", "If set to true the last reviewed version of a translation is used. This is only available if the review workflow (currently in beta) is enabled for the project.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FallbackLocaleId"), "", "If a key has no translation in the locale being downloaded the translation in the fallback locale will be used. Provide the public ID of the locale that should be used as the fallback. Requires include_empty_translations to be set to <code>true</code>.", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("SourceLocaleId"), "", "Provides the source language of a corresponding job as the source language of the generated locale file. This parameter will be ignored unless used in combination with a <code>tag</code> parameter indicating a specific job.", false)
 
 	params.BindPFlags(LocaleDownload.Flags())
 }
