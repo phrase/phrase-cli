@@ -62,9 +62,9 @@ func (uc *Checker) getLatestVersion() (*semver.Version, error) {
 	if err != nil || time.Since(modified) > 24*time.Hour {
 		versionOnline, err := uc.getLatestVersionFromURL()
 		if err == nil {
-			err = ioutil.WriteFile(uc.versionCacheFilename, []byte(versionOnline.String()), 0600)
+			err = ioutil.WriteFile(uc.versionCacheFilename, []byte(versionOnline.String()), 0666)
 			if err != nil {
-				return version, nil
+				return nil, err
 			}
 		}
 
