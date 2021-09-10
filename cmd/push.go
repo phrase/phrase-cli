@@ -22,6 +22,7 @@ func initPush() {
 				Wait:               params.GetBool("wait"),
 				Branch:             params.GetString("branch"),
 				UseLocalBranchName: params.GetBool("use-local-branch-name"),
+				Tag:                params.GetString("tag"),
 			}
 			err := cmdPush.Run()
 			if err != nil {
@@ -34,5 +35,6 @@ func initPush() {
 	AddFlag(pushCmd, "bool", "wait", "w", "Wait for files to be processed", false)
 	AddFlag(pushCmd, "string", "branch", "b", "branch", false)
 	AddFlag(pushCmd, "bool", "use-local-branch-name", "", "push from the branch with the name of your currently checked out branch (git or mercurial)", false)
+	AddFlag(pushCmd, "string", "tag", "", "Tag uploaded keys", false)
 	params.BindPFlags(pushCmd.Flags())
 }
