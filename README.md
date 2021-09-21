@@ -83,6 +83,10 @@ This tool and it's source code are auto-generated from templates that run agains
 ## Further reading
 * [Phrase Client Download Page](https://phrase.com/cli)
 
+## Get help / support
+
+Please contact [support@phrase.com](mailto:support@phrase.com?subject=[GitHub]%20phrase-cli) and we can take more direct action toward finding a solution.
+
 ## Licenses
 
 phrase-client is licensed under MIT license. (see [LICENSE](LICENSE))
