@@ -15,6 +15,7 @@ import (
 
 func init() {
 	initJobLocaleComplete()
+	initJobLocaleCompleteReview()
 	initJobLocaleDelete()
 	initJobLocaleReopen()
 	initJobLocaleShow()
@@ -104,6 +105,81 @@ func initJobLocaleComplete() {
 	AddFlag(JobLocaleComplete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(JobLocaleComplete.Flags())
+}
+func initJobLocaleCompleteReview() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_locale/complete_review", "/")[1:], "_")
+	var JobLocaleCompleteReview = &cobra.Command{
+		Use:   use,
+		Short: "Review a job locale",
+		Long:  `Mark job locale as reviewed.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.JobLocaleCompleteReviewOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			jobLocaleCompleteReviewParameters := api.JobLocaleCompleteReviewParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteReviewParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobLocaleCompleteReviewParameters)
+			}
+			data, api_response, err := client.JobLocalesApi.JobLocaleCompleteReview(auth, projectId, jobId, id, jobLocaleCompleteReviewParameters, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	JobLocalesApiCmd.AddCommand(JobLocaleCompleteReview)
+	AddFlag(JobLocaleCompleteReview, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLocaleCompleteReview, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
+	AddFlag(JobLocaleCompleteReview, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobLocaleCompleteReview, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(JobLocaleCompleteReview, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(JobLocaleCompleteReview.Flags())
 }
 func initJobLocaleDelete() {
 	params := viper.New()
