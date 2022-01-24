@@ -20,6 +20,7 @@ function build {
 
 build linux   amd64   phrase_linux_amd64
 build linux   386     phrase_linux_386
+build linux   arm64   phrase_linux_arm64
 build darwin  amd64   phrase_macosx_amd64
 build darwin  arm64   phrase_macosx_arm64
 build windows amd64   phrase_windows_amd64.exe
