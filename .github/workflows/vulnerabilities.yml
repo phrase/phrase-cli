@@ -1,0 +1,17 @@
+name: Dependabot vulnerabilities
+on:
+  schedule:
+    - cron: '0 7 * * 1-5'
+jobs:
+  testnotify:
+    name: Notify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify
+        id: vulnerability_alerts_github_action
+        uses: phrase/vulnerability_alerts_github_action@main
+        with:
+          slack-token: ${{ secrets.SLACK_VULNERABILITIES_NOTIFICATIONS_TOKEN }}
+          slack-channel: ${{ secrets.SLACK_TEAM_STRING_SERVICES_CHANNEL }}
+          github-token: ${{ secrets.GH_ACCESS_TOKEN }}
+          github-repository: ${{ github.repository }}
