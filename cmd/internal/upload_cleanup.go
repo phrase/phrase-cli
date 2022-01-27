@@ -12,9 +12,10 @@ import (
 
 type UploadCleanupCommand struct {
 	phrase.Config
-	ID      string
-	Confirm bool
-	Branch  string
+	ID        string
+	ProjectID string
+	Confirm   bool
+	Branch    string
 }
 
 func (cmd *UploadCleanupCommand) Run() error {
@@ -32,7 +33,7 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 		Q:       optional.NewString(q),
 		Branch:  optional.NewString(cmd.Branch),
 	}
-	keys, _, err := client.KeysApi.KeysList(Auth, cmd.Config.DefaultProjectID, &keysListLocalVarOptionals)
+	keys, _, err := client.KeysApi.KeysList(Auth, cmd.ProjectID, &keysListLocalVarOptionals)
 	if err != nil {
 		return err
 	}

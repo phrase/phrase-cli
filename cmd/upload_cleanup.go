@@ -17,11 +17,21 @@ func initUpoadCleanup() {
 		Short: "Delete unmentioned keys for given upload",
 		Long:  "",
 		Run: func(cmd *cobra.Command, args []string) {
+			projectId := params.GetString("project_id")
+			if projectId == "" {
+				projectId = Config.DefaultProjectID
+			}
+			if projectId == "" {
+				HandleError("required flag \"project_id\" not set")
+				return
+			}
+
 			cmduploadCleanup := uploadCleanup.UploadCleanupCommand{
-				Config:  *Config,
-				ID:      params.GetString("id"),
-				Confirm: params.GetBool("confirm"),
-				Branch:  params.GetString("branch"),
+				Config:    *Config,
+				ID:        params.GetString("id"),
+				ProjectID: projectId,
+				Confirm:   params.GetBool("confirm"),
+				Branch:    params.GetString("branch"),
 			}
 			err := cmduploadCleanup.Run()
 			if err != nil {
@@ -31,7 +41,8 @@ func initUpoadCleanup() {
 	}
 	UploadsApiCmd.AddCommand(uploadCleanupCmd)
 	AddFlag(uploadCleanupCmd, "bool", "confirm", "y", "Don’t ask for confirmation", false)
-	AddFlag(uploadCleanupCmd, "string", "id", "", "Upload id", true)
+	AddFlag(uploadCleanupCmd, "string", "id", "", "Upload ID", true)
+	AddFlag(uploadCleanupCmd, "string", "project_id", "", "Project ID - required if the current directory does not contain a config with a project_id", false)
 	AddFlag(uploadCleanupCmd, "string", "branch", "", "Branch", false)
 	params.BindPFlags(uploadCleanupCmd.Flags())
 }
