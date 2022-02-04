@@ -73,7 +73,7 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 			Q:      optional.NewString(q),
 			Branch: optional.NewString(cmd.Branch),
 		}
-		affected, _, err := client.KeysApi.KeysDeleteCollection(Auth, cmd.Config.DefaultProjectID, &keysDeletelocalVarOptionals)
+		affected, _, err := client.KeysApi.KeysDeleteCollection(Auth, cmd.ProjectID, &keysDeletelocalVarOptionals)
 
 		if err != nil {
 			return err
@@ -83,7 +83,7 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 
 		keysListLocalVarOptionals.Page = optional.NewInt32(keysListLocalVarOptionals.Page.Value() + 1)
 
-		keys, _, err = client.KeysApi.KeysList(Auth, cmd.Config.DefaultProjectID, &keysListLocalVarOptionals)
+		keys, _, err = client.KeysApi.KeysList(Auth, cmd.ProjectID, &keysListLocalVarOptionals)
 		if err != nil {
 			return err
 		}
