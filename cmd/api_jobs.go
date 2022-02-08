@@ -19,9 +19,11 @@ func init() {
 	initJobDelete()
 	initJobKeysCreate()
 	initJobKeysDelete()
+	initJobLock()
 	initJobReopen()
 	initJobShow()
 	initJobStart()
+	initJobUnlock()
 	initJobUpdate()
 	initJobsByAccount()
 	initJobsList()
@@ -387,6 +389,70 @@ func initJobKeysDelete() {
 
 	params.BindPFlags(JobKeysDelete.Flags())
 }
+func initJobLock() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/lock", "/")[1:], "_")
+	var JobLock = &cobra.Command{
+		Use:   use,
+		Short: "Lock a job",
+		Long:  `If you are the job owner, you may lock a job using this API request.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.JobLockOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			data, api_response, err := client.JobsApi.JobLock(auth, projectId, id, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	JobsApiCmd.AddCommand(JobLock)
+	AddFlag(JobLock, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobLock, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobLock, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobLock, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
+	params.BindPFlags(JobLock.Flags())
+}
 func initJobReopen() {
 	params := viper.New()
 	var use string
@@ -601,6 +667,70 @@ func initJobStart() {
 	AddFlag(JobStart, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(JobStart.Flags())
+}
+func initJobUnlock() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job/unlock", "/")[1:], "_")
+	var JobUnlock = &cobra.Command{
+		Use:   use,
+		Short: "Unlock a job",
+		Long:  `If you are the job owner, you may unlock a locked job using this API request.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.JobUnlockOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			data, api_response, err := client.JobsApi.JobUnlock(auth, projectId, id, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	JobsApiCmd.AddCommand(JobUnlock)
+	AddFlag(JobUnlock, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobUnlock, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobUnlock, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobUnlock, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
+	params.BindPFlags(JobUnlock.Flags())
 }
 func initJobUpdate() {
 	params := viper.New()
