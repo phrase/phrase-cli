@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/antihax/optional"
+	"github.com/phrase/phrase-cli/cmd/internal/auth"
 	"github.com/phrase/phrase-cli/cmd/internal/paths"
 	"github.com/phrase/phrase-cli/cmd/internal/print"
 	"github.com/phrase/phrase-cli/cmd/internal/prompt"
@@ -92,18 +93,20 @@ func (cmd *InitCommand) Run() error {
 		cmd.YAML.Host = cmd.Config.Credentials.Host
 	}
 
-	step := StepAskForToken
+	auth.AuthorizeUser("5utEeDxpLauyqCdv8u6lBwhnkqHoHvNgA6aaad-d6qY", "http://localhost:3000", "http://localhost:4000")
 
-	for step != StepFinished {
-		err := stepFuncs[step](cmd)
-		if err != nil {
-			return err
-		}
+	// step := StepAskForToken
 
-		fmt.Println()
+	// for step != StepFinished {
+	// 	err := stepFuncs[step](cmd)
+	// 	if err != nil {
+	// 		return err
+	// 	}
 
-		step = nextStep[step]
-	}
+	// 	fmt.Println()
+
+	// 	step = nextStep[step]
+	// }
 
 	return nil
 }
