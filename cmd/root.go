@@ -184,12 +184,10 @@ func checkUpdate() {
 }
 
 func checkToken() {
-	fmt.Println(os.Args)
 	if os.Args[1] == "init" {
 		return
 	}
 
-	fmt.Println("check token")
 	token, err := auth.ReadToken()
 	if err != nil {
 		authenticateUser()
@@ -199,7 +197,6 @@ func checkToken() {
 	if err != nil || expired {
 		authenticateUser()
 	} else {
-		fmt.Println(token)
 		Config.Credentials.Token = token
 	}
 }
@@ -210,7 +207,6 @@ func authenticateUser() {
 	if err != nil {
 		panic("could not create token")
 	}
-	fmt.Printf("set token %s", token)
 	Config.Credentials.Token = token
 }
 

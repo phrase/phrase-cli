@@ -110,7 +110,6 @@ func storeToken(token string) error {
 	}
 
 	tokenCachePath := path.Join(cachePath, "phrase/token")
-	fmt.Printf("Cache file %s", tokenCachePath)
 	return os.WriteFile(tokenCachePath, []byte(token), 0644)
 }
 
