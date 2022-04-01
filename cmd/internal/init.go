@@ -41,7 +41,7 @@ var nextStep = map[string]string{
 type stepFunc func(*InitCommand) error
 
 var stepFuncs = map[string]stepFunc{
-	StepAskForToken:   (*InitCommand).askForToken,
+	// StepAskForToken:   (*InitCommand).askForToken,
 	StepSelectProject: (*InitCommand).selectProject,
 	StepSelectFormat:  (*InitCommand).selectFormat,
 	StepConfigSources: (*InitCommand).configureSources,
@@ -95,18 +95,26 @@ func (cmd *InitCommand) Run() error {
 
 	auth.AuthorizeUser("5utEeDxpLauyqCdv8u6lBwhnkqHoHvNgA6aaad-d6qY", "http://localhost:3000", "http://localhost:4000")
 
-	// step := StepAskForToken
+	// load token from file
+	cmd.YAML.AccessToken = "test token"
+	cmd.Credentials.Token = "test token"
+	Config = &cmd.Config
+	client := newClient()
 
-	// for step != StepFinished {
-	// 	err := stepFuncs[step](cmd)
-	// 	if err != nil {
-	// 		return err
-	// 	}
+	cmd.client = client
 
-	// 	fmt.Println()
+	step := StepSelectProject
 
-	// 	step = nextStep[step]
-	// }
+	for step != StepFinished {
+		err := stepFuncs[step](cmd)
+		if err != nil {
+			return err
+		}
+
+		fmt.Println()
+
+		step = nextStep[step]
+	}
 
 	return nil
 }
