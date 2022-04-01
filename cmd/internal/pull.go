@@ -81,7 +81,7 @@ func (cmd *PullCommand) Run(config *phrase.Config) error {
 func newClient() *phrase.APIClient {
 	Auth = context.WithValue(context.Background(), phrase.ContextAPIKey, phrase.APIKey{
 		Key:    Config.Credentials.Token,
-		Prefix: "bearer",
+		Prefix: "Bearer",
 	})
 
 	cfg := phrase.NewConfiguration()

@@ -94,10 +94,21 @@ func (cmd *InitCommand) Run() error {
 	}
 
 	auth.AuthorizeUser("5utEeDxpLauyqCdv8u6lBwhnkqHoHvNgA6aaad-d6qY", "http://localhost:3000", "http://localhost:4000")
+	token, err := auth.ReadToken()
+	if err != nil {
+		return err
+	}
 
-	// load token from file
-	cmd.YAML.AccessToken = "test token"
-	cmd.Credentials.Token = "test token"
+	// expired, err := auth.TokenExpired(token)
+	// if err != nil {
+	// 	return err
+	// }
+
+	// if expired {
+
+	// }
+
+	cmd.Credentials.Token = string(token)
 	Config = &cmd.Config
 	client := newClient()
 
@@ -159,6 +170,7 @@ func (cmd *InitCommand) selectProject() error {
 	taskResult := make(chan []phrase.Project, 1)
 	taskErr := make(chan error, 1)
 
+	Config.Host = "http://localhost:3000/api/v2"
 	Config = &cmd.Config
 	client := newClient()
 

@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/bgentry/speakeasy"
+	"github.com/phrase/phrase-cli/cmd/internal/auth"
 	"github.com/phrase/phrase-cli/cmd/internal/updatechecker"
 	"github.com/phrase/phrase-go/v2"
 	api "github.com/phrase/phrase-go/v2"
@@ -33,6 +34,7 @@ func init() {
 	}
 
 	cobra.OnInitialize(initConfig)
+	cobra.OnInitialize(checkToken)
 	cobra.OnInitialize(checkUpdate)
 
 	rootCmd.PersistentFlags().BoolVarP(&Config.Debug, "verbose", "v", false, "show more messages")
@@ -100,6 +102,7 @@ func initConfig() {
 		HandleError(err)
 	}
 
+	config.Credentials.Host = "http://localhost:3000/api/v2"
 	// flag overwrites debug option from file
 	if Config.Debug {
 		config.Debug = Config.Debug
@@ -143,7 +146,7 @@ func Auth() context.Context {
 	if Config.Credentials.Token != "" {
 		return context.WithValue(context.Background(), api.ContextAPIKey, api.APIKey{
 			Key:    Config.Credentials.Token,
-			Prefix: "token",
+			Prefix: "Bearer",
 		})
 	} else if Config.Credentials.Username != "" {
 		pwd, err := speakeasy.Ask("Password: ")
@@ -178,6 +181,37 @@ func checkUpdate() {
 	)
 
 	updateChecker.Check()
+}
+
+func checkToken() {
+	fmt.Println(os.Args)
+	if os.Args[1] == "init" {
+		return
+	}
+
+	fmt.Println("check token")
+	token, err := auth.ReadToken()
+	if err != nil {
+		authenticateUser()
+	}
+
+	expired, err := auth.TokenExpired(token)
+	if err != nil || expired {
+		authenticateUser()
+	} else {
+		fmt.Println(token)
+		Config.Credentials.Token = token
+	}
+}
+
+func authenticateUser() {
+	auth.AuthorizeUser("5utEeDxpLauyqCdv8u6lBwhnkqHoHvNgA6aaad-d6qY", "http://localhost:3000", "http://localhost:4000")
+	token, err := auth.ReadToken()
+	if err != nil {
+		panic("could not create token")
+	}
+	fmt.Printf("set token %s", token)
+	Config.Credentials.Token = token
 }
 
 func HandleError(msg interface{}) {

@@ -2,6 +2,7 @@ package auth
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -9,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path"
 	"strings"
 
 	cv "github.com/nirasan/go-oauth-pkce-code-verifier"
@@ -71,9 +73,6 @@ func AuthorizeUser(clientID string, authDomain string, redirectURL string) {
 			</body>
 		</html>`)
 
-		fmt.Println("Successfully logged into Phrase.")
-
-		// close the HTTP server
 		cleanup(server)
 	})
 
@@ -105,7 +104,67 @@ func AuthorizeUser(clientID string, authDomain string, redirectURL string) {
 }
 
 func storeToken(token string) error {
-	return os.WriteFile("./token", []byte(token), 0644)
+	cachePath, err := os.UserCacheDir()
+	if err != nil {
+		return err
+	}
+
+	tokenCachePath := path.Join(cachePath, "phrase/token")
+	fmt.Printf("Cache file %s", tokenCachePath)
+	return os.WriteFile(tokenCachePath, []byte(token), 0644)
+}
+
+func ReadToken() (string, error) {
+	cachePath, err := os.UserCacheDir()
+	if err != nil {
+		return "", err
+	}
+
+	tokenPath := path.Join(cachePath, "phrase/token")
+	file, err := os.Open(tokenPath)
+	if err != nil {
+		return "", err
+	}
+
+	token, err := ioutil.ReadAll(file)
+	if err != nil {
+		return "", err
+	}
+
+	return string(token), nil
+}
+
+func TokenExpired(token string) (bool, error) {
+	parts := strings.Split(token, ".")
+	if len(parts) != 3 {
+		return true, errors.New("token not valid")
+	}
+
+	return false, nil
+
+	// payload := parts[1]
+
+	// decoded, err := base64.StdEncoding.DecodeString(payload)
+	// if err != nil {
+	// 	fmt.Printf("error 1: %s\n", payload)
+	// 	fmt.Println(err)
+	// 	return true, err
+	// }
+
+	// var payloadData map[string]interface{}
+	// err = json.Unmarshal(decoded, &payloadData)
+	// if err != nil {
+	// 	fmt.Println("error 2")
+	// 	return true, err
+	// }
+
+	// exp := payloadData["exp"].(int64)
+
+	// fmt.Println(exp)
+	// fmt.Println(time.Now().Unix())
+
+	// fmt.Println("valid token")
+	// return time.Now().Unix() > exp, nil
 }
 
 // getAccessToken trades the authorization code retrieved from the first OAuth2 leg for an access token
