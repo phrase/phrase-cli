@@ -216,7 +216,7 @@ func (cmd *InitCommand) newProject() error {
 	}
 
 	for {
-		err := prompt.P("Enter the name of the new project:", params.Name)
+		err := prompt.P("Enter the name of the new project:", &params.Name)
 		if err == nil {
 			break
 		}
