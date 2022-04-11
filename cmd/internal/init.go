@@ -152,7 +152,7 @@ func (cmd *InitCommand) selectProject() error {
 
 	fmt.Print("Loading projects... ")
 	spinner.While(func() {
-		projects, _, err := Projects(Auth)
+		projects, _, err := Projects(client)
 		taskResult <- projects
 		taskErr <- err
 	})
