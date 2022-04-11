@@ -86,6 +86,39 @@ func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Loca
 	return data, nil, nil
 }
 
+func Projects(client *phrase.APIClient) ([]phrase.Project, *phrase.APIResponse, error) {
+	page := 1
+	projectVarOptionals := phrase.ProjectsListOpts{
+		Page:    optional.NewInt32(int32(page)),
+		PerPage: optional.NewInt32(100),
+	}
+
+	projects, http_response, err := client.ProjectsApi.ProjectsList(Auth, &projectVarOptionals)
+	if err != nil {
+		return nil, http_response, err
+	}
+
+	result := projects
+	for http_response.NextPage > 0 {
+		page = page + 1
+		projectVarOptionals.Page = optional.NewInt32(int32(page))
+
+		projects, http_response, err = client.ProjectsApi.ProjectsList(Auth, &projectVarOptionals)
+		if err != nil {
+			return nil, http_response, err
+		}
+		result = append(result, projects...)
+	}
+
+	var data []phrase.Project
+
+	for i := 0; i < len(result); i++ {
+		data = append(data, result[i])
+	}
+
+	return data, nil, nil
+}
+
 func ViperStructTag() viper.DecoderConfigOption {
 	return func(c *mapstructure.DecoderConfig) {
 		c.TagName = "json"

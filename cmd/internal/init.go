@@ -7,7 +7,6 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/antihax/optional"
 	"github.com/phrase/phrase-cli/cmd/internal/paths"
 	"github.com/phrase/phrase-cli/cmd/internal/print"
 	"github.com/phrase/phrase-cli/cmd/internal/prompt"
@@ -153,12 +152,7 @@ func (cmd *InitCommand) selectProject() error {
 
 	fmt.Print("Loading projects... ")
 	spinner.While(func() {
-
-		localVarOptionals := phrase.ProjectsListOpts{
-			Page:    optional.NewInt32(int32(1)),
-			PerPage: optional.NewInt32(int32(25)),
-		}
-		projects, _, err := client.ProjectsApi.ProjectsList(Auth, &localVarOptionals)
+		projects, _, err := Projects(Auth)
 		taskResult <- projects
 		taskErr <- err
 	})
