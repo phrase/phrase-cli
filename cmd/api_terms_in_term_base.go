@@ -14,29 +14,29 @@ import (
 )
 
 func init() {
-	initBlacklistedKeyCreate()
-	initBlacklistedKeyDelete()
-	initBlacklistedKeyShow()
-	initBlacklistedKeyUpdate()
-	initBlacklistedKeysList()
+	initGlossaryTermCreate()
+	initGlossaryTermDelete()
+	initGlossaryTermShow()
+	initGlossaryTermUpdate()
+	initGlossaryTermsList()
 
-	rootCmd.AddCommand(BlacklistedKeysApiCmd)
+	rootCmd.AddCommand(TermsInTermBaseApiCmd)
 }
 
-var BlacklistedKeysApiCmd = &cobra.Command{
-	Use:   helpers.ToSnakeCase("BlacklistedKeys"),
-	Short: "BlacklistedKeys API",
+var TermsInTermBaseApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("TermsInTermBase"),
+	Short: "TermsInTermBase API",
 }
 
-func initBlacklistedKeyCreate() {
+func initGlossaryTermCreate() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("blacklisted_key/create", "/")[1:], "_")
-	var BlacklistedKeyCreate = &cobra.Command{
+	use = strings.Join(strings.Split("glossary_term/create", "/")[1:], "_")
+	var GlossaryTermCreate = &cobra.Command{
 		Use:   use,
-		Short: "Create a blacklisted key",
-		Long:  `Create a new rule for blacklisting keys.`,
+		Short: "Create a term",
+		Long:  `Create a new term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -47,7 +47,7 @@ func initBlacklistedKeyCreate() {
 			}
 
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.BlacklistedKeyCreateOpts{}
+			localVarOptionals := api.GlossaryTermCreateOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -57,16 +57,17 @@ func initBlacklistedKeyCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 
-			blacklistedKeyCreateParameters := api.BlacklistedKeyCreateParameters{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyCreateParameters); err != nil {
+			glossaryTermCreateParameters := api.GlossaryTermCreateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermCreateParameters); err != nil {
 				HandleError(err)
 			}
 			if Config.Debug {
-				fmt.Printf("%+v\n", blacklistedKeyCreateParameters)
+				fmt.Printf("%+v\n", glossaryTermCreateParameters)
 			}
-			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyCreate(auth, projectId, blacklistedKeyCreateParameters, &localVarOptionals)
+			data, api_response, err := client.TermsInTermBaseApi.GlossaryTermCreate(auth, accountId, glossaryId, glossaryTermCreateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -92,22 +93,23 @@ func initBlacklistedKeyCreate() {
 		},
 	}
 
-	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyCreate)
-	AddFlag(BlacklistedKeyCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(BlacklistedKeyCreate, "string", "data", "d", "payload in JSON format", true)
-	AddFlag(BlacklistedKeyCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TermsInTermBaseApiCmd.AddCommand(GlossaryTermCreate)
+	AddFlag(GlossaryTermCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryTermCreate, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
+	AddFlag(GlossaryTermCreate, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(GlossaryTermCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(BlacklistedKeyCreate.Flags())
+	params.BindPFlags(GlossaryTermCreate.Flags())
 }
-func initBlacklistedKeyDelete() {
+func initGlossaryTermDelete() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("blacklisted_key/delete", "/")[1:], "_")
-	var BlacklistedKeyDelete = &cobra.Command{
+	use = strings.Join(strings.Split("glossary_term/delete", "/")[1:], "_")
+	var GlossaryTermDelete = &cobra.Command{
 		Use:   use,
-		Short: "Delete a blacklisted key",
-		Long:  `Delete an existing rule for blacklisting keys.`,
+		Short: "Delete a term",
+		Long:  `Delete an existing term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -118,7 +120,7 @@ func initBlacklistedKeyDelete() {
 			}
 
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.BlacklistedKeyDeleteOpts{}
+			localVarOptionals := api.GlossaryTermDeleteOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -128,10 +130,11 @@ func initBlacklistedKeyDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyDelete(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.TermsInTermBaseApi.GlossaryTermDelete(auth, accountId, glossaryId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -152,22 +155,23 @@ func initBlacklistedKeyDelete() {
 		},
 	}
 
-	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyDelete)
-	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
-	AddFlag(BlacklistedKeyDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TermsInTermBaseApiCmd.AddCommand(GlossaryTermDelete)
+	AddFlag(GlossaryTermDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryTermDelete, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
+	AddFlag(GlossaryTermDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GlossaryTermDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(BlacklistedKeyDelete.Flags())
+	params.BindPFlags(GlossaryTermDelete.Flags())
 }
-func initBlacklistedKeyShow() {
+func initGlossaryTermShow() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("blacklisted_key/show", "/")[1:], "_")
-	var BlacklistedKeyShow = &cobra.Command{
+	use = strings.Join(strings.Split("glossary_term/show", "/")[1:], "_")
+	var GlossaryTermShow = &cobra.Command{
 		Use:   use,
-		Short: "Get a single blacklisted key",
-		Long:  `Get details on a single rule for blacklisting keys for a given project.`,
+		Short: "Get a single term",
+		Long:  `Get details for a single term in the term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -178,7 +182,7 @@ func initBlacklistedKeyShow() {
 			}
 
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.BlacklistedKeyShowOpts{}
+			localVarOptionals := api.GlossaryTermShowOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -188,10 +192,11 @@ func initBlacklistedKeyShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyShow(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.TermsInTermBaseApi.GlossaryTermShow(auth, accountId, glossaryId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -217,22 +222,23 @@ func initBlacklistedKeyShow() {
 		},
 	}
 
-	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyShow)
-	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
-	AddFlag(BlacklistedKeyShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TermsInTermBaseApiCmd.AddCommand(GlossaryTermShow)
+	AddFlag(GlossaryTermShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryTermShow, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
+	AddFlag(GlossaryTermShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GlossaryTermShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(BlacklistedKeyShow.Flags())
+	params.BindPFlags(GlossaryTermShow.Flags())
 }
-func initBlacklistedKeyUpdate() {
+func initGlossaryTermUpdate() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("blacklisted_key/update", "/")[1:], "_")
-	var BlacklistedKeyUpdate = &cobra.Command{
+	use = strings.Join(strings.Split("glossary_term/update", "/")[1:], "_")
+	var GlossaryTermUpdate = &cobra.Command{
 		Use:   use,
-		Short: "Update a blacklisted key",
-		Long:  `Update an existing rule for blacklisting keys.`,
+		Short: "Update a term",
+		Long:  `Update an existing term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -243,7 +249,7 @@ func initBlacklistedKeyUpdate() {
 			}
 
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.BlacklistedKeyUpdateOpts{}
+			localVarOptionals := api.GlossaryTermUpdateOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -253,17 +259,18 @@ func initBlacklistedKeyUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			blacklistedKeyUpdateParameters := api.BlacklistedKeyUpdateParameters{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyUpdateParameters); err != nil {
+			glossaryTermUpdateParameters := api.GlossaryTermUpdateParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermUpdateParameters); err != nil {
 				HandleError(err)
 			}
 			if Config.Debug {
-				fmt.Printf("%+v\n", blacklistedKeyUpdateParameters)
+				fmt.Printf("%+v\n", glossaryTermUpdateParameters)
 			}
-			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeyUpdate(auth, projectId, id, blacklistedKeyUpdateParameters, &localVarOptionals)
+			data, api_response, err := client.TermsInTermBaseApi.GlossaryTermUpdate(auth, accountId, glossaryId, id, glossaryTermUpdateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -289,23 +296,24 @@ func initBlacklistedKeyUpdate() {
 		},
 	}
 
-	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeyUpdate)
-	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
-	AddFlag(BlacklistedKeyUpdate, "string", "data", "d", "payload in JSON format", true)
-	AddFlag(BlacklistedKeyUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	TermsInTermBaseApiCmd.AddCommand(GlossaryTermUpdate)
+	AddFlag(GlossaryTermUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryTermUpdate, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
+	AddFlag(GlossaryTermUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(GlossaryTermUpdate, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(GlossaryTermUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(BlacklistedKeyUpdate.Flags())
+	params.BindPFlags(GlossaryTermUpdate.Flags())
 }
-func initBlacklistedKeysList() {
+func initGlossaryTermsList() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("blacklisted_keys/list", "/")[1:], "_")
-	var BlacklistedKeysList = &cobra.Command{
+	use = strings.Join(strings.Split("glossary_terms/list", "/")[1:], "_")
+	var GlossaryTermsList = &cobra.Command{
 		Use:   use,
-		Short: "List blacklisted keys",
-		Long:  `List all rules for blacklisting keys for the given project.`,
+		Short: "List terms",
+		Long:  `List all terms in term bases (previously: glossary) that the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -316,7 +324,7 @@ func initBlacklistedKeysList() {
 			}
 
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.BlacklistedKeysListOpts{}
+			localVarOptionals := api.GlossaryTermsListOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -331,13 +339,11 @@ func initBlacklistedKeysList() {
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
 
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 
-			data, api_response, err := client.BlacklistedKeysApi.BlacklistedKeysList(auth, projectId, &localVarOptionals)
+			data, api_response, err := client.TermsInTermBaseApi.GlossaryTermsList(auth, accountId, glossaryId, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -363,12 +369,12 @@ func initBlacklistedKeysList() {
 		},
 	}
 
-	BlacklistedKeysApiCmd.AddCommand(BlacklistedKeysList)
-	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(BlacklistedKeysList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(BlacklistedKeysList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
-	AddFlag(BlacklistedKeysList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	TermsInTermBaseApiCmd.AddCommand(GlossaryTermsList)
+	AddFlag(GlossaryTermsList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(GlossaryTermsList, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
+	AddFlag(GlossaryTermsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(GlossaryTermsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(GlossaryTermsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
 
-	params.BindPFlags(BlacklistedKeysList.Flags())
+	params.BindPFlags(GlossaryTermsList.Flags())
 }
