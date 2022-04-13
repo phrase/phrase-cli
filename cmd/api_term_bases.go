@@ -20,12 +20,12 @@ func init() {
 	initGlossaryShow()
 	initGlossaryUpdate()
 
-	rootCmd.AddCommand(TermBaseApiCmd)
+	rootCmd.AddCommand(TermBasesApiCmd)
 }
 
-var TermBaseApiCmd = &cobra.Command{
-	Use:   helpers.ToSnakeCase("TermBase"),
-	Short: "TermBase API",
+var TermBasesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("TermBases"),
+	Short: "TermBases API",
 }
 
 func initGlossariesList() {
@@ -65,7 +65,7 @@ func initGlossariesList() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			data, api_response, err := client.TermBaseApi.GlossariesList(auth, accountId, &localVarOptionals)
+			data, api_response, err := client.TermBasesApi.GlossariesList(auth, accountId, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -91,7 +91,7 @@ func initGlossariesList() {
 		},
 	}
 
-	TermBaseApiCmd.AddCommand(GlossariesList)
+	TermBasesApiCmd.AddCommand(GlossariesList)
 	AddFlag(GlossariesList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossariesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GlossariesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
@@ -137,7 +137,7 @@ func initGlossaryCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryCreateParameters)
 			}
-			data, api_response, err := client.TermBaseApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
+			data, api_response, err := client.TermBasesApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -163,7 +163,7 @@ func initGlossaryCreate() {
 		},
 	}
 
-	TermBaseApiCmd.AddCommand(GlossaryCreate)
+	TermBasesApiCmd.AddCommand(GlossaryCreate)
 	AddFlag(GlossaryCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryCreate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(GlossaryCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -202,7 +202,7 @@ func initGlossaryDelete() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.TermBaseApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
+			data, api_response, err := client.TermBasesApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -223,7 +223,7 @@ func initGlossaryDelete() {
 		},
 	}
 
-	TermBaseApiCmd.AddCommand(GlossaryDelete)
+	TermBasesApiCmd.AddCommand(GlossaryDelete)
 	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -262,7 +262,7 @@ func initGlossaryShow() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.TermBaseApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
+			data, api_response, err := client.TermBasesApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -288,7 +288,7 @@ func initGlossaryShow() {
 		},
 	}
 
-	TermBaseApiCmd.AddCommand(GlossaryShow)
+	TermBasesApiCmd.AddCommand(GlossaryShow)
 	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -334,7 +334,7 @@ func initGlossaryUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryUpdateParameters)
 			}
-			data, api_response, err := client.TermBaseApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
+			data, api_response, err := client.TermBasesApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -360,7 +360,7 @@ func initGlossaryUpdate() {
 		},
 	}
 
-	TermBaseApiCmd.AddCommand(GlossaryUpdate)
+	TermBasesApiCmd.AddCommand(GlossaryUpdate)
 	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryUpdate, "string", "data", "d", "payload in JSON format", true)

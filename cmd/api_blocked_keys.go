@@ -35,7 +35,7 @@ func initBlacklistedKeyCreate() {
 	use = strings.Join(strings.Split("blacklisted_key/create", "/")[1:], "_")
 	var BlacklistedKeyCreate = &cobra.Command{
 		Use:   use,
-		Short: "Create a blacklisted key",
+		Short: "Create a blocked key",
 		Long:  `Create a new rule for blocking keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -106,7 +106,7 @@ func initBlacklistedKeyDelete() {
 	use = strings.Join(strings.Split("blacklisted_key/delete", "/")[1:], "_")
 	var BlacklistedKeyDelete = &cobra.Command{
 		Use:   use,
-		Short: "Delete a blacklisted key",
+		Short: "Delete a blocked key",
 		Long:  `Delete an existing rule for blocking keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -166,7 +166,7 @@ func initBlacklistedKeyShow() {
 	use = strings.Join(strings.Split("blacklisted_key/show", "/")[1:], "_")
 	var BlacklistedKeyShow = &cobra.Command{
 		Use:   use,
-		Short: "Get a single blacklisted key",
+		Short: "Get a single blocked key",
 		Long:  `Get details on a single rule for blocking keys for a given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -231,7 +231,7 @@ func initBlacklistedKeyUpdate() {
 	use = strings.Join(strings.Split("blacklisted_key/update", "/")[1:], "_")
 	var BlacklistedKeyUpdate = &cobra.Command{
 		Use:   use,
-		Short: "Update a blacklisted key",
+		Short: "Update a blocked key",
 		Long:  `Update an existing rule for blocking keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -304,7 +304,7 @@ func initBlacklistedKeysList() {
 	use = strings.Join(strings.Split("blacklisted_keys/list", "/")[1:], "_")
 	var BlacklistedKeysList = &cobra.Command{
 		Use:   use,
-		Short: "List blacklisted keys",
+		Short: "List blocked keys",
 		Long:  `List all rules for blocking keys for the given project.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()

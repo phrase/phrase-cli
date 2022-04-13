@@ -16,12 +16,12 @@ func init() {
 	initVersionShow()
 	initVersionsList()
 
-	rootCmd.AddCommand(VersionsHistoryApiCmd)
+	rootCmd.AddCommand(ChangesVersionsApiCmd)
 }
 
-var VersionsHistoryApiCmd = &cobra.Command{
-	Use:   helpers.ToSnakeCase("VersionsHistory"),
-	Short: "VersionsHistory API",
+var ChangesVersionsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("ChangesVersions"),
+	Short: "ChangesVersions API",
 }
 
 func initVersionShow() {
@@ -60,7 +60,7 @@ func initVersionShow() {
 			translationId := params.GetString(helpers.ToSnakeCase("TranslationId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.VersionsHistoryApi.VersionShow(auth, projectId, translationId, id, &localVarOptionals)
+			data, api_response, err := client.ChangesVersionsApi.VersionShow(auth, projectId, translationId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -86,7 +86,7 @@ func initVersionShow() {
 		},
 	}
 
-	VersionsHistoryApiCmd.AddCommand(VersionShow)
+	ChangesVersionsApiCmd.AddCommand(VersionShow)
 	AddFlag(VersionShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(VersionShow, "string", helpers.ToSnakeCase("TranslationId"), "", "Translation ID", true)
 	AddFlag(VersionShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
@@ -136,7 +136,7 @@ func initVersionsList() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			translationId := params.GetString(helpers.ToSnakeCase("TranslationId"))
 
-			data, api_response, err := client.VersionsHistoryApi.VersionsList(auth, projectId, translationId, &localVarOptionals)
+			data, api_response, err := client.ChangesVersionsApi.VersionsList(auth, projectId, translationId, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -162,7 +162,7 @@ func initVersionsList() {
 		},
 	}
 
-	VersionsHistoryApiCmd.AddCommand(VersionsList)
+	ChangesVersionsApiCmd.AddCommand(VersionsList)
 	AddFlag(VersionsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(VersionsList, "string", helpers.ToSnakeCase("TranslationId"), "", "Translation ID", true)
 	AddFlag(VersionsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
