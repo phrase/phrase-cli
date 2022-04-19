@@ -184,7 +184,7 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		os.Remove(file.Name())
 	}
 
-	err = ioutil.WriteFile(localeFile.Path, data, 0700)
+	err = ioutil.WriteFile(localeFile.Path, data, 0644)
 	return err
 }
 
@@ -277,7 +277,7 @@ func createFile(path string) error {
 		absDir := filepath.Dir(path)
 		err := paths.Exists(absDir)
 		if err != nil {
-			_ = os.MkdirAll(absDir, 0700)
+			_ = os.MkdirAll(absDir, 0755)
 		}
 
 		f, err := os.Create(path)
