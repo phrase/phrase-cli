@@ -18,12 +18,12 @@ func init() {
 	initGlossaryTermTranslationDelete()
 	initGlossaryTermTranslationUpdate()
 
-	rootCmd.AddCommand(TermBaseTranslationsApiCmd)
+	rootCmd.AddCommand(GlossaryTermTranslationsApiCmd)
 }
 
-var TermBaseTranslationsApiCmd = &cobra.Command{
-	Use:   helpers.ToSnakeCase("TermBaseTranslations"),
-	Short: "TermBaseTranslations API",
+var GlossaryTermTranslationsApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("GlossaryTermTranslations"),
+	Short: "GlossaryTermTranslations API",
 }
 
 func initGlossaryTermTranslationCreate() {
@@ -33,8 +33,8 @@ func initGlossaryTermTranslationCreate() {
 	use = strings.Join(strings.Split("glossary_term_translation/create", "/")[1:], "_")
 	var GlossaryTermTranslationCreate = &cobra.Command{
 		Use:   use,
-		Short: "Create a translation for a term",
-		Long:  `Create a new translation for a term in a term base (previously: glossary).`,
+		Short: "Create a glossary term translation",
+		Long:  `Create a new glossary term translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -66,7 +66,7 @@ func initGlossaryTermTranslationCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryTermTranslationCreateParameters)
 			}
-			data, api_response, err := client.TermBaseTranslationsApi.GlossaryTermTranslationCreate(auth, accountId, glossaryId, termId, glossaryTermTranslationCreateParameters, &localVarOptionals)
+			data, api_response, err := client.GlossaryTermTranslationsApi.GlossaryTermTranslationCreate(auth, accountId, glossaryId, termId, glossaryTermTranslationCreateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -92,7 +92,7 @@ func initGlossaryTermTranslationCreate() {
 		},
 	}
 
-	TermBaseTranslationsApiCmd.AddCommand(GlossaryTermTranslationCreate)
+	GlossaryTermTranslationsApiCmd.AddCommand(GlossaryTermTranslationCreate)
 	AddFlag(GlossaryTermTranslationCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermTranslationCreate, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermTranslationCreate, "string", helpers.ToSnakeCase("TermId"), "", "Term ID", true)
@@ -108,8 +108,8 @@ func initGlossaryTermTranslationDelete() {
 	use = strings.Join(strings.Split("glossary_term_translation/delete", "/")[1:], "_")
 	var GlossaryTermTranslationDelete = &cobra.Command{
 		Use:   use,
-		Short: "Delete a translation for a term",
-		Long:  `Delete an existing translation of a term in a term base (previously: glossary).`,
+		Short: "Delete a glossary term translation",
+		Long:  `Delete an existing glossary term translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -135,7 +135,7 @@ func initGlossaryTermTranslationDelete() {
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.TermBaseTranslationsApi.GlossaryTermTranslationDelete(auth, accountId, glossaryId, termId, id, &localVarOptionals)
+			data, api_response, err := client.GlossaryTermTranslationsApi.GlossaryTermTranslationDelete(auth, accountId, glossaryId, termId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -156,7 +156,7 @@ func initGlossaryTermTranslationDelete() {
 		},
 	}
 
-	TermBaseTranslationsApiCmd.AddCommand(GlossaryTermTranslationDelete)
+	GlossaryTermTranslationsApiCmd.AddCommand(GlossaryTermTranslationDelete)
 	AddFlag(GlossaryTermTranslationDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermTranslationDelete, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermTranslationDelete, "string", helpers.ToSnakeCase("TermId"), "", "Term ID", true)
@@ -172,8 +172,8 @@ func initGlossaryTermTranslationUpdate() {
 	use = strings.Join(strings.Split("glossary_term_translation/update", "/")[1:], "_")
 	var GlossaryTermTranslationUpdate = &cobra.Command{
 		Use:   use,
-		Short: "Update a translation for a term",
-		Long:  `Update an existing translation for a term in a term base (previously: glossary).`,
+		Short: "Update a glossary term translation",
+		Long:  `Update an existing glossary term translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -206,7 +206,7 @@ func initGlossaryTermTranslationUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryTermTranslationUpdateParameters)
 			}
-			data, api_response, err := client.TermBaseTranslationsApi.GlossaryTermTranslationUpdate(auth, accountId, glossaryId, termId, id, glossaryTermTranslationUpdateParameters, &localVarOptionals)
+			data, api_response, err := client.GlossaryTermTranslationsApi.GlossaryTermTranslationUpdate(auth, accountId, glossaryId, termId, id, glossaryTermTranslationUpdateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -232,7 +232,7 @@ func initGlossaryTermTranslationUpdate() {
 		},
 	}
 
-	TermBaseTranslationsApiCmd.AddCommand(GlossaryTermTranslationUpdate)
+	GlossaryTermTranslationsApiCmd.AddCommand(GlossaryTermTranslationUpdate)
 	AddFlag(GlossaryTermTranslationUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryTermTranslationUpdate, "string", helpers.ToSnakeCase("GlossaryId"), "", "Glossary ID", true)
 	AddFlag(GlossaryTermTranslationUpdate, "string", helpers.ToSnakeCase("TermId"), "", "Term ID", true)

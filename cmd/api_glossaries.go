@@ -20,12 +20,12 @@ func init() {
 	initGlossaryShow()
 	initGlossaryUpdate()
 
-	rootCmd.AddCommand(TermBasesApiCmd)
+	rootCmd.AddCommand(GlossariesApiCmd)
 }
 
-var TermBasesApiCmd = &cobra.Command{
-	Use:   helpers.ToSnakeCase("TermBases"),
-	Short: "TermBases API",
+var GlossariesApiCmd = &cobra.Command{
+	Use:   helpers.ToSnakeCase("Glossaries"),
+	Short: "Glossaries API",
 }
 
 func initGlossariesList() {
@@ -35,8 +35,8 @@ func initGlossariesList() {
 	use = strings.Join(strings.Split("glossaries/list", "/")[1:], "_")
 	var GlossariesList = &cobra.Command{
 		Use:   use,
-		Short: "List term bases",
-		Long:  `List all term bases (previously: glossaries) the current user has access to.`,
+		Short: "List glossaries",
+		Long:  `List all glossaries the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -65,7 +65,7 @@ func initGlossariesList() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			data, api_response, err := client.TermBasesApi.GlossariesList(auth, accountId, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossariesList(auth, accountId, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -91,7 +91,7 @@ func initGlossariesList() {
 		},
 	}
 
-	TermBasesApiCmd.AddCommand(GlossariesList)
+	GlossariesApiCmd.AddCommand(GlossariesList)
 	AddFlag(GlossariesList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossariesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GlossariesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
@@ -106,8 +106,8 @@ func initGlossaryCreate() {
 	use = strings.Join(strings.Split("glossary/create", "/")[1:], "_")
 	var GlossaryCreate = &cobra.Command{
 		Use:   use,
-		Short: "Create a term base",
-		Long:  `Create a new term base (previously: glossary).`,
+		Short: "Create a glossary",
+		Long:  `Create a new glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -137,7 +137,7 @@ func initGlossaryCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryCreateParameters)
 			}
-			data, api_response, err := client.TermBasesApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -163,7 +163,7 @@ func initGlossaryCreate() {
 		},
 	}
 
-	TermBasesApiCmd.AddCommand(GlossaryCreate)
+	GlossariesApiCmd.AddCommand(GlossaryCreate)
 	AddFlag(GlossaryCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryCreate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(GlossaryCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -177,8 +177,8 @@ func initGlossaryDelete() {
 	use = strings.Join(strings.Split("glossary/delete", "/")[1:], "_")
 	var GlossaryDelete = &cobra.Command{
 		Use:   use,
-		Short: "Delete a term base",
-		Long:  `Delete an existing term base (previously: glossary).`,
+		Short: "Delete a glossary",
+		Long:  `Delete an existing glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -202,7 +202,7 @@ func initGlossaryDelete() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.TermBasesApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -223,7 +223,7 @@ func initGlossaryDelete() {
 		},
 	}
 
-	TermBasesApiCmd.AddCommand(GlossaryDelete)
+	GlossariesApiCmd.AddCommand(GlossaryDelete)
 	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -237,8 +237,8 @@ func initGlossaryShow() {
 	use = strings.Join(strings.Split("glossary/show", "/")[1:], "_")
 	var GlossaryShow = &cobra.Command{
 		Use:   use,
-		Short: "Get a single term base",
-		Long:  `Get details on a single term base (previously: glossary).`,
+		Short: "Get a single glossary",
+		Long:  `Get details on a single glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -262,7 +262,7 @@ func initGlossaryShow() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			data, api_response, err := client.TermBasesApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -288,7 +288,7 @@ func initGlossaryShow() {
 		},
 	}
 
-	TermBasesApiCmd.AddCommand(GlossaryShow)
+	GlossariesApiCmd.AddCommand(GlossaryShow)
 	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
@@ -302,8 +302,8 @@ func initGlossaryUpdate() {
 	use = strings.Join(strings.Split("glossary/update", "/")[1:], "_")
 	var GlossaryUpdate = &cobra.Command{
 		Use:   use,
-		Short: "Update a term base",
-		Long:  `Update an existing term base (previously: glossary).`,
+		Short: "Update a glossary",
+		Long:  `Update an existing glossary.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -334,7 +334,7 @@ func initGlossaryUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryUpdateParameters)
 			}
-			data, api_response, err := client.TermBasesApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
+			data, api_response, err := client.GlossariesApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -360,7 +360,7 @@ func initGlossaryUpdate() {
 		},
 	}
 
-	TermBasesApiCmd.AddCommand(GlossaryUpdate)
+	GlossariesApiCmd.AddCommand(GlossaryUpdate)
 	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(GlossaryUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GlossaryUpdate, "string", "data", "d", "payload in JSON format", true)
