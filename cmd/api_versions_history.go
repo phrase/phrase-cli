@@ -49,16 +49,16 @@ func initVersionShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			translationId := params.GetString(helpers.ToSnakeCase("TranslationId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.VersionsHistoryApi.VersionShow(auth, projectId, translationId, id, &localVarOptionals)
 
@@ -120,21 +120,23 @@ func initVersionsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			translationId := params.GetString(helpers.ToSnakeCase("TranslationId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			translationId := params.GetString(helpers.ToSnakeCase("TranslationId"))
 
 			data, api_response, err := client.VersionsHistoryApi.VersionsList(auth, projectId, translationId, &localVarOptionals)
 

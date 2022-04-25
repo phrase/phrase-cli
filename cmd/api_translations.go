@@ -64,12 +64,7 @@ func initTranslationCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			translationCreateParameters := api.TranslationCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationCreateParameters); err != nil {
 				HandleError(err)
@@ -77,6 +72,10 @@ func initTranslationCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationCreate(auth, projectId, translationCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -135,13 +134,8 @@ func initTranslationExclude() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			translationExcludeParameters := api.TranslationExcludeParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationExcludeParameters); err != nil {
 				HandleError(err)
@@ -149,6 +143,10 @@ func initTranslationExclude() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationExcludeParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationExclude(auth, projectId, id, translationExcludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -208,13 +206,8 @@ func initTranslationInclude() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			translationIncludeParameters := api.TranslationIncludeParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationIncludeParameters); err != nil {
 				HandleError(err)
@@ -222,6 +215,10 @@ func initTranslationInclude() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationIncludeParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationInclude(auth, projectId, id, translationIncludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -281,13 +278,8 @@ func initTranslationReview() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			translationReviewParameters := api.TranslationReviewParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationReviewParameters); err != nil {
 				HandleError(err)
@@ -295,6 +287,10 @@ func initTranslationReview() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationReviewParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationReview(auth, projectId, id, translationReviewParameters, &localVarOptionals)
 
 			if err != nil {
@@ -354,15 +350,15 @@ func initTranslationShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.TranslationsApi.TranslationShow(auth, projectId, id, &localVarOptionals)
 
@@ -423,13 +419,8 @@ func initTranslationUnverify() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			translationUnverifyParameters := api.TranslationUnverifyParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationUnverifyParameters); err != nil {
 				HandleError(err)
@@ -437,6 +428,10 @@ func initTranslationUnverify() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationUnverifyParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationUnverify(auth, projectId, id, translationUnverifyParameters, &localVarOptionals)
 
 			if err != nil {
@@ -496,13 +491,8 @@ func initTranslationUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			translationUpdateParameters := api.TranslationUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationUpdateParameters); err != nil {
 				HandleError(err)
@@ -510,6 +500,10 @@ func initTranslationUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationUpdate(auth, projectId, id, translationUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -569,13 +563,8 @@ func initTranslationVerify() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			translationVerifyParameters := api.TranslationVerifyParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationVerifyParameters); err != nil {
 				HandleError(err)
@@ -583,6 +572,10 @@ func initTranslationVerify() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationVerifyParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationVerify(auth, projectId, id, translationVerifyParameters, &localVarOptionals)
 
 			if err != nil {
@@ -642,30 +635,35 @@ func initTranslationsByKey() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("sort")) {
 				localVarOptionals.Sort = optional.NewString(params.GetString(helpers.ToSnakeCase("Sort")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("order")) {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("q")) {
 				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 
 			data, api_response, err := client.TranslationsApi.TranslationsByKey(auth, projectId, keyId, &localVarOptionals)
 
@@ -731,30 +729,35 @@ func initTranslationsByLocale() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			localeId := params.GetString(helpers.ToSnakeCase("LocaleId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("sort")) {
 				localVarOptionals.Sort = optional.NewString(params.GetString(helpers.ToSnakeCase("Sort")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("order")) {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("q")) {
 				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			localeId := params.GetString(helpers.ToSnakeCase("LocaleId"))
 
 			data, api_response, err := client.TranslationsApi.TranslationsByLocale(auth, projectId, localeId, &localVarOptionals)
 
@@ -820,12 +823,7 @@ func initTranslationsExcludeCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			translationsExcludeParameters := api.TranslationsExcludeParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsExcludeParameters); err != nil {
 				HandleError(err)
@@ -833,6 +831,10 @@ func initTranslationsExcludeCollection() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsExcludeParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationsExcludeCollection(auth, projectId, translationsExcludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -891,12 +893,7 @@ func initTranslationsIncludeCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			translationsIncludeParameters := api.TranslationsIncludeParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsIncludeParameters); err != nil {
 				HandleError(err)
@@ -904,6 +901,10 @@ func initTranslationsIncludeCollection() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsIncludeParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationsIncludeCollection(auth, projectId, translationsIncludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -962,29 +963,34 @@ func initTranslationsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("sort")) {
 				localVarOptionals.Sort = optional.NewString(params.GetString(helpers.ToSnakeCase("Sort")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("order")) {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("q")) {
 				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.TranslationsApi.TranslationsList(auth, projectId, &localVarOptionals)
 
@@ -1049,12 +1055,7 @@ func initTranslationsReviewCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			translationsReviewParameters := api.TranslationsReviewParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsReviewParameters); err != nil {
 				HandleError(err)
@@ -1062,6 +1063,10 @@ func initTranslationsReviewCollection() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsReviewParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationsReviewCollection(auth, projectId, translationsReviewParameters, &localVarOptionals)
 
 			if err != nil {
@@ -1120,18 +1125,7 @@ func initTranslationsSearch() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("page")) {
-				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("perPage")) {
-				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			translationsSearchParameters := api.TranslationsSearchParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsSearchParameters); err != nil {
 				HandleError(err)
@@ -1139,6 +1133,18 @@ func initTranslationsSearch() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsSearchParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationsSearch(auth, projectId, translationsSearchParameters, &localVarOptionals)
 
 			if err != nil {
@@ -1199,12 +1205,7 @@ func initTranslationsUnverifyCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			translationsUnverifyParameters := api.TranslationsUnverifyParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsUnverifyParameters); err != nil {
 				HandleError(err)
@@ -1212,6 +1213,10 @@ func initTranslationsUnverifyCollection() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsUnverifyParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationsUnverifyCollection(auth, projectId, translationsUnverifyParameters, &localVarOptionals)
 
 			if err != nil {
@@ -1270,12 +1275,7 @@ func initTranslationsVerifyCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			translationsVerifyParameters := api.TranslationsVerifyParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsVerifyParameters); err != nil {
 				HandleError(err)
@@ -1283,6 +1283,10 @@ func initTranslationsVerifyCollection() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", translationsVerifyParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TranslationsApi.TranslationsVerifyCollection(auth, projectId, translationsVerifyParameters, &localVarOptionals)
 
 			if err != nil {

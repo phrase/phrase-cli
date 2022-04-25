@@ -50,10 +50,6 @@ func initGithubSyncExport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			githubSyncExportParameters := api.GithubSyncExportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &githubSyncExportParameters); err != nil {
 				HandleError(err)
@@ -61,6 +57,10 @@ func initGithubSyncExport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", githubSyncExportParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.GitHubSyncApi.GithubSyncExport(auth, githubSyncExportParameters, &localVarOptionals)
 
 			if err != nil {
@@ -113,10 +113,6 @@ func initGithubSyncImport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			githubSyncImportParameters := api.GithubSyncImportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &githubSyncImportParameters); err != nil {
 				HandleError(err)
@@ -124,6 +120,10 @@ func initGithubSyncImport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", githubSyncImportParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.GitHubSyncApi.GithubSyncImport(auth, githubSyncImportParameters, &localVarOptionals)
 
 			if err != nil {

@@ -53,12 +53,7 @@ func initJobTemplateCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			jobTemplateCreateParameters := api.JobTemplateCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobTemplateCreateParameters); err != nil {
 				HandleError(err)
@@ -66,6 +61,10 @@ func initJobTemplateCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobTemplateCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobTemplatesApi.JobTemplateCreate(auth, projectId, jobTemplateCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -124,15 +123,15 @@ func initJobTemplateDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.JobTemplatesApi.JobTemplateDelete(auth, projectId, id, &localVarOptionals)
 
@@ -188,15 +187,15 @@ func initJobTemplateShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.JobTemplatesApi.JobTemplateShow(auth, projectId, id, &localVarOptionals)
 
@@ -257,13 +256,8 @@ func initJobTemplateUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			jobTemplateUpdateParameters := api.JobTemplateUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobTemplateUpdateParameters); err != nil {
 				HandleError(err)
@@ -271,6 +265,10 @@ func initJobTemplateUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobTemplateUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobTemplatesApi.JobTemplateUpdate(auth, projectId, id, jobTemplateUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -330,20 +328,22 @@ func initJobTemplatesList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.JobTemplatesApi.JobTemplatesList(auth, projectId, &localVarOptionals)
 

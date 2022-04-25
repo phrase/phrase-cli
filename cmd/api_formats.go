@@ -47,6 +47,7 @@ func initFormatsList() {
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

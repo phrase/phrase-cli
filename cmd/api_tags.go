@@ -52,12 +52,7 @@ func initTagCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			tagCreateParameters := api.TagCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &tagCreateParameters); err != nil {
 				HandleError(err)
@@ -65,6 +60,10 @@ func initTagCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", tagCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TagsApi.TagCreate(auth, projectId, tagCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -123,15 +122,15 @@ func initTagDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.TagsApi.TagDelete(auth, projectId, name, &localVarOptionals)
 
@@ -187,15 +186,15 @@ func initTagShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.TagsApi.TagShow(auth, projectId, name, &localVarOptionals)
 
@@ -256,20 +255,22 @@ func initTagsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.TagsApi.TagsList(auth, projectId, &localVarOptionals)
 

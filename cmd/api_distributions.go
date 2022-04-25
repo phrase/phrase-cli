@@ -53,12 +53,7 @@ func initDistributionCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-
 			distributionCreateParameters := api.DistributionCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &distributionCreateParameters); err != nil {
 				HandleError(err)
@@ -66,6 +61,10 @@ func initDistributionCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", distributionCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.DistributionsApi.DistributionCreate(auth, accountId, distributionCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -124,12 +123,11 @@ func initDistributionDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.DistributionsApi.DistributionDelete(auth, accountId, id, &localVarOptionals)
 
@@ -184,12 +182,11 @@ func initDistributionShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.DistributionsApi.DistributionShow(auth, accountId, id, &localVarOptionals)
 
@@ -249,13 +246,8 @@ func initDistributionUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			distributionUpdateParameters := api.DistributionUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &distributionUpdateParameters); err != nil {
 				HandleError(err)
@@ -263,6 +255,10 @@ func initDistributionUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", distributionUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.DistributionsApi.DistributionUpdate(auth, accountId, id, distributionUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -322,17 +318,18 @@ func initDistributionsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.DistributionsApi.DistributionsList(auth, accountId, &localVarOptionals)
 

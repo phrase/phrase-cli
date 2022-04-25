@@ -56,17 +56,18 @@ func initAccountLocales() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.LocalesApi.AccountLocales(auth, id, &localVarOptionals)
 
@@ -127,12 +128,7 @@ func initLocaleCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			localeCreateParameters := api.LocaleCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &localeCreateParameters); err != nil {
 				HandleError(err)
@@ -140,6 +136,10 @@ func initLocaleCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", localeCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.LocalesApi.LocaleCreate(auth, projectId, localeCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -198,15 +198,15 @@ func initLocaleDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.LocalesApi.LocaleDelete(auth, projectId, id, &localVarOptionals)
 
@@ -262,64 +262,80 @@ func initLocaleDownload() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("fileFormat")) {
 				localVarOptionals.FileFormat = optional.NewString(params.GetString(helpers.ToSnakeCase("FileFormat")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("tags")) {
 				localVarOptionals.Tags = optional.NewString(params.GetString(helpers.ToSnakeCase("Tags")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("tag")) {
 				localVarOptionals.Tag = optional.NewString(params.GetString(helpers.ToSnakeCase("Tag")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("includeEmptyTranslations")) {
 				localVarOptionals.IncludeEmptyTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeEmptyTranslations")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("excludeEmptyZeroForms")) {
 				localVarOptionals.ExcludeEmptyZeroForms = optional.NewBool(params.GetBool(helpers.ToSnakeCase("ExcludeEmptyZeroForms")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("includeTranslatedKeys")) {
 				localVarOptionals.IncludeTranslatedKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeTranslatedKeys")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("keepNotranslateTags")) {
 				localVarOptionals.KeepNotranslateTags = optional.NewBool(params.GetBool(helpers.ToSnakeCase("KeepNotranslateTags")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("convertEmoji")) {
 				localVarOptionals.ConvertEmoji = optional.NewBool(params.GetBool(helpers.ToSnakeCase("ConvertEmoji")))
 			}
-			if params.IsSet(helpers.ToSnakeCase("formatOptions")) {
-				var formatOptions map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("FormatOptions"))), &formatOptions); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.FormatOptions = optional.NewInterface(formatOptions)
+
+			var formatOptions map[string]interface{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &formatOptions); err != nil {
+				HandleError(err)
 			}
+
+			if Config.Debug {
+				fmt.Printf("%+v\n", formatOptions)
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("encoding")) {
 				localVarOptionals.Encoding = optional.NewString(params.GetString(helpers.ToSnakeCase("Encoding")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("skipUnverifiedTranslations")) {
 				localVarOptionals.SkipUnverifiedTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("SkipUnverifiedTranslations")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("includeUnverifiedTranslations")) {
 				localVarOptionals.IncludeUnverifiedTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeUnverifiedTranslations")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("useLastReviewedVersion")) {
 				localVarOptionals.UseLastReviewedVersion = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UseLastReviewedVersion")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("fallbackLocaleId")) {
 				localVarOptionals.FallbackLocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("FallbackLocaleId")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("sourceLocaleId")) {
 				localVarOptionals.SourceLocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("SourceLocaleId")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
 
@@ -393,15 +409,15 @@ func initLocaleShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.LocalesApi.LocaleShow(auth, projectId, id, &localVarOptionals)
 
@@ -462,13 +478,8 @@ func initLocaleUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			localeUpdateParameters := api.LocaleUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &localeUpdateParameters); err != nil {
 				HandleError(err)
@@ -476,6 +487,10 @@ func initLocaleUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", localeUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.LocalesApi.LocaleUpdate(auth, projectId, id, localeUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -535,23 +550,26 @@ func initLocalesList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("sortBy")) {
 				localVarOptionals.SortBy = optional.NewString(params.GetString(helpers.ToSnakeCase("SortBy")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.LocalesApi.LocalesList(auth, projectId, &localVarOptionals)
 

@@ -56,14 +56,9 @@ func initJobLocaleComplete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			jobLocaleCompleteParameters := api.JobLocaleCompleteParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteParameters); err != nil {
 				HandleError(err)
@@ -71,6 +66,10 @@ func initJobLocaleComplete() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocaleCompleteParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobLocalesApi.JobLocaleComplete(auth, projectId, jobId, id, jobLocaleCompleteParameters, &localVarOptionals)
 
 			if err != nil {
@@ -131,14 +130,9 @@ func initJobLocaleCompleteReview() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			jobLocaleCompleteReviewParameters := api.JobLocaleCompleteReviewParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteReviewParameters); err != nil {
 				HandleError(err)
@@ -146,6 +140,10 @@ func initJobLocaleCompleteReview() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocaleCompleteReviewParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobLocalesApi.JobLocaleCompleteReview(auth, projectId, jobId, id, jobLocaleCompleteReviewParameters, &localVarOptionals)
 
 			if err != nil {
@@ -206,16 +204,16 @@ func initJobLocaleDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, &localVarOptionals)
 
@@ -272,14 +270,9 @@ func initJobLocaleReopen() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			jobLocaleReopenParameters := api.JobLocaleReopenParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleReopenParameters); err != nil {
 				HandleError(err)
@@ -287,6 +280,10 @@ func initJobLocaleReopen() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocaleReopenParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobLocalesApi.JobLocaleReopen(auth, projectId, jobId, id, jobLocaleReopenParameters, &localVarOptionals)
 
 			if err != nil {
@@ -347,16 +344,16 @@ func initJobLocaleShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.JobLocalesApi.JobLocaleShow(auth, projectId, jobId, id, &localVarOptionals)
 
@@ -418,14 +415,9 @@ func initJobLocaleUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			jobLocaleUpdateParameters := api.JobLocaleUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleUpdateParameters); err != nil {
 				HandleError(err)
@@ -433,6 +425,10 @@ func initJobLocaleUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocaleUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobLocalesApi.JobLocaleUpdate(auth, projectId, jobId, id, jobLocaleUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -493,13 +489,8 @@ func initJobLocalesCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
-
 			jobLocalesCreateParameters := api.JobLocalesCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocalesCreateParameters); err != nil {
 				HandleError(err)
@@ -507,6 +498,10 @@ func initJobLocalesCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobLocalesCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobLocalesApi.JobLocalesCreate(auth, projectId, jobId, jobLocalesCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -566,21 +561,23 @@ func initJobLocalesList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 
 			data, api_response, err := client.JobLocalesApi.JobLocalesList(auth, projectId, jobId, &localVarOptionals)
 

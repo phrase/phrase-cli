@@ -55,12 +55,11 @@ func initBranchCompare() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.BranchesApi.BranchCompare(auth, projectId, name, &localVarOptionals)
 
@@ -115,12 +114,7 @@ func initBranchCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			branchCreateParameters := api.BranchCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchCreateParameters); err != nil {
 				HandleError(err)
@@ -128,6 +122,10 @@ func initBranchCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", branchCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.BranchesApi.BranchCreate(auth, projectId, branchCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -186,12 +184,11 @@ func initBranchDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.BranchesApi.BranchDelete(auth, projectId, name, &localVarOptionals)
 
@@ -246,13 +243,8 @@ func initBranchMerge() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
-
 			branchMergeParameters := api.BranchMergeParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchMergeParameters); err != nil {
 				HandleError(err)
@@ -260,6 +252,10 @@ func initBranchMerge() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", branchMergeParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.BranchesApi.BranchMerge(auth, projectId, name, branchMergeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -314,12 +310,11 @@ func initBranchShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.BranchesApi.BranchShow(auth, projectId, name, &localVarOptionals)
 
@@ -379,13 +374,8 @@ func initBranchUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
-
 			branchUpdateParameters := api.BranchUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchUpdateParameters); err != nil {
 				HandleError(err)
@@ -393,6 +383,10 @@ func initBranchUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", branchUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.BranchesApi.BranchUpdate(auth, projectId, name, branchUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -452,17 +446,18 @@ func initBranchesList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.BranchesApi.BranchesList(auth, projectId, &localVarOptionals)
 

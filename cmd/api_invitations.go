@@ -55,12 +55,7 @@ func initInvitationCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-
 			invitationCreateParameters := api.InvitationCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationCreateParameters); err != nil {
 				HandleError(err)
@@ -68,6 +63,10 @@ func initInvitationCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", invitationCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.InvitationsApi.InvitationCreate(auth, accountId, invitationCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -126,12 +125,11 @@ func initInvitationDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.InvitationsApi.InvitationDelete(auth, accountId, id, &localVarOptionals)
 
@@ -186,12 +184,11 @@ func initInvitationResend() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.InvitationsApi.InvitationResend(auth, accountId, id, &localVarOptionals)
 
@@ -251,12 +248,11 @@ func initInvitationShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.InvitationsApi.InvitationShow(auth, accountId, id, &localVarOptionals)
 
@@ -316,13 +312,8 @@ func initInvitationUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			invitationUpdateParameters := api.InvitationUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateParameters); err != nil {
 				HandleError(err)
@@ -330,6 +321,10 @@ func initInvitationUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", invitationUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.InvitationsApi.InvitationUpdate(auth, accountId, id, invitationUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -389,13 +384,8 @@ func initInvitationUpdateSettings() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			invitationUpdateSettingsParameters := api.InvitationUpdateSettingsParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateSettingsParameters); err != nil {
 				HandleError(err)
@@ -403,6 +393,10 @@ func initInvitationUpdateSettings() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", invitationUpdateSettingsParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.InvitationsApi.InvitationUpdateSettings(auth, projectId, id, invitationUpdateSettingsParameters, &localVarOptionals)
 
 			if err != nil {
@@ -462,17 +456,18 @@ func initInvitationsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.InvitationsApi.InvitationsList(auth, accountId, &localVarOptionals)
 

@@ -53,12 +53,7 @@ func initStyleguideCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			styleguideCreateParameters := api.StyleguideCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &styleguideCreateParameters); err != nil {
 				HandleError(err)
@@ -66,6 +61,10 @@ func initStyleguideCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", styleguideCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.StyleGuidesApi.StyleguideCreate(auth, projectId, styleguideCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -124,12 +123,11 @@ func initStyleguideDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.StyleGuidesApi.StyleguideDelete(auth, projectId, id, &localVarOptionals)
 
@@ -184,12 +182,11 @@ func initStyleguideShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.StyleGuidesApi.StyleguideShow(auth, projectId, id, &localVarOptionals)
 
@@ -249,13 +246,8 @@ func initStyleguideUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			styleguideUpdateParameters := api.StyleguideUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &styleguideUpdateParameters); err != nil {
 				HandleError(err)
@@ -263,6 +255,10 @@ func initStyleguideUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", styleguideUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.StyleGuidesApi.StyleguideUpdate(auth, projectId, id, styleguideUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -322,17 +318,18 @@ func initStyleguidesList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.StyleGuidesApi.StyleguidesList(auth, projectId, &localVarOptionals)
 

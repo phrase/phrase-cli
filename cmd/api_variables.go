@@ -53,12 +53,7 @@ func initVariableCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			variableCreateParameters := api.VariableCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &variableCreateParameters); err != nil {
 				HandleError(err)
@@ -66,6 +61,10 @@ func initVariableCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", variableCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.VariablesApi.VariableCreate(auth, projectId, variableCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -124,12 +123,11 @@ func initVariableDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.VariablesApi.VariableDelete(auth, projectId, name, &localVarOptionals)
 
@@ -184,12 +182,11 @@ func initVariableShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			name := params.GetString(helpers.ToSnakeCase("Name"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			name := params.GetString(helpers.ToSnakeCase("Name"))
 
 			data, api_response, err := client.VariablesApi.VariableShow(auth, projectId, name, &localVarOptionals)
 
@@ -249,13 +246,8 @@ func initVariableUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
-
 			variableUpdateParameters := api.VariableUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &variableUpdateParameters); err != nil {
 				HandleError(err)
@@ -263,6 +255,10 @@ func initVariableUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", variableUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.VariablesApi.VariableUpdate(auth, projectId, name, variableUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -322,17 +318,18 @@ func initVariablesList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.VariablesApi.VariablesList(auth, projectId, &localVarOptionals)
 

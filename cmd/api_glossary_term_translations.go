@@ -51,14 +51,9 @@ func initGlossaryTermTranslationCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
-
 			glossaryTermTranslationCreateParameters := api.GlossaryTermTranslationCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermTranslationCreateParameters); err != nil {
 				HandleError(err)
@@ -66,6 +61,10 @@ func initGlossaryTermTranslationCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryTermTranslationCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.GlossaryTermTranslationsApi.GlossaryTermTranslationCreate(auth, accountId, glossaryId, termId, glossaryTermTranslationCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -126,14 +125,13 @@ func initGlossaryTermTranslationDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
 			data, api_response, err := client.GlossaryTermTranslationsApi.GlossaryTermTranslationDelete(auth, accountId, glossaryId, termId, id, &localVarOptionals)
 
@@ -190,15 +188,10 @@ func initGlossaryTermTranslationUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			glossaryTermTranslationUpdateParameters := api.GlossaryTermTranslationUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermTranslationUpdateParameters); err != nil {
 				HandleError(err)
@@ -206,6 +199,10 @@ func initGlossaryTermTranslationUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", glossaryTermTranslationUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.GlossaryTermTranslationsApi.GlossaryTermTranslationUpdate(auth, accountId, glossaryId, termId, id, glossaryTermTranslationUpdateParameters, &localVarOptionals)
 
 			if err != nil {

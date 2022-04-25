@@ -56,13 +56,8 @@ func initCommentCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
-
 			commentCreateParameters := api.CommentCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentCreateParameters); err != nil {
 				HandleError(err)
@@ -70,6 +65,10 @@ func initCommentCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", commentCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.CommentsApi.CommentCreate(auth, projectId, keyId, commentCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -129,16 +128,16 @@ func initCommentDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.CommentsApi.CommentDelete(auth, projectId, keyId, id, &localVarOptionals)
 
@@ -195,16 +194,16 @@ func initCommentMarkCheck() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.CommentsApi.CommentMarkCheck(auth, projectId, keyId, id, &localVarOptionals)
 
@@ -261,14 +260,9 @@ func initCommentMarkRead() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			commentMarkReadParameters := api.CommentMarkReadParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentMarkReadParameters); err != nil {
 				HandleError(err)
@@ -276,6 +270,10 @@ func initCommentMarkRead() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", commentMarkReadParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.CommentsApi.CommentMarkRead(auth, projectId, keyId, id, commentMarkReadParameters, &localVarOptionals)
 
 			if err != nil {
@@ -331,16 +329,16 @@ func initCommentMarkUnread() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.CommentsApi.CommentMarkUnread(auth, projectId, keyId, id, &localVarOptionals)
 
@@ -397,16 +395,16 @@ func initCommentShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.CommentsApi.CommentShow(auth, projectId, keyId, id, &localVarOptionals)
 
@@ -468,14 +466,9 @@ func initCommentUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			commentUpdateParameters := api.CommentUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentUpdateParameters); err != nil {
 				HandleError(err)
@@ -483,6 +476,10 @@ func initCommentUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", commentUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.CommentsApi.CommentUpdate(auth, projectId, keyId, id, commentUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -543,21 +540,23 @@ func initCommentsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 
 			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, &localVarOptionals)
 

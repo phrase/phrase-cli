@@ -53,10 +53,6 @@ func initProjectCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectCreateParameters := api.ProjectCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &projectCreateParameters); err != nil {
 				HandleError(err)
@@ -64,6 +60,10 @@ func initProjectCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", projectCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.ProjectsApi.ProjectCreate(auth, projectCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -121,11 +121,10 @@ func initProjectDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ProjectsApi.ProjectDelete(auth, id, &localVarOptionals)
 
@@ -179,11 +178,10 @@ func initProjectShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ProjectsApi.ProjectShow(auth, id, &localVarOptionals)
 
@@ -242,12 +240,7 @@ func initProjectUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			projectUpdateParameters := api.ProjectUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &projectUpdateParameters); err != nil {
 				HandleError(err)
@@ -255,6 +248,10 @@ func initProjectUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", projectUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.ProjectsApi.ProjectUpdate(auth, id, projectUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -312,27 +309,34 @@ func initProjectsList() {
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("accountId")) {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("sortBy")) {
 				localVarOptionals.SortBy = optional.NewString(params.GetString(helpers.ToSnakeCase("SortBy")))
 			}
-			if params.IsSet(helpers.ToSnakeCase("filters")) {
-				var filters map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("Filters"))), &filters); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.Filters = optional.NewInterface(filters)
+
+			var filters map[string]interface{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &filters); err != nil {
+				HandleError(err)
+			}
+
+			if Config.Debug {
+				fmt.Printf("%+v\n", filters)
 			}
 
 			data, api_response, err := client.ProjectsApi.ProjectsList(auth, &localVarOptionals)

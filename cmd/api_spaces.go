@@ -56,12 +56,7 @@ func initSpaceCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-
 			spaceCreateParameters := api.SpaceCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceCreateParameters); err != nil {
 				HandleError(err)
@@ -69,6 +64,10 @@ func initSpaceCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", spaceCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.SpacesApi.SpaceCreate(auth, accountId, spaceCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -127,12 +126,11 @@ func initSpaceDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.SpacesApi.SpaceDelete(auth, accountId, id, &localVarOptionals)
 
@@ -187,12 +185,11 @@ func initSpaceShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.SpacesApi.SpaceShow(auth, accountId, id, &localVarOptionals)
 
@@ -252,13 +249,8 @@ func initSpaceUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			spaceUpdateParameters := api.SpaceUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceUpdateParameters); err != nil {
 				HandleError(err)
@@ -266,6 +258,10 @@ func initSpaceUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", spaceUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.SpacesApi.SpaceUpdate(auth, accountId, id, spaceUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -325,17 +321,18 @@ func initSpacesList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.SpacesApi.SpacesList(auth, accountId, &localVarOptionals)
 
@@ -396,13 +393,8 @@ func initSpacesProjectsCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
-
 			spacesProjectsCreateParameters := api.SpacesProjectsCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spacesProjectsCreateParameters); err != nil {
 				HandleError(err)
@@ -410,6 +402,10 @@ func initSpacesProjectsCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", spacesProjectsCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.SpacesApi.SpacesProjectsCreate(auth, accountId, spaceId, spacesProjectsCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -464,13 +460,12 @@ func initSpacesProjectsDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsDelete(auth, accountId, spaceId, id, &localVarOptionals)
 
@@ -526,18 +521,19 @@ func initSpacesProjectsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
 
 			data, api_response, err := client.SpacesApi.SpacesProjectsList(auth, accountId, spaceId, &localVarOptionals)
 

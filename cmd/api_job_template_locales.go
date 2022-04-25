@@ -53,16 +53,16 @@ func initJobTemplateLocaleDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
 			jobTemplateLocaleId := params.GetString(helpers.ToSnakeCase("JobTemplateLocaleId"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.JobTemplateLocalesApi.JobTemplateLocaleDelete(auth, projectId, jobTemplateId, jobTemplateLocaleId, &localVarOptionals)
 
@@ -119,16 +119,16 @@ func initJobTemplateLocaleShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
 			jobTemplateLocaleId := params.GetString(helpers.ToSnakeCase("JobTemplateLocaleId"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.JobTemplateLocalesApi.JobTemplateLocaleShow(auth, projectId, jobTemplateId, jobTemplateLocaleId, &localVarOptionals)
 
@@ -190,14 +190,9 @@ func initJobTemplateLocaleUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
 			jobTemplateLocaleId := params.GetString(helpers.ToSnakeCase("JobTemplateLocaleId"))
-
 			jobTemplateLocaleUpdateParameters := api.JobTemplateLocaleUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobTemplateLocaleUpdateParameters); err != nil {
 				HandleError(err)
@@ -205,6 +200,10 @@ func initJobTemplateLocaleUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobTemplateLocaleUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobTemplateLocalesApi.JobTemplateLocaleUpdate(auth, projectId, jobTemplateId, jobTemplateLocaleId, jobTemplateLocaleUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -265,13 +264,8 @@ func initJobTemplateLocalesCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
-
 			jobTemplateLocalesCreateParameters := api.JobTemplateLocalesCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobTemplateLocalesCreateParameters); err != nil {
 				HandleError(err)
@@ -279,6 +273,10 @@ func initJobTemplateLocalesCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", jobTemplateLocalesCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.JobTemplateLocalesApi.JobTemplateLocalesCreate(auth, projectId, jobTemplateId, jobTemplateLocalesCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -338,21 +336,23 @@ func initJobTemplateLocalesList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
 
 			data, api_response, err := client.JobTemplateLocalesApi.JobTemplateLocalesList(auth, projectId, jobTemplateId, &localVarOptionals)
 

@@ -53,10 +53,6 @@ func initAuthorizationCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			authorizationCreateParameters := api.AuthorizationCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &authorizationCreateParameters); err != nil {
 				HandleError(err)
@@ -64,6 +60,10 @@ func initAuthorizationCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", authorizationCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.AuthorizationsApi.AuthorizationCreate(auth, authorizationCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -121,11 +121,10 @@ func initAuthorizationDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.AuthorizationsApi.AuthorizationDelete(auth, id, &localVarOptionals)
 
@@ -179,11 +178,10 @@ func initAuthorizationShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.AuthorizationsApi.AuthorizationShow(auth, id, &localVarOptionals)
 
@@ -242,12 +240,7 @@ func initAuthorizationUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			authorizationUpdateParameters := api.AuthorizationUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &authorizationUpdateParameters); err != nil {
 				HandleError(err)
@@ -255,6 +248,10 @@ func initAuthorizationUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", authorizationUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.AuthorizationsApi.AuthorizationUpdate(auth, id, authorizationUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -312,12 +309,15 @@ func initAuthorizationsList() {
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}

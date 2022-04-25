@@ -48,12 +48,7 @@ func initSearchInAccount() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-
 			searchInAccountParameters := api.SearchInAccountParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &searchInAccountParameters); err != nil {
 				HandleError(err)
@@ -61,6 +56,10 @@ func initSearchInAccount() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", searchInAccountParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.SearchApi.SearchInAccount(auth, accountId, searchInAccountParameters, &localVarOptionals)
 
 			if err != nil {

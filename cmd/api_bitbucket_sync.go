@@ -51,12 +51,7 @@ func initBitbucketSyncExport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			bitbucketSyncExportParameters := api.BitbucketSyncExportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &bitbucketSyncExportParameters); err != nil {
 				HandleError(err)
@@ -64,6 +59,10 @@ func initBitbucketSyncExport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", bitbucketSyncExportParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncExport(auth, id, bitbucketSyncExportParameters, &localVarOptionals)
 
 			if err != nil {
@@ -122,12 +121,7 @@ func initBitbucketSyncImport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			bitbucketSyncImportParameters := api.BitbucketSyncImportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &bitbucketSyncImportParameters); err != nil {
 				HandleError(err)
@@ -135,6 +129,10 @@ func initBitbucketSyncImport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", bitbucketSyncImportParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.BitbucketSyncApi.BitbucketSyncImport(auth, id, bitbucketSyncImportParameters, &localVarOptionals)
 
 			if err != nil {
@@ -187,9 +185,11 @@ func initBitbucketSyncsList() {
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("accountId")) {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}

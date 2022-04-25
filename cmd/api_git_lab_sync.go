@@ -55,14 +55,14 @@ func initGitlabSyncDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("accountId")) {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
-
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncDelete(auth, id, &localVarOptionals)
 
@@ -117,12 +117,7 @@ func initGitlabSyncExport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
-
 			gitlabSyncExportParameters := api.GitlabSyncExportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncExportParameters); err != nil {
 				HandleError(err)
@@ -130,6 +125,10 @@ func initGitlabSyncExport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", gitlabSyncExportParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncExport(auth, gitlabSyncId, gitlabSyncExportParameters, &localVarOptionals)
 
 			if err != nil {
@@ -188,20 +187,22 @@ func initGitlabSyncHistory() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("accountId")) {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
-
-			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncHistory(auth, gitlabSyncId, &localVarOptionals)
 
@@ -263,12 +264,7 @@ func initGitlabSyncImport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
-
 			gitlabSyncImportParameters := api.GitlabSyncImportParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncImportParameters); err != nil {
 				HandleError(err)
@@ -276,6 +272,10 @@ func initGitlabSyncImport() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", gitlabSyncImportParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncImport(auth, gitlabSyncId, gitlabSyncImportParameters, &localVarOptionals)
 
 			if err != nil {
@@ -333,9 +333,11 @@ func initGitlabSyncList() {
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("accountId")) {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
@@ -397,14 +399,14 @@ func initGitlabSyncShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("accountId")) {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
-
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncShow(auth, id, &localVarOptionals)
 
@@ -464,23 +466,26 @@ func initGitlabSyncUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("accountId")) {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("phraseProjectCode")) {
 				localVarOptionals.PhraseProjectCode = optional.NewString(params.GetString(helpers.ToSnakeCase("PhraseProjectCode")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("gitlabProjectId")) {
 				localVarOptionals.GitlabProjectId = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("GitlabProjectId")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("gitlabBranchName")) {
 				localVarOptionals.GitlabBranchName = optional.NewString(params.GetString(helpers.ToSnakeCase("GitlabBranchName")))
 			}
-
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncUpdate(auth, id, &localVarOptionals)
 

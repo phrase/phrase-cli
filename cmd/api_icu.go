@@ -48,10 +48,6 @@ func initIcuSkeleton() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			icuSkeletonParameters := api.IcuSkeletonParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &icuSkeletonParameters); err != nil {
 				HandleError(err)
@@ -59,6 +55,10 @@ func initIcuSkeleton() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", icuSkeletonParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.ICUApi.IcuSkeleton(auth, icuSkeletonParameters, &localVarOptionals)
 
 			if err != nil {

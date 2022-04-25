@@ -53,12 +53,11 @@ func initMemberDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.MembersApi.MemberDelete(auth, accountId, id, &localVarOptionals)
 
@@ -113,12 +112,11 @@ func initMemberShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.MembersApi.MemberShow(auth, accountId, id, &localVarOptionals)
 
@@ -178,13 +176,8 @@ func initMemberUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			memberUpdateParameters := api.MemberUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &memberUpdateParameters); err != nil {
 				HandleError(err)
@@ -192,6 +185,10 @@ func initMemberUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", memberUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.MembersApi.MemberUpdate(auth, accountId, id, memberUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -251,13 +248,8 @@ func initMemberUpdateSettings() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			memberUpdateSettingsParameters := api.MemberUpdateSettingsParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &memberUpdateSettingsParameters); err != nil {
 				HandleError(err)
@@ -265,6 +257,10 @@ func initMemberUpdateSettings() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", memberUpdateSettingsParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.MembersApi.MemberUpdateSettings(auth, projectId, id, memberUpdateSettingsParameters, &localVarOptionals)
 
 			if err != nil {
@@ -324,17 +320,18 @@ func initMembersList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.MembersApi.MembersList(auth, accountId, &localVarOptionals)
 

@@ -53,20 +53,32 @@ func initScreenshotCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
-			screenshotCreateParameters := api.ScreenshotCreateParameters{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotCreateParameters); err != nil {
-				HandleError(err)
+			if params.IsSet(helpers.ToSnakeCase("name")) {
+				localVarOptionals.Name = optional.NewString(params.GetString(helpers.ToSnakeCase("Name")))
 			}
-			if Config.Debug {
-				fmt.Printf("%+v\n", screenshotCreateParameters)
+
+			if params.IsSet(helpers.ToSnakeCase("description")) {
+				localVarOptionals.Description = optional.NewString(params.GetString(helpers.ToSnakeCase("Description")))
 			}
-			data, api_response, err := client.ScreenshotsApi.ScreenshotCreate(auth, projectId, screenshotCreateParameters, &localVarOptionals)
+
+			if params.IsSet(helpers.ToSnakeCase("filename")) {
+				file, err := os.Open(params.GetString(helpers.ToSnakeCase("filename")))
+				localVarOptionals.Filename = optional.NewInterface(file)
+				if err != nil {
+					HandleError(err)
+				}
+			}
+
+			data, api_response, err := client.ScreenshotsApi.ScreenshotCreate(auth, projectId, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -94,8 +106,11 @@ func initScreenshotCreate() {
 
 	ScreenshotsApiCmd.AddCommand(ScreenshotCreate)
 	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(ScreenshotCreate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("Name"), "", "Name of the screenshot", false)
+	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("Description"), "", "Description of the screenshot", false)
+	AddFlag(ScreenshotCreate, "*os.File", helpers.ToSnakeCase("Filename"), "", "Screenshot file", false)
 
 	params.BindPFlags(ScreenshotCreate.Flags())
 }
@@ -124,15 +139,15 @@ func initScreenshotDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotDelete(auth, projectId, id, &localVarOptionals)
 
@@ -188,15 +203,15 @@ func initScreenshotShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotShow(auth, projectId, id, &localVarOptionals)
 
@@ -257,13 +272,8 @@ func initScreenshotUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			screenshotUpdateParameters := api.ScreenshotUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotUpdateParameters); err != nil {
 				HandleError(err)
@@ -271,6 +281,10 @@ func initScreenshotUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", screenshotUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.ScreenshotsApi.ScreenshotUpdate(auth, projectId, id, screenshotUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -330,23 +344,26 @@ func initScreenshotsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("keyId")) {
 				localVarOptionals.KeyId = optional.NewString(params.GetString(helpers.ToSnakeCase("KeyId")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.ScreenshotsApi.ScreenshotsList(auth, projectId, &localVarOptionals)
 

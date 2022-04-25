@@ -53,13 +53,8 @@ func initScreenshotMarkerCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
-
 			screenshotMarkerCreateParameters := api.ScreenshotMarkerCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotMarkerCreateParameters); err != nil {
 				HandleError(err)
@@ -67,6 +62,10 @@ func initScreenshotMarkerCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", screenshotMarkerCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkerCreate(auth, projectId, screenshotId, screenshotMarkerCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -126,15 +125,15 @@ func initScreenshotMarkerDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
 
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkerDelete(auth, projectId, screenshotId, &localVarOptionals)
 
@@ -190,16 +189,16 @@ func initScreenshotMarkerShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
 
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkerShow(auth, projectId, screenshotId, id, &localVarOptionals)
 
@@ -261,13 +260,8 @@ func initScreenshotMarkerUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
-
 			screenshotMarkerUpdateParameters := api.ScreenshotMarkerUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotMarkerUpdateParameters); err != nil {
 				HandleError(err)
@@ -275,6 +269,10 @@ func initScreenshotMarkerUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", screenshotMarkerUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkerUpdate(auth, projectId, screenshotId, screenshotMarkerUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -334,21 +332,23 @@ func initScreenshotMarkersList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.ScreenshotMarkersApi.ScreenshotMarkersList(auth, projectId, id, &localVarOptionals)
 

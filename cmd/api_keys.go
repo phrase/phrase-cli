@@ -59,12 +59,7 @@ func initKeyCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			keyCreateParameters := api.KeyCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyCreateParameters); err != nil {
 				HandleError(err)
@@ -72,6 +67,10 @@ func initKeyCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keyCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.KeysApi.KeyCreate(auth, projectId, keyCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -130,15 +129,15 @@ func initKeyDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.KeysApi.KeyDelete(auth, projectId, id, &localVarOptionals)
 
@@ -194,15 +193,15 @@ func initKeyShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.KeysApi.KeyShow(auth, projectId, id, &localVarOptionals)
 
@@ -263,13 +262,8 @@ func initKeyUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			keyUpdateParameters := api.KeyUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyUpdateParameters); err != nil {
 				HandleError(err)
@@ -277,6 +271,10 @@ func initKeyUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keyUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.KeysApi.KeyUpdate(auth, projectId, id, keyUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -336,20 +334,22 @@ func initKeysDeleteCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("q")) {
 				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("localeId")) {
 				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.KeysApi.KeysDeleteCollection(auth, projectId, &localVarOptionals)
 
@@ -411,12 +411,7 @@ func initKeysExclude() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			keysExcludeParameters := api.KeysExcludeParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysExcludeParameters); err != nil {
 				HandleError(err)
@@ -424,6 +419,10 @@ func initKeysExclude() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keysExcludeParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.KeysApi.KeysExclude(auth, projectId, keysExcludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -482,12 +481,7 @@ func initKeysInclude() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			keysIncludeParameters := api.KeysIncludeParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysIncludeParameters); err != nil {
 				HandleError(err)
@@ -495,6 +489,10 @@ func initKeysInclude() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keysIncludeParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.KeysApi.KeysInclude(auth, projectId, keysIncludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -553,32 +551,38 @@ func initKeysList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("sort")) {
 				localVarOptionals.Sort = optional.NewString(params.GetString(helpers.ToSnakeCase("Sort")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("order")) {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("q")) {
 				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("localeId")) {
 				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.KeysApi.KeysList(auth, projectId, &localVarOptionals)
 
@@ -644,18 +648,7 @@ func initKeysSearch() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("page")) {
-				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
-			}
-			if params.IsSet(helpers.ToSnakeCase("perPage")) {
-				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			keysSearchParameters := api.KeysSearchParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysSearchParameters); err != nil {
 				HandleError(err)
@@ -663,6 +656,18 @@ func initKeysSearch() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keysSearchParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+
 			data, api_response, err := client.KeysApi.KeysSearch(auth, projectId, keysSearchParameters, &localVarOptionals)
 
 			if err != nil {
@@ -723,12 +728,7 @@ func initKeysTag() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			keysTagParameters := api.KeysTagParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysTagParameters); err != nil {
 				HandleError(err)
@@ -736,6 +736,10 @@ func initKeysTag() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keysTagParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.KeysApi.KeysTag(auth, projectId, keysTagParameters, &localVarOptionals)
 
 			if err != nil {
@@ -794,12 +798,7 @@ func initKeysUntag() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-
 			keysUntagParameters := api.KeysUntagParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysUntagParameters); err != nil {
 				HandleError(err)
@@ -807,6 +806,10 @@ func initKeysUntag() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", keysUntagParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.KeysApi.KeysUntag(auth, projectId, keysUntagParameters, &localVarOptionals)
 
 			if err != nil {

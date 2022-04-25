@@ -51,74 +51,84 @@ func initUploadCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("file")) {
 				file, err := os.Open(params.GetString(helpers.ToSnakeCase("file")))
 				localVarOptionals.File = optional.NewInterface(file)
-
 				if err != nil {
 					HandleError(err)
 				}
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("fileFormat")) {
 				localVarOptionals.FileFormat = optional.NewString(params.GetString(helpers.ToSnakeCase("FileFormat")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("localeId")) {
 				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("tags")) {
 				localVarOptionals.Tags = optional.NewString(params.GetString(helpers.ToSnakeCase("Tags")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("updateTranslations")) {
 				localVarOptionals.UpdateTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateTranslations")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("updateDescriptions")) {
 				localVarOptionals.UpdateDescriptions = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateDescriptions")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("convertEmoji")) {
 				localVarOptionals.ConvertEmoji = optional.NewBool(params.GetBool(helpers.ToSnakeCase("ConvertEmoji")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("skipUploadTags")) {
 				localVarOptionals.SkipUploadTags = optional.NewBool(params.GetBool(helpers.ToSnakeCase("SkipUploadTags")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("skipUnverification")) {
 				localVarOptionals.SkipUnverification = optional.NewBool(params.GetBool(helpers.ToSnakeCase("SkipUnverification")))
 			}
-			if params.IsSet(helpers.ToSnakeCase("fileEncoding")) {
-				file, err := os.Open(params.GetString(helpers.ToSnakeCase("file")))
-				localVarOptionals.File = optional.NewInterface(file)
 
-				if err != nil {
-					HandleError(err)
-				}
+			if params.IsSet(helpers.ToSnakeCase("fileEncoding")) {
+				localVarOptionals.FileEncoding = optional.NewString(params.GetString(helpers.ToSnakeCase("FileEncoding")))
 			}
-			if params.IsSet(helpers.ToSnakeCase("localeMapping")) {
-				var localeMapping map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("LocaleMapping"))), &localeMapping); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.LocaleMapping = optional.NewInterface(localeMapping)
+
+			var localeMapping map[string]interface{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &localeMapping); err != nil {
+				HandleError(err)
 			}
-			if params.IsSet(helpers.ToSnakeCase("formatOptions")) {
-				var formatOptions map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("FormatOptions"))), &formatOptions); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.FormatOptions = optional.NewInterface(formatOptions)
+
+			if Config.Debug {
+				fmt.Printf("%+v\n", localeMapping)
 			}
+
+			var formatOptions map[string]interface{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &formatOptions); err != nil {
+				HandleError(err)
+			}
+
+			if Config.Debug {
+				fmt.Printf("%+v\n", formatOptions)
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("autotranslate")) {
 				localVarOptionals.Autotranslate = optional.NewBool(params.GetBool(helpers.ToSnakeCase("Autotranslate")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("markReviewed")) {
 				localVarOptionals.MarkReviewed = optional.NewBool(params.GetBool(helpers.ToSnakeCase("MarkReviewed")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, &localVarOptionals)
 
@@ -192,15 +202,15 @@ func initUploadShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.UploadsApi.UploadShow(auth, projectId, id, &localVarOptionals)
 
@@ -261,20 +271,22 @@ func initUploadsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
 			data, api_response, err := client.UploadsApi.UploadsList(auth, projectId, &localVarOptionals)
 

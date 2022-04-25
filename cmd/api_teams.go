@@ -59,12 +59,7 @@ func initTeamCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-
 			teamCreateParameters := api.TeamCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamCreateParameters); err != nil {
 				HandleError(err)
@@ -72,6 +67,10 @@ func initTeamCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", teamCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TeamsApi.TeamCreate(auth, accountId, teamCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -130,12 +129,11 @@ func initTeamDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.TeamsApi.TeamDelete(auth, accountId, id, &localVarOptionals)
 
@@ -190,12 +188,11 @@ func initTeamShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			data, api_response, err := client.TeamsApi.TeamShow(auth, accountId, id, &localVarOptionals)
 
@@ -255,13 +252,8 @@ func initTeamUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-
 			teamUpdateParameters := api.TeamUpdateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamUpdateParameters); err != nil {
 				HandleError(err)
@@ -269,6 +261,10 @@ func initTeamUpdate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", teamUpdateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TeamsApi.TeamUpdate(auth, accountId, id, teamUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -328,17 +324,18 @@ func initTeamsList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("page")) {
 				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
 			}
+
 			if params.IsSet(helpers.ToSnakeCase("perPage")) {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
-
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
 			data, api_response, err := client.TeamsApi.TeamsList(auth, accountId, &localVarOptionals)
 
@@ -399,13 +396,8 @@ func initTeamsProjectsCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
-
 			teamsProjectsCreateParameters := api.TeamsProjectsCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsProjectsCreateParameters); err != nil {
 				HandleError(err)
@@ -413,6 +405,10 @@ func initTeamsProjectsCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", teamsProjectsCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TeamsApi.TeamsProjectsCreate(auth, accountId, teamId, teamsProjectsCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -467,13 +463,12 @@ func initTeamsProjectsDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
 			data, api_response, err := client.TeamsApi.TeamsProjectsDelete(auth, accountId, teamId, id, &localVarOptionals)
 
@@ -529,13 +524,8 @@ func initTeamsSpacesCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
-
 			teamsSpacesCreateParameters := api.TeamsSpacesCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsSpacesCreateParameters); err != nil {
 				HandleError(err)
@@ -543,6 +533,10 @@ func initTeamsSpacesCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", teamsSpacesCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TeamsApi.TeamsSpacesCreate(auth, accountId, teamId, teamsSpacesCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -597,13 +591,12 @@ func initTeamsSpacesDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
 			data, api_response, err := client.TeamsApi.TeamsSpacesDelete(auth, accountId, teamId, id, &localVarOptionals)
 
@@ -659,13 +652,8 @@ func initTeamsUsersCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
-
 			teamsUsersCreateParameters := api.TeamsUsersCreateParameters{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsUsersCreateParameters); err != nil {
 				HandleError(err)
@@ -673,6 +661,10 @@ func initTeamsUsersCreate() {
 			if Config.Debug {
 				fmt.Printf("%+v\n", teamsUsersCreateParameters)
 			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
 			data, api_response, err := client.TeamsApi.TeamsUsersCreate(auth, accountId, teamId, teamsUsersCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -727,13 +719,12 @@ func initTeamsUsersDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
 
 			data, api_response, err := client.TeamsApi.TeamsUsersDelete(auth, accountId, teamId, id, &localVarOptionals)
 
