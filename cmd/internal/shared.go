@@ -35,7 +35,7 @@ func LocalesForProjects(client *phrase.APIClient, projectLocales ProjectLocales,
 
 			remoteLocales, http_response, err := RemoteLocales(client, key)
 			if err != nil {
-				if http_response.StatusCode == 404 && branch != "" {
+				if http_response != nil && http_response.StatusCode == 404 && branch != "" {
 					// skip this key if we targeted a branch in
 					// a project which does not exist
 					continue
