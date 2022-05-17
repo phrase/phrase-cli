@@ -349,13 +349,12 @@ func initJobKeysDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			var translationKeyIds map[string]interface{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &translationKeyIds); err != nil {
-				HandleError(err)
-			}
-
-			if Config.Debug {
-				fmt.Printf("%+v\n", translationKeyIds)
+			if params.IsSet(helpers.ToSnakeCase("translationKeyIds")) {
+				var translationKeyIds map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("TranslationKeyIds"))), &translationKeyIds); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.TranslationKeyIds = optional.NewInterface(translationKeyIds)
 			}
 
 			data, api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, &localVarOptionals)

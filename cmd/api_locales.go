@@ -304,13 +304,12 @@ func initLocaleDownload() {
 				localVarOptionals.ConvertEmoji = optional.NewBool(params.GetBool(helpers.ToSnakeCase("ConvertEmoji")))
 			}
 
-			var formatOptions map[string]interface{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &formatOptions); err != nil {
-				HandleError(err)
-			}
-
-			if Config.Debug {
-				fmt.Printf("%+v\n", formatOptions)
+			if params.IsSet(helpers.ToSnakeCase("formatOptions")) {
+				var formatOptions map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("FormatOptions"))), &formatOptions); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.FormatOptions = optional.NewInterface(formatOptions)
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("encoding")) {

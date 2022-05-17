@@ -330,13 +330,12 @@ func initProjectsList() {
 				localVarOptionals.SortBy = optional.NewString(params.GetString(helpers.ToSnakeCase("SortBy")))
 			}
 
-			var filters map[string]interface{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &filters); err != nil {
-				HandleError(err)
-			}
-
-			if Config.Debug {
-				fmt.Printf("%+v\n", filters)
+			if params.IsSet(helpers.ToSnakeCase("filters")) {
+				var filters map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("Filters"))), &filters); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.Filters = optional.NewInterface(filters)
 			}
 
 			data, api_response, err := client.ProjectsApi.ProjectsList(auth, &localVarOptionals)

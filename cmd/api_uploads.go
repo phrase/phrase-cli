@@ -104,22 +104,20 @@ func initUploadCreate() {
 				localVarOptionals.FileEncoding = optional.NewString(params.GetString(helpers.ToSnakeCase("FileEncoding")))
 			}
 
-			var localeMapping map[string]interface{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &localeMapping); err != nil {
-				HandleError(err)
+			if params.IsSet(helpers.ToSnakeCase("localeMapping")) {
+				var localeMapping map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("LocaleMapping"))), &localeMapping); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.LocaleMapping = optional.NewInterface(localeMapping)
 			}
 
-			if Config.Debug {
-				fmt.Printf("%+v\n", localeMapping)
-			}
-
-			var formatOptions map[string]interface{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &formatOptions); err != nil {
-				HandleError(err)
-			}
-
-			if Config.Debug {
-				fmt.Printf("%+v\n", formatOptions)
+			if params.IsSet(helpers.ToSnakeCase("formatOptions")) {
+				var formatOptions map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("FormatOptions"))), &formatOptions); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.FormatOptions = optional.NewInterface(formatOptions)
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("autotranslate")) {
