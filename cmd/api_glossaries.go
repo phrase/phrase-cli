@@ -35,8 +35,8 @@ func initGlossariesList() {
 	use = strings.Join(strings.Split("glossaries/list", "/")[1:], "_")
 	var GlossariesList = &cobra.Command{
 		Use:   use,
-		Short: "List glossaries",
-		Long:  `List all glossaries the current user has access to.`,
+		Short: "List term bases",
+		Long:  `List all term bases (previously: glossaries) the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -107,8 +107,8 @@ func initGlossaryCreate() {
 	use = strings.Join(strings.Split("glossary/create", "/")[1:], "_")
 	var GlossaryCreate = &cobra.Command{
 		Use:   use,
-		Short: "Create a glossary",
-		Long:  `Create a new glossary.`,
+		Short: "Create a term base",
+		Long:  `Create a new term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -177,8 +177,8 @@ func initGlossaryDelete() {
 	use = strings.Join(strings.Split("glossary/delete", "/")[1:], "_")
 	var GlossaryDelete = &cobra.Command{
 		Use:   use,
-		Short: "Delete a glossary",
-		Long:  `Delete an existing glossary.`,
+		Short: "Delete a term base",
+		Long:  `Delete an existing term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -236,8 +236,8 @@ func initGlossaryShow() {
 	use = strings.Join(strings.Split("glossary/show", "/")[1:], "_")
 	var GlossaryShow = &cobra.Command{
 		Use:   use,
-		Short: "Get a single glossary",
-		Long:  `Get details on a single glossary.`,
+		Short: "Get a single term base",
+		Long:  `Get details on a single term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -300,8 +300,8 @@ func initGlossaryUpdate() {
 	use = strings.Join(strings.Split("glossary/update", "/")[1:], "_")
 	var GlossaryUpdate = &cobra.Command{
 		Use:   use,
-		Short: "Update a glossary",
-		Long:  `Update an existing glossary.`,
+		Short: "Update a term base",
+		Long:  `Update an existing term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

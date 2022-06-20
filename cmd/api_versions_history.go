@@ -103,7 +103,7 @@ func initVersionsList() {
 	var VersionsList = &cobra.Command{
 		Use:   use,
 		Short: "List all versions",
-		Long:  `List all versions for the given translation.`,
+		Long:  `List all changes done to a given translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

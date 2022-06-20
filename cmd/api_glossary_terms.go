@@ -35,8 +35,8 @@ func initGlossaryTermCreate() {
 	use = strings.Join(strings.Split("glossary_term/create", "/")[1:], "_")
 	var GlossaryTermCreate = &cobra.Command{
 		Use:   use,
-		Short: "Create a glossary term",
-		Long:  `Create a new glossary term.`,
+		Short: "Create a term",
+		Long:  `Create a new term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -107,8 +107,8 @@ func initGlossaryTermDelete() {
 	use = strings.Join(strings.Split("glossary_term/delete", "/")[1:], "_")
 	var GlossaryTermDelete = &cobra.Command{
 		Use:   use,
-		Short: "Delete a glossary term",
-		Long:  `Delete an existing glossary term.`,
+		Short: "Delete a term",
+		Long:  `Delete an existing term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -168,8 +168,8 @@ func initGlossaryTermShow() {
 	use = strings.Join(strings.Split("glossary_term/show", "/")[1:], "_")
 	var GlossaryTermShow = &cobra.Command{
 		Use:   use,
-		Short: "Get a single glossary term",
-		Long:  `Get details on a single glossary term.`,
+		Short: "Get a single term",
+		Long:  `Get details for a single term in the term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -234,8 +234,8 @@ func initGlossaryTermUpdate() {
 	use = strings.Join(strings.Split("glossary_term/update", "/")[1:], "_")
 	var GlossaryTermUpdate = &cobra.Command{
 		Use:   use,
-		Short: "Update a glossary term",
-		Long:  `Update an existing glossary term.`,
+		Short: "Update a term",
+		Long:  `Update an existing term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -308,8 +308,8 @@ func initGlossaryTermsList() {
 	use = strings.Join(strings.Split("glossary_terms/list", "/")[1:], "_")
 	var GlossaryTermsList = &cobra.Command{
 		Use:   use,
-		Short: "List glossary terms",
-		Long:  `List all glossary terms the current user has access to.`,
+		Short: "List terms",
+		Long:  `List all terms in term bases (previously: glossary) that the current user has access to.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

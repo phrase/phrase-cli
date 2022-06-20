@@ -33,8 +33,8 @@ func initGlossaryTermTranslationCreate() {
 	use = strings.Join(strings.Split("glossary_term_translation/create", "/")[1:], "_")
 	var GlossaryTermTranslationCreate = &cobra.Command{
 		Use:   use,
-		Short: "Create a glossary term translation",
-		Long:  `Create a new glossary term translation.`,
+		Short: "Create a translation for a term",
+		Long:  `Create a new translation for a term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -107,8 +107,8 @@ func initGlossaryTermTranslationDelete() {
 	use = strings.Join(strings.Split("glossary_term_translation/delete", "/")[1:], "_")
 	var GlossaryTermTranslationDelete = &cobra.Command{
 		Use:   use,
-		Short: "Delete a glossary term translation",
-		Long:  `Delete an existing glossary term translation.`,
+		Short: "Delete a translation for a term",
+		Long:  `Delete an existing translation of a term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -170,8 +170,8 @@ func initGlossaryTermTranslationUpdate() {
 	use = strings.Join(strings.Split("glossary_term_translation/update", "/")[1:], "_")
 	var GlossaryTermTranslationUpdate = &cobra.Command{
 		Use:   use,
-		Short: "Update a glossary term translation",
-		Long:  `Update an existing glossary term translation.`,
+		Short: "Update a translation for a term",
+		Long:  `Update an existing translation for a term in a term base (previously: glossary).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
