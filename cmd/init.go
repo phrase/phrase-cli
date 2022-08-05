@@ -15,7 +15,9 @@ func initInit() {
 		Short: "Configure your Phrase client",
 		Long:  "",
 		Run: func(cmd *cobra.Command, args []string) {
-			cmdInit := commands.InitCommand{}
+			cmdInit := commands.InitCommand{
+				Config: *Config,
+			}
 			err := cmdInit.Run()
 			if err != nil {
 				HandleError(err)

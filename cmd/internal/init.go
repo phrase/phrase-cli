@@ -87,11 +87,16 @@ type InitCommand struct {
 
 func (cmd *InitCommand) Run() error {
 	// keep host if specified in config file or as command line parameter
-	if cmd.Config.Credentials.Host != "" {
-		cmd.YAML.Host = cmd.Config.Credentials.Host
+	if cmd.Config.Host != "" {
+		cmd.YAML.Host = cmd.Config.Host
 	}
 
-	step := StepAskForToken
+	step := StepSelectProject
+	if cmd.Config.Token == "" {
+		step = StepAskForToken
+	} else {
+		cmd.setToken(cmd.Config.Token)
+	}
 
 	for step != StepFinished {
 		err := stepFuncs[step](cmd)
@@ -133,14 +138,16 @@ func (cmd *InitCommand) askForToken() error {
 		break
 	}
 
-	cmd.YAML.AccessToken = token
+	cmd.setToken(token)
+	return nil
+}
 
+func (cmd *InitCommand) setToken(token string) {
+	cmd.YAML.AccessToken = token
 	cmd.Credentials.Token = token
 	Config = &cmd.Config
 	client := newClient()
-
 	cmd.client = client
-	return nil
 }
 
 func (cmd *InitCommand) selectProject() error {
