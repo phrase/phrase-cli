@@ -38,6 +38,10 @@ Initialize your project by executing the `init` command. This lets you define yo
     $ cd /path/to/project
     $ phrase init
 
+When using the US datacenter you need to provide a different API host:
+
+    $ phrase init --host https://api.us.app.phrase.com/v2
+
 #### 3. Upload your locale files
 
 Use the `push` command to upload your locale files from your defined [sources](https://help.phrase.com/help/configuration):
