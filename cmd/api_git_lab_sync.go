@@ -99,8 +99,8 @@ func initGitlabSyncExport() {
 	use = strings.Join(strings.Split("gitlab_sync/export", "/")[1:], "_")
 	var GitlabSyncExport = &cobra.Command{
 		Use:   use,
-		Short: "Export from Phrase to GitLab",
-		Long:  `Export translations from Phrase to GitLab according to the .phraseapp.yml file within the GitLab repository.`,
+		Short: "Export from Phrase Strings to GitLab",
+		Long:  `Export translations from Phrase Strings to GitLab according to the .phraseapp.yml file within the GitLab repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -247,7 +247,7 @@ func initGitlabSyncImport() {
 	var GitlabSyncImport = &cobra.Command{
 		Use:   use,
 		Short: "Import from GitLab to Phrase",
-		Long:  `Import translations from GitLab to Phrase according to the .phraseapp.yml file within the GitLab repository.`,
+		Long:  `Import translations from GitLab to Phrase Strings according to the .phraseapp.yml file within the GitLab repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -317,7 +317,7 @@ func initGitlabSyncList() {
 	var GitlabSyncList = &cobra.Command{
 		Use:   use,
 		Short: "List GitLab syncs",
-		Long:  `List all GitLab Sync Settings for which synchronisation with Phrase and GitLab is activated.`,
+		Long:  `List all GitLab Sync Settings for which synchronisation with Phrase Strings and GitLab is activated.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -517,7 +517,7 @@ func initGitlabSyncUpdate() {
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID to specify the actual account the GitLab Sync should be created in. Required if the requesting user is a member of multiple accounts.", false)
-	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("PhraseProjectCode"), "", "Code of the related Phrase Project.", false)
+	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("PhraseProjectCode"), "", "Code of the related Phrase Strings Project.", false)
 	AddFlag(GitlabSyncUpdate, "int32", helpers.ToSnakeCase("GitlabProjectId"), "", "ID of the related GitLab Project.", false)
 	AddFlag(GitlabSyncUpdate, "string", helpers.ToSnakeCase("GitlabBranchName"), "", "Name of the GitLab Branch.", false)
 

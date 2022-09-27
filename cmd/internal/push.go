@@ -427,8 +427,8 @@ func printCreateBranchQuestion(branch string) {
 	ct.ChangeColor(ct.Green, false, ct.None, false)
 	fmt.Printf("%s", branch)
 	ct.ResetColor()
-	fmt.Printf("'.\nThere currently is no branch in Phrase with this name.\n\n")
-	fmt.Printf("Should we create a new branch in Phrase with the same name and push to it? [y/N]: ")
+	fmt.Printf("'.\nThere currently is no branch in Phrase Strings with this name.\n\n")
+	fmt.Printf("Should we create a new branch in Phrase Strings with the same name and push to it? [y/N]: ")
 }
 
 func isYes(text string) bool {

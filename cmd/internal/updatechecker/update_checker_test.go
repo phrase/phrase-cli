@@ -126,7 +126,7 @@ func TestUpdateChecker_CheckForUpdate_withUpdateAvailable(t *testing.T) {
 
 	tuc.Check()
 
-	expected := "Please consider updating the Phrase CLI client (1.1.3 < 2.0.0)\n"
+	expected := "Please consider updating the Phrase Strings CLI client (1.1.3 < 2.0.0)\n"
 	expected += "You can get the latest version from https://phrase.com/cli.\n"
 
 	if out.String() != expected {
@@ -151,7 +151,7 @@ func TestUpdateChecker_CheckForUpdate_withDevVersion(t *testing.T) {
 
 	tuc.Check()
 
-	expected := "You're running a development version (1.1.3-dev) of the Phrase client! Latest version is 2.0.0.\n"
+	expected := "You're running a development version (1.1.3-dev) of the Phrase Strings client! Latest version is 2.0.0.\n"
 
 	if out.String() != expected {
 		t.Errorf("expected %q, got %q", expected, out.String())

@@ -365,7 +365,7 @@ func initLocaleDownload() {
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
-	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FileFormat"), "", "File format name. See the <a href=\"https://help.phrase.com/help/supported-platforms-and-formats\">format guide</a> for all supported file formats.", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FileFormat"), "", "File format name. See the <a href=\"https://support.phrase.com/hc/en-us/articles/5784070560412\">format guide</a> for all supported file formats.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Tags"), "", "Limit results to keys tagged with a list of comma separated tag names.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Tag"), "", "Limit download to tagged keys. This parameter is deprecated. Please use the \"tags\" parameter instead", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("IncludeEmptyTranslations"), "", "Indicates whether keys without translations should be included in the output as well.", false)

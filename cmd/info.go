@@ -33,9 +33,9 @@ func initInfo() {
 
 func GetInfo() string {
 	info := []string{
-		fmt.Sprintf("Phrase client version:            %s", PHRASE_CLIENT_VERSION),
-		fmt.Sprintf("Phrase client revision:           %s", REVISION),
-		fmt.Sprintf("Phrase library revision:          %s", LIBRARY_REVISION),
+		fmt.Sprintf("Phrase Strings client version:            %s", PHRASE_CLIENT_VERSION),
+		fmt.Sprintf("Phrase Strings client revision:           %s", REVISION),
+		fmt.Sprintf("Phrase Strings library revision:          %s", LIBRARY_REVISION),
 		fmt.Sprintf("Last change at:                   %s", LAST_CHANGE),
 		fmt.Sprintf("Go version:                       %s", runtime.Version()),
 	}

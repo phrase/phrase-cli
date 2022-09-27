@@ -21,15 +21,15 @@ var (
 
 	rootCmd = &cobra.Command{
 		Use:   "phrase",
-		Short: "Phrase is a translation management platform for software projects.",
-		Long:  `You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase for your account.`,
+		Short: "Phrase Strings is a translation management platform for software projects.",
+		Long:  `You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.`,
 	}
 )
 
 func init() {
 	Config = &phrase.Config{
 		Debug:     false,
-		UserAgent: "Phrase CLI (" + PHRASE_CLIENT_VERSION + ")",
+		UserAgent: "Phrase Strings CLI (" + PHRASE_CLIENT_VERSION + ")",
 	}
 
 	cobra.OnInitialize(initConfig)

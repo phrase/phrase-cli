@@ -33,8 +33,8 @@ func initBitbucketSyncExport() {
 	use = strings.Join(strings.Split("bitbucket_sync/export", "/")[1:], "_")
 	var BitbucketSyncExport = &cobra.Command{
 		Use:   use,
-		Short: "Export from Phrase to Bitbucket",
-		Long:  `Export translations from Phrase to Bitbucket according to the .phraseapp.yml file within the Bitbucket Repository.`,
+		Short: "Export from Phrase Strings to Bitbucket",
+		Long:  `Export translations from Phrase Strings to Bitbucket according to the .phraseapp.yml file within the Bitbucket Repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -103,8 +103,8 @@ func initBitbucketSyncImport() {
 	use = strings.Join(strings.Split("bitbucket_sync/import", "/")[1:], "_")
 	var BitbucketSyncImport = &cobra.Command{
 		Use:   use,
-		Short: "Import to Phrase from Bitbucket",
-		Long:  `Import translations from Bitbucket to Phrase according to the .phraseapp.yml file within the Bitbucket repository.`,
+		Short: "Import to Phrase Strings from Bitbucket",
+		Long:  `Import translations from Bitbucket to Phrase Strings according to the .phraseapp.yml file within the Bitbucket repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -169,7 +169,7 @@ func initBitbucketSyncsList() {
 	var BitbucketSyncsList = &cobra.Command{
 		Use:   use,
 		Short: "List Bitbucket syncs",
-		Long:  `List all Bitbucket repositories for which synchronisation with Phrase is activated.`,
+		Long:  `List all Bitbucket repositories for which synchronisation with Phrase Strings is activated.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

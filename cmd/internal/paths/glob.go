@@ -48,7 +48,7 @@ func SplitAtDirGlobOperator(path, pattern string) (pathStart, patternStart, path
 	return
 }
 
-// Glob supports * and ** globbing according to https://help.phrase.com/phraseapp-for-developers/phraseapp-client/configuration#globbing
+// See https://support.phrase.com/hc/en-us/sections/5784132012828
 func Glob(pattern string) (matches []string, err error) {
 	pattern = filepath.Clean(pattern)
 	pattern = escape(pattern)

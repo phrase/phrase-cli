@@ -260,7 +260,7 @@ func (cmd *InitCommand) selectFormat() error {
 		fmt.Printf("%2d: %s - %s, file extension: %s\n", i+1, format.ApiName, format.Name, format.Extension)
 	}
 
-	promptText := fmt.Sprintf("Select the format to use for language files you download from Phrase (%v-%v", 1, len(formats))
+	promptText := fmt.Sprintf("Select the format to use for language files you download from Phrase Strings (%v-%v", 1, len(formats))
 	if cmd.FileFormat != nil && cmd.FileFormat.Name != "" {
 		promptText += fmt.Sprintf(" or leave blank to use the default, %s)", cmd.FileFormat.Name)
 	}

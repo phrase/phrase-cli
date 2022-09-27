@@ -32,8 +32,8 @@ func initGithubSyncExport() {
 	use = strings.Join(strings.Split("github_sync/export", "/")[1:], "_")
 	var GithubSyncExport = &cobra.Command{
 		Use:   use,
-		Short: "Export from Phrase to GitHub",
-		Long:  `Export translations from Phrase to GitHub according to the .phraseapp.yml file within the GitHub repository.`,
+		Short: "Export from Phrase Strings to GitHub",
+		Long:  `Export translations from Phrase Strings to GitHub according to the .phraseapp.yml file within the GitHub repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -95,8 +95,8 @@ func initGithubSyncImport() {
 	use = strings.Join(strings.Split("github_sync/import", "/")[1:], "_")
 	var GithubSyncImport = &cobra.Command{
 		Use:   use,
-		Short: "Import to Phrase from GitHub",
-		Long:  `Import files to Phrase from your connected GitHub repository.`,
+		Short: "Import to Phrase Strings from GitHub",
+		Long:  `Import files to Phrase Strings from your connected GitHub repository.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
