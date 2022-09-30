@@ -96,7 +96,6 @@ func containsInvalidTagInformation(target *Target) error {
 	return nil
 }
 
-//
 func (target *Target) localeForRemote() (*phrase.Locale, error) {
 	for _, locale := range target.RemoteLocales {
 		if locale.Id == target.GetLocaleID() || locale.Name == target.GetLocaleID() {
