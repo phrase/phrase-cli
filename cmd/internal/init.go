@@ -113,7 +113,8 @@ func (cmd *InitCommand) Run() error {
 }
 
 func (cmd *InitCommand) askForToken() error {
-	print.Parrot()
+	//print.Parrot()
+	print.PhraseLogo()
 	fmt.Println("phrase.com API Client Setup")
 	fmt.Println()
 
