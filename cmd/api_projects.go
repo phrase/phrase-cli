@@ -367,7 +367,7 @@ func initProjectsList() {
 	ProjectsApiCmd.AddCommand(ProjectsList)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("AccountId"), "", "Filter by Account ID", false)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("SortBy"), "", "Sort projects. Valid options are \"name_asc\", \"name_desc\", \"updated_at_asc\", \"updated_at_desc\", \"space_asc\" and \"space_desc\".", false)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("Filters"), "", "payload in JSON format", false)

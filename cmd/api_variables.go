@@ -361,7 +361,7 @@ func initVariablesList() {
 	AddFlag(VariablesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(VariablesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(VariablesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(VariablesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(VariablesList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 
 	params.BindPFlags(VariablesList.Flags())
 }

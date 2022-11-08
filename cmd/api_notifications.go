@@ -62,6 +62,10 @@ func initNotificationsList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("unseen")) {
+				localVarOptionals.Unseen = optional.NewBool(params.GetBool(helpers.ToSnakeCase("Unseen")))
+			}
+
 			data, api_response, err := client.NotificationsApi.NotificationsList(auth, &localVarOptionals)
 
 			if err != nil {
@@ -91,7 +95,8 @@ func initNotificationsList() {
 	NotificationsApiCmd.AddCommand(NotificationsList)
 	AddFlag(NotificationsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(NotificationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(NotificationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(NotificationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
+	AddFlag(NotificationsList, "bool", helpers.ToSnakeCase("Unseen"), "", "Include only unseen notifications", false)
 
 	params.BindPFlags(NotificationsList.Flags())
 }

@@ -363,7 +363,7 @@ func initMembersList() {
 	AddFlag(MembersList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(MembersList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(MembersList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(MembersList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(MembersList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 
 	params.BindPFlags(MembersList.Flags())
 }

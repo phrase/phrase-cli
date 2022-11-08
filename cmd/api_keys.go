@@ -614,7 +614,7 @@ func initKeysList() {
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeysList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(KeysList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(KeysList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("Sort"), "", "Sort by field. Can be one of: name, created_at, updated_at.", false)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
@@ -699,7 +699,7 @@ func initKeysSearch() {
 	AddFlag(KeysSearch, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(KeysSearch, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 
 	params.BindPFlags(KeysSearch.Flags())
 }

@@ -385,7 +385,7 @@ func initJobTemplateLocalesList() {
 	AddFlag(JobTemplateLocalesList, "string", helpers.ToSnakeCase("JobTemplateId"), "", "Job Template ID", true)
 	AddFlag(JobTemplateLocalesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobTemplateLocalesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(JobTemplateLocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "allows you to specify a page size up to 100 items, 25 by default", false)
+	AddFlag(JobTemplateLocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(JobTemplateLocalesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(JobTemplateLocalesList.Flags())
