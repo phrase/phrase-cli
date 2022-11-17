@@ -1,39 +1,63 @@
 package print
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"os"
+
+	"github.com/phrase/phrase-cli/cmd/internal/shared"
 
 	ct "github.com/daviddengcn/go-colortext"
 )
 
 const phrase_logo = `
-   *****@@@@@@@@@@@@@@@@@@@@.             
-   .********@@@@@@@@@@@@@@@@@@@@           
-   .***********             @@@@@          
-   .**************          ,@@@@          
-   .**************          ,@@@@          
-   .**************          ,@@@@          
-   .**************          ,@@@@          
-   .**************          ,@@@@          
-   .**************          ,@@@@          
-   .**************          ,@@@@          
-   .**************          @@@@@          
-   .**************  (@@@@@@@@@@@           
-   .**************  (@@@@@@@@@.            
-   **************                         
-      ***********                         
-         ********                         
-            ***** 
+   *****@@@@@@@@@@@@@@@@@@@@.
+   .********@@@@@@@@@@@@@@@@@@@@
+   .***********             @@@@@
+   .**************          ,@@@@
+   .**************          ,@@@@
+   .**************          ,@@@@
+   .**************          ,@@@@
+   .**************          ,@@@@
+   .**************          ,@@@@
+   .**************          ,@@@@
+   .**************          @@@@@
+   .**************  (@@@@@@@@@@@
+   .**************  (@@@@@@@@@.
+   **************
+      ***********
+         ********
+            *****
 `
+
+type ErrorMessage struct {
+	Error string `json:"error"`
+}
+
+type InfoMessage struct {
+	Message string `json:"message"`
+}
 
 func PhraseLogo() {
 	WithColor(ct.Cyan, phrase_logo)
 }
 
+// Prints the argument if the command is started in non-batch mode
+func NonBatchPrintf(msg string, args ...interface{}) {
+	if !shared.BatchMode {
+		fmt.Print(fmt.Sprintf(msg, args...))
+	}
+}
+
 func Success(msg string, args ...interface{}) {
-	WithColor(ct.Green, msg, args...)
+	if shared.BatchMode {
+		jsonStuct := &InfoMessage{Message: fmt.Sprintf(msg, args...)}
+		encodedJson, _ := json.Marshal(jsonStuct)
+		fmt.Println(string(encodedJson))
+	} else {
+		WithColor(ct.Green, msg, args...)
+	}
 }
 
 func Failure(msg string, args ...interface{}) {
@@ -45,7 +69,13 @@ func WithColor(color ct.Color, msg string, args ...interface{}) {
 }
 
 func Error(err error) {
-	fprintWithColor(os.Stderr, ct.Red, "ERROR: %s", err)
+	if shared.BatchMode {
+		jsonStuct := &ErrorMessage{Error: fmt.Sprint(err)}
+		encodedJson, _ := json.Marshal(jsonStuct)
+		fmt.Println(string(encodedJson))
+	} else {
+		fprintWithColor(os.Stderr, ct.Red, "ERROR: %s", err)
+	}
 }
 
 func fprintWithColor(w io.Writer, color ct.Color, msg string, args ...interface{}) {

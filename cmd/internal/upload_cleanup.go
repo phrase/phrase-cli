@@ -1,12 +1,16 @@
 package internal
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 	"sort"
 	"strings"
 
 	"github.com/antihax/optional"
+	"github.com/phrase/phrase-cli/cmd/internal/print"
 	prompt "github.com/phrase/phrase-cli/cmd/internal/prompt"
+	"github.com/phrase/phrase-cli/cmd/internal/shared"
 	"github.com/phrase/phrase-go/v2"
 )
 
@@ -39,7 +43,7 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 	}
 
 	if len(keys) == 0 {
-		fmt.Println("There were no keys unmentioned in that upload.")
+		print.Success("There were no keys unmentioned in that upload.")
 		return nil
 	}
 
@@ -52,6 +56,9 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 		}
 
 		if !cmd.Confirm {
+			if shared.BatchMode {
+				return errors.New("Can't ask for confirmation in batch mode. Aborting")
+			}
 			fmt.Println("You are about to delete the following key(s) from your project:")
 			sort.Strings(names)
 			fmt.Println(strings.Join(names, "\n"))
@@ -79,7 +86,7 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 			return err
 		}
 
-		fmt.Printf("%d key(s) successfully deleted.\n", affected.RecordsAffected)
+		outputAffected(affected)
 
 		keysListLocalVarOptionals.Page = optional.NewInt32(keysListLocalVarOptionals.Page.Value() + 1)
 
@@ -90,4 +97,16 @@ func UploadCleanup(client *phrase.APIClient, cmd *UploadCleanupCommand) error {
 	}
 
 	return nil
+}
+
+func outputAffected(affected phrase.AffectedResources) {
+	if shared.BatchMode {
+		jsonBuf, jsonErr := json.MarshalIndent(affected, "", " ")
+		if jsonErr != nil {
+			print.Error(jsonErr)
+		}
+		fmt.Printf("%s\n", string(jsonBuf))
+	} else {
+		print.Success("%d key(s) successfully deleted.\n", affected.RecordsAffected)
+	}
 }

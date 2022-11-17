@@ -3,6 +3,8 @@ package spinner
 import (
 	"fmt"
 	"time"
+
+	"github.com/phrase/phrase-cli/cmd/internal/shared"
 )
 
 // While executes f, displays an animated spinner while f runs, and stops when f returns.
@@ -31,6 +33,9 @@ func Until(c <-chan struct{}) {
 
 // spin animates a spinner until it receives something on the stop channel. It then clears the spinning character and closes the stop channel, signaling that it's done.
 func spin(stop chan struct{}) {
+	if shared.BatchMode {
+		return
+	}
 	chars := []string{`-`, `\`, `|`, `/`}
 	fmt.Print(" ")
 	i := 0

@@ -2,6 +2,7 @@ package internal
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -14,6 +15,7 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/paths"
 	"github.com/phrase/phrase-cli/cmd/internal/placeholders"
 	"github.com/phrase/phrase-cli/cmd/internal/print"
+	"github.com/phrase/phrase-cli/cmd/internal/shared"
 	"github.com/phrase/phrase-cli/cmd/internal/spinner"
 	"github.com/phrase/phrase-go/v2"
 )
@@ -77,6 +79,9 @@ func (cmd *PushCommand) Run() error {
 			_, _, err := client.BranchesApi.BranchShow(Auth, projectId, cmd.Branch, nil)
 			if err != nil {
 				if useLocalBranchName(cmd.UseLocalBranchName) {
+					if shared.BatchMode {
+						return nil
+					}
 					printCreateBranchQuestion(cmd.Branch)
 					text, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 
@@ -96,7 +101,7 @@ func (cmd *PushCommand) Run() error {
 				taskResult := make(chan string, 1)
 				taskErr := make(chan error, 1)
 
-				fmt.Printf("Waiting for branch %s is created!", branch.Name)
+				print.NonBatchPrintf("Waiting for branch %s is created!", branch.Name)
 				spinner.While(func() {
 					branchCreateResult, err := getBranchCreateResult(client, projectId, &branch)
 					taskResult <- branchCreateResult
@@ -146,7 +151,7 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 	}
 
 	for _, localeFile := range localeFiles {
-		fmt.Printf("Uploading %s... ", localeFile.RelPath())
+		print.NonBatchPrintf("Uploading %s... ", localeFile.RelPath())
 
 		if localeFile.shouldCreateLocale(source, branch) {
 			localeDetails, err := source.createLocale(client, localeFile, branch)
@@ -155,7 +160,7 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 				localeFile.Code = localeDetails.Code
 				localeFile.Name = localeDetails.Name
 			} else {
-				fmt.Printf("failed to create locale: %s\n", err)
+				print.NonBatchPrintf("failed to create locale: %s\n", err)
 				continue
 			}
 		}
@@ -166,18 +171,18 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 		}
 
 		if waitForResults {
-			fmt.Println()
+			print.NonBatchPrintf("\n")
 
 			taskResult := make(chan string, 1)
 			taskErr := make(chan error, 1)
 
-			fmt.Printf("Upload Id: %s, filename: %s succeeded. Waiting for your file to be processed... ", upload.Id, upload.Filename)
+			print.NonBatchPrintf("Upload Id: %s, filename: %s succeeded. Waiting for your file to be processed... ", upload.Id, upload.Filename)
 			spinner.While(func() {
 				result, err := getUploadResult(client, source.ProjectID, upload, branch)
 				taskResult <- result
 				taskErr <- err
 			})
-			fmt.Println()
+			print.NonBatchPrintf("\n")
 
 			if err := <-taskErr; err != nil {
 				return err
@@ -190,8 +195,7 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 				print.Failure("There was an error processing %s. Your changes were not saved online.", localeFile.RelPath())
 			}
 		} else {
-			fmt.Println("done!")
-			fmt.Printf("Check upload Id: %s, filename: %s for information about processing results.\n", upload.Id, upload.Filename)
+			outputUpload(upload)
 		}
 
 		if Debug {
@@ -200,6 +204,18 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 	}
 
 	return nil
+}
+
+func outputUpload(upload *phrase.Upload) {
+	if shared.BatchMode {
+		jsonBuf, jsonErr := json.MarshalIndent(upload, "", " ")
+		if jsonErr != nil {
+			print.Error(jsonErr)
+		}
+		fmt.Printf("%s\n", string(jsonBuf))
+	} else {
+		fmt.Printf("done!\nCheck upload Id: %s, filename: %s for information about processing results.\n", upload.Id, upload.Filename)
+	}
 }
 
 func formatsByApiName(client *phrase.APIClient) (map[string]*phrase.Format, error) {

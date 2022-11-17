@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"errors"
+
 	uploadCleanup "github.com/phrase/phrase-cli/cmd/internal"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -22,7 +24,7 @@ func initUpoadCleanup() {
 				projectId = Config.DefaultProjectID
 			}
 			if projectId == "" {
-				HandleError("required flag \"project_id\" not set")
+				HandleError(errors.New("required flag \"project_id\" not set"))
 				return
 			}
 
