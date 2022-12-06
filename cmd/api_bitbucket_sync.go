@@ -34,7 +34,7 @@ func initBitbucketSyncExport() {
 	var BitbucketSyncExport = &cobra.Command{
 		Use:   use,
 		Short: "Export from Phrase Strings to Bitbucket",
-		Long:  `Export translations from Phrase Strings to Bitbucket according to the .phraseapp.yml file within the Bitbucket Repository.`,
+		Long:  `Export translations from Phrase Strings to Bitbucket according to the .phraseapp.yml file within the Bitbucket Repository. &lt;br&gt;&lt;br&gt;&lt;i&gt;Note: Export is done asynchronously and may take several seconds depending on the project size.&lt;/i&gt;`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -104,7 +104,7 @@ func initBitbucketSyncImport() {
 	var BitbucketSyncImport = &cobra.Command{
 		Use:   use,
 		Short: "Import to Phrase Strings from Bitbucket",
-		Long:  `Import translations from Bitbucket to Phrase Strings according to the .phraseapp.yml file within the Bitbucket repository.`,
+		Long:  `Import translations from Bitbucket to Phrase Strings according to the .phraseapp.yml file within the Bitbucket repository. &lt;br&gt;&lt;br&gt;&lt;i&gt;Note: Import is done asynchronously and may take several seconds depending on the project size.&lt;/i&gt;`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

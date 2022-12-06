@@ -188,7 +188,7 @@ func initTranslationInclude() {
 	use = strings.Join(strings.Split("translation/include", "/")[1:], "_")
 	var TranslationInclude = &cobra.Command{
 		Use:   use,
-		Short: "Revoke exclusion of a translation in export",
+		Short: "Include a translation",
 		Long:  `Remove exclude from export flag from an existing translation.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -794,7 +794,7 @@ func initTranslationsByLocale() {
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
-	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).<br><br> The following qualifiers are supported in the query:<br> <ul>   <li><code>id:translation_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>unverified:{true|false}</code> for verification status</li>   <li><code>tags:XYZ</code> for tags on the translation</li>   <li><code>excluded:{true|false}</code> for exclusion status</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
+	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).<br><br> <i>Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).</i><br> The following qualifiers are supported in the query:<br> <ul>   <li><code>id:translation_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>unverified:{true|false}</code> for verification status</li>   <li><code>tags:XYZ</code> for tags on the translation</li>   <li><code>excluded:{true|false}</code> for exclusion status</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
 
 	params.BindPFlags(TranslationsByLocale.Flags())
 }
@@ -805,7 +805,7 @@ func initTranslationsExcludeCollection() {
 	use = strings.Join(strings.Split("translations/exclude-collection", "/")[1:], "_")
 	var TranslationsExcludeCollection = &cobra.Command{
 		Use:   use,
-		Short: "Set exclude from export flag on translations selected by query",
+		Short: "Exclude translations by query",
 		Long:  `Exclude translations matching query from locale export.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -875,7 +875,7 @@ func initTranslationsIncludeCollection() {
 	use = strings.Join(strings.Split("translations/include-collection", "/")[1:], "_")
 	var TranslationsIncludeCollection = &cobra.Command{
 		Use:   use,
-		Short: "Remove exlude from import flag from translations selected by query",
+		Short: "Include translations by query",
 		Long:  `Include translations matching query in locale export.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -1026,7 +1026,7 @@ func initTranslationsList() {
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
-	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).<br><br> The following qualifiers are supported in the query:<br> <ul>   <li><code>id:translation_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>tags:XYZ</code> for tags on the translation</li>   <li><code>unverified:{true|false}</code> for verification status</li>   <li><code>excluded:{true|false}</code> for exclusion status</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
+	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).<br><br> <i>Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).</i><br> The following qualifiers are supported in the query:<br> <ul>   <li><code>id:translation_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>tags:XYZ</code> for tags on the translation</li>   <li><code>unverified:{true|false}</code> for verification status</li>   <li><code>excluded:{true|false}</code> for exclusion status</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
 
 	params.BindPFlags(TranslationsList.Flags())
 }
@@ -1187,7 +1187,7 @@ func initTranslationsUnverifyCollection() {
 	use = strings.Join(strings.Split("translations/unverify-collection", "/")[1:], "_")
 	var TranslationsUnverifyCollection = &cobra.Command{
 		Use:   use,
-		Short: "Mark translations selected by query as unverified",
+		Short: "Unverify translations by query",
 		Long:  `Mark translations matching query as unverified.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -1257,7 +1257,7 @@ func initTranslationsVerifyCollection() {
 	use = strings.Join(strings.Split("translations/verify-collection", "/")[1:], "_")
 	var TranslationsVerifyCollection = &cobra.Command{
 		Use:   use,
-		Short: "Verify translations selected by query",
+		Short: "Verify translations by query",
 		Long:  `Verify translations matching query.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()

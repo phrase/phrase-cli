@@ -38,7 +38,7 @@ func initBranchCompare() {
 	var BranchCompare = &cobra.Command{
 		Use:   use,
 		Short: "Compare branches",
-		Long:  `Compare branch with main branch.`,
+		Long:  `Compare branch with main branch. &lt;br&gt;&lt;br&gt;&lt;i&gt;Note: Comparing a branch may take several minutes depending on the project size.&lt;/i&gt;`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -97,7 +97,7 @@ func initBranchCreate() {
 	var BranchCreate = &cobra.Command{
 		Use:   use,
 		Short: "Create a branch",
-		Long:  `Create a new branch.`,
+		Long:  `Create a new branch. &lt;br&gt;&lt;br&gt;&lt;i&gt;Note: Creating a new branch may take several minutes depending on the project size.&lt;/i&gt;`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -226,7 +226,7 @@ func initBranchMerge() {
 	var BranchMerge = &cobra.Command{
 		Use:   use,
 		Short: "Merge a branch",
-		Long:  `Merge an existing branch.`,
+		Long:  `Merge an existing branch. &lt;br&gt;&lt;br&gt;&lt;i&gt;Note: Merging a branch may take several minutes depending on diff size.&lt;/i&gt;`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

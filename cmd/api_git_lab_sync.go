@@ -100,7 +100,7 @@ func initGitlabSyncExport() {
 	var GitlabSyncExport = &cobra.Command{
 		Use:   use,
 		Short: "Export from Phrase Strings to GitLab",
-		Long:  `Export translations from Phrase Strings to GitLab according to the .phraseapp.yml file within the GitLab repository.`,
+		Long:  `Export translations from Phrase Strings to GitLab according to the .phraseapp.yml file within the GitLab repository. &lt;br&gt;&lt;br&gt;&lt;i&gt;Note: Export is done asynchronously and may take several seconds depending on the project size.&lt;/i&gt;`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -247,7 +247,7 @@ func initGitlabSyncImport() {
 	var GitlabSyncImport = &cobra.Command{
 		Use:   use,
 		Short: "Import from GitLab to Phrase",
-		Long:  `Import translations from GitLab to Phrase Strings according to the .phraseapp.yml file within the GitLab repository.`,
+		Long:  `Import translations from GitLab to Phrase Strings according to the .phraseapp.yml file within the GitLab repository. &lt;br&gt;&lt;br&gt;&lt;i&gt;Note: Import is done asynchronously and may take several seconds depending on the project size.&lt;/i&gt;`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

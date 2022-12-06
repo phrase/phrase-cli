@@ -182,7 +182,7 @@ func initUploadShow() {
 	use = strings.Join(strings.Split("upload/show", "/")[1:], "_")
 	var UploadShow = &cobra.Command{
 		Use:   use,
-		Short: "View upload details",
+		Short: "Get a single upload",
 		Long:  `View details and summary for a single upload.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
