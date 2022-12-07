@@ -23,7 +23,7 @@ for name in phrase_macosx_amd64 phrase_macosx_arm64; do
   rm phrase
 done
 
-for name in phrase_linux_386 phrase_linux_amd64; do
+for name in phrase_linux_386 phrase_linux_amd64 phrase_linux_arm64; do
   tar --create --mtime="@${SOURCE_DATE_EPOCH}" $name | gzip -n > ${name}.tar.gz
 done
 
