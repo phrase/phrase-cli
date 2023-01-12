@@ -147,6 +147,11 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		localVarOptionals.Branch = optional.NewString(branch)
 	}
 
+	if localeFile.Tag != "" {
+		localVarOptionals.Tags = optional.NewString(localeFile.Tag)
+		localVarOptionals.Tag = optional.EmptyString()
+	}
+
 	if Debug {
 		fmt.Fprintln(os.Stderr, "Target file pattern:", target.File)
 		fmt.Fprintln(os.Stderr, "Actual file path", localeFile.Path)
@@ -156,7 +161,7 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		fmt.Fprintln(os.Stderr, "ConvertEmoji", localVarOptionals.ConvertEmoji)
 		fmt.Fprintln(os.Stderr, "IncludeEmptyTranslations", localVarOptionals.IncludeEmptyTranslations)
 		fmt.Fprintln(os.Stderr, "KeepNotranslateTags", localVarOptionals.KeepNotranslateTags)
-		fmt.Fprintln(os.Stderr, "Tag", localVarOptionals.Tag)
+		fmt.Fprintln(os.Stderr, "Tags", localVarOptionals.Tags)
 		fmt.Fprintln(os.Stderr, "Branch", localVarOptionals.Branch)
 		fmt.Fprintln(os.Stderr, "FormatOptions", localVarOptionals.FormatOptions)
 	}
@@ -225,14 +230,7 @@ func (target *Target) LocaleFiles() (LocaleFiles, error) {
 func (target *Target) createLocaleFiles(remoteLocale *phrase.Locale) (LocaleFiles, error) {
 	files := []*LocaleFile{}
 	tags := target.GetTags()
-	if len(tags) == 0 {
-		localeFile, err := createLocaleFile(target, remoteLocale, "")
-		if err != nil {
-			return nil, err
-		}
-
-		files = append(files, localeFile)
-	} else {
+	if len(tags) > 0 && placeholders.ContainsTagPlaceholder(target.File) {
 		for _, tag := range tags {
 			localeFile, err := createLocaleFile(target, remoteLocale, tag)
 			if err != nil {
@@ -241,6 +239,13 @@ func (target *Target) createLocaleFiles(remoteLocale *phrase.Locale) (LocaleFile
 
 			files = append(files, localeFile)
 		}
+	} else {
+		localeFile, err := createLocaleFile(target, remoteLocale, "")
+		if err != nil {
+			return nil, err
+		}
+
+		files = append(files, localeFile)
 	}
 	return files, nil
 }
