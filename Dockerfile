@@ -1,5 +1,6 @@
-FROM alpine:latest AS phrase-cli
+FROM --platform=$BUILDPLATFORM alpine:latest AS phrase-cli
 
-COPY dist/phrase_linux_amd64 /usr/bin/phrase
+ARG CLI_PATH
+COPY ${CLI_PATH} /usr/bin/phrase
 
 ENTRYPOINT ["/usr/bin/phrase"]
