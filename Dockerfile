@@ -1,6 +1,8 @@
-FROM --platform=$BUILDPLATFORM alpine:latest AS phrase-cli
+FROM alpine:latest AS phrase-cli
 
-ARG CLI_PATH
-COPY ${CLI_PATH} /usr/bin/phrase
+ARG TARGETOS
+ARG TARGETARCH
+
+COPY dist/${TARGETOS}/${TARGETARCH} /usr/bin/phrase
 
 ENTRYPOINT ["/usr/bin/phrase"]

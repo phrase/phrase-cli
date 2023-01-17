@@ -18,8 +18,12 @@ IMAGE=${IMAGE_PREFIX}:${VERSION}
 IMAGE_LATEST=${IMAGE_PREFIX}:latest
 
 echo build docker image "${IMAGE}" and ${IMAGE_LATEST}
-docker buildx build --tag "${IMAGE}" --tag ${IMAGE_LATEST} --build-arg CLI_PATH="dist/phrase_linux_amd64" --platform linux/amd64 -f ./Dockerfile --push .
-docker buildx build --tag "${IMAGE}" --tag ${IMAGE_LATEST} --build-arg CLI_PATH="dist/phrase_linux_arm64" --platform linux/arm64 -f ./Dockerfile --push .
+
+mkdir -p dist/linux
+cp dist/phrase_linux_amd64 dist/linux/amd64
+cp dist/phrase_linux_arm64 dist/linux/arm64
+
+docker buildx build --tag "${IMAGE}" --tag ${IMAGE_LATEST} --platform linux/amd64,linux/arm64 -f ./Dockerfile --push .
 
 # Create release
 function create_release_data()
