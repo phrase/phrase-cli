@@ -268,6 +268,14 @@ func initLocaleDownload() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("ifModifiedSince")) {
+				localVarOptionals.IfModifiedSince = optional.NewString(params.GetString(helpers.ToSnakeCase("IfModifiedSince")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("ifNoneMatch")) {
+				localVarOptionals.IfNoneMatch = optional.NewString(params.GetString(helpers.ToSnakeCase("IfNoneMatch")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
@@ -364,6 +372,8 @@ func initLocaleDownload() {
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("IfModifiedSince"), "", "Last modified condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("IfNoneMatch"), "", "ETag condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FileFormat"), "", "File format name. See the <a href=\"https://support.phrase.com/hc/en-us/sections/6111343326364\">format guide</a> for all supported file formats.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Tags"), "", "Limit results to keys tagged with a list of comma separated tag names.", false)
