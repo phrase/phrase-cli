@@ -32,3 +32,21 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.version.outputs.VERSION }}
+  brew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Update Homebrew formula
+        uses: dawidd6/action-homebrew-bump-formula@02e79d9da43d79efa846d73695b6052cbbdbf48a # pin@v3.8.3
+        with:
+          # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
+          token: ${{secrets.GH_ACCESS_TOKEN}}
+          # Formula name, required
+          formula: phrase-cli
+          # Optional, will be determined automatically
+          tag: ${{github.ref_name}}
+          # Optional, will be determined automatically
+          revision: ${{github.sha}}
+          # Optional, if don't want to check for already open PRs
+          force: false
