@@ -26,8 +26,7 @@ This quick start will guide you through the basic steps to get up and running wi
 
 If you use homebrew, we have provided a tap to make installation easier on Mac OS X:
 
-        brew tap phrase/brewed
-        brew install phrase
+        brew install phrase-cli
 
 The tap is linked to our Formula collection and will be updated, when you call `brew update` as well.
 
