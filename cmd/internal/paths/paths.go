@@ -18,10 +18,6 @@ func Validate(file, formatName, formatExtension string) error {
 
 	fileExtension := strings.Trim(filepath.Ext(file), ".")
 
-	if fileExtension == "" {
-		return fmt.Errorf("%q has no file extension", file)
-	}
-
 	if fileExtension == "<locale_code>" {
 		return nil
 	}
