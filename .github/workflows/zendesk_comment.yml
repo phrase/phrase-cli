@@ -1,7 +1,0 @@
-on:
-  repository_dispatch:
-    types:
-      - zendesk
-jobs:
-  zendesk_comment:
-    uses: phrase/zendesk-integration/.github/workflows/zendesk_comment.yml@main

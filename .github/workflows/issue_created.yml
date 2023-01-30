@@ -1,8 +1,0 @@
-on:
-  issues:
-    types: [opened]
-jobs:
-  issue_created:
-    uses: phrase/zendesk-integration/.github/workflows/issue_created.yml@main
-    secrets:
-      ZENDESK_BASIC_AUTH: ${{ secrets.ZENDESK_BASIC_AUTH }}
