@@ -366,7 +366,7 @@ func (cmd *InitCommand) writeConfig() error {
 	}
 
 	filename := ".phrase.yml"
-	err = ioutil.WriteFile(filename, yamlBytes, 0655)
+	err = ioutil.WriteFile(filename, yamlBytes, 0644)
 	if err != nil {
 		return err
 	}
