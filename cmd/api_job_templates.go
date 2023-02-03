@@ -16,9 +16,9 @@ import (
 func init() {
 	initJobTemplateCreate()
 	initJobTemplateDelete()
-	initJobTemplateShow()
 	initJobTemplateUpdate()
 	initJobTemplatesList()
+	initJobTemplatesShow()
 
 	rootCmd.AddCommand(JobTemplatesApiCmd)
 }
@@ -161,75 +161,6 @@ func initJobTemplateDelete() {
 	AddFlag(JobTemplateDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(JobTemplateDelete.Flags())
-}
-func initJobTemplateShow() {
-	params := viper.New()
-	var use string
-	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("job_template/show", "/")[1:], "_")
-	var JobTemplateShow = &cobra.Command{
-		Use:   use,
-		Short: "Get a single job template",
-		Long:  `Get details on a single job template for a given project.`,
-		Run: func(cmd *cobra.Command, args []string) {
-			auth := Auth()
-
-			cfg := api.NewConfiguration()
-			cfg.SetUserAgent(Config.UserAgent)
-			if Config.Credentials.Host != "" {
-				cfg.BasePath = Config.Credentials.Host
-			}
-
-			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.JobTemplateShowOpts{}
-
-			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
-			}
-
-			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			id := params.GetString(helpers.ToSnakeCase("Id"))
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
-			data, api_response, err := client.JobTemplatesApi.JobTemplateShow(auth, projectId, id, &localVarOptionals)
-
-			if err != nil {
-				switch castedError := err.(type) {
-				case api.GenericOpenAPIError:
-					fmt.Printf("\n%s\n\n", string(castedError.Body()))
-					HandleError(castedError)
-
-				default:
-					HandleError(castedError)
-				}
-			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
-				if jsonErr != nil {
-					fmt.Printf("%v\n", data)
-					HandleError(err)
-				}
-				fmt.Printf("%s\n", string(jsonBuf))
-
-				if Config.Debug {
-					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
-				}
-			}
-		},
-	}
-
-	JobTemplatesApiCmd.AddCommand(JobTemplateShow)
-	AddFlag(JobTemplateShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(JobTemplateShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
-	AddFlag(JobTemplateShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(JobTemplateShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
-
-	params.BindPFlags(JobTemplateShow.Flags())
 }
 func initJobTemplateUpdate() {
 	params := viper.New()
@@ -379,4 +310,73 @@ func initJobTemplatesList() {
 	AddFlag(JobTemplatesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(JobTemplatesList.Flags())
+}
+func initJobTemplatesShow() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("job_templates/show", "/")[1:], "_")
+	var JobTemplatesShow = &cobra.Command{
+		Use:   use,
+		Short: "Get a single job template",
+		Long:  `Get details on a single job template for a given project.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.JobTemplatesShowOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+
+			data, api_response, err := client.JobTemplatesApi.JobTemplatesShow(auth, projectId, id, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	JobTemplatesApiCmd.AddCommand(JobTemplatesShow)
+	AddFlag(JobTemplatesShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(JobTemplatesShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobTemplatesShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobTemplatesShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+
+	params.BindPFlags(JobTemplatesShow.Flags())
 }
