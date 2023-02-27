@@ -39,7 +39,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Update Homebrew formula
-        uses: dawidd6/action-homebrew-bump-formula@02e79d9da43d79efa846d73695b6052cbbdbf48a # pin@v3.8.3
+        uses: dawidd6/action-homebrew-bump-formula@e9b43cd30eec6ea80777e7e22e1526beb1675c18 # pin@v3.9.0
         with:
           # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
           token: ${{secrets.GH_ACCESS_TOKEN}}
