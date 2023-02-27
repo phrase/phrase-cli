@@ -15,7 +15,7 @@ function build {
 	name=$3
 	echo "build os=${goos} arch=${goarch}" > /dev/stderr
 
-	CGO_ENABLED=0 GOOS=$goos GOARCH=$goarch go build -o $bin_dir/${name} -ldflags "-X 'github.com/phrase/phrase-cli/cmd.LAST_CHANGE=${LAST_CHANGE}' -X=github.com/phrase/phrase-cli/cmd.REVISION=$REVISION -X=github.com/phrase/phrase-cli/cmd.PHRASE_CLIENT_VERSION=${VERSION} -X=github.com/phrase/phrase-cli/cmd.LIBRARY_REVISION=$LIBRARY_REVISION -extldflags '-static'" .
+	CGO_ENABLED=0 GOOS=$goos GOARCH=$goarch go build -o $bin_dir/${name} -buildvcs=false -ldflags "-X 'github.com/phrase/phrase-cli/cmd.LAST_CHANGE=${LAST_CHANGE}' -X=github.com/phrase/phrase-cli/cmd.REVISION=$REVISION -X=github.com/phrase/phrase-cli/cmd.PHRASE_CLIENT_VERSION=${VERSION} -X=github.com/phrase/phrase-cli/cmd.LIBRARY_REVISION=$LIBRARY_REVISION -extldflags '-static'" .
 }
 
 build linux   amd64   phrase_linux_amd64
