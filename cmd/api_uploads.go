@@ -171,7 +171,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("LocaleMapping"), "", "payload in JSON format", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FormatOptions"), "", "payload in JSON format", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("Autotranslate"), "", "If set, translations for the uploaded language will be fetched automatically.", false)
-	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("MarkReviewed"), "", "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow (currently beta) is enabled for the project.", false)
+	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("MarkReviewed"), "", "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.", false)
 
 	params.BindPFlags(UploadCreate.Flags())
 }
