@@ -186,8 +186,8 @@ func initJobLocaleDelete() {
 	use = strings.Join(strings.Split("job_locale/delete", "/")[1:], "_")
 	var JobLocaleDelete = &cobra.Command{
 		Use:   use,
-		Short: "Delete a job locale",
-		Long:  `Delete an existing job locale.`,
+		Short: "Remove a target locale from a job",
+		Long:  `Removes a target locale from a job.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -326,8 +326,8 @@ func initJobLocaleShow() {
 	use = strings.Join(strings.Split("job_locale/show", "/")[1:], "_")
 	var JobLocaleShow = &cobra.Command{
 		Use:   use,
-		Short: "Get a single job locale",
-		Long:  `Get a single job locale for a given job.`,
+		Short: "Show single job target locale",
+		Long:  `Get a single target locale for a given job.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -397,8 +397,8 @@ func initJobLocaleUpdate() {
 	use = strings.Join(strings.Split("job_locale/update", "/")[1:], "_")
 	var JobLocaleUpdate = &cobra.Command{
 		Use:   use,
-		Short: "Update a job locale",
-		Long:  `Update an existing job locale.`,
+		Short: "Update a job target locale",
+		Long:  `Update an existing job target locale.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -471,8 +471,8 @@ func initJobLocalesCreate() {
 	use = strings.Join(strings.Split("job_locales/create", "/")[1:], "_")
 	var JobLocalesCreate = &cobra.Command{
 		Use:   use,
-		Short: "Create a job locale",
-		Long:  `Create a new job locale.`,
+		Short: "Add a target locale to a job",
+		Long:  `Adds a target locale to a job.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -543,8 +543,8 @@ func initJobLocalesList() {
 	use = strings.Join(strings.Split("job_locales/list", "/")[1:], "_")
 	var JobLocalesList = &cobra.Command{
 		Use:   use,
-		Short: "List job locales",
-		Long:  `List all job locales for a given job.`,
+		Short: "List job target locales",
+		Long:  `List all target locales for a given job.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
