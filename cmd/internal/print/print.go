@@ -52,11 +52,21 @@ func NonBatchPrintf(msg string, args ...interface{}) {
 
 func Success(msg string, args ...interface{}) {
 	if shared.BatchMode {
-		jsonStuct := &InfoMessage{Message: fmt.Sprintf(msg, args...)}
-		encodedJson, _ := json.Marshal(jsonStuct)
+		jsonStruct := &InfoMessage{Message: fmt.Sprintf(msg, args...)}
+		encodedJson, _ := json.Marshal(jsonStruct)
 		fmt.Println(string(encodedJson))
 	} else {
 		WithColor(ct.Green, msg, args...)
+	}
+}
+
+func Warn(msg string, args ...interface{}) {
+	if shared.BatchMode {
+		jsonStruct := &InfoMessage{Message: fmt.Sprintf(msg, args...)}
+		encodedJson, _ := json.Marshal(jsonStruct)
+		fmt.Println(string(encodedJson))
+	} else {
+		WithColor(ct.Yellow, msg, args...)
 	}
 }
 
