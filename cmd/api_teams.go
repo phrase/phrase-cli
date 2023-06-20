@@ -378,7 +378,7 @@ func initTeamsProjectsCreate() {
 	use = strings.Join(strings.Split("teams/projects/create", "/")[1:], "_")
 	var TeamsProjectsCreate = &cobra.Command{
 		Use:   use,
-		Short: "Add Project",
+		Short: "Add Project to Team",
 		Long:  `Adds an existing project to the team.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -445,7 +445,7 @@ func initTeamsProjectsDelete() {
 	use = strings.Join(strings.Split("teams/projects/delete", "/")[1:], "_")
 	var TeamsProjectsDelete = &cobra.Command{
 		Use:   use,
-		Short: "Remove Project",
+		Short: "Remove Project from Team",
 		Long:  `Removes a specified project from the specified team.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()

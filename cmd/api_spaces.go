@@ -375,7 +375,7 @@ func initSpacesProjectsCreate() {
 	use = strings.Join(strings.Split("spaces/projects/create", "/")[1:], "_")
 	var SpacesProjectsCreate = &cobra.Command{
 		Use:   use,
-		Short: "Add Project",
+		Short: "Add Project to Space",
 		Long:  `Adds an existing project to the space.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -442,7 +442,7 @@ func initSpacesProjectsDelete() {
 	use = strings.Join(strings.Split("spaces/projects/delete", "/")[1:], "_")
 	var SpacesProjectsDelete = &cobra.Command{
 		Use:   use,
-		Short: "Remove Project",
+		Short: "Remove Project from Space",
 		Long:  `Removes a specified project from the specified space.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
@@ -503,7 +503,7 @@ func initSpacesProjectsList() {
 	use = strings.Join(strings.Split("spaces/projects/list", "/")[1:], "_")
 	var SpacesProjectsList = &cobra.Command{
 		Use:   use,
-		Short: "List Projects",
+		Short: "List Projects in Space",
 		Long:  `List all projects for the specified Space.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
