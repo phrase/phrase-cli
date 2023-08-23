@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.0](https://github.com/phrase/openapi/compare/cli-v2.8.4...cli-v2.9.0) (2023-08-22)
+
+
+### Features
+
+* **TSE-950:** Document comment_reactions endpoints ([#380](https://github.com/phrase/openapi/issues/380)) ([f230244](https://github.com/phrase/openapi/commit/f230244e6e9c069b18edc4c35dd5e290fd14793b))
+
 ## [2.8.4](https://github.com/phrase/openapi/compare/cli-v2.8.3...cli-v2.8.4) (2023-07-31)
 
 
