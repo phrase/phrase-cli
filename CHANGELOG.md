@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.10.0](https://github.com/phrase/openapi/compare/cli-v2.9.1...cli-v2.10.0) (2023-08-24)
+
+
+### Features
+
+* **API:** Introduce comment replies endpoints ([#383](https://github.com/phrase/openapi/issues/383)) ([71351ac](https://github.com/phrase/openapi/commit/71351ac285f4f49976092e176c77b09f3485eb65))
+
 ## [2.9.1](https://github.com/phrase/openapi/compare/cli-v2.9.0...cli-v2.9.1) (2023-08-24)
 
 
