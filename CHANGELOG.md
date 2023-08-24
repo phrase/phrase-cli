@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.1](https://github.com/phrase/openapi/compare/cli-v2.9.0...cli-v2.9.1) (2023-08-24)
+
+
+### Bug Fixes
+
+* **cli:** Bump go library version ([#384](https://github.com/phrase/openapi/issues/384)) ([ab2f655](https://github.com/phrase/openapi/commit/ab2f6556184bc7171c00c3f1b81908aec0e57a04))
+
 ## [2.9.0](https://github.com/phrase/openapi/compare/cli-v2.8.4...cli-v2.9.0) (2023-08-22)
 
 
