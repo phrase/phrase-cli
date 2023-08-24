@@ -63,6 +63,10 @@ func initReactionCreate() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("emoji")) {
+				localVarOptionals.Emoji = optional.NewString(params.GetString(helpers.ToSnakeCase("Emoji")))
+			}
+
 			data, api_response, err := client.CommentReactionsApi.ReactionCreate(auth, projectId, keyId, commentId, &localVarOptionals)
 
 			if err != nil {
@@ -95,6 +99,7 @@ func initReactionCreate() {
 	AddFlag(ReactionCreate, "string", helpers.ToSnakeCase("CommentId"), "", "Comment ID", true)
 	AddFlag(ReactionCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ReactionCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(ReactionCreate, "string", helpers.ToSnakeCase("Emoji"), "", "specify the emoji for the reaction", false)
 
 	params.BindPFlags(ReactionCreate.Flags())
 }

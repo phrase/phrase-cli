@@ -69,6 +69,18 @@ func initCommentCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("message")) {
+				localVarOptionals.Message = optional.NewString(params.GetString(helpers.ToSnakeCase("Message")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("localeIds")) {
+				var localeIds map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("LocaleIds"))), &localeIds); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.LocaleIds = optional.NewInterface(localeIds)
+			}
+
 			data, api_response, err := client.CommentsApi.CommentCreate(auth, projectId, keyId, commentCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -100,6 +112,8 @@ func initCommentCreate() {
 	AddFlag(CommentCreate, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(CommentCreate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(CommentCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(CommentCreate, "string", helpers.ToSnakeCase("Message"), "", "specify the message for the comment", false)
+	AddFlag(CommentCreate, "string", helpers.ToSnakeCase("LocaleIds"), "", "payload in JSON format", false)
 
 	params.BindPFlags(CommentCreate.Flags())
 }
