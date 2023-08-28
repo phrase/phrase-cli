@@ -556,6 +556,13 @@ func initCommentsList() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+			commentsListParameters := api.CommentsListParameters{}
+			if err := json.Unmarshal([]byte(params.GetString("data")), &commentsListParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", commentsListParameters)
+			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -572,7 +579,27 @@ func initCommentsList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, &localVarOptionals)
+			if params.IsSet(helpers.ToSnakeCase("query")) {
+				localVarOptionals.Query = optional.NewString(params.GetString(helpers.ToSnakeCase("Query")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("localeIds")) {
+				var localeIds map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("LocaleIds"))), &localeIds); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.LocaleIds = optional.NewInterface(localeIds)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("filters")) {
+				var filters map[string]interface{}
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("Filters"))), &filters); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.Filters = optional.NewInterface(filters)
+			}
+
+			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, commentsListParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -601,10 +628,14 @@ func initCommentsList() {
 	CommentsApiCmd.AddCommand(CommentsList)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
+	AddFlag(CommentsList, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(CommentsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(CommentsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Query"), "", "Search query for comment messages", false)
+	AddFlag(CommentsList, "string", helpers.ToSnakeCase("LocaleIds"), "", "payload in JSON format", false)
+	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Filters"), "", "payload in JSON format", false)
 
 	params.BindPFlags(CommentsList.Flags())
 }
