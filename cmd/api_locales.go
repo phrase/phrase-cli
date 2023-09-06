@@ -231,7 +231,7 @@ func initLocaleDelete() {
 
 	LocalesApiCmd.AddCommand(LocaleDelete)
 	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("Id"), "", "Locale ID or locale name", true)
 	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(LocaleDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
@@ -370,7 +370,7 @@ func initLocaleDownload() {
 
 	LocalesApiCmd.AddCommand(LocaleDownload)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("Id"), "", "Locale ID or locale name", true)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("IfModifiedSince"), "", "Last modified condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("IfNoneMatch"), "", "ETag condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
@@ -456,7 +456,7 @@ func initLocaleShow() {
 
 	LocalesApiCmd.AddCommand(LocaleShow)
 	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("Id"), "", "Locale ID or locale name", true)
 	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(LocaleShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
@@ -528,7 +528,7 @@ func initLocaleUpdate() {
 
 	LocalesApiCmd.AddCommand(LocaleUpdate)
 	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("Id"), "", "Locale ID or locale name", true)
 	AddFlag(LocaleUpdate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(LocaleUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
