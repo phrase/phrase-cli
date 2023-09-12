@@ -128,6 +128,10 @@ func initUploadCreate() {
 				localVarOptionals.MarkReviewed = optional.NewBool(params.GetBool(helpers.ToSnakeCase("MarkReviewed")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("tagOnlyAffectedKeys")) {
+				localVarOptionals.TagOnlyAffectedKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("TagOnlyAffectedKeys")))
+			}
+
 			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -172,6 +176,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FormatOptions"), "", "payload in JSON format", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("Autotranslate"), "", "If set, translations for the uploaded language will be fetched automatically.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("MarkReviewed"), "", "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.", false)
+	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("TagOnlyAffectedKeys"), "", "Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`", false)
 
 	params.BindPFlags(UploadCreate.Flags())
 }
