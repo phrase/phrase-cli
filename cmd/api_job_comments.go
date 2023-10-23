@@ -346,6 +346,10 @@ func initJobCommentsList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("order")) {
+				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
+			}
+
 			data, api_response, err := client.JobCommentsApi.JobCommentsList(auth, projectId, jobId, &localVarOptionals)
 
 			if err != nil {
@@ -377,6 +381,7 @@ func initJobCommentsList() {
 	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 
 	params.BindPFlags(JobCommentsList.Flags())
 }

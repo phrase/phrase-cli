@@ -92,6 +92,10 @@ func initRepliesList() {
 				localVarOptionals.Filters = optional.NewInterface(filters)
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("order")) {
+				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
+			}
+
 			data, api_response, err := client.CommentRepliesApi.RepliesList(auth, projectId, keyId, commentId, repliesListParameters, &localVarOptionals)
 
 			if err != nil {
@@ -129,6 +133,7 @@ func initRepliesList() {
 	AddFlag(RepliesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(RepliesList, "string", helpers.ToSnakeCase("Query"), "", "Search query for comment messages", false)
 	AddFlag(RepliesList, "string", helpers.ToSnakeCase("Filters"), "", "payload in JSON format", false)
+	AddFlag(RepliesList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 
 	params.BindPFlags(RepliesList.Flags())
 }

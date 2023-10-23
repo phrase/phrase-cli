@@ -599,6 +599,10 @@ func initCommentsList() {
 				localVarOptionals.Filters = optional.NewInterface(filters)
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("order")) {
+				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
+			}
+
 			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, commentsListParameters, &localVarOptionals)
 
 			if err != nil {
@@ -636,6 +640,7 @@ func initCommentsList() {
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Query"), "", "Search query for comment messages", false)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("LocaleIds"), "", "payload in JSON format", false)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Filters"), "", "payload in JSON format", false)
+	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 
 	params.BindPFlags(CommentsList.Flags())
 }
