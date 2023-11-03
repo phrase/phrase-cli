@@ -120,6 +120,9 @@ func (target *Target) Pull(client *phrase.APIClient, branch string) error {
 
 		err = target.DownloadAndWriteToFile(client, localeFile, branch)
 		if err != nil {
+			if openapiError, ok := err.(phrase.GenericOpenAPIError); ok {
+				print.Warn("API response: %s", openapiError.Body())
+			}
 			return fmt.Errorf("%s for %s", err, localeFile.Path)
 		} else {
 			print.Success("Downloaded %s to %s", localeFile.Message(), localeFile.RelPath())
