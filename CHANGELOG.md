@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.15.0](https://github.com/phrase/openapi/compare/cli-v2.14.0...cli-v2.15.0) (2023-11-03)
+
+
+### Features
+
+* [TSI-2083] enable format_options argument for java-client   ([#426](https://github.com/phrase/openapi/issues/426)) ([faa8cb3](https://github.com/phrase/openapi/commit/faa8cb353ba9f1030b9f7cfd46b894b4d6d26e70))
+* **CLI:** On pull error, print the API response ([#463](https://github.com/phrase/openapi/issues/463)) ([b0b6ed1](https://github.com/phrase/openapi/commit/b0b6ed1b928f2c64fb618de76d88742e5f0cee8c))
+* Update openapi-generator to v7 ([#418](https://github.com/phrase/openapi/issues/418)) ([524626f](https://github.com/phrase/openapi/commit/524626f5e914bfef6025d0e1c2cbc7a728d08f56))
+
 ## [2.14.0](https://github.com/phrase/openapi/compare/cli-v2.13.0...cli-v2.14.0) (2023-10-23)
 
 
