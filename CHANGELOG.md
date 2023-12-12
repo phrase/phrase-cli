@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.0](https://github.com/phrase/openapi/compare/cli-v2.15.0...cli-v2.16.0) (2023-11-28)
+
+
+### Features
+
+* Add reports locales endpoint to API [TSS-2439] ([#465](https://github.com/phrase/openapi/issues/465)) ([e03aa9f](https://github.com/phrase/openapi/commit/e03aa9f49f031517b36db715fe70e8e0b65a438b))
+
 ## [2.15.0](https://github.com/phrase/openapi/compare/cli-v2.14.0...cli-v2.15.0) (2023-11-03)
 
 
