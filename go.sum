@@ -219,8 +219,8 @@ github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/9
 github.com/pelletier/go-toml v1.8.1 h1:1Nf83orprkJyknT6h7zbuEGUEjcyVlCxSUGTENmNCRM=
 github.com/pelletier/go-toml v1.8.1/go.mod h1:T2/BmBdy8dvIRq1a/8aqjN41wvWlN4lrapLU/GW4pbc=
 github.com/phrase/phrase-go v1.0.20/go.mod h1:kzi1yMrExYsCJuRIGM9jTkNEG2P3IN3wBfgRMZvv1Sc=
-github.com/phrase/phrase-go/v2 v2.19.0 h1:IAc45RE/uX+gq5E26Yo7MSNRGqKP3K2zeagCJd+5WtM=
-github.com/phrase/phrase-go/v2 v2.19.0/go.mod h1:S7M7uF8J/vdhi+oB+X4sMxmF2ZpeD+Y3Xh5zmIVIzcA=
+github.com/phrase/phrase-go/v2 v2.20.0 h1:RGfe6fnRmUeIe2N8J6XXEyUiWGZ6kYVDseu0+z2WO4k=
+github.com/phrase/phrase-go/v2 v2.20.0/go.mod h1:S7M7uF8J/vdhi+oB+X4sMxmF2ZpeD+Y3Xh5zmIVIzcA=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/sftp v1.10.1/go.mod h1:lYOWFsE0bwd1+KfKJaKeuokY15vzFx25BLbzYYoAxZI=
