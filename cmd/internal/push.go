@@ -214,7 +214,7 @@ func outputUpload(upload *phrase.Upload) {
 		}
 		fmt.Printf("%s\n", string(jsonBuf))
 	} else {
-		fmt.Printf("done!\nCheck upload Id: %s, filename: %s for information about processing results.\n", upload.Id, upload.Filename)
+		fmt.Printf("done!\nCheck upload Id: %s, filename: %s for information about processing results: %s\n", upload.Id, upload.Filename, upload.Url)
 	}
 }
 
