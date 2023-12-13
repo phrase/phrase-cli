@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.17.0](https://github.com/phrase/openapi/compare/cli-v2.16.0...cli-v2.17.0) (2023-12-13)
+
+
+### Features
+
+* **API:** add Custom Metadata endpoints ([#474](https://github.com/phrase/openapi/issues/474)) ([d407d8b](https://github.com/phrase/openapi/commit/d407d8be5ccddec1afde14a12804a7a616f77d7a))
+* **API:** Add custom_metadata_filters param to locale download endpoint [TSI-2174] ([#478](https://github.com/phrase/openapi/issues/478)) ([3623478](https://github.com/phrase/openapi/commit/3623478fc1518b457ab018b5630a693081637d6e))
+* **API:** Add url field to uploads ([#481](https://github.com/phrase/openapi/issues/481)) ([7332a84](https://github.com/phrase/openapi/commit/7332a84f9958346f2fb28dee4b0353519ef466d5))
+
+
+### Bug Fixes
+
+* **CLI:** fix required parameter handling ([#488](https://github.com/phrase/openapi/issues/488)) ([3d0412d](https://github.com/phrase/openapi/commit/3d0412df3c40b19cf8b12d5105e730990fd137b5))
+
 ## [2.16.0](https://github.com/phrase/openapi/compare/cli-v2.15.0...cli-v2.16.0) (2023-11-28)
 
 
