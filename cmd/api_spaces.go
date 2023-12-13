@@ -57,7 +57,7 @@ func initSpaceCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			spaceCreateParameters := api.SpaceCreateParameters{}
+			var spaceCreateParameters api.SpaceCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -251,7 +251,7 @@ func initSpaceUpdate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			spaceUpdateParameters := api.SpaceUpdateParameters{}
+			var spaceUpdateParameters api.SpaceUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceUpdateParameters); err != nil {
 				HandleError(err)
 			}
@@ -395,7 +395,7 @@ func initSpacesProjectsCreate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
-			spacesProjectsCreateParameters := api.SpacesProjectsCreateParameters{}
+			var spacesProjectsCreateParameters api.SpacesProjectsCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spacesProjectsCreateParameters); err != nil {
 				HandleError(err)
 			}

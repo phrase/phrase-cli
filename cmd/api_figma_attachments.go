@@ -54,7 +54,7 @@ func initFigmaAttachmentCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			figmaAttachmentCreateParameters := api.FigmaAttachmentCreateParameters{}
+			var figmaAttachmentCreateParameters api.FigmaAttachmentCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &figmaAttachmentCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -263,7 +263,7 @@ func initFigmaAttachmentUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			figmaAttachmentUpdateParameters := api.FigmaAttachmentUpdateParameters{}
+			var figmaAttachmentUpdateParameters api.FigmaAttachmentUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &figmaAttachmentUpdateParameters); err != nil {
 				HandleError(err)
 			}

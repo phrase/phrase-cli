@@ -52,7 +52,7 @@ func initBitbucketSyncExport() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			bitbucketSyncExportParameters := api.BitbucketSyncExportParameters{}
+			var bitbucketSyncExportParameters api.BitbucketSyncExportParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &bitbucketSyncExportParameters); err != nil {
 				HandleError(err)
 			}
@@ -122,7 +122,7 @@ func initBitbucketSyncImport() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			bitbucketSyncImportParameters := api.BitbucketSyncImportParameters{}
+			var bitbucketSyncImportParameters api.BitbucketSyncImportParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &bitbucketSyncImportParameters); err != nil {
 				HandleError(err)
 			}

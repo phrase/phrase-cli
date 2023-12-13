@@ -59,7 +59,7 @@ func initJobLocaleComplete() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobLocaleCompleteParameters := api.JobLocaleCompleteParameters{}
+			var jobLocaleCompleteParameters api.JobLocaleCompleteParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteParameters); err != nil {
 				HandleError(err)
 			}
@@ -133,7 +133,7 @@ func initJobLocaleCompleteReview() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobLocaleCompleteReviewParameters := api.JobLocaleCompleteReviewParameters{}
+			var jobLocaleCompleteReviewParameters api.JobLocaleCompleteReviewParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteReviewParameters); err != nil {
 				HandleError(err)
 			}
@@ -273,7 +273,7 @@ func initJobLocaleReopen() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobLocaleReopenParameters := api.JobLocaleReopenParameters{}
+			var jobLocaleReopenParameters api.JobLocaleReopenParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleReopenParameters); err != nil {
 				HandleError(err)
 			}
@@ -418,7 +418,7 @@ func initJobLocaleUpdate() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobLocaleUpdateParameters := api.JobLocaleUpdateParameters{}
+			var jobLocaleUpdateParameters api.JobLocaleUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleUpdateParameters); err != nil {
 				HandleError(err)
 			}
@@ -491,7 +491,7 @@ func initJobLocalesCreate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
-			jobLocalesCreateParameters := api.JobLocalesCreateParameters{}
+			var jobLocalesCreateParameters api.JobLocalesCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocalesCreateParameters); err != nil {
 				HandleError(err)
 			}

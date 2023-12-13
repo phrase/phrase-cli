@@ -54,7 +54,7 @@ func initBlacklistedKeyCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			blacklistedKeyCreateParameters := api.BlacklistedKeyCreateParameters{}
+			var blacklistedKeyCreateParameters api.BlacklistedKeyCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -248,7 +248,7 @@ func initBlacklistedKeyUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			blacklistedKeyUpdateParameters := api.BlacklistedKeyUpdateParameters{}
+			var blacklistedKeyUpdateParameters api.BlacklistedKeyUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyUpdateParameters); err != nil {
 				HandleError(err)
 			}

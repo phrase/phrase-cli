@@ -57,7 +57,7 @@ func initRepliesList() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
-			repliesListParameters := api.RepliesListParameters{}
+			var repliesListParameters api.RepliesListParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &repliesListParameters); err != nil {
 				HandleError(err)
 			}

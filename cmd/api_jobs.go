@@ -63,7 +63,7 @@ func initJobComplete() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobCompleteParameters := api.JobCompleteParameters{}
+			var jobCompleteParameters api.JobCompleteParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCompleteParameters); err != nil {
 				HandleError(err)
 			}
@@ -134,7 +134,7 @@ func initJobCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			jobCreateParameters := api.JobCreateParameters{}
+			var jobCreateParameters api.JobCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -269,7 +269,7 @@ func initJobKeysCreate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobKeysCreateParameters := api.JobKeysCreateParameters{}
+			var jobKeysCreateParameters api.JobKeysCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobKeysCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -478,7 +478,7 @@ func initJobReopen() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobReopenParameters := api.JobReopenParameters{}
+			var jobReopenParameters api.JobReopenParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobReopenParameters); err != nil {
 				HandleError(err)
 			}
@@ -619,7 +619,7 @@ func initJobStart() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobStartParameters := api.JobStartParameters{}
+			var jobStartParameters api.JobStartParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobStartParameters); err != nil {
 				HandleError(err)
 			}
@@ -755,7 +755,7 @@ func initJobUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobUpdateParameters := api.JobUpdateParameters{}
+			var jobUpdateParameters api.JobUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobUpdateParameters); err != nil {
 				HandleError(err)
 			}

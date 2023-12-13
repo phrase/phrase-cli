@@ -58,7 +58,7 @@ func initCommentCreate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
-			commentCreateParameters := api.CommentCreateParameters{}
+			var commentCreateParameters api.CommentCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -277,7 +277,7 @@ func initCommentMarkRead() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			commentMarkReadParameters := api.CommentMarkReadParameters{}
+			var commentMarkReadParameters api.CommentMarkReadParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentMarkReadParameters); err != nil {
 				HandleError(err)
 			}
@@ -483,7 +483,7 @@ func initCommentUpdate() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			commentUpdateParameters := api.CommentUpdateParameters{}
+			var commentUpdateParameters api.CommentUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentUpdateParameters); err != nil {
 				HandleError(err)
 			}
@@ -556,7 +556,7 @@ func initCommentsList() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
-			commentsListParameters := api.CommentsListParameters{}
+			var commentsListParameters api.CommentsListParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentsListParameters); err != nil {
 				HandleError(err)
 			}

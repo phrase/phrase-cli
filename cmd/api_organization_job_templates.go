@@ -54,7 +54,7 @@ func initOrganizationJobTemplateCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			organizationJobTemplateCreateParameters := api.OrganizationJobTemplateCreateParameters{}
+			var organizationJobTemplateCreateParameters api.OrganizationJobTemplateCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &organizationJobTemplateCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -184,7 +184,7 @@ func initOrganizationJobTemplateUpdate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			organizationJobTemplateUpdateParameters := api.OrganizationJobTemplateUpdateParameters{}
+			var organizationJobTemplateUpdateParameters api.OrganizationJobTemplateUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &organizationJobTemplateUpdateParameters); err != nil {
 				HandleError(err)
 			}

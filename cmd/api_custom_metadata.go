@@ -210,12 +210,12 @@ func initCustomMetadataPropertyCreate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
-			if params.IsSet(helpers.ToSnakeCase("dataType")) {
-				var dataType map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("DataType"))), &dataType); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.DataType = optional.NewInterface(dataType)
+			var dataType api.CustomMetadataDataType
+			if err := json.Unmarshal([]byte(params.GetString("data")), &dataType); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", dataType)
 			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))

@@ -55,7 +55,7 @@ func initScreenshotMarkerCreate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
-			screenshotMarkerCreateParameters := api.ScreenshotMarkerCreateParameters{}
+			var screenshotMarkerCreateParameters api.ScreenshotMarkerCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotMarkerCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -262,7 +262,7 @@ func initScreenshotMarkerUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
-			screenshotMarkerUpdateParameters := api.ScreenshotMarkerUpdateParameters{}
+			var screenshotMarkerUpdateParameters api.ScreenshotMarkerUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotMarkerUpdateParameters); err != nil {
 				HandleError(err)
 			}

@@ -129,7 +129,7 @@ func initLocaleCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			localeCreateParameters := api.LocaleCreateParameters{}
+			var localeCreateParameters api.LocaleCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &localeCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -498,7 +498,7 @@ func initLocaleUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			localeUpdateParameters := api.LocaleUpdateParameters{}
+			var localeUpdateParameters api.LocaleUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &localeUpdateParameters); err != nil {
 				HandleError(err)
 			}

@@ -54,7 +54,7 @@ func initVariableCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			variableCreateParameters := api.VariableCreateParameters{}
+			var variableCreateParameters api.VariableCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &variableCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -248,7 +248,7 @@ func initVariableUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
-			variableUpdateParameters := api.VariableUpdateParameters{}
+			var variableUpdateParameters api.VariableUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &variableUpdateParameters); err != nil {
 				HandleError(err)
 			}

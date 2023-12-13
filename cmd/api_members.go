@@ -178,7 +178,7 @@ func initMemberUpdate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			memberUpdateParameters := api.MemberUpdateParameters{}
+			var memberUpdateParameters api.MemberUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &memberUpdateParameters); err != nil {
 				HandleError(err)
 			}
@@ -250,7 +250,7 @@ func initMemberUpdateSettings() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			memberUpdateSettingsParameters := api.MemberUpdateSettingsParameters{}
+			var memberUpdateSettingsParameters api.MemberUpdateSettingsParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &memberUpdateSettingsParameters); err != nil {
 				HandleError(err)
 			}

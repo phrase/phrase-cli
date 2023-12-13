@@ -115,7 +115,7 @@ func initBranchCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			branchCreateParameters := api.BranchCreateParameters{}
+			var branchCreateParameters api.BranchCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -245,7 +245,7 @@ func initBranchMerge() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
-			branchMergeParameters := api.BranchMergeParameters{}
+			var branchMergeParameters api.BranchMergeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchMergeParameters); err != nil {
 				HandleError(err)
 			}
@@ -376,7 +376,7 @@ func initBranchUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			name := params.GetString(helpers.ToSnakeCase("Name"))
-			branchUpdateParameters := api.BranchUpdateParameters{}
+			var branchUpdateParameters api.BranchUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &branchUpdateParameters); err != nil {
 				HandleError(err)
 			}

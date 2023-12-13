@@ -126,7 +126,7 @@ func initGlossaryCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			glossaryCreateParameters := api.GlossaryCreateParameters{}
+			var glossaryCreateParameters api.GlossaryCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -320,7 +320,7 @@ func initGlossaryUpdate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			glossaryUpdateParameters := api.GlossaryUpdateParameters{}
+			var glossaryUpdateParameters api.GlossaryUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryUpdateParameters); err != nil {
 				HandleError(err)
 			}

@@ -60,7 +60,7 @@ func initTeamCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			teamCreateParameters := api.TeamCreateParameters{}
+			var teamCreateParameters api.TeamCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -254,7 +254,7 @@ func initTeamUpdate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			teamUpdateParameters := api.TeamUpdateParameters{}
+			var teamUpdateParameters api.TeamUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamUpdateParameters); err != nil {
 				HandleError(err)
 			}
@@ -398,7 +398,7 @@ func initTeamsProjectsCreate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
-			teamsProjectsCreateParameters := api.TeamsProjectsCreateParameters{}
+			var teamsProjectsCreateParameters api.TeamsProjectsCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsProjectsCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -526,7 +526,7 @@ func initTeamsSpacesCreate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
-			teamsSpacesCreateParameters := api.TeamsSpacesCreateParameters{}
+			var teamsSpacesCreateParameters api.TeamsSpacesCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsSpacesCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -654,7 +654,7 @@ func initTeamsUsersCreate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
-			teamsUsersCreateParameters := api.TeamsUsersCreateParameters{}
+			var teamsUsersCreateParameters api.TeamsUsersCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsUsersCreateParameters); err != nil {
 				HandleError(err)
 			}

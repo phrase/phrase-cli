@@ -50,7 +50,7 @@ func initGithubSyncExport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			githubSyncExportParameters := api.GithubSyncExportParameters{}
+			var githubSyncExportParameters api.GithubSyncExportParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &githubSyncExportParameters); err != nil {
 				HandleError(err)
 			}
@@ -113,7 +113,7 @@ func initGithubSyncImport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			githubSyncImportParameters := api.GithubSyncImportParameters{}
+			var githubSyncImportParameters api.GithubSyncImportParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &githubSyncImportParameters); err != nil {
 				HandleError(err)
 			}

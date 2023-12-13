@@ -60,7 +60,7 @@ func initKeyCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			keyCreateParameters := api.KeyCreateParameters{}
+			var keyCreateParameters api.KeyCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -264,7 +264,7 @@ func initKeyUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			keyUpdateParameters := api.KeyUpdateParameters{}
+			var keyUpdateParameters api.KeyUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyUpdateParameters); err != nil {
 				HandleError(err)
 			}
@@ -412,7 +412,7 @@ func initKeysExclude() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			keysExcludeParameters := api.KeysExcludeParameters{}
+			var keysExcludeParameters api.KeysExcludeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysExcludeParameters); err != nil {
 				HandleError(err)
 			}
@@ -482,7 +482,7 @@ func initKeysInclude() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			keysIncludeParameters := api.KeysIncludeParameters{}
+			var keysIncludeParameters api.KeysIncludeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysIncludeParameters); err != nil {
 				HandleError(err)
 			}
@@ -649,7 +649,7 @@ func initKeysSearch() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			keysSearchParameters := api.KeysSearchParameters{}
+			var keysSearchParameters api.KeysSearchParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysSearchParameters); err != nil {
 				HandleError(err)
 			}
@@ -729,7 +729,7 @@ func initKeysTag() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			keysTagParameters := api.KeysTagParameters{}
+			var keysTagParameters api.KeysTagParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysTagParameters); err != nil {
 				HandleError(err)
 			}
@@ -799,7 +799,7 @@ func initKeysUntag() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			keysUntagParameters := api.KeysUntagParameters{}
+			var keysUntagParameters api.KeysUntagParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysUntagParameters); err != nil {
 				HandleError(err)
 			}

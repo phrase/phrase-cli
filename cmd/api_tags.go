@@ -53,7 +53,7 @@ func initTagCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			tagCreateParameters := api.TagCreateParameters{}
+			var tagCreateParameters api.TagCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &tagCreateParameters); err != nil {
 				HandleError(err)
 			}

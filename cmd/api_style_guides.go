@@ -54,7 +54,7 @@ func initStyleguideCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			styleguideCreateParameters := api.StyleguideCreateParameters{}
+			var styleguideCreateParameters api.StyleguideCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &styleguideCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -248,7 +248,7 @@ func initStyleguideUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			styleguideUpdateParameters := api.StyleguideUpdateParameters{}
+			var styleguideUpdateParameters api.StyleguideUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &styleguideUpdateParameters); err != nil {
 				HandleError(err)
 			}

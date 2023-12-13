@@ -56,7 +56,7 @@ func initReleaseCreate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
-			releaseCreateParameters := api.ReleaseCreateParameters{}
+			var releaseCreateParameters api.ReleaseCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &releaseCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -322,7 +322,7 @@ func initReleaseUpdate() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			releaseUpdateParameters := api.ReleaseUpdateParameters{}
+			var releaseUpdateParameters api.ReleaseUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &releaseUpdateParameters); err != nil {
 				HandleError(err)
 			}

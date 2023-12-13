@@ -56,7 +56,7 @@ func initInvitationCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			invitationCreateParameters := api.InvitationCreateParameters{}
+			var invitationCreateParameters api.InvitationCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -314,7 +314,7 @@ func initInvitationUpdate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			invitationUpdateParameters := api.InvitationUpdateParameters{}
+			var invitationUpdateParameters api.InvitationUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateParameters); err != nil {
 				HandleError(err)
 			}
@@ -386,7 +386,7 @@ func initInvitationUpdateSettings() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			invitationUpdateSettingsParameters := api.InvitationUpdateSettingsParameters{}
+			var invitationUpdateSettingsParameters api.InvitationUpdateSettingsParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateSettingsParameters); err != nil {
 				HandleError(err)
 			}

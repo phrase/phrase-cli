@@ -118,7 +118,7 @@ func initGitlabSyncExport() {
 			}
 
 			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
-			gitlabSyncExportParameters := api.GitlabSyncExportParameters{}
+			var gitlabSyncExportParameters api.GitlabSyncExportParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncExportParameters); err != nil {
 				HandleError(err)
 			}
@@ -265,7 +265,7 @@ func initGitlabSyncImport() {
 			}
 
 			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
-			gitlabSyncImportParameters := api.GitlabSyncImportParameters{}
+			var gitlabSyncImportParameters api.GitlabSyncImportParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncImportParameters); err != nil {
 				HandleError(err)
 			}

@@ -183,7 +183,7 @@ func initOrganizationJobTemplateLocaleUpdate() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
 			jobTemplateLocaleId := params.GetString(helpers.ToSnakeCase("JobTemplateLocaleId"))
-			organizationJobTemplateLocaleUpdateParameters := api.OrganizationJobTemplateLocaleUpdateParameters{}
+			var organizationJobTemplateLocaleUpdateParameters api.OrganizationJobTemplateLocaleUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &organizationJobTemplateLocaleUpdateParameters); err != nil {
 				HandleError(err)
 			}
@@ -256,7 +256,7 @@ func initOrganizationJobTemplateLocalesCreate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
-			organizationJobTemplateLocalesCreateParameters := api.OrganizationJobTemplateLocalesCreateParameters{}
+			var organizationJobTemplateLocalesCreateParameters api.OrganizationJobTemplateLocalesCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &organizationJobTemplateLocalesCreateParameters); err != nil {
 				HandleError(err)
 			}

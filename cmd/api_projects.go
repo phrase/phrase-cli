@@ -53,7 +53,7 @@ func initProjectCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			projectCreateParameters := api.ProjectCreateParameters{}
+			var projectCreateParameters api.ProjectCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &projectCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -241,7 +241,7 @@ func initProjectUpdate() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			projectUpdateParameters := api.ProjectUpdateParameters{}
+			var projectUpdateParameters api.ProjectUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &projectUpdateParameters); err != nil {
 				HandleError(err)
 			}

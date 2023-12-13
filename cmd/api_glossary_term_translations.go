@@ -54,7 +54,7 @@ func initGlossaryTermTranslationCreate() {
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
-			glossaryTermTranslationCreateParameters := api.GlossaryTermTranslationCreateParameters{}
+			var glossaryTermTranslationCreateParameters api.GlossaryTermTranslationCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermTranslationCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -192,7 +192,7 @@ func initGlossaryTermTranslationUpdate() {
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			glossaryTermTranslationUpdateParameters := api.GlossaryTermTranslationUpdateParameters{}
+			var glossaryTermTranslationUpdateParameters api.GlossaryTermTranslationUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermTranslationUpdateParameters); err != nil {
 				HandleError(err)
 			}

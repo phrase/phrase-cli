@@ -48,7 +48,7 @@ func initIcuSkeleton() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			icuSkeletonParameters := api.IcuSkeletonParameters{}
+			var icuSkeletonParameters api.IcuSkeletonParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &icuSkeletonParameters); err != nil {
 				HandleError(err)
 			}

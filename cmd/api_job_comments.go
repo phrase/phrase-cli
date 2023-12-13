@@ -55,7 +55,7 @@ func initJobCommentCreate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
-			jobCommentCreateParameters := api.JobCommentCreateParameters{}
+			var jobCommentCreateParameters api.JobCommentCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCommentCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -265,7 +265,7 @@ func initJobCommentUpdate() {
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobCommentUpdateParameters := api.JobCommentUpdateParameters{}
+			var jobCommentUpdateParameters api.JobCommentUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCommentUpdateParameters); err != nil {
 				HandleError(err)
 			}

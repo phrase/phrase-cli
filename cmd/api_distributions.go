@@ -54,7 +54,7 @@ func initDistributionCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			distributionCreateParameters := api.DistributionCreateParameters{}
+			var distributionCreateParameters api.DistributionCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &distributionCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -248,7 +248,7 @@ func initDistributionUpdate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			distributionUpdateParameters := api.DistributionUpdateParameters{}
+			var distributionUpdateParameters api.DistributionUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &distributionUpdateParameters); err != nil {
 				HandleError(err)
 			}

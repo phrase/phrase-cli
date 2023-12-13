@@ -274,7 +274,7 @@ func initScreenshotUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			screenshotUpdateParameters := api.ScreenshotUpdateParameters{}
+			var screenshotUpdateParameters api.ScreenshotUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotUpdateParameters); err != nil {
 				HandleError(err)
 			}

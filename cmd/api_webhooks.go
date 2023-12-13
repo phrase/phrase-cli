@@ -55,7 +55,7 @@ func initWebhookCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			webhookCreateParameters := api.WebhookCreateParameters{}
+			var webhookCreateParameters api.WebhookCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &webhookCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -308,7 +308,7 @@ func initWebhookUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			webhookUpdateParameters := api.WebhookUpdateParameters{}
+			var webhookUpdateParameters api.WebhookUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &webhookUpdateParameters); err != nil {
 				HandleError(err)
 			}

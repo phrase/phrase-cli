@@ -54,7 +54,7 @@ func initJobTemplateCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
-			jobTemplateCreateParameters := api.JobTemplateCreateParameters{}
+			var jobTemplateCreateParameters api.JobTemplateCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobTemplateCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -189,7 +189,7 @@ func initJobTemplateUpdate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			jobTemplateUpdateParameters := api.JobTemplateUpdateParameters{}
+			var jobTemplateUpdateParameters api.JobTemplateUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobTemplateUpdateParameters); err != nil {
 				HandleError(err)
 			}

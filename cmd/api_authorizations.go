@@ -53,7 +53,7 @@ func initAuthorizationCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			authorizationCreateParameters := api.AuthorizationCreateParameters{}
+			var authorizationCreateParameters api.AuthorizationCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &authorizationCreateParameters); err != nil {
 				HandleError(err)
 			}
@@ -241,7 +241,7 @@ func initAuthorizationUpdate() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
-			authorizationUpdateParameters := api.AuthorizationUpdateParameters{}
+			var authorizationUpdateParameters api.AuthorizationUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &authorizationUpdateParameters); err != nil {
 				HandleError(err)
 			}

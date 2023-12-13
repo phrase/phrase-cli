@@ -49,7 +49,7 @@ func initSearchInAccount() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			searchInAccountParameters := api.SearchInAccountParameters{}
+			var searchInAccountParameters api.SearchInAccountParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &searchInAccountParameters); err != nil {
 				HandleError(err)
 			}
