@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.18.0](https://github.com/phrase/openapi/compare/cli-v2.17.0...cli-v2.18.0) (2023-12-14)
+
+
+### Features
+
+* **CLI:** On push, print upload URL [TSI-1735] ([#485](https://github.com/phrase/openapi/issues/485)) ([cbdc8ed](https://github.com/phrase/openapi/commit/cbdc8ed12217cb775d41faa662b9890050ad5a4e))
+
 ## [2.17.0](https://github.com/phrase/openapi/compare/cli-v2.16.0...cli-v2.17.0) (2023-12-13)
 
 
