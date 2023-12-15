@@ -3,6 +3,7 @@ package internal
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -150,6 +151,7 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 		return err
 	}
 
+	noErrors := true
 	for _, localeFile := range localeFiles {
 		print.NonBatchPrintf("Uploading %s... ", localeFile.RelPath())
 
@@ -167,6 +169,9 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 
 		upload, err := source.uploadFile(client, localeFile, branch, tag)
 		if err != nil {
+			if openapiError, ok := err.(phrase.GenericOpenAPIError); ok {
+				print.Warn("\nAPI response: %s", openapiError.Body())
+			}
 			return err
 		}
 
@@ -193,6 +198,8 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 				print.Success("Successfully uploaded and processed %s.", localeFile.RelPath())
 			case "error":
 				print.Failure("There was an error processing %s. Your changes were not saved online.", localeFile.RelPath())
+				print.NonBatchPrintf("More info at: %s\n", upload.Url)
+				noErrors = false
 			}
 		} else {
 			outputUpload(upload)
@@ -201,6 +208,9 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 		if Debug {
 			fmt.Fprintln(os.Stderr, strings.Repeat("-", 10))
 		}
+	}
+	if !noErrors {
+		return errors.New("not all files were uploaded successfully")
 	}
 
 	return nil
