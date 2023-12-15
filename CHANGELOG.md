@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.0](https://github.com/phrase/openapi/compare/cli-v2.18.0...cli-v2.19.0) (2023-12-15)
+
+
+### Features
+
+* **CLI:** Improve push error display [TSI-1736] ([#491](https://github.com/phrase/openapi/issues/491)) ([555c017](https://github.com/phrase/openapi/commit/555c01712eec53aaf25fbe075359c8411a64eb7c))
+
 ## [2.18.0](https://github.com/phrase/openapi/compare/cli-v2.17.0...cli-v2.18.0) (2023-12-14)
 
 
