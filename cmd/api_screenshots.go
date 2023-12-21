@@ -78,6 +78,7 @@ func initScreenshotCreate() {
 				}
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ScreenshotsApi.ScreenshotCreate(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -149,6 +150,7 @@ func initScreenshotDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ScreenshotsApi.ScreenshotDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -213,6 +215,7 @@ func initScreenshotShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ScreenshotsApi.ScreenshotShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -285,6 +288,7 @@ func initScreenshotUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ScreenshotsApi.ScreenshotUpdate(auth, projectId, id, screenshotUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -365,6 +369,7 @@ func initScreenshotsList() {
 				localVarOptionals.KeyId = optional.NewString(params.GetString(helpers.ToSnakeCase("KeyId")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ScreenshotsApi.ScreenshotsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {

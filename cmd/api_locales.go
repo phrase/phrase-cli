@@ -69,6 +69,7 @@ func initAccountLocales() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.LocalesApi.AccountLocales(auth, id, &localVarOptionals)
 
 			if err != nil {
@@ -140,6 +141,7 @@ func initLocaleCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.LocalesApi.LocaleCreate(auth, projectId, localeCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -208,6 +210,7 @@ func initLocaleDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.LocalesApi.LocaleDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -352,6 +355,7 @@ func initLocaleDownload() {
 				localVarOptionals.CustomMetadataFilters = optional.NewInterface(customMetadataFilters)
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -437,6 +441,7 @@ func initLocaleShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.LocalesApi.LocaleShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -509,6 +514,7 @@ func initLocaleUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.LocalesApi.LocaleUpdate(auth, projectId, id, localeUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -589,6 +595,7 @@ func initLocalesList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.LocalesApi.LocalesList(auth, projectId, &localVarOptionals)
 
 			if err != nil {

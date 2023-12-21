@@ -65,6 +65,7 @@ func initJobTemplateCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobTemplatesApi.JobTemplateCreate(auth, projectId, jobTemplateCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -133,6 +134,7 @@ func initJobTemplateDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobTemplatesApi.JobTemplateDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -200,6 +202,7 @@ func initJobTemplateUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobTemplatesApi.JobTemplateUpdate(auth, projectId, id, jobTemplateUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -276,6 +279,7 @@ func initJobTemplatesList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobTemplatesApi.JobTemplatesList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -346,6 +350,7 @@ func initJobTemplatesShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobTemplatesApi.JobTemplatesShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {

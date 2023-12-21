@@ -96,6 +96,7 @@ func initRepliesList() {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentRepliesApi.RepliesList(auth, projectId, keyId, commentId, repliesListParameters, &localVarOptionals)
 
 			if err != nil {
@@ -177,6 +178,7 @@ func initReplyCreate() {
 				localVarOptionals.Message = optional.NewString(params.GetString(helpers.ToSnakeCase("Message")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentRepliesApi.ReplyCreate(auth, projectId, keyId, commentId, &localVarOptionals)
 
 			if err != nil {
@@ -250,6 +252,7 @@ func initReplyDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentRepliesApi.ReplyDelete(auth, projectId, keyId, commentId, id, &localVarOptionals)
 
 			if err != nil {
@@ -318,6 +321,7 @@ func initReplyMarkAsRead() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentRepliesApi.ReplyMarkAsRead(auth, projectId, keyId, commentId, id, &localVarOptionals)
 
 			if err != nil {
@@ -386,6 +390,7 @@ func initReplyMarkAsUnread() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentRepliesApi.ReplyMarkAsUnread(auth, projectId, keyId, commentId, id, &localVarOptionals)
 
 			if err != nil {
@@ -454,6 +459,7 @@ func initReplyShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentRepliesApi.ReplyShow(auth, projectId, keyId, commentId, id, &localVarOptionals)
 
 			if err != nil {

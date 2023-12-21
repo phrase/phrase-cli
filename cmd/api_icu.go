@@ -59,6 +59,7 @@ func initIcuSkeleton() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ICUApi.IcuSkeleton(auth, icuSkeletonParameters, &localVarOptionals)
 
 			if err != nil {

@@ -60,6 +60,7 @@ func initOrganizationJobTemplateLocaleDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplateLocalesApi.OrganizationJobTemplateLocaleDelete(auth, accountId, jobTemplateId, jobTemplateLocaleId, &localVarOptionals)
 
 			if err != nil {
@@ -121,6 +122,7 @@ func initOrganizationJobTemplateLocaleShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplateLocalesApi.OrganizationJobTemplateLocaleShow(auth, accountId, jobTemplateId, jobTemplateLocaleId, &localVarOptionals)
 
 			if err != nil {
@@ -194,6 +196,7 @@ func initOrganizationJobTemplateLocaleUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplateLocalesApi.OrganizationJobTemplateLocaleUpdate(auth, accountId, jobTemplateId, jobTemplateLocaleId, organizationJobTemplateLocaleUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -267,6 +270,7 @@ func initOrganizationJobTemplateLocalesCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplateLocalesApi.OrganizationJobTemplateLocalesCreate(auth, accountId, jobTemplateId, organizationJobTemplateLocalesCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -340,6 +344,7 @@ func initOrganizationJobTemplateLocalesList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplateLocalesApi.OrganizationJobTemplateLocalesList(auth, accountId, jobTemplateId, &localVarOptionals)
 
 			if err != nil {

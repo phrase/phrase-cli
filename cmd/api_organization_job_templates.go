@@ -65,6 +65,7 @@ func initOrganizationJobTemplateCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplatesApi.OrganizationJobTemplateCreate(auth, accountId, organizationJobTemplateCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -129,6 +130,7 @@ func initOrganizationJobTemplateDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplatesApi.OrganizationJobTemplateDelete(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
@@ -195,6 +197,7 @@ func initOrganizationJobTemplateUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplatesApi.OrganizationJobTemplateUpdate(auth, accountId, id, organizationJobTemplateUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -267,6 +270,7 @@ func initOrganizationJobTemplatesList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplatesApi.OrganizationJobTemplatesList(auth, accountId, &localVarOptionals)
 
 			if err != nil {
@@ -332,6 +336,7 @@ func initOrganizationJobTemplatesShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.OrganizationJobTemplatesApi.OrganizationJobTemplatesShow(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {

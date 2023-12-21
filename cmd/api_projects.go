@@ -64,6 +64,7 @@ func initProjectCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ProjectsApi.ProjectCreate(auth, projectCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -126,6 +127,7 @@ func initProjectDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ProjectsApi.ProjectDelete(auth, id, &localVarOptionals)
 
 			if err != nil {
@@ -183,6 +185,7 @@ func initProjectShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ProjectsApi.ProjectShow(auth, id, &localVarOptionals)
 
 			if err != nil {
@@ -252,6 +255,7 @@ func initProjectUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ProjectsApi.ProjectUpdate(auth, id, projectUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -338,6 +342,7 @@ func initProjectsList() {
 				localVarOptionals.Filters = optional.NewInterface(filters)
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.ProjectsApi.ProjectsList(auth, &localVarOptionals)
 
 			if err != nil {

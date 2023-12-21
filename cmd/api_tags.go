@@ -64,6 +64,7 @@ func initTagCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.TagsApi.TagCreate(auth, projectId, tagCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -132,6 +133,7 @@ func initTagDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.TagsApi.TagDelete(auth, projectId, name, &localVarOptionals)
 
 			if err != nil {
@@ -196,6 +198,7 @@ func initTagShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.TagsApi.TagShow(auth, projectId, name, &localVarOptionals)
 
 			if err != nil {
@@ -272,6 +275,7 @@ func initTagsList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.TagsApi.TagsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {

@@ -60,6 +60,7 @@ func initSearchInAccount() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.SearchApi.SearchInAccount(auth, accountId, searchInAccountParameters, &localVarOptionals)
 
 			if err != nil {

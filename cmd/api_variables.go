@@ -65,6 +65,7 @@ func initVariableCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.VariablesApi.VariableCreate(auth, projectId, variableCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -129,6 +130,7 @@ func initVariableDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.VariablesApi.VariableDelete(auth, projectId, name, &localVarOptionals)
 
 			if err != nil {
@@ -188,6 +190,7 @@ func initVariableShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.VariablesApi.VariableShow(auth, projectId, name, &localVarOptionals)
 
 			if err != nil {
@@ -259,6 +262,7 @@ func initVariableUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.VariablesApi.VariableUpdate(auth, projectId, name, variableUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -331,6 +335,7 @@ func initVariablesList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.VariablesApi.VariablesList(auth, projectId, &localVarOptionals)
 
 			if err != nil {

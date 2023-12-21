@@ -69,6 +69,7 @@ func initFigmaAttachmentCreate() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.FigmaAttachmentsApi.FigmaAttachmentCreate(auth, projectId, figmaAttachmentCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -138,6 +139,7 @@ func initFigmaAttachmentDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.FigmaAttachmentsApi.FigmaAttachmentDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -202,6 +204,7 @@ func initFigmaAttachmentShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.FigmaAttachmentsApi.FigmaAttachmentShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -278,6 +281,7 @@ func initFigmaAttachmentUpdate() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.FigmaAttachmentsApi.FigmaAttachmentUpdate(auth, projectId, id, figmaAttachmentUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -355,6 +359,7 @@ func initFigmaAttachmentsList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.FigmaAttachmentsApi.FigmaAttachmentsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {

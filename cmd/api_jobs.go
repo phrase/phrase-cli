@@ -74,6 +74,7 @@ func initJobComplete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobComplete(auth, projectId, id, jobCompleteParameters, &localVarOptionals)
 
 			if err != nil {
@@ -145,6 +146,7 @@ func initJobCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobCreate(auth, projectId, jobCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -213,6 +215,7 @@ func initJobDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -280,6 +283,7 @@ func initJobKeysCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobKeysCreate(auth, projectId, id, jobKeysCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -357,6 +361,7 @@ func initJobKeysDelete() {
 				localVarOptionals.TranslationKeyIds = optional.NewInterface(translationKeyIds)
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -422,6 +427,7 @@ func initJobLock() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobLock(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -489,6 +495,7 @@ func initJobReopen() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobReopen(auth, projectId, id, jobReopenParameters, &localVarOptionals)
 
 			if err != nil {
@@ -558,6 +565,7 @@ func initJobShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -630,6 +638,7 @@ func initJobStart() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobStart(auth, projectId, id, jobStartParameters, &localVarOptionals)
 
 			if err != nil {
@@ -699,6 +708,7 @@ func initJobUnlock() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobUnlock(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -766,6 +776,7 @@ func initJobUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobUpdate(auth, projectId, id, jobUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -850,6 +861,7 @@ func initJobsByAccount() {
 				localVarOptionals.State = optional.NewString(params.GetString(helpers.ToSnakeCase("State")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobsByAccount(auth, accountId, &localVarOptionals)
 
 			if err != nil {
@@ -941,6 +953,7 @@ func initJobsList() {
 				localVarOptionals.State = optional.NewString(params.GetString(helpers.ToSnakeCase("State")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobsApi.JobsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {

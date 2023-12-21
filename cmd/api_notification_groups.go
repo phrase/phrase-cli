@@ -62,6 +62,7 @@ func initNotificationGroupsList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.NotificationGroupsApi.NotificationGroupsList(auth, &localVarOptionals)
 
 			if err != nil {
@@ -124,6 +125,7 @@ func initNotificationGroupsMarkAllAsRead() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.NotificationGroupsApi.NotificationGroupsMarkAllAsRead(auth, &localVarOptionals)
 
 			if err != nil {
@@ -185,6 +187,7 @@ func initNotificationGroupsMarkAsRead() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.NotificationGroupsApi.NotificationGroupsMarkAsRead(auth, id, &localVarOptionals)
 
 			if err != nil {

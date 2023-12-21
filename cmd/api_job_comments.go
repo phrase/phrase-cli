@@ -66,6 +66,7 @@ func initJobCommentCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobCommentsApi.JobCommentCreate(auth, projectId, jobId, jobCommentCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -136,6 +137,7 @@ func initJobCommentDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobCommentsApi.JobCommentDelete(auth, projectId, jobId, id, &localVarOptionals)
 
 			if err != nil {
@@ -202,6 +204,7 @@ func initJobCommentShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobCommentsApi.JobCommentShow(auth, projectId, jobId, id, &localVarOptionals)
 
 			if err != nil {
@@ -276,6 +279,7 @@ func initJobCommentUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobCommentsApi.JobCommentUpdate(auth, projectId, keyId, id, jobCommentUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -350,6 +354,7 @@ func initJobCommentsList() {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.JobCommentsApi.JobCommentsList(auth, projectId, jobId, &localVarOptionals)
 
 			if err != nil {

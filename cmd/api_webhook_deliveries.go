@@ -60,6 +60,7 @@ func initWebhookDeliveriesList() {
 				localVarOptionals.ResponseStatusCodes = optional.NewString(params.GetString(helpers.ToSnakeCase("ResponseStatusCodes")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.WebhookDeliveriesApi.WebhookDeliveriesList(auth, projectId, webhookId, &localVarOptionals)
 
 			if err != nil {
@@ -126,6 +127,7 @@ func initWebhookDeliveriesRedeliver() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.WebhookDeliveriesApi.WebhookDeliveriesRedeliver(auth, projectId, webhookId, id, &localVarOptionals)
 
 			if err != nil {
@@ -192,6 +194,7 @@ func initWebhookDeliveriesShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.WebhookDeliveriesApi.WebhookDeliveriesShow(auth, projectId, webhookId, id, &localVarOptionals)
 
 			if err != nil {

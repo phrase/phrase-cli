@@ -59,6 +59,7 @@ func initCustomMetadataPropertiesDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertiesDelete(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
@@ -145,6 +146,7 @@ func initCustomMetadataPropertiesList() {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertiesList(auth, accountId, &localVarOptionals)
 
 			if err != nil {
@@ -241,6 +243,7 @@ func initCustomMetadataPropertyCreate() {
 				localVarOptionals.ValueOptions = optional.NewInterface(valueOptions)
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertyCreate(auth, accountId, name, dataType, &localVarOptionals)
 
 			if err != nil {
@@ -309,6 +312,7 @@ func initCustomMetadataPropertyShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertyShow(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
@@ -397,6 +401,7 @@ func initCustomMetadataPropertyUpdate() {
 				localVarOptionals.ValueOptions = optional.NewInterface(valueOptions)
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertyUpdate(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {

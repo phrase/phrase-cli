@@ -64,6 +64,7 @@ func initGitlabSyncDelete() {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncDelete(auth, id, &localVarOptionals)
 
 			if err != nil {
@@ -129,6 +130,7 @@ func initGitlabSyncExport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncExport(auth, gitlabSyncId, gitlabSyncExportParameters, &localVarOptionals)
 
 			if err != nil {
@@ -204,6 +206,7 @@ func initGitlabSyncHistory() {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncHistory(auth, gitlabSyncId, &localVarOptionals)
 
 			if err != nil {
@@ -276,6 +279,7 @@ func initGitlabSyncImport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncImport(auth, gitlabSyncId, gitlabSyncImportParameters, &localVarOptionals)
 
 			if err != nil {
@@ -342,6 +346,7 @@ func initGitlabSyncList() {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncList(auth, &localVarOptionals)
 
 			if err != nil {
@@ -408,6 +413,7 @@ func initGitlabSyncShow() {
 				localVarOptionals.AccountId = optional.NewString(params.GetString(helpers.ToSnakeCase("AccountId")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncShow(auth, id, &localVarOptionals)
 
 			if err != nil {
@@ -487,6 +493,7 @@ func initGitlabSyncUpdate() {
 				localVarOptionals.GitlabBranchName = optional.NewString(params.GetString(helpers.ToSnakeCase("GitlabBranchName")))
 			}
 
+			// trigger API request using phrase-go client
 			data, api_response, err := client.GitLabSyncApi.GitlabSyncUpdate(auth, id, &localVarOptionals)
 
 			if err != nil {
