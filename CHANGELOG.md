@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.1](https://github.com/phrase/openapi/compare/cli-v2.19.0...cli-v2.19.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* **CLI:** trigger new release ([#508](https://github.com/phrase/openapi/issues/508)) ([162eae3](https://github.com/phrase/openapi/commit/162eae3d941684e3708091ec7aeee816ca06e3d5))
+
 ## [2.19.0](https://github.com/phrase/openapi/compare/cli-v2.18.0...cli-v2.19.0) (2023-12-15)
 
 
