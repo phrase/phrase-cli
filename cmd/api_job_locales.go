@@ -70,7 +70,6 @@ func initJobLocaleComplete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.JobLocalesApi.JobLocaleComplete(auth, projectId, jobId, id, jobLocaleCompleteParameters, &localVarOptionals)
 
 			if err != nil {
@@ -145,7 +144,6 @@ func initJobLocaleCompleteReview() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.JobLocalesApi.JobLocaleCompleteReview(auth, projectId, jobId, id, jobLocaleCompleteReviewParameters, &localVarOptionals)
 
 			if err != nil {
@@ -217,7 +215,6 @@ func initJobLocaleDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.JobLocalesApi.JobLocaleDelete(auth, projectId, jobId, id, &localVarOptionals)
 
 			if err != nil {
@@ -287,7 +284,6 @@ func initJobLocaleReopen() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.JobLocalesApi.JobLocaleReopen(auth, projectId, jobId, id, jobLocaleReopenParameters, &localVarOptionals)
 
 			if err != nil {
@@ -359,7 +355,6 @@ func initJobLocaleShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.JobLocalesApi.JobLocaleShow(auth, projectId, jobId, id, &localVarOptionals)
 
 			if err != nil {
@@ -434,7 +429,6 @@ func initJobLocaleUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.JobLocalesApi.JobLocaleUpdate(auth, projectId, jobId, id, jobLocaleUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -508,7 +502,6 @@ func initJobLocalesCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.JobLocalesApi.JobLocalesCreate(auth, projectId, jobId, jobLocalesCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -586,7 +579,6 @@ func initJobLocalesList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.JobLocalesApi.JobLocalesList(auth, projectId, jobId, &localVarOptionals)
 
 			if err != nil {

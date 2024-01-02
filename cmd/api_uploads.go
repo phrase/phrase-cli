@@ -132,7 +132,6 @@ func initUploadCreate() {
 				localVarOptionals.TagOnlyAffectedKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("TagOnlyAffectedKeys")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -216,7 +215,6 @@ func initUploadShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.UploadsApi.UploadShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -293,7 +291,6 @@ func initUploadsList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.UploadsApi.UploadsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {

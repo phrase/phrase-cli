@@ -66,7 +66,6 @@ func initGlossariesList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.GlossariesApi.GlossariesList(auth, accountId, &localVarOptionals)
 
 			if err != nil {
@@ -138,7 +137,6 @@ func initGlossaryCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.GlossariesApi.GlossaryCreate(auth, accountId, glossaryCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -203,7 +201,6 @@ func initGlossaryDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.GlossariesApi.GlossaryDelete(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
@@ -263,7 +260,6 @@ func initGlossaryShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.GlossariesApi.GlossaryShow(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
@@ -335,7 +331,6 @@ func initGlossaryUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.GlossariesApi.GlossaryUpdate(auth, accountId, id, glossaryUpdateParameters, &localVarOptionals)
 
 			if err != nil {

@@ -60,7 +60,6 @@ func initFigmaAttachmentAttachToKey() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysFigmaAttachmentsApi.FigmaAttachmentAttachToKey(auth, projectId, figmaAttachmentId, id, &localVarOptionals)
 
 			if err != nil {
@@ -127,7 +126,6 @@ func initFigmaAttachmentDetachFromKey() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysFigmaAttachmentsApi.FigmaAttachmentDetachFromKey(auth, projectId, figmaAttachmentId, id, &localVarOptionals)
 
 			if err != nil {

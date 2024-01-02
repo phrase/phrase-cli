@@ -56,7 +56,6 @@ func initDocumentDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.DocumentsApi.DocumentDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -123,7 +122,6 @@ func initDocumentsList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.DocumentsApi.DocumentsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {

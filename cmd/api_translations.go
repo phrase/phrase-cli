@@ -76,7 +76,6 @@ func initTranslationCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationCreate(auth, projectId, translationCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -148,7 +147,6 @@ func initTranslationExclude() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationExclude(auth, projectId, id, translationExcludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -221,7 +219,6 @@ func initTranslationInclude() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationInclude(auth, projectId, id, translationIncludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -294,7 +291,6 @@ func initTranslationReview() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationReview(auth, projectId, id, translationReviewParameters, &localVarOptionals)
 
 			if err != nil {
@@ -364,7 +360,6 @@ func initTranslationShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -437,7 +432,6 @@ func initTranslationUnverify() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationUnverify(auth, projectId, id, translationUnverifyParameters, &localVarOptionals)
 
 			if err != nil {
@@ -510,7 +504,6 @@ func initTranslationUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationUpdate(auth, projectId, id, translationUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -583,7 +576,6 @@ func initTranslationVerify() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationVerify(auth, projectId, id, translationVerifyParameters, &localVarOptionals)
 
 			if err != nil {
@@ -673,7 +665,6 @@ func initTranslationsByKey() {
 				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsByKey(auth, projectId, keyId, &localVarOptionals)
 
 			if err != nil {
@@ -768,7 +759,6 @@ func initTranslationsByLocale() {
 				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsByLocale(auth, projectId, localeId, &localVarOptionals)
 
 			if err != nil {
@@ -845,7 +835,6 @@ func initTranslationsExcludeCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsExcludeCollection(auth, projectId, translationsExcludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -916,7 +905,6 @@ func initTranslationsIncludeCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsIncludeCollection(auth, projectId, translationsIncludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -1012,7 +1000,6 @@ func initTranslationsList() {
 				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -1090,7 +1077,6 @@ func initTranslationsReviewCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsReviewCollection(auth, projectId, translationsReviewParameters, &localVarOptionals)
 
 			if err != nil {
@@ -1169,7 +1155,6 @@ func initTranslationsSearch() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsSearch(auth, projectId, translationsSearchParameters, &localVarOptionals)
 
 			if err != nil {
@@ -1242,7 +1227,6 @@ func initTranslationsUnverifyCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsUnverifyCollection(auth, projectId, translationsUnverifyParameters, &localVarOptionals)
 
 			if err != nil {
@@ -1313,7 +1297,6 @@ func initTranslationsVerifyCollection() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TranslationsApi.TranslationsVerifyCollection(auth, projectId, translationsVerifyParameters, &localVarOptionals)
 
 			if err != nil {

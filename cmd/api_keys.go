@@ -71,7 +71,6 @@ func initKeyCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeyCreate(auth, projectId, keyCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -140,7 +139,6 @@ func initKeyDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeyDelete(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -205,7 +203,6 @@ func initKeyShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeyShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -278,7 +275,6 @@ func initKeyUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeyUpdate(auth, projectId, id, keyUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -355,7 +351,6 @@ func initKeysDeleteCollection() {
 				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeysDeleteCollection(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -428,7 +423,6 @@ func initKeysExclude() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeysExclude(auth, projectId, keysExcludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -499,7 +493,6 @@ func initKeysInclude() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeysInclude(auth, projectId, keysIncludeParameters, &localVarOptionals)
 
 			if err != nil {
@@ -591,7 +584,6 @@ func initKeysList() {
 				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeysList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -676,7 +668,6 @@ func initKeysSearch() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeysSearch(auth, projectId, keysSearchParameters, &localVarOptionals)
 
 			if err != nil {
@@ -749,7 +740,6 @@ func initKeysTag() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeysTag(auth, projectId, keysTagParameters, &localVarOptionals)
 
 			if err != nil {
@@ -820,7 +810,6 @@ func initKeysUntag() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.KeysApi.KeysUntag(auth, projectId, keysUntagParameters, &localVarOptionals)
 
 			if err != nil {

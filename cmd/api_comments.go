@@ -81,7 +81,6 @@ func initCommentCreate() {
 				localVarOptionals.LocaleIds = optional.NewInterface(localeIds)
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentsApi.CommentCreate(auth, projectId, keyId, commentCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -154,7 +153,6 @@ func initCommentDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentsApi.CommentDelete(auth, projectId, keyId, id, &localVarOptionals)
 
 			if err != nil {
@@ -221,7 +219,6 @@ func initCommentMarkCheck() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentsApi.CommentMarkCheck(auth, projectId, keyId, id, &localVarOptionals)
 
 			if err != nil {
@@ -291,7 +288,6 @@ func initCommentMarkRead() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentsApi.CommentMarkRead(auth, projectId, keyId, id, commentMarkReadParameters, &localVarOptionals)
 
 			if err != nil {
@@ -358,7 +354,6 @@ func initCommentMarkUnread() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentsApi.CommentMarkUnread(auth, projectId, keyId, id, &localVarOptionals)
 
 			if err != nil {
@@ -425,7 +420,6 @@ func initCommentShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentsApi.CommentShow(auth, projectId, keyId, id, &localVarOptionals)
 
 			if err != nil {
@@ -500,7 +494,6 @@ func initCommentUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentsApi.CommentUpdate(auth, projectId, keyId, id, commentUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -610,7 +603,6 @@ func initCommentsList() {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentsApi.CommentsList(auth, projectId, keyId, commentsListParameters, &localVarOptionals)
 
 			if err != nil {

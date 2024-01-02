@@ -74,7 +74,6 @@ func initReportLocalesList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.ReportsApi.ReportLocalesList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -146,7 +145,6 @@ func initReportShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.ReportsApi.ReportShow(auth, projectId, &localVarOptionals)
 
 			if err != nil {

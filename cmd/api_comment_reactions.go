@@ -67,7 +67,6 @@ func initReactionCreate() {
 				localVarOptionals.Emoji = optional.NewString(params.GetString(helpers.ToSnakeCase("Emoji")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentReactionsApi.ReactionCreate(auth, projectId, keyId, commentId, &localVarOptionals)
 
 			if err != nil {
@@ -141,7 +140,6 @@ func initReactionDelete() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentReactionsApi.ReactionDelete(auth, projectId, keyId, commentId, id, &localVarOptionals)
 
 			if err != nil {
@@ -210,7 +208,6 @@ func initReactionShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentReactionsApi.ReactionShow(auth, projectId, keyId, commentId, id, &localVarOptionals)
 
 			if err != nil {
@@ -291,7 +288,6 @@ func initReactionsList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.CommentReactionsApi.ReactionsList(auth, projectId, keyId, commentId, &localVarOptionals)
 
 			if err != nil {

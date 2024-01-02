@@ -71,7 +71,6 @@ func initTeamCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamCreate(auth, accountId, teamCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -136,7 +135,6 @@ func initTeamDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamDelete(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
@@ -196,7 +194,6 @@ func initTeamShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamShow(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
@@ -268,7 +265,6 @@ func initTeamUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamUpdate(auth, accountId, id, teamUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -341,7 +337,6 @@ func initTeamsList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamsList(auth, accountId, &localVarOptionals)
 
 			if err != nil {
@@ -414,7 +409,6 @@ func initTeamsProjectsCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamsProjectsCreate(auth, accountId, teamId, teamsProjectsCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -476,7 +470,6 @@ func initTeamsProjectsDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamsProjectsDelete(auth, accountId, teamId, id, &localVarOptionals)
 
 			if err != nil {
@@ -544,7 +537,6 @@ func initTeamsSpacesCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamsSpacesCreate(auth, accountId, teamId, teamsSpacesCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -606,7 +598,6 @@ func initTeamsSpacesDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamsSpacesDelete(auth, accountId, teamId, id, &localVarOptionals)
 
 			if err != nil {
@@ -674,7 +665,6 @@ func initTeamsUsersCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamsUsersCreate(auth, accountId, teamId, teamsUsersCreateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -736,7 +726,6 @@ func initTeamsUsersDelete() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.TeamsApi.TeamsUsersDelete(auth, accountId, teamId, id, &localVarOptionals)
 
 			if err != nil {

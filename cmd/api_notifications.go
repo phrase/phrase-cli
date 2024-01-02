@@ -66,7 +66,6 @@ func initNotificationsList() {
 				localVarOptionals.Unseen = optional.NewBool(params.GetBool(helpers.ToSnakeCase("Unseen")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.NotificationsApi.NotificationsList(auth, &localVarOptionals)
 
 			if err != nil {
@@ -130,7 +129,6 @@ func initNotificationsMarkAllAsRead() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.NotificationsApi.NotificationsMarkAllAsRead(auth, &localVarOptionals)
 
 			if err != nil {
@@ -192,7 +190,6 @@ func initNotificationsShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.NotificationsApi.NotificationsShow(auth, id, &localVarOptionals)
 
 			if err != nil {

@@ -61,7 +61,6 @@ func initGithubSyncExport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.GitHubSyncApi.GithubSyncExport(auth, githubSyncExportParameters, &localVarOptionals)
 
 			if err != nil {
@@ -125,7 +124,6 @@ func initGithubSyncImport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.GitHubSyncApi.GithubSyncImport(auth, githubSyncImportParameters, &localVarOptionals)
 
 			if err != nil {

@@ -54,7 +54,6 @@ func initAccountShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.AccountsApi.AccountShow(auth, id, &localVarOptionals)
 
 			if err != nil {
@@ -124,7 +123,6 @@ func initAccountsList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
-			// trigger API request using phrase-go client
 			data, api_response, err := client.AccountsApi.AccountsList(auth, &localVarOptionals)
 
 			if err != nil {
