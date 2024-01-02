@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.19.3](https://github.com/phrase/openapi/compare/cli-v2.19.2...cli-v2.19.3) (2024-01-02)
+
+
+### Bug Fixes
+
+* **CLI:** retrigger release for GO ([fca7edb](https://github.com/phrase/openapi/commit/fca7edb2bfecaeb2ed92c5f50acb8d820ef94cb0))
+* **GO:** fix type mismatch error ([fca7edb](https://github.com/phrase/openapi/commit/fca7edb2bfecaeb2ed92c5f50acb8d820ef94cb0))
+* **GO:** fix type mismatch for nested args ([#515](https://github.com/phrase/openapi/issues/515)) ([fca7edb](https://github.com/phrase/openapi/commit/fca7edb2bfecaeb2ed92c5f50acb8d820ef94cb0))
+
 ## [2.19.2](https://github.com/phrase/openapi/compare/cli-v2.19.1...cli-v2.19.2) (2024-01-02)
 
 
