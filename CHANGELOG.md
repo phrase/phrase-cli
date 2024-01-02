@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.2](https://github.com/phrase/openapi/compare/cli-v2.19.1...cli-v2.19.2) (2024-01-02)
+
+
+### Bug Fixes
+
+* **API:** Create Custom Metadata endpoint fix [TSI-2222] ([#499](https://github.com/phrase/openapi/issues/499)) ([ce2ed94](https://github.com/phrase/openapi/commit/ce2ed9488e111fb5d9bc3810a78c47d23553c8b7))
+
 ## [2.19.1](https://github.com/phrase/openapi/compare/cli-v2.19.0...cli-v2.19.1) (2023-12-21)
 
 
