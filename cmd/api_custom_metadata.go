@@ -211,40 +211,19 @@ func initCustomMetadataPropertyCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
-			name := params.GetString(helpers.ToSnakeCase("Name"))
-			var dataType api.CustomMetadataDataType
-			if err := json.Unmarshal([]byte(params.GetString("data")), &dataType); err != nil {
+			var customMetadataPropertiesCreateParameters api.CustomMetadataPropertiesCreateParameters
+			if err := json.Unmarshal([]byte(params.GetString("data")), &customMetadataPropertiesCreateParameters); err != nil {
 				HandleError(err)
 			}
 			if Config.Debug {
-				fmt.Printf("%+v\n", dataType)
+				fmt.Printf("%+v\n", customMetadataPropertiesCreateParameters)
 			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("description")) {
-				localVarOptionals.Description = optional.NewString(params.GetString(helpers.ToSnakeCase("Description")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("projectIds")) {
-				var projectIds map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("ProjectIds"))), &projectIds); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.ProjectIds = optional.NewInterface(projectIds)
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("valueOptions")) {
-				var valueOptions map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("ValueOptions"))), &valueOptions); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.ValueOptions = optional.NewInterface(valueOptions)
-			}
-
 			// trigger API request using phrase-go client
-			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertyCreate(auth, accountId, name, dataType, &localVarOptionals)
+			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertyCreate(auth, accountId, customMetadataPropertiesCreateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -272,12 +251,8 @@ func initCustomMetadataPropertyCreate() {
 
 	CustomMetadataApiCmd.AddCommand(CustomMetadataPropertyCreate)
 	AddFlag(CustomMetadataPropertyCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
-	AddFlag(CustomMetadataPropertyCreate, "string", helpers.ToSnakeCase("Name"), "", "name of the property", true)
-	AddFlag(CustomMetadataPropertyCreate, "string", helpers.ToSnakeCase("DataType"), "", "payload in JSON format", true)
+	AddFlag(CustomMetadataPropertyCreate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(CustomMetadataPropertyCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(CustomMetadataPropertyCreate, "string", helpers.ToSnakeCase("Description"), "", "description of property", false)
-	AddFlag(CustomMetadataPropertyCreate, "string", helpers.ToSnakeCase("ProjectIds"), "", "payload in JSON format", false)
-	AddFlag(CustomMetadataPropertyCreate, "string", helpers.ToSnakeCase("ValueOptions"), "", "payload in JSON format", false)
 
 	params.BindPFlags(CustomMetadataPropertyCreate.Flags())
 }
@@ -373,36 +348,19 @@ func initCustomMetadataPropertyUpdate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+			var customMetadataPropertiesUpdateParameters api.CustomMetadataPropertiesUpdateParameters
+			if err := json.Unmarshal([]byte(params.GetString("data")), &customMetadataPropertiesUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", customMetadataPropertiesUpdateParameters)
+			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("name")) {
-				localVarOptionals.Name = optional.NewString(params.GetString(helpers.ToSnakeCase("Name")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("description")) {
-				localVarOptionals.Description = optional.NewString(params.GetString(helpers.ToSnakeCase("Description")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("projectIds")) {
-				var projectIds map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("ProjectIds"))), &projectIds); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.ProjectIds = optional.NewInterface(projectIds)
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("valueOptions")) {
-				var valueOptions map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("ValueOptions"))), &valueOptions); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.ValueOptions = optional.NewInterface(valueOptions)
-			}
-
 			// trigger API request using phrase-go client
-			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertyUpdate(auth, accountId, id, &localVarOptionals)
+			data, api_response, err := client.CustomMetadataApi.CustomMetadataPropertyUpdate(auth, accountId, id, customMetadataPropertiesUpdateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -431,11 +389,8 @@ func initCustomMetadataPropertyUpdate() {
 	CustomMetadataApiCmd.AddCommand(CustomMetadataPropertyUpdate)
 	AddFlag(CustomMetadataPropertyUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(CustomMetadataPropertyUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(CustomMetadataPropertyUpdate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(CustomMetadataPropertyUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(CustomMetadataPropertyUpdate, "string", helpers.ToSnakeCase("Name"), "", "name of the property", false)
-	AddFlag(CustomMetadataPropertyUpdate, "string", helpers.ToSnakeCase("Description"), "", "description of property", false)
-	AddFlag(CustomMetadataPropertyUpdate, "string", helpers.ToSnakeCase("ProjectIds"), "", "payload in JSON format", false)
-	AddFlag(CustomMetadataPropertyUpdate, "string", helpers.ToSnakeCase("ValueOptions"), "", "payload in JSON format", false)
 
 	params.BindPFlags(CustomMetadataPropertyUpdate.Flags())
 }
