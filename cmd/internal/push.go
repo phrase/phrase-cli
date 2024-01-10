@@ -24,6 +24,7 @@ import (
 type PushCommand struct {
 	phrase.Config
 	Wait               bool
+	Cleanup            bool
 	Branch             string
 	UseLocalBranchName bool
 	Tag                string
@@ -35,6 +36,11 @@ func (cmd *PushCommand) Run() error {
 		cmd.Config.Debug = false
 		Debug = true
 	}
+
+	if cmd.Cleanup && !cmd.Wait {
+		return fmt.Errorf("You can only use the --cleanup option together with --wait")
+	}
+
 	Config = &cmd.Config
 
 	client := newClient()
@@ -136,7 +142,7 @@ func (cmd *PushCommand) Run() error {
 	}
 
 	for _, source := range sources {
-		err := source.Push(client, cmd.Wait, cmd.Branch, cmd.Tag)
+		err := source.Push(client, cmd.Wait, cmd.Cleanup, cmd.Branch, cmd.Tag)
 		if err != nil {
 			return err
 		}
@@ -145,13 +151,14 @@ func (cmd *PushCommand) Run() error {
 	return nil
 }
 
-func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch string, tag string) error {
+func (source *Source) Push(client *phrase.APIClient, waitForResults bool, cleanup bool, branch string, tag string) error {
 	localeFiles, err := source.LocaleFiles()
 	if err != nil {
 		return err
 	}
 
 	noErrors := true
+	uploadIds := []string{}
 	for _, localeFile := range localeFiles {
 		print.NonBatchPrintf("Uploading %s... ", localeFile.RelPath())
 
@@ -174,6 +181,7 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 			}
 			return err
 		}
+		uploadIds = append(uploadIds, upload.Id)
 
 		if waitForResults {
 			print.NonBatchPrintf("\n")
@@ -209,7 +217,11 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch
 			fmt.Fprintln(os.Stderr, strings.Repeat("-", 10))
 		}
 	}
-	if !noErrors {
+	if noErrors {
+		if waitForResults && cleanup {
+			return UploadCleanup(client, true, uploadIds, branch, source.ProjectID)
+		}
+	} else {
 		return errors.New("not all files were uploaded successfully")
 	}
 

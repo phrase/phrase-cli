@@ -20,6 +20,7 @@ func initPush() {
 			cmdPush := push.PushCommand{
 				Config:             *Config,
 				Wait:               params.GetBool("wait"),
+				Cleanup:            params.GetBool("cleanup"),
 				Branch:             params.GetString("branch"),
 				UseLocalBranchName: params.GetBool("use-local-branch-name"),
 				Tag:                params.GetString("tag"),
@@ -33,6 +34,7 @@ func initPush() {
 	rootCmd.AddCommand(pushCmd)
 
 	AddFlag(pushCmd, "bool", "wait", "w", "Wait for files to be processed", false)
+	AddFlag(pushCmd, "bool", "cleanup", "c", "Delete keys not mentioned in any of the uploads", false)
 	AddFlag(pushCmd, "string", "branch", "b", "branch", false)
 	AddFlag(pushCmd, "bool", "use-local-branch-name", "", "push from the branch with the name of your currently checked out branch (git or mercurial)", false)
 	AddFlag(pushCmd, "string", "tag", "", "Tag uploaded keys", false)

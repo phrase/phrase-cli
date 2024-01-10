@@ -30,7 +30,7 @@ func initUpoadCleanup() {
 
 			cmduploadCleanup := uploadCleanup.UploadCleanupCommand{
 				Config:    *Config,
-				ID:        params.GetString("id"),
+				IDs:       []string{params.GetString("id")},
 				ProjectID: projectId,
 				Confirm:   params.GetBool("confirm"),
 				Branch:    params.GetString("branch"),
