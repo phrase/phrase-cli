@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.20.0](https://github.com/phrase/openapi/compare/cli-v2.19.3...cli-v2.20.0) (2024-01-10)
+
+
+### Features
+
+* **CLI:** Optional cleanup after push [TSI-2234] ([#518](https://github.com/phrase/openapi/issues/518)) ([f3730a1](https://github.com/phrase/openapi/commit/f3730a1ab8e1377aa5f4f2793b0bd72c3dab1664))
+
 ## [2.19.3](https://github.com/phrase/openapi/compare/cli-v2.19.2...cli-v2.19.3) (2024-01-02)
 
 
