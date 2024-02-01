@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.21.1](https://github.com/phrase/openapi/compare/cli-v2.21.0...cli-v2.21.1) (2024-02-01)
+
+
+### Bug Fixes
+
+* **API:** Adjust documentation of QPS endpoint ([#525](https://github.com/phrase/openapi/issues/525)) ([4b4f1ac](https://github.com/phrase/openapi/commit/4b4f1acf28fbd13b3d16c37162cdccfa05c38ffa))
+
 ## [2.21.0](https://github.com/phrase/openapi/compare/cli-v2.20.0...cli-v2.21.0) (2024-01-17)
 
 
