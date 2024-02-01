@@ -30,8 +30,8 @@ func initProjectsQualityPerformanceScore() {
 	use = strings.Join(strings.Split("projects/quality_performance_score", "/")[1:], "_")
 	var ProjectsQualityPerformanceScore = &cobra.Command{
 		Use:   use,
-		Short: "Get project's translations' quality performance scores",
-		Long:  `Get project&#x27;s translations&#x27; quality performance scores`,
+		Short: "Get Translation Quality",
+		Long:  `Retrieves the quality scores for your Strings translations. Returns a score, measured by Phrase QPS`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -48,7 +48,7 @@ func initProjectsQualityPerformanceScore() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			id := params.GetString(helpers.ToSnakeCase("Id"))
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 			var projectsQualityPerformanceScoreRequest api.ProjectsQualityPerformanceScoreRequest
 			if err := json.Unmarshal([]byte(params.GetString("data")), &projectsQualityPerformanceScoreRequest); err != nil {
 				HandleError(err)
@@ -60,7 +60,7 @@ func initProjectsQualityPerformanceScore() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.QualityPerformanceScoreApi.ProjectsQualityPerformanceScore(auth, id, projectsQualityPerformanceScoreRequest, &localVarOptionals)
+			data, api_response, err := client.QualityPerformanceScoreApi.ProjectsQualityPerformanceScore(auth, projectId, projectsQualityPerformanceScoreRequest, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -87,7 +87,7 @@ func initProjectsQualityPerformanceScore() {
 	}
 
 	QualityPerformanceScoreApiCmd.AddCommand(ProjectsQualityPerformanceScore)
-	AddFlag(ProjectsQualityPerformanceScore, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(ProjectsQualityPerformanceScore, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ProjectsQualityPerformanceScore, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(ProjectsQualityPerformanceScore, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
