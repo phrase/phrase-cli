@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.21.2](https://github.com/phrase/openapi/compare/cli-v2.21.1...cli-v2.21.2) (2024-02-05)
+
+
+### Bug Fixes
+
+* **API:** allow nullable value for job's due_date ([#534](https://github.com/phrase/openapi/issues/534)) ([38b51b5](https://github.com/phrase/openapi/commit/38b51b51095394f8ce769873140038abba628514))
+
 ## [2.21.1](https://github.com/phrase/openapi/compare/cli-v2.21.0...cli-v2.21.1) (2024-02-01)
 
 
