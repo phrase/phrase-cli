@@ -137,6 +137,10 @@ func initCustomMetadataPropertiesList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("q")) {
+				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("sort")) {
 				localVarOptionals.Sort = optional.NewString(params.GetString(helpers.ToSnakeCase("Sort")))
 			}
@@ -178,6 +182,7 @@ func initCustomMetadataPropertiesList() {
 	AddFlag(CustomMetadataPropertiesList, "string", helpers.ToSnakeCase("ProjectId"), "", "id of project that the properties belong to", false)
 	AddFlag(CustomMetadataPropertiesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(CustomMetadataPropertiesList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
+	AddFlag(CustomMetadataPropertiesList, "string", helpers.ToSnakeCase("Q"), "", "query to find a property by name", false)
 	AddFlag(CustomMetadataPropertiesList, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: name, data_type, created_at.", false)
 	AddFlag(CustomMetadataPropertiesList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 
