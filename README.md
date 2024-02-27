@@ -43,13 +43,13 @@ When using the US datacenter you need to provide a different API host:
 
 #### 3. Upload your locale files
 
-Use the `push` command to upload your locale files from your defined [sources](https://support.phrase.com/hc/en-us/sections/5784132012828):
+Use the `push` command to upload your locale files from your defined [sources](https://support.phrase.com/hc/en-us/articles/5784118494492-Modify-the-CLI-Configuration-File-Strings#push-and-pull-0-0):
 
     $ phrase push
 
 #### 4. Download your locale files
 
-Use the `pull` command to download the most recent locale files back into your project according to your [targets](https://support.phrase.com/hc/en-us/sections/5784132012828):
+Use the `pull` command to download the most recent locale files back into your project according to your [targets](https://support.phrase.com/hc/en-us/articles/5784118494492-Modify-the-CLI-Configuration-File-Strings#push-and-pull-0-0):
 
     $ phrase pull
 
