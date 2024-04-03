@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.0](https://github.com/phrase/openapi/compare/cli-v2.22.0...cli-v2.23.0) (2024-04-03)
+
+
+### Features
+
+* **API:** add Linked Keys endpoints ([#555](https://github.com/phrase/openapi/issues/555)) ([4935dac](https://github.com/phrase/openapi/commit/4935dac58c787eaade2f1f65ce649f466b5e3a60))
+
 ## [2.22.0](https://github.com/phrase/openapi/compare/cli-v2.21.2...cli-v2.22.0) (2024-02-08)
 
 
