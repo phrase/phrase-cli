@@ -52,7 +52,8 @@ func initKeyLinksBatchDestroy() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			var keyLinksBatchDestroyParameters api.KeyLinksBatchDestroyParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyLinksBatchDestroyParameters); err != nil {
 				HandleError(err)
@@ -68,7 +69,7 @@ func initKeyLinksBatchDestroy() {
 				localVarOptionals.UnlinkParent = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UnlinkParent")))
 			}
 
-			data, api_response, err := client.LinkedKeysApi.KeyLinksBatchDestroy(auth, accountId, keyLinksBatchDestroyParameters, &localVarOptionals)
+			data, api_response, err := client.LinkedKeysApi.KeyLinksBatchDestroy(auth, projectId, id, keyLinksBatchDestroyParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -90,7 +91,8 @@ func initKeyLinksBatchDestroy() {
 	}
 
 	LinkedKeysApiCmd.AddCommand(KeyLinksBatchDestroy)
-	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("Id"), "", "Parent Translation Key ID", true)
 	AddFlag(KeyLinksBatchDestroy, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeyLinksBatchDestroy, "bool", helpers.ToSnakeCase("UnlinkParent"), "", "Whether to unlink the parent key as well and unmark it as linked-key.", false)
@@ -122,7 +124,8 @@ func initKeyLinksCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			var keyLinksCreateParameters api.KeyLinksCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyLinksCreateParameters); err != nil {
 				HandleError(err)
@@ -134,7 +137,7 @@ func initKeyLinksCreate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.LinkedKeysApi.KeyLinksCreate(auth, accountId, keyLinksCreateParameters, &localVarOptionals)
+			data, api_response, err := client.LinkedKeysApi.KeyLinksCreate(auth, projectId, id, keyLinksCreateParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -161,7 +164,8 @@ func initKeyLinksCreate() {
 	}
 
 	LinkedKeysApiCmd.AddCommand(KeyLinksCreate)
-	AddFlag(KeyLinksCreate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(KeyLinksCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeyLinksCreate, "string", helpers.ToSnakeCase("Id"), "", "Parent Translation Key ID", true)
 	AddFlag(KeyLinksCreate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(KeyLinksCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
@@ -192,13 +196,14 @@ func initKeyLinksDestroy() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			childKeyId := params.GetString(helpers.ToSnakeCase("ChildKeyId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.LinkedKeysApi.KeyLinksDestroy(auth, accountId, childKeyId, &localVarOptionals)
+			data, api_response, err := client.LinkedKeysApi.KeyLinksDestroy(auth, projectId, id, childKeyId, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -220,7 +225,8 @@ func initKeyLinksDestroy() {
 	}
 
 	LinkedKeysApiCmd.AddCommand(KeyLinksDestroy)
-	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("Id"), "", "Parent Translation Key ID", true)
 	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("ChildKeyId"), "", "The ID of the child key to unlink.", true)
 	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
@@ -251,12 +257,13 @@ func initKeyLinksIndex() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
 			}
 
-			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.LinkedKeysApi.KeyLinksIndex(auth, accountId, &localVarOptionals)
+			data, api_response, err := client.LinkedKeysApi.KeyLinksIndex(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -283,7 +290,8 @@ func initKeyLinksIndex() {
 	}
 
 	LinkedKeysApiCmd.AddCommand(KeyLinksIndex)
-	AddFlag(KeyLinksIndex, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(KeyLinksIndex, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(KeyLinksIndex, "string", helpers.ToSnakeCase("Id"), "", "Parent Translation Key ID", true)
 	AddFlag(KeyLinksIndex, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(KeyLinksIndex.Flags())
