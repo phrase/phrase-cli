@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.1](https://github.com/phrase/openapi/compare/cli-v2.23.0...cli-v2.23.1) (2024-04-04)
+
+
+### Bug Fixes
+
+* (API) Add mandatory params to linked keys endpoints ([#564](https://github.com/phrase/openapi/issues/564)) ([08d9846](https://github.com/phrase/openapi/commit/08d9846bc224d349e2ade9abf28d733afb1e8be3))
+
 ## [2.23.0](https://github.com/phrase/openapi/compare/cli-v2.22.0...cli-v2.23.0) (2024-04-03)
 
 
