@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.2](https://github.com/phrase/openapi/compare/cli-v2.23.1...cli-v2.23.2) (2024-04-10)
+
+
+### Bug Fixes
+
+* **CLI:** Update protobuf library ([#567](https://github.com/phrase/openapi/issues/567)) ([a19bb4b](https://github.com/phrase/openapi/commit/a19bb4ba90a994d32e55206bcde4eba72d2eec6a))
+
 ## [2.23.1](https://github.com/phrase/openapi/compare/cli-v2.23.0...cli-v2.23.1) (2024-04-04)
 
 
