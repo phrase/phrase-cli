@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.24.0](https://github.com/phrase/openapi/compare/cli-v2.23.2...cli-v2.24.0) (2024-04-17)
+
+
+### Features
+
+* **API:** Add Repo Sync [TSI-1923] ([#569](https://github.com/phrase/openapi/issues/569)) ([0bd1756](https://github.com/phrase/openapi/commit/0bd17562018cb045ff41cc1ff5008b9419a0ed12))
+
 ## [2.23.2](https://github.com/phrase/openapi/compare/cli-v2.23.1...cli-v2.23.2) (2024-04-10)
 
 
