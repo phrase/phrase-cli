@@ -65,10 +65,6 @@ func initKeyLinksBatchDestroy() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("unlinkParent")) {
-				localVarOptionals.UnlinkParent = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UnlinkParent")))
-			}
-
 			data, api_response, err := client.LinkedKeysApi.KeyLinksBatchDestroy(auth, projectId, id, keyLinksBatchDestroyParameters, &localVarOptionals)
 
 			if err != nil {
@@ -95,7 +91,6 @@ func initKeyLinksBatchDestroy() {
 	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("Id"), "", "Parent Translation Key ID", true)
 	AddFlag(KeyLinksBatchDestroy, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(KeyLinksBatchDestroy, "bool", helpers.ToSnakeCase("UnlinkParent"), "", "Whether to unlink the parent key as well and unmark it as linked-key.", false)
 
 	params.BindPFlags(KeyLinksBatchDestroy.Flags())
 }
@@ -239,7 +234,7 @@ func initKeyLinksIndex() {
 	use = strings.Join(strings.Split("key_links/index", "/")[1:], "_")
 	var KeyLinksIndex = &cobra.Command{
 		Use:   use,
-		Short: "Retrieve all child keys linked to a specific parent key",
+		Short: "List child keys of a parent key",
 		Long:  `Returns detailed information about a parent key, including its linked child keys.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()

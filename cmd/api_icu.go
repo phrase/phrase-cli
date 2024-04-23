@@ -30,8 +30,8 @@ func initIcuSkeleton() {
 	use = strings.Join(strings.Split("icu/skeleton", "/")[1:], "_")
 	var IcuSkeleton = &cobra.Command{
 		Use:   use,
-		Short: "Build icu skeletons",
-		Long:  `Returns icu skeletons for multiple locale codes based on a source content.`,
+		Short: "Build ICU skeletons",
+		Long:  `Returns ICU skeletons for multiple locale codes based on a source content.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

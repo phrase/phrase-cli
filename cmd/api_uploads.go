@@ -52,28 +52,15 @@ func initUploadCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+			file := params.Get * os.File(helpers.ToSnakeCase("File"))
+			fileFormat := params.GetString(helpers.ToSnakeCase("FileFormat"))
+			localeId := params.GetString(helpers.ToSnakeCase("LocaleId"))
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("file")) {
-				file, err := os.Open(params.GetString(helpers.ToSnakeCase("file")))
-				localVarOptionals.File = optional.NewInterface(file)
-				if err != nil {
-					HandleError(err)
-				}
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("fileFormat")) {
-				localVarOptionals.FileFormat = optional.NewString(params.GetString(helpers.ToSnakeCase("FileFormat")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("localeId")) {
-				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("tags")) {
@@ -132,7 +119,7 @@ func initUploadCreate() {
 				localVarOptionals.TagOnlyAffectedKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("TagOnlyAffectedKeys")))
 			}
 
-			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, &localVarOptionals)
+			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, file, fileFormat, localeId, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -160,11 +147,11 @@ func initUploadCreate() {
 
 	UploadsApiCmd.AddCommand(UploadCreate)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(UploadCreate, "*os.File", helpers.ToSnakeCase("File"), "", "File to be imported", true)
+	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FileFormat"), "", "File format. Auto-detected when possible and not specified.", true)
+	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale of the file's content. Can be the name or id of the locale. Preferred is id.", true)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
-	AddFlag(UploadCreate, "*os.File", helpers.ToSnakeCase("File"), "", "File to be imported", false)
-	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FileFormat"), "", "File format. Auto-detected when possible and not specified.", false)
-	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale of the file's content. Can be the name or public id of the locale. Preferred is the public id.", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Tags"), "", "List of tags separated by comma to be associated with the new keys contained in the upload.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslations"), "", "Indicates whether existing translations should be updated with the file content.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateDescriptions"), "", "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.", false)
