@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,7 +54,9 @@ func initOrderConfirm() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var orderConfirmParameters api.OrderConfirmParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &orderConfirmParameters); err != nil {
 				HandleError(err)
@@ -126,6 +128,7 @@ func initOrderCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var orderCreateParameters api.OrderCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &orderCreateParameters); err != nil {
 				HandleError(err)
@@ -196,7 +199,9 @@ func initOrderDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -260,7 +265,9 @@ func initOrderShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -329,6 +336,7 @@ func initOrdersList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

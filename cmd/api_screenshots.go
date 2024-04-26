@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,6 +54,7 @@ func initScreenshotCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -140,7 +141,9 @@ func initScreenshotDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -204,7 +207,9 @@ func initScreenshotShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -273,7 +278,9 @@ func initScreenshotUpdate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var screenshotUpdateParameters api.ScreenshotUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotUpdateParameters); err != nil {
 				HandleError(err)
@@ -345,6 +352,7 @@ func initScreenshotsList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

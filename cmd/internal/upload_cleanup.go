@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"github.com/phrase/phrase-go/v2"
+	"github.com/phrase/phrase-go/v3"
 )
 
 type UploadCleanupCommand struct {

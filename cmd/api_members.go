@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,7 +54,9 @@ func initMemberDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -113,7 +115,9 @@ func initMemberShow() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -177,7 +181,9 @@ func initMemberUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var memberUpdateParameters api.MemberUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &memberUpdateParameters); err != nil {
 				HandleError(err)
@@ -249,7 +255,9 @@ func initMemberUpdateSettings() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var memberUpdateSettingsParameters api.MemberUpdateSettingsParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &memberUpdateSettingsParameters); err != nil {
 				HandleError(err)
@@ -321,6 +329,7 @@ func initMembersList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

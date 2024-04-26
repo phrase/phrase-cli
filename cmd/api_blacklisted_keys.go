@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,6 +54,7 @@ func initBlacklistedKeyCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var blacklistedKeyCreateParameters api.BlacklistedKeyCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyCreateParameters); err != nil {
 				HandleError(err)
@@ -124,7 +125,9 @@ func initBlacklistedKeyDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -183,7 +186,9 @@ func initBlacklistedKeyShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -247,7 +252,9 @@ func initBlacklistedKeyUpdate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var blacklistedKeyUpdateParameters api.BlacklistedKeyUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &blacklistedKeyUpdateParameters); err != nil {
 				HandleError(err)
@@ -319,6 +326,7 @@ func initBlacklistedKeysList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

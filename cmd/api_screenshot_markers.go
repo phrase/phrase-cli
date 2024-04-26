@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,7 +54,9 @@ func initScreenshotMarkerCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
+
 			var screenshotMarkerCreateParameters api.ScreenshotMarkerCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotMarkerCreateParameters); err != nil {
 				HandleError(err)
@@ -126,7 +128,9 @@ func initScreenshotMarkerDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -190,8 +194,11 @@ func initScreenshotMarkerShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -261,7 +268,9 @@ func initScreenshotMarkerUpdate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			screenshotId := params.GetString(helpers.ToSnakeCase("ScreenshotId"))
+
 			var screenshotMarkerUpdateParameters api.ScreenshotMarkerUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &screenshotMarkerUpdateParameters); err != nil {
 				HandleError(err)
@@ -333,7 +342,9 @@ func initScreenshotMarkersList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

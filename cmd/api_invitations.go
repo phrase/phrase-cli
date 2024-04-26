@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -56,6 +56,7 @@ func initInvitationCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			var invitationCreateParameters api.InvitationCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationCreateParameters); err != nil {
 				HandleError(err)
@@ -126,7 +127,9 @@ func initInvitationDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -185,7 +188,9 @@ func initInvitationResend() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -249,7 +254,9 @@ func initInvitationShow() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -313,7 +320,9 @@ func initInvitationUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var invitationUpdateParameters api.InvitationUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateParameters); err != nil {
 				HandleError(err)
@@ -385,7 +394,9 @@ func initInvitationUpdateSettings() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var invitationUpdateSettingsParameters api.InvitationUpdateSettingsParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &invitationUpdateSettingsParameters); err != nil {
 				HandleError(err)
@@ -457,6 +468,7 @@ func initInvitationsList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

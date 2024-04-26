@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -57,6 +57,7 @@ func initSpaceCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			var spaceCreateParameters api.SpaceCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceCreateParameters); err != nil {
 				HandleError(err)
@@ -127,7 +128,9 @@ func initSpaceDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -186,7 +189,9 @@ func initSpaceShow() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -250,7 +255,9 @@ func initSpaceUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var spaceUpdateParameters api.SpaceUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spaceUpdateParameters); err != nil {
 				HandleError(err)
@@ -322,6 +329,7 @@ func initSpacesList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -394,7 +402,9 @@ func initSpacesProjectsCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
+
 			var spacesProjectsCreateParameters api.SpacesProjectsCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &spacesProjectsCreateParameters); err != nil {
 				HandleError(err)
@@ -461,8 +471,11 @@ func initSpacesProjectsDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -522,7 +535,9 @@ func initSpacesProjectsList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			spaceId := params.GetString(helpers.ToSnakeCase("SpaceId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -55,7 +55,9 @@ func initReleaseCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+
 			var releaseCreateParameters api.ReleaseCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &releaseCreateParameters); err != nil {
 				HandleError(err)
@@ -127,8 +129,11 @@ func initReleaseDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -188,8 +193,11 @@ func initReleasePublish() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -254,8 +262,11 @@ func initReleaseShow() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -320,8 +331,11 @@ func initReleaseUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var releaseUpdateParameters api.ReleaseUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &releaseUpdateParameters); err != nil {
 				HandleError(err)
@@ -394,7 +408,9 @@ func initReleasesList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			distributionId := params.GetString(helpers.ToSnakeCase("DistributionId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

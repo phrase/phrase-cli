@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,7 +54,9 @@ func initJobCommentCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			var jobCommentCreateParameters api.JobCommentCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCommentCreateParameters); err != nil {
 				HandleError(err)
@@ -126,8 +128,11 @@ func initJobCommentDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -192,8 +197,11 @@ func initJobCommentShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -263,8 +271,11 @@ func initJobCommentUpdate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var jobCommentUpdateParameters api.JobCommentUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobCommentUpdateParameters); err != nil {
 				HandleError(err)
@@ -337,7 +348,9 @@ func initJobCommentsList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

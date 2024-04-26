@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -56,6 +56,7 @@ func initGitlabSyncDelete() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -118,6 +119,7 @@ func initGitlabSyncExport() {
 			}
 
 			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
+
 			var gitlabSyncExportParameters api.GitlabSyncExportParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncExportParameters); err != nil {
 				HandleError(err)
@@ -188,6 +190,7 @@ func initGitlabSyncHistory() {
 			}
 
 			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -265,6 +268,7 @@ func initGitlabSyncImport() {
 			}
 
 			gitlabSyncId := params.GetString(helpers.ToSnakeCase("GitlabSyncId"))
+
 			var gitlabSyncImportParameters api.GitlabSyncImportParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &gitlabSyncImportParameters); err != nil {
 				HandleError(err)
@@ -400,6 +404,7 @@ func initGitlabSyncShow() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -467,6 +472,7 @@ func initGitlabSyncUpdate() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

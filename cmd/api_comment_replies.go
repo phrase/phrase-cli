@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -55,8 +55,11 @@ func initRepliesList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
+
 			var repliesListParameters api.RepliesListParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &repliesListParameters); err != nil {
 				HandleError(err)
@@ -163,8 +166,11 @@ func initReplyCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -239,9 +245,13 @@ func initReplyDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -307,9 +317,13 @@ func initReplyMarkAsRead() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -375,9 +389,13 @@ func initReplyMarkAsUnread() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -443,9 +461,13 @@ func initReplyShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

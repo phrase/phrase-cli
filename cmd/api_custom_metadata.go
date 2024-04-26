@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,7 +54,9 @@ func initCustomMetadataPropertiesDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -113,6 +115,7 @@ func initCustomMetadataPropertiesList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -214,6 +217,7 @@ func initCustomMetadataPropertyCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			var customMetadataPropertiesCreateParameters api.CustomMetadataPropertiesCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &customMetadataPropertiesCreateParameters); err != nil {
 				HandleError(err)
@@ -284,7 +288,9 @@ func initCustomMetadataPropertyShow() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -348,7 +354,9 @@ func initCustomMetadataPropertyUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var customMetadataPropertiesUpdateParameters api.CustomMetadataPropertiesUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &customMetadataPropertiesUpdateParameters); err != nil {
 				HandleError(err)

@@ -13,7 +13,7 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/print"
 	"github.com/phrase/phrase-cli/cmd/internal/prompt"
 	"github.com/phrase/phrase-cli/cmd/internal/shared"
-	"github.com/phrase/phrase-go/v2"
+	"github.com/phrase/phrase-go/v3"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/maps"
 )
@@ -131,6 +131,7 @@ func Projects(client *phrase.APIClient) ([]phrase.Project, *phrase.APIResponse, 
 func ViperStructTag() viper.DecoderConfigOption {
 	return func(c *mapstructure.DecoderConfig) {
 		c.TagName = "json"
+		c.Squash = true
 		c.DecodeHook = mapstructure.ComposeDecodeHookFunc(
 			mapstructure.StringToTimeDurationHookFunc(),
 			mapstructure.StringToSliceHookFunc(","),

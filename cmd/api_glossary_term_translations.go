@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -52,8 +52,11 @@ func initGlossaryTermTranslationCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
+
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
+
 			var glossaryTermTranslationCreateParameters api.GlossaryTermTranslationCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermTranslationCreateParameters); err != nil {
 				HandleError(err)
@@ -126,9 +129,13 @@ func initGlossaryTermTranslationDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
+
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -189,9 +196,13 @@ func initGlossaryTermTranslationUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
+
 			termId := params.GetString(helpers.ToSnakeCase("TermId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var glossaryTermTranslationUpdateParameters api.GlossaryTermTranslationUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermTranslationUpdateParameters); err != nil {
 				HandleError(err)

@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -53,7 +53,9 @@ func initKeyLinksBatchDestroy() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var keyLinksBatchDestroyParameters api.KeyLinksBatchDestroyParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyLinksBatchDestroyParameters); err != nil {
 				HandleError(err)
@@ -120,7 +122,9 @@ func initKeyLinksCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var keyLinksCreateParameters api.KeyLinksCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyLinksCreateParameters); err != nil {
 				HandleError(err)
@@ -192,8 +196,11 @@ func initKeyLinksDestroy() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			childKeyId := params.GetString(helpers.ToSnakeCase("ChildKeyId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -253,7 +260,9 @@ func initKeyLinksIndex() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

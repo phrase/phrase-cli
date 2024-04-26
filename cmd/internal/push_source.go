@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	"github.com/phrase/phrase-cli/cmd/internal/paths"
-	"github.com/phrase/phrase-go/v2"
+	"github.com/phrase/phrase-go/v3"
 	"github.com/spf13/viper"
 )
 
@@ -48,7 +48,7 @@ func SourcesFromConfig(config phrase.Config) (Sources, error) {
 			source.ProjectID = projectId
 		}
 		if source.Params == nil {
-			source.Params = new(phrase.UploadCreateOpts)
+			source.Params = new(UploadParams)
 		}
 
 		if !source.Params.FileFormat.IsSet() {
@@ -80,13 +80,19 @@ func (sources Sources) Validate() error {
 	return nil
 }
 
+type UploadParams struct {
+	phrase.UploadCreateOpts `mapstructure:",squash"`
+	LocaleId                optional.String `json:"locale_id,omitempty"`
+	FileFormat              optional.String `json:"file_format,omitempty"`
+}
+
 type Source struct {
-	File        string                   `json:"file"`
-	ProjectID   string                   `json:"project_id"`
-	Branch      string                   `json:"branch"`
-	AccessToken string                   `json:"access_token"`
-	FileFormat  string                   `json:"file_format"`
-	Params      *phrase.UploadCreateOpts `json:"params,omitempty"`
+	File        string        `json:"file"`
+	ProjectID   string        `json:"project_id"`
+	Branch      string        `json:"branch"`
+	AccessToken string        `json:"access_token"`
+	FileFormat  string        `json:"file_format"`
+	Params      *UploadParams `json:"params,omitempty"`
 
 	RemoteLocales []*phrase.Locale
 	Format        *phrase.Format
@@ -154,13 +160,11 @@ func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFil
 		fmt.Fprintln(os.Stdout, "Actual file location:", localeFile.Path)
 	}
 
-	params := new(phrase.UploadCreateOpts)
+	params := new(UploadParams)
 	*params = *source.Params
 
 	var err error
 	file, err := os.Open(localeFile.Path)
-	params.File = optional.NewInterface(file)
-
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +199,7 @@ func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFil
 		params.Branch = optional.NewString(branch)
 	}
 
-	upload, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, params)
+	upload, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, file, params.FileFormat.Value(), params.LocaleId.Value(), &params.UploadCreateOpts)
 
 	return &upload, err
 }

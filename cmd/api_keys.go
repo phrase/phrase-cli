@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -60,6 +60,7 @@ func initKeyCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var keyCreateParameters api.KeyCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyCreateParameters); err != nil {
 				HandleError(err)
@@ -130,7 +131,9 @@ func initKeyDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -194,7 +197,9 @@ func initKeyShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -263,7 +268,9 @@ func initKeyUpdate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var keyUpdateParameters api.KeyUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keyUpdateParameters); err != nil {
 				HandleError(err)
@@ -335,6 +342,7 @@ func initKeysDeleteCollection() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -412,6 +420,7 @@ func initKeysExclude() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var keysExcludeParameters api.KeysExcludeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysExcludeParameters); err != nil {
 				HandleError(err)
@@ -482,6 +491,7 @@ func initKeysInclude() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var keysIncludeParameters api.KeysIncludeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysIncludeParameters); err != nil {
 				HandleError(err)
@@ -552,6 +562,7 @@ func initKeysList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -649,6 +660,7 @@ func initKeysSearch() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var keysSearchParameters api.KeysSearchParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysSearchParameters); err != nil {
 				HandleError(err)
@@ -729,6 +741,7 @@ func initKeysTag() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var keysTagParameters api.KeysTagParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysTagParameters); err != nil {
 				HandleError(err)
@@ -799,6 +812,7 @@ func initKeysUntag() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var keysUntagParameters api.KeysUntagParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &keysUntagParameters); err != nil {
 				HandleError(err)

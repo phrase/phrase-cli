@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,8 +54,11 @@ func initOrganizationJobTemplateLocaleDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
+
 			jobTemplateLocaleId := params.GetString(helpers.ToSnakeCase("JobTemplateLocaleId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -115,8 +118,11 @@ func initOrganizationJobTemplateLocaleShow() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
+
 			jobTemplateLocaleId := params.GetString(helpers.ToSnakeCase("JobTemplateLocaleId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -181,8 +187,11 @@ func initOrganizationJobTemplateLocaleUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
+
 			jobTemplateLocaleId := params.GetString(helpers.ToSnakeCase("JobTemplateLocaleId"))
+
 			var organizationJobTemplateLocaleUpdateParameters api.OrganizationJobTemplateLocaleUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &organizationJobTemplateLocaleUpdateParameters); err != nil {
 				HandleError(err)
@@ -255,7 +264,9 @@ func initOrganizationJobTemplateLocalesCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
+
 			var organizationJobTemplateLocalesCreateParameters api.OrganizationJobTemplateLocalesCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &organizationJobTemplateLocalesCreateParameters); err != nil {
 				HandleError(err)
@@ -327,7 +338,9 @@ func initOrganizationJobTemplateLocalesList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			jobTemplateId := params.GetString(helpers.ToSnakeCase("JobTemplateId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

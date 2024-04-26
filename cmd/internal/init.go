@@ -12,7 +12,7 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/prompt"
 	"github.com/phrase/phrase-cli/cmd/internal/shared"
 	"github.com/phrase/phrase-cli/cmd/internal/spinner"
-	"github.com/phrase/phrase-go/v2"
+	"github.com/phrase/phrase-go/v3"
 	"gopkg.in/yaml.v2"
 )
 

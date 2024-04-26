@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -54,7 +54,9 @@ func initGlossaryTermCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
+
 			var glossaryTermCreateParameters api.GlossaryTermCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermCreateParameters); err != nil {
 				HandleError(err)
@@ -126,8 +128,11 @@ func initGlossaryTermDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -187,8 +192,11 @@ func initGlossaryTermShow() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -253,8 +261,11 @@ func initGlossaryTermUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var glossaryTermUpdateParameters api.GlossaryTermUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &glossaryTermUpdateParameters); err != nil {
 				HandleError(err)
@@ -327,7 +338,9 @@ func initGlossaryTermsList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			glossaryId := params.GetString(helpers.ToSnakeCase("GlossaryId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

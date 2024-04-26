@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -122,6 +122,7 @@ func initProjectDelete() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -179,6 +180,7 @@ func initProjectShow() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -241,6 +243,7 @@ func initProjectUpdate() {
 			}
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var projectUpdateParameters api.ProjectUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &projectUpdateParameters); err != nil {
 				HandleError(err)

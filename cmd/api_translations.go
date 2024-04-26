@@ -7,7 +7,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -65,6 +65,7 @@ func initTranslationCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var translationCreateParameters api.TranslationCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationCreateParameters); err != nil {
 				HandleError(err)
@@ -135,7 +136,9 @@ func initTranslationExclude() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var translationExcludeParameters api.TranslationExcludeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationExcludeParameters); err != nil {
 				HandleError(err)
@@ -207,7 +210,9 @@ func initTranslationInclude() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var translationIncludeParameters api.TranslationIncludeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationIncludeParameters); err != nil {
 				HandleError(err)
@@ -279,7 +284,9 @@ func initTranslationReview() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var translationReviewParameters api.TranslationReviewParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationReviewParameters); err != nil {
 				HandleError(err)
@@ -351,7 +358,9 @@ func initTranslationShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -420,7 +429,9 @@ func initTranslationUnverify() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var translationUnverifyParameters api.TranslationUnverifyParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationUnverifyParameters); err != nil {
 				HandleError(err)
@@ -492,7 +503,9 @@ func initTranslationUpdate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var translationUpdateParameters api.TranslationUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationUpdateParameters); err != nil {
 				HandleError(err)
@@ -564,7 +577,9 @@ func initTranslationVerify() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var translationVerifyParameters api.TranslationVerifyParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationVerifyParameters); err != nil {
 				HandleError(err)
@@ -636,7 +651,9 @@ func initTranslationsByKey() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -730,7 +747,9 @@ func initTranslationsByLocale() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			localeId := params.GetString(helpers.ToSnakeCase("LocaleId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -824,6 +843,7 @@ func initTranslationsExcludeCollection() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var translationsExcludeParameters api.TranslationsExcludeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsExcludeParameters); err != nil {
 				HandleError(err)
@@ -894,6 +914,7 @@ func initTranslationsIncludeCollection() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var translationsIncludeParameters api.TranslationsIncludeParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsIncludeParameters); err != nil {
 				HandleError(err)
@@ -964,6 +985,7 @@ func initTranslationsList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -1066,6 +1088,7 @@ func initTranslationsReviewCollection() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var translationsReviewParameters api.TranslationsReviewParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsReviewParameters); err != nil {
 				HandleError(err)
@@ -1136,6 +1159,7 @@ func initTranslationsSearch() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var translationsSearchParameters api.TranslationsSearchParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsSearchParameters); err != nil {
 				HandleError(err)
@@ -1216,6 +1240,7 @@ func initTranslationsUnverifyCollection() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var translationsUnverifyParameters api.TranslationsUnverifyParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsUnverifyParameters); err != nil {
 				HandleError(err)
@@ -1286,6 +1311,7 @@ func initTranslationsVerifyCollection() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			var translationsVerifyParameters api.TranslationsVerifyParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsVerifyParameters); err != nil {
 				HandleError(err)

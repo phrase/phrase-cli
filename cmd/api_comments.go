@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -57,7 +57,9 @@ func initCommentCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			var commentCreateParameters api.CommentCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentCreateParameters); err != nil {
 				HandleError(err)
@@ -143,8 +145,11 @@ func initCommentDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -209,8 +214,11 @@ func initCommentMarkCheck() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -275,8 +283,11 @@ func initCommentMarkRead() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var commentMarkReadParameters api.CommentMarkReadParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentMarkReadParameters); err != nil {
 				HandleError(err)
@@ -344,8 +355,11 @@ func initCommentMarkUnread() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -410,8 +424,11 @@ func initCommentShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -481,8 +498,11 @@ func initCommentUpdate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var commentUpdateParameters api.CommentUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentUpdateParameters); err != nil {
 				HandleError(err)
@@ -555,7 +575,9 @@ func initCommentsList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			keyId := params.GetString(helpers.ToSnakeCase("KeyId"))
+
 			var commentsListParameters api.CommentsListParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &commentsListParameters); err != nil {
 				HandleError(err)

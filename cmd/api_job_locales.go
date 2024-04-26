@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -57,8 +57,11 @@ func initJobLocaleComplete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var jobLocaleCompleteParameters api.JobLocaleCompleteParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteParameters); err != nil {
 				HandleError(err)
@@ -131,8 +134,11 @@ func initJobLocaleCompleteReview() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var jobLocaleCompleteReviewParameters api.JobLocaleCompleteReviewParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleCompleteReviewParameters); err != nil {
 				HandleError(err)
@@ -205,8 +211,11 @@ func initJobLocaleDelete() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -271,8 +280,11 @@ func initJobLocaleReopen() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var jobLocaleReopenParameters api.JobLocaleReopenParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleReopenParameters); err != nil {
 				HandleError(err)
@@ -345,8 +357,11 @@ func initJobLocaleShow() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -416,8 +431,11 @@ func initJobLocaleUpdate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var jobLocaleUpdateParameters api.JobLocaleUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocaleUpdateParameters); err != nil {
 				HandleError(err)
@@ -490,7 +508,9 @@ func initJobLocalesCreate() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			var jobLocalesCreateParameters api.JobLocalesCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &jobLocalesCreateParameters); err != nil {
 				HandleError(err)
@@ -562,7 +582,9 @@ func initJobLocalesList() {
 			}
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
 			jobId := params.GetString(helpers.ToSnakeCase("JobId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}

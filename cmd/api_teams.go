@@ -8,7 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v2"
+	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -60,6 +60,7 @@ func initTeamCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			var teamCreateParameters api.TeamCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamCreateParameters); err != nil {
 				HandleError(err)
@@ -130,7 +131,9 @@ func initTeamDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -189,7 +192,9 @@ func initTeamShow() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -253,7 +258,9 @@ func initTeamUpdate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			var teamUpdateParameters api.TeamUpdateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamUpdateParameters); err != nil {
 				HandleError(err)
@@ -325,6 +332,7 @@ func initTeamsList() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -397,7 +405,9 @@ func initTeamsProjectsCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
+
 			var teamsProjectsCreateParameters api.TeamsProjectsCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsProjectsCreateParameters); err != nil {
 				HandleError(err)
@@ -464,8 +474,11 @@ func initTeamsProjectsDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -525,7 +538,9 @@ func initTeamsSpacesCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
+
 			var teamsSpacesCreateParameters api.TeamsSpacesCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsSpacesCreateParameters); err != nil {
 				HandleError(err)
@@ -592,8 +607,11 @@ func initTeamsSpacesDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -653,7 +671,9 @@ func initTeamsUsersCreate() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
+
 			var teamsUsersCreateParameters api.TeamsUsersCreateParameters
 			if err := json.Unmarshal([]byte(params.GetString("data")), &teamsUsersCreateParameters); err != nil {
 				HandleError(err)
@@ -720,8 +740,11 @@ func initTeamsUsersDelete() {
 			}
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
 			teamId := params.GetString(helpers.ToSnakeCase("TeamId"))
+
 			id := params.GetString(helpers.ToSnakeCase("Id"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
