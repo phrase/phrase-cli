@@ -34,7 +34,7 @@ function create_release_data()
   "name": "${VERSION}",
   "draft": true,
   "prerelease": false,
-  "body": "https://github.com/phrase/openapi/blob/master/clients/cli/CHANGELOG.md"
+  "body": "https://github.com/phrase/phrase-cli/blob/master/CHANGELOG.md"
 }
 EOF
 }
