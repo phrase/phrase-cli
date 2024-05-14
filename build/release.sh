@@ -33,7 +33,8 @@ function create_release_data()
   "tag_name": "${VERSION}",
   "name": "${VERSION}",
   "draft": true,
-  "prerelease": false
+  "prerelease": false,
+  "body": "https://github.com/phrase/phrase-cli/blob/master/CHANGELOG.md"
 }
 EOF
 }
