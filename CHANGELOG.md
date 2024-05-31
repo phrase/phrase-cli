@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.27.1](https://github.com/phrase/openapi/compare/cli-v2.27.0...cli-v2.27.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* **CLI:** use id instead of repo_sync_id as param ([#618](https://github.com/phrase/openapi/issues/618)) ([7a1a0d9](https://github.com/phrase/openapi/commit/7a1a0d9115262dc7fa3065ee7cc76bec7a381ddb))
+* **PHP:** Fix deserializing custom metadata values in key response ([#607](https://github.com/phrase/openapi/issues/607)) ([b6eeeba](https://github.com/phrase/openapi/commit/b6eeeba223e3eabec268a8f3d372afcb6abd09dd))
+
 ## [2.27.0](https://github.com/phrase/openapi/compare/cli-v2.26.0...cli-v2.27.0) (2024-04-29)
 
 
