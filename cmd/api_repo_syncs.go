@@ -56,13 +56,13 @@ func initRepoSyncActivate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			repoSyncId := params.GetString(helpers.ToSnakeCase("RepoSyncId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.RepoSyncsApi.RepoSyncActivate(auth, accountId, repoSyncId, &localVarOptionals)
+			data, api_response, err := client.RepoSyncsApi.RepoSyncActivate(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -90,7 +90,7 @@ func initRepoSyncActivate() {
 
 	RepoSyncsApiCmd.AddCommand(RepoSyncActivate)
 	AddFlag(RepoSyncActivate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
-	AddFlag(RepoSyncActivate, "string", helpers.ToSnakeCase("RepoSyncId"), "", "Repo Sync ID", true)
+	AddFlag(RepoSyncActivate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(RepoSyncActivate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(RepoSyncActivate.Flags())
@@ -122,13 +122,13 @@ func initRepoSyncDeactivate() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			repoSyncId := params.GetString(helpers.ToSnakeCase("RepoSyncId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.RepoSyncsApi.RepoSyncDeactivate(auth, accountId, repoSyncId, &localVarOptionals)
+			data, api_response, err := client.RepoSyncsApi.RepoSyncDeactivate(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -156,7 +156,7 @@ func initRepoSyncDeactivate() {
 
 	RepoSyncsApiCmd.AddCommand(RepoSyncDeactivate)
 	AddFlag(RepoSyncDeactivate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
-	AddFlag(RepoSyncDeactivate, "string", helpers.ToSnakeCase("RepoSyncId"), "", "Repo Sync ID", true)
+	AddFlag(RepoSyncDeactivate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(RepoSyncDeactivate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(RepoSyncDeactivate.Flags())
@@ -188,13 +188,13 @@ func initRepoSyncEvents() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			repoSyncId := params.GetString(helpers.ToSnakeCase("RepoSyncId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.RepoSyncsApi.RepoSyncEvents(auth, accountId, repoSyncId, &localVarOptionals)
+			data, api_response, err := client.RepoSyncsApi.RepoSyncEvents(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -222,7 +222,7 @@ func initRepoSyncEvents() {
 
 	RepoSyncsApiCmd.AddCommand(RepoSyncEvents)
 	AddFlag(RepoSyncEvents, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
-	AddFlag(RepoSyncEvents, "string", helpers.ToSnakeCase("RepoSyncId"), "", "Repo Sync ID", true)
+	AddFlag(RepoSyncEvents, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(RepoSyncEvents, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(RepoSyncEvents.Flags())
@@ -254,13 +254,13 @@ func initRepoSyncExport() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			repoSyncId := params.GetString(helpers.ToSnakeCase("RepoSyncId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.RepoSyncsApi.RepoSyncExport(auth, accountId, repoSyncId, &localVarOptionals)
+			data, api_response, err := client.RepoSyncsApi.RepoSyncExport(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -288,7 +288,7 @@ func initRepoSyncExport() {
 
 	RepoSyncsApiCmd.AddCommand(RepoSyncExport)
 	AddFlag(RepoSyncExport, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
-	AddFlag(RepoSyncExport, "string", helpers.ToSnakeCase("RepoSyncId"), "", "Repo Sync ID", true)
+	AddFlag(RepoSyncExport, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(RepoSyncExport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(RepoSyncExport.Flags())
@@ -320,13 +320,13 @@ func initRepoSyncImport() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			repoSyncId := params.GetString(helpers.ToSnakeCase("RepoSyncId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.RepoSyncsApi.RepoSyncImport(auth, accountId, repoSyncId, &localVarOptionals)
+			data, api_response, err := client.RepoSyncsApi.RepoSyncImport(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -354,7 +354,7 @@ func initRepoSyncImport() {
 
 	RepoSyncsApiCmd.AddCommand(RepoSyncImport)
 	AddFlag(RepoSyncImport, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
-	AddFlag(RepoSyncImport, "string", helpers.ToSnakeCase("RepoSyncId"), "", "Repo Sync ID", true)
+	AddFlag(RepoSyncImport, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(RepoSyncImport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(RepoSyncImport.Flags())
@@ -449,13 +449,13 @@ func initRepoSyncShow() {
 
 			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
 
-			repoSyncId := params.GetString(helpers.ToSnakeCase("RepoSyncId"))
+			id := params.GetString(helpers.ToSnakeCase("Id"))
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.RepoSyncsApi.RepoSyncShow(auth, accountId, repoSyncId, &localVarOptionals)
+			data, api_response, err := client.RepoSyncsApi.RepoSyncShow(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -483,7 +483,7 @@ func initRepoSyncShow() {
 
 	RepoSyncsApiCmd.AddCommand(RepoSyncShow)
 	AddFlag(RepoSyncShow, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
-	AddFlag(RepoSyncShow, "string", helpers.ToSnakeCase("RepoSyncId"), "", "Repo Sync ID", true)
+	AddFlag(RepoSyncShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(RepoSyncShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(RepoSyncShow.Flags())
