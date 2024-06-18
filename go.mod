@@ -9,7 +9,7 @@ require (
 	github.com/daviddengcn/go-colortext v1.0.0
 	github.com/jpillora/backoff v1.0.0
 	github.com/mitchellh/mapstructure v1.4.0
-	github.com/phrase/phrase-go/v3 v3.2.0 // x-release-please-version
+	github.com/phrase/phrase-go/v3 v3.2.1 // x-release-please-version
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.7.1
 	gopkg.in/yaml.v2 v2.4.0
