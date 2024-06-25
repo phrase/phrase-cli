@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.29.0](https://github.com/phrase/openapi/compare/cli-v2.28.1...cli-v2.29.0) (2024-06-25)
+
+
+### Features
+
+* **API:** Async downloads [TSI-2515] ([#642](https://github.com/phrase/openapi/issues/642)) ([6fcab5d](https://github.com/phrase/openapi/commit/6fcab5d4719f64e8e5dd49c327dc9348b384de4c))
+
 ## [2.28.1](https://github.com/phrase/openapi/compare/cli-v2.28.0...cli-v2.28.1) (2024-06-18)
 
 
