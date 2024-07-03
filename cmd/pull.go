@@ -20,6 +20,7 @@ func initPull() {
 			cmdPull := pull.PullCommand{
 				Branch:             params.GetString("branch"),
 				UseLocalBranchName: params.GetBool("use-local-branch-name"),
+				Async:              params.GetBool("async"),
 			}
 			err := cmdPull.Run(Config)
 			if err != nil {
@@ -31,5 +32,6 @@ func initPull() {
 
 	AddFlag(pullCmd, "string", "branch", "b", "branch", false)
 	AddFlag(pullCmd, "bool", "use-local-branch-name", "", "use local branch name", false)
+	AddFlag(pullCmd, "bool", "async", "a", "use asynchronous locale downloads (recommended for large number of keys)", false)
 	params.BindPFlags(pullCmd.Flags())
 }
