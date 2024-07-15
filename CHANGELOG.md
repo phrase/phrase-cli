@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.31.1](https://github.com/phrase/openapi/compare/cli-v2.31.0...cli-v2.31.1) (2024-07-15)
+
+
+### Bug Fixes
+
+* **CLI:** Pull should not crash on empty files ([#655](https://github.com/phrase/openapi/issues/655)) ([3e3b33c](https://github.com/phrase/openapi/commit/3e3b33cf0e5dd173c2596b23f5a815692f9ee865))
+
 ## [2.31.0](https://github.com/phrase/openapi/compare/cli-v2.30.0...cli-v2.31.0) (2024-07-03)
 
 
