@@ -224,16 +224,17 @@ func (target *Target) downloadSynchronously(client *phrase.APIClient, localeFile
 }
 
 func copyToDestination(file *os.File, path string) error {
-	var data []byte
-	data, err := io.ReadAll(file)
+	destFile, err := os.Create(path)
 	if err != nil {
 		return err
 	}
-	file.Close()
-	os.Remove(file.Name())
-
-	err = os.WriteFile(path, data, 0644)
-	return err
+	defer destFile.Close()
+	if file != nil {
+		defer file.Close()
+		_, err = io.Copy(destFile, file)
+		return err
+	}
+	return nil
 }
 
 func downloadExportedLocale(url string, localName string) error {
