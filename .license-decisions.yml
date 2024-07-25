@@ -1,0 +1,4 @@
+---
+- - :inherit_from
+  - url: https://raw.githubusercontent.com/phrase/lawa/master/config/license-decisions.yml
+    authorization: token $GITHUB_TOKEN
