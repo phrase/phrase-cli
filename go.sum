@@ -220,8 +220,8 @@ github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FI
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/pelletier/go-toml v1.8.1 h1:1Nf83orprkJyknT6h7zbuEGUEjcyVlCxSUGTENmNCRM=
 github.com/pelletier/go-toml v1.8.1/go.mod h1:T2/BmBdy8dvIRq1a/8aqjN41wvWlN4lrapLU/GW4pbc=
-github.com/phrase/phrase-go/v3 v3.4.0 h1:gUE9dKjm1tSM9y+wVo/oZZOAkQThbpgr6tlgmrVhnfM=
-github.com/phrase/phrase-go/v3 v3.4.0/go.mod h1:s0uOYiXLxKAYlaIS6TbKv3efkKFUlY4OB6OL+VgvK90=
+github.com/phrase/phrase-go/v3 v3.4.1 h1:X3S8NC2n1226CXebqWbx7KvSIfKK87aCss/B6OsKjzc=
+github.com/phrase/phrase-go/v3 v3.4.1/go.mod h1:s0uOYiXLxKAYlaIS6TbKv3efkKFUlY4OB6OL+VgvK90=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/sftp v1.10.1/go.mod h1:lYOWFsE0bwd1+KfKJaKeuokY15vzFx25BLbzYYoAxZI=
