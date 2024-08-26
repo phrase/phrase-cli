@@ -82,6 +82,10 @@ func initUploadCreate() {
 				localVarOptionals.UpdateTranslationKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateTranslationKeys")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("updateTranslationsOnSourceMatch")) {
+				localVarOptionals.UpdateTranslationsOnSourceMatch = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateTranslationsOnSourceMatch")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("updateDescriptions")) {
 				localVarOptionals.UpdateDescriptions = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateDescriptions")))
 			}
@@ -166,6 +170,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Tags"), "", "List of tags separated by comma to be associated with the new keys contained in the upload.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslations"), "", "Indicates whether existing translations should be updated with the file content.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslationKeys"), "", "Pass `false` here to prevent new keys from being created and existing keys updated.", false)
+	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslationsOnSourceMatch"), "", "Update target translations only if the source translations of the uploaded multilingual file match the stored translations.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateDescriptions"), "", "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("ConvertEmoji"), "", "This option is obsolete. Providing the option will cause a bad request error.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("SkipUploadTags"), "", "Indicates whether the upload should not create upload tags.", false)
