@@ -12,6 +12,6 @@ jobs:
         uses: phrase/vulnerability_alerts_github_action@main
         with:
           slack-token: ${{ secrets.SLACK_VULNERABILITIES_NOTIFICATIONS_TOKEN }}
-          slack-channel: ${{ secrets.SLACK_TEAM_INTEGRATIONS_CHANNEL }}
+          slack-channel: ${{ secrets.SLACK_STRINGS_CONNECT_DELIVER_CHANNEL }}
           github-token: ${{ secrets.GH_ACCESS_TOKEN }}
           github-repository: ${{ github.repository }}
