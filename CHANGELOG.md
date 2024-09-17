@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.32.0](https://github.com/phrase/openapi/compare/cli-v2.31.1...cli-v2.32.0) (2024-09-09)
+
+
+### Features
+
+* Add update_translations_on_source_match ([#670](https://github.com/phrase/openapi/issues/670)) ([11003ac](https://github.com/phrase/openapi/commit/11003ace7353bf99893482ca4aa32214abf3e581))
+
 ## [2.31.1](https://github.com/phrase/openapi/compare/cli-v2.31.0...cli-v2.31.1) (2024-07-15)
 
 
