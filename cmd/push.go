@@ -38,5 +38,6 @@ func initPush() {
 	AddFlag(pushCmd, "string", "branch", "b", "branch", false)
 	AddFlag(pushCmd, "bool", "use-local-branch-name", "", "push from the branch with the name of your currently checked out branch (git or mercurial)", false)
 	AddFlag(pushCmd, "string", "tag", "", "Tag uploaded keys", false)
+	AddFlag(pushCmd, "string", "translation-key-prefix", "", "Prefix for the names of the translation keys", false)
 	params.BindPFlags(pushCmd.Flags())
 }
