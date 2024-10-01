@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/antihax/optional"
 	helpers "github.com/phrase/phrase-cli/helpers"
 	api "github.com/phrase/phrase-go/v3"
 	"github.com/spf13/cobra"
@@ -42,17 +41,8 @@ func initFormatsList() {
 			}
 
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.FormatsListOpts{}
 
-			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
-				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
-			}
-
-			data, api_response, err := client.FormatsApi.FormatsList(auth, &localVarOptionals)
+			data, api_response, err := client.FormatsApi.FormatsList(auth)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -79,7 +69,6 @@ func initFormatsList() {
 	}
 
 	FormatsApiCmd.AddCommand(FormatsList)
-	AddFlag(FormatsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(FormatsList.Flags())
 }
