@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.33.0](https://github.com/phrase/openapi/compare/cli-v2.32.0...cli-v2.33.0) (2024-10-02)
+
+
+### Features
+
+* Add translation key prefixes for upload and download ([#687](https://github.com/phrase/openapi/issues/687)) ([9c9c959](https://github.com/phrase/openapi/commit/9c9c959830631bcac8beaf1de30ab31755ac1ee5))
+
+
+### Bug Fixes
+
+* **API:** Format list is not paginated and authenticated #STRINGS-458 ([#690](https://github.com/phrase/openapi/issues/690)) ([25e90f4](https://github.com/phrase/openapi/commit/25e90f46513e70cf328be80c36ae785cead05851))
+
 ## [2.32.0](https://github.com/phrase/openapi/compare/cli-v2.31.1...cli-v2.32.0) (2024-09-09)
 
 
