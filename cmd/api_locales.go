@@ -350,6 +350,14 @@ func initLocaleDownload() {
 				localVarOptionals.SourceLocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("SourceLocaleId")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("translationKeyPrefix")) {
+				localVarOptionals.TranslationKeyPrefix = optional.NewString(params.GetString(helpers.ToSnakeCase("TranslationKeyPrefix")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("filterByPrefix")) {
+				localVarOptionals.FilterByPrefix = optional.NewBool(params.GetBool(helpers.ToSnakeCase("FilterByPrefix")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("customMetadataFilters")) {
 				var customMetadataFilters map[string]interface{}
 				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("CustomMetadataFilters"))), &customMetadataFilters); err != nil {
@@ -404,6 +412,8 @@ func initLocaleDownload() {
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("UseLastReviewedVersion"), "", "If set to true the last reviewed version of a translation is used. This is only available if the review workflow is enabled for the project.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("FallbackLocaleId"), "", "If a key has no translation in the locale being downloaded the translation in the fallback locale will be used. Provide the ID of the locale that should be used as the fallback. Requires include_empty_translations to be set to <code>true</code>.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("SourceLocaleId"), "", "Provides the source language of a corresponding job as the source language of the generated locale file. This parameter will be ignored unless used in combination with a <code>tag</code> parameter indicating a specific job.", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("TranslationKeyPrefix"), "", "Download all translation keys, and remove the specified prefix where possible. Warning: this may create duplicate key names if other keys share the same name after the prefix is removed.", false)
+	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("FilterByPrefix"), "", "Only download translation keys containing the specified prefix, and remove the prefix from the generated file.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("CustomMetadataFilters"), "", "payload in JSON format", false)
 
 	params.BindPFlags(LocaleDownload.Flags())

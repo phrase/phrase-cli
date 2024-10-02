@@ -144,6 +144,11 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 
 	if target.Params != nil {
 		localVarOptionals = target.Params.LocaleDownloadOpts
+		translationKeyPrefix, err := placeholders.ResolveTranslationKeyPrefix(target.Params.TranslationKeyPrefix, localeFile.Path)
+		if err != nil {
+			return err
+		}
+		localVarOptionals.TranslationKeyPrefix = translationKeyPrefix
 	}
 
 	if localVarOptionals.FileFormat.Value() == "" {
@@ -170,6 +175,7 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 	debugFprintln("Tags", localVarOptionals.Tags)
 	debugFprintln("Branch", localVarOptionals.Branch)
 	debugFprintln("FormatOptions", localVarOptionals.FormatOptions)
+	debugFprintln("TranslationKeyPrefix", localVarOptionals.TranslationKeyPrefix)
 
 	if async {
 		return target.downloadAsynchronously(client, localeFile, localVarOptionals)

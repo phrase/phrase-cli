@@ -2,10 +2,12 @@ package placeholders
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
 
+	"github.com/antihax/optional"
 	"github.com/phrase/phrase-cli/cmd/internal/stringz"
 )
 
@@ -91,4 +93,23 @@ func Resolve(s, pattern string) (map[string]string, error) {
 	}
 
 	return values, nil
+}
+
+func ResolveTranslationKeyPrefix(translationKeyPrefix optional.String, filePath string) (optional.String, error) {
+	if strings.Contains(translationKeyPrefix.Value(), "<file_path>") {
+		currentDir, err := os.Getwd()
+		if err != nil {
+			return optional.EmptyString(), err
+		}
+
+		filePath, err := filepath.Rel(currentDir, filePath)
+		if err != nil {
+			return optional.EmptyString(), err
+		}
+
+		resolvedKeyPrefix := strings.Replace(translationKeyPrefix.Value(), "<file_path>", filePath, 1)
+		return optional.NewString(resolvedKeyPrefix), nil
+	}
+
+	return translationKeyPrefix, nil
 }

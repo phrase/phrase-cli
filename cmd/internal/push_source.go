@@ -8,6 +8,7 @@ import (
 
 	"github.com/antihax/optional"
 	"github.com/phrase/phrase-cli/cmd/internal/paths"
+	"github.com/phrase/phrase-cli/cmd/internal/placeholders"
 	"github.com/phrase/phrase-go/v3"
 	"github.com/spf13/viper"
 )
@@ -198,6 +199,12 @@ func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFil
 	if branch != "" {
 		params.Branch = optional.NewString(branch)
 	}
+
+	translationKeyPrefix, err := placeholders.ResolveTranslationKeyPrefix(params.UploadCreateOpts.TranslationKeyPrefix, localeFile.Path)
+	if err != nil {
+		return nil, err
+	}
+	params.UploadCreateOpts.TranslationKeyPrefix = translationKeyPrefix
 
 	upload, _, err := client.UploadsApi.UploadCreate(Auth, source.ProjectID, file, params.FileFormat.Value(), params.LocaleId.Value(), &params.UploadCreateOpts)
 
