@@ -243,7 +243,7 @@ func (cmd *InitCommand) newProject() error {
 }
 
 func (cmd *InitCommand) selectFormat() error {
-	formats, _, err := cmd.client.FormatsApi.FormatsList(Auth, &phrase.FormatsListOpts{})
+	formats, _, err := cmd.client.FormatsApi.FormatsList(Auth)
 	if err != nil {
 		return err
 	}

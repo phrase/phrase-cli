@@ -241,7 +241,7 @@ func outputUpload(upload *phrase.Upload) {
 }
 
 func formatsByApiName(client *phrase.APIClient) (map[string]*phrase.Format, error) {
-	formats, _, err := client.FormatsApi.FormatsList(Auth, &phrase.FormatsListOpts{})
+	formats, _, err := client.FormatsApi.FormatsList(Auth)
 	if err != nil {
 		return nil, err
 	}
