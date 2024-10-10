@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.33.1](https://github.com/phrase/openapi/compare/cli-v2.33.0...cli-v2.33.1) (2024-10-10)
+
+
+### Bug Fixes
+
+* **cli:** Adapt to formats API fix ([#699](https://github.com/phrase/openapi/issues/699)) ([3363de7](https://github.com/phrase/openapi/commit/3363de7b1f9564dad363932c3964a24b87887e7d))
+
 ## [2.33.0](https://github.com/phrase/openapi/compare/cli-v2.32.0...cli-v2.33.0) (2024-10-02)
 
 
