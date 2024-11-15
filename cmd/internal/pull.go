@@ -58,13 +58,17 @@ func (cmd *PullCommand) Run(config *phrase.Config) error {
 	}
 	cmd.Branch = branchName
 
-	projectIdToLocales, err := LocalesForProjects(client, targets, cmd.Branch)
+	localesCache, err := GetLocalesCache(client, targets, cmd.Branch)
 	if err != nil {
 		return err
 	}
 
 	for _, target := range targets {
-		val, ok := projectIdToLocales[LocaleCacheKey{target.ProjectID, cmd.Branch}]
+		if cmd.Branch != "" {
+			target.Params.Branch = optional.NewString(cmd.Branch)
+		}
+
+		val, ok := localesCache[LocalesCacheKey{target.ProjectID, target.Params.Branch.Value()}]
 		if !ok || len(val) == 0 {
 			if cmd.Branch != "" {
 				continue
@@ -75,7 +79,7 @@ func (cmd *PullCommand) Run(config *phrase.Config) error {
 	}
 
 	for _, target := range targets {
-		err := target.Pull(client, cmd.Branch, cmd.Async)
+		err := target.Pull(client, cmd.Async)
 		if err != nil {
 			return err
 		}
@@ -103,7 +107,7 @@ type PullParams struct {
 	LocaleID                  string `json:"locale_id"`
 }
 
-func (target *Target) Pull(client *phrase.APIClient, branch string, async bool) error {
+func (target *Target) Pull(client *phrase.APIClient, async bool) error {
 	if err := target.CheckPreconditions(); err != nil {
 		return err
 	}
@@ -124,7 +128,7 @@ func (target *Target) Pull(client *phrase.APIClient, branch string, async bool) 
 			return err
 		}
 
-		err = target.DownloadAndWriteToFile(client, localeFile, branch, async)
+		err = target.DownloadAndWriteToFile(client, localeFile, async)
 		if err != nil {
 			if openapiError, ok := err.(phrase.GenericOpenAPIError); ok {
 				print.Warn("API response: %s", openapiError.Body())
@@ -139,7 +143,7 @@ func (target *Target) Pull(client *phrase.APIClient, branch string, async bool) 
 	return nil
 }
 
-func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFile *LocaleFile, branch string, async bool) error {
+func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFile *LocaleFile, async bool) error {
 	localVarOptionals := phrase.LocaleDownloadOpts{}
 
 	if target.Params != nil {
@@ -153,10 +157,6 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 
 	if localVarOptionals.FileFormat.Value() == "" {
 		localVarOptionals.FileFormat = optional.NewString(localeFile.FileFormat)
-	}
-
-	if branch != "" {
-		localVarOptionals.Branch = optional.NewString(branch)
 	}
 
 	if localeFile.Tag != "" {

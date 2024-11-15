@@ -148,12 +148,12 @@ func (source *Source) CheckPreconditions() error {
 	return nil
 }
 
-func (sources Sources) ProjectIds() []string {
-	projectIds := []string{}
+func (sources Sources) GetAllLocalesCacheKeys() []LocalesCacheKey {
+	projectIdsBranches := []LocalesCacheKey{}
 	for _, source := range sources {
-		projectIds = append(projectIds, source.ProjectID)
+		projectIdsBranches = append(projectIdsBranches, LocalesCacheKey{source.ProjectID, source.Branch})
 	}
-	return projectIds
+	return projectIdsBranches
 }
 func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFile, branch string, tag string) (*phrase.Upload, error) {
 	if Debug {

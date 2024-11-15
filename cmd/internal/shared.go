@@ -20,31 +20,37 @@ import (
 
 var Debug bool
 
-type ProjectLocales interface {
-	ProjectIds() []string
+type SourcesOrTargets interface {
+	// returns a list of LocalesCacheKeys (ProjectId, Branch) for all targets
+	GetAllLocalesCacheKeys() []LocalesCacheKey
 }
 
-type LocaleCacheKey struct {
+type LocalesCacheKey struct {
 	ProjectID string
 	Branch    string
 }
 
-type LocaleCache map[LocaleCacheKey][]*phrase.Locale
+type LocaleCache map[LocalesCacheKey][]*phrase.Locale
 
-func LocalesForProjects(client *phrase.APIClient, projectLocales ProjectLocales, branch string) (LocaleCache, error) {
-	projectIdToLocales := LocaleCache{}
+// for every source or target, retrieves and caches the list of locales
+func GetLocalesCache(client *phrase.APIClient, sourcesOrTargets SourcesOrTargets, branch string) (LocaleCache, error) {
+	localesCache := LocaleCache{}
 
-	for _, pid := range projectLocales.ProjectIds() {
-		key := LocaleCacheKey{
-			ProjectID: pid,
-			Branch:    branch,
+	for _, localesCacheKey := range sourcesOrTargets.GetAllLocalesCacheKeys() {
+		branchToUse := localesCacheKey.Branch
+		if branch != "" {
+			branchToUse = branch
+		}
+		key := LocalesCacheKey{
+			ProjectID: localesCacheKey.ProjectID,
+			Branch:    branchToUse,
 		}
 
-		if _, ok := projectIdToLocales[key]; !ok {
+		if _, ok := localesCache[key]; !ok {
 
 			remoteLocales, http_response, err := RemoteLocales(client, key)
 			if err != nil {
-				if http_response != nil && http_response.StatusCode == 404 && branch != "" {
+				if http_response != nil && http_response.StatusCode == 404 && branchToUse != "" {
 					// skip this key if we targeted a branch in
 					// a project which does not exist
 					continue
@@ -52,13 +58,13 @@ func LocalesForProjects(client *phrase.APIClient, projectLocales ProjectLocales,
 				return nil, err
 			}
 
-			projectIdToLocales[key] = remoteLocales
+			localesCache[key] = remoteLocales
 		}
 	}
-	return projectIdToLocales, nil
+	return localesCache, nil
 }
 
-func RemoteLocales(client *phrase.APIClient, key LocaleCacheKey) ([]*phrase.Locale, *phrase.APIResponse, error) {
+func RemoteLocales(client *phrase.APIClient, key LocalesCacheKey) ([]*phrase.Locale, *phrase.APIResponse, error) {
 	page := 1
 
 	localVarOptionals := phrase.LocalesListOpts{
