@@ -171,19 +171,18 @@ func initReplyCreate() {
 
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
 
+			var commentCreateParameters1 api.CommentCreateParameters1
+			if err := json.Unmarshal([]byte(params.GetString("data")), &commentCreateParameters1); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", commentCreateParameters1)
+			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("message")) {
-				localVarOptionals.Message = optional.NewString(params.GetString(helpers.ToSnakeCase("Message")))
-			}
-
-			data, api_response, err := client.CommentRepliesApi.ReplyCreate(auth, projectId, keyId, commentId, &localVarOptionals)
+			data, api_response, err := client.CommentRepliesApi.ReplyCreate(auth, projectId, keyId, commentId, commentCreateParameters1, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -213,9 +212,8 @@ func initReplyCreate() {
 	AddFlag(ReplyCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(ReplyCreate, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(ReplyCreate, "string", helpers.ToSnakeCase("CommentId"), "", "Comment ID", true)
+	AddFlag(ReplyCreate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(ReplyCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(ReplyCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
-	AddFlag(ReplyCreate, "string", helpers.ToSnakeCase("Message"), "", "specify the message for the comment", false)
 
 	params.BindPFlags(ReplyCreate.Flags())
 }
