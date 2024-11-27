@@ -18,7 +18,7 @@ type Targets []*Target
 func (targets Targets) GetAllLocalesCacheKeys() []LocalesCacheKey {
 	localesCacheKeys := []LocalesCacheKey{}
 	for _, target := range targets {
-		localesCacheKeys = append(localesCacheKeys, LocalesCacheKey{target.ProjectID, target.Params.Branch.Value()})
+		localesCacheKeys = append(localesCacheKeys, LocalesCacheKey{target.ProjectID, target.GetBranch()})
 	}
 	return localesCacheKeys
 }
@@ -30,6 +30,13 @@ type Target struct {
 	FileFormat    string      `json:"file_format"`
 	Params        *PullParams `json:"params" mapstructure:"omittable-nested,omitempty"`
 	RemoteLocales []*phrase.Locale
+}
+
+func (target *Target) GetBranch() string {
+	if target.Params != nil {
+		return target.Params.Branch.Value()
+	}
+	return ""
 }
 
 func (target *Target) CheckPreconditions() error {
