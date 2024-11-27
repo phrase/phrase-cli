@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.34.1](https://github.com/phrase/openapi/compare/cli-v2.34.0...cli-v2.34.1) (2024-11-27)
+
+
+### Bug Fixes
+
+* **CLI:** crash when target/params section is empty #STRINGS-921 ([#722](https://github.com/phrase/openapi/issues/722)) ([03032c4](https://github.com/phrase/openapi/commit/03032c43be427a948f7e49cb7b7ff257bcf41821))
+
 ## [2.34.0](https://github.com/phrase/openapi/compare/cli-v2.33.1...cli-v2.34.0) (2024-11-25)
 
 
