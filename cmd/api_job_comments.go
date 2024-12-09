@@ -167,7 +167,7 @@ func initJobCommentDelete() {
 	AddFlag(JobCommentDelete, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobCommentDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobCommentDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(JobCommentDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobCommentDelete, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 
 	params.BindPFlags(JobCommentDelete.Flags())
 }
@@ -241,7 +241,7 @@ func initJobCommentShow() {
 	AddFlag(JobCommentShow, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobCommentShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobCommentShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(JobCommentShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobCommentShow, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 
 	params.BindPFlags(JobCommentShow.Flags())
 }
@@ -393,7 +393,7 @@ func initJobCommentsList() {
 	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 	AddFlag(JobCommentsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 
 	params.BindPFlags(JobCommentsList.Flags())

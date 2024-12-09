@@ -250,7 +250,7 @@ func initJobLocaleDelete() {
 	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobLocaleDelete, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 
 	params.BindPFlags(JobLocaleDelete.Flags())
 }
@@ -401,7 +401,7 @@ func initJobLocaleShow() {
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("JobId"), "", "Job ID", true)
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 
 	params.BindPFlags(JobLocaleShow.Flags())
 }
@@ -633,7 +633,7 @@ func initJobLocalesList() {
 	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobLocalesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(JobLocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
-	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 
 	params.BindPFlags(JobLocalesList.Flags())
 }
