@@ -305,7 +305,7 @@ func initRepoSyncExport() {
 	var RepoSyncExport = &cobra.Command{
 		Use:   use,
 		Short: "Export to code repository",
-		Long:  `&gt; Beta: this feature will change in the future.  Export translations from Phrase Strings to repository provider according to the .phrase.yml file within the code repository.  *Export is done asynchronously and may take several seconds depending on the project size.*`,
+		Long:  `Export translations from Phrase Strings to repository provider according to the .phrase.yml file within the code repository.  *Export is done asynchronously and may take several seconds depending on the project size.*`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -371,7 +371,7 @@ func initRepoSyncImport() {
 	var RepoSyncImport = &cobra.Command{
 		Use:   use,
 		Short: "Import from code repository",
-		Long:  `&gt; Beta: this feature will change in the future.  Import translations from repository provider to Phrase Strings according to the .phrase.yml file within the code repository.  _Import is done asynchronously and may take several seconds depending on the project size._`,
+		Long:  `Import translations from repository provider to Phrase Strings according to the .phrase.yml file within the code repository.  _Import is done asynchronously and may take several seconds depending on the project size._`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
