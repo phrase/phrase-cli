@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	helpers "github.com/phrase/phrase-cli/helpers"
-	api "github.com/phrase/phrase-go/v3"
+	api "github.com/phrase/phrase-go/v4"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

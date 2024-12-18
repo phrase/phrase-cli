@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.35.0](https://github.com/phrase/openapi/compare/cli-v2.34.1...cli-2.25.0) (2024-12-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* Remove old Git sync endpoints. Replaced with new repo sync ([#735](https://github.com/phrase/openapi/issues/735))
+
+### Features
+
+* **API:** Add 'default_encoding' documentation ([#733](https://github.com/phrase/openapi/issues/733)) ([0139c51](https://github.com/phrase/openapi/commit/0139c51da747fbe7bc9929bcf3534aad7f22f39a))
+* Remove old Git sync endpoints. Replaced with new repo sync ([#735](https://github.com/phrase/openapi/issues/735)) ([c3bd8ec](https://github.com/phrase/openapi/commit/c3bd8eccaabcfa1b1066ea4438971ac59833af46))
+
+
+### Bug Fixes
+
+* **API:** Add missing branch parameter to job comment endpoints #STRINGS-988 ([#724](https://github.com/phrase/openapi/issues/724)) ([64d399c](https://github.com/phrase/openapi/commit/64d399ced0980ac2a48366f91110047287a0c590))
+
 ## [2.34.1](https://github.com/phrase/openapi/compare/cli-v2.34.0...cli-v2.34.1) (2024-11-27)
 
 

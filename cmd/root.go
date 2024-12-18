@@ -10,8 +10,8 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/print"
 	"github.com/phrase/phrase-cli/cmd/internal/shared"
 	"github.com/phrase/phrase-cli/cmd/internal/updatechecker"
-	"github.com/phrase/phrase-go/v3"
-	api "github.com/phrase/phrase-go/v3"
+	"github.com/phrase/phrase-go/v4"
+	api "github.com/phrase/phrase-go/v4"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

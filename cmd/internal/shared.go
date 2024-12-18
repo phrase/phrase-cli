@@ -13,7 +13,7 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/print"
 	"github.com/phrase/phrase-cli/cmd/internal/prompt"
 	"github.com/phrase/phrase-cli/cmd/internal/shared"
-	"github.com/phrase/phrase-go/v3"
+	"github.com/phrase/phrase-go/v4"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/maps"
 )
