@@ -56,10 +56,12 @@ fi
 # Upload artifacts
 DIST_DIR="./dist"
 for file in "$DIST_DIR"/*; do
-  echo "Uploading ${file}"
-  asset="https://uploads.github.com/repos/phrase/phrase-cli/releases/${release_id}/assets?name=$(basename "$file")"
-  curl -sS --data-binary @"$file" -H "Authorization: token ${GITHUB_TOKEN}" -H "Content-Type: application/octet-stream" $asset > /dev/null
-  echo Hash: $(sha256sum $file)
+  if [ -f "$file" ]; then
+    echo "Uploading ${file}"
+    asset="https://uploads.github.com/repos/phrase/phrase-cli/releases/${release_id}/assets?name=$(basename "$file")"
+    curl -sS --data-binary @"$file" -H "Authorization: token ${GITHUB_TOKEN}" -H "Content-Type: application/octet-stream" $asset > /dev/null
+    echo Hash: $(sha256sum $file)
+  fi
 done
 
 echo "Publishing release"
