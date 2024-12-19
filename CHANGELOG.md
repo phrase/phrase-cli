@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.1](https://github.com/phrase/openapi/compare/cli-v2.35.0...cli-v2.35.1) (2024-12-19)
+
+
+### Bug Fixes
+
+* **CLI:** Bump dependencies' versions ([#742](https://github.com/phrase/openapi/issues/742)) ([d78d620](https://github.com/phrase/openapi/commit/d78d6209eed6bddda05260d81567fcaffd9d637b))
+
 ## [2.35.0](https://github.com/phrase/openapi/compare/cli-v2.34.1...cli-2.25.0) (2024-12-18)
 
 
