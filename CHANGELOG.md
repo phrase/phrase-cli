@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.2](https://github.com/phrase/openapi/compare/cli-v2.35.1...cli-v2.35.2) (2024-12-19)
+
+
+### Bug Fixes
+
+* **CLI:** Bump go version ([#745](https://github.com/phrase/openapi/issues/745)) ([7210e8a](https://github.com/phrase/openapi/commit/7210e8ae8f9f8cb04bca535658f65e30d1ca4831))
+
 ## [2.35.1](https://github.com/phrase/openapi/compare/cli-v2.35.0...cli-v2.35.1) (2024-12-19)
 
 
