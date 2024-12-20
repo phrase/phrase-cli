@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.3](https://github.com/phrase/openapi/compare/cli-v2.35.2...cli-v2.35.3) (2024-12-20)
+
+
+### Bug Fixes
+
+* **API:** Repo Sync schema fixes #STRINGS-1074 ([#748](https://github.com/phrase/openapi/issues/748)) ([033be10](https://github.com/phrase/openapi/commit/033be1003fe01b5115de1f8ba2336d32b4862bfd))
+
 ## [2.35.2](https://github.com/phrase/openapi/compare/cli-v2.35.1...cli-v2.35.2) (2024-12-19)
 
 
