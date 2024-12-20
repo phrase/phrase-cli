@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.4](https://github.com/phrase/openapi/compare/cli-v2.35.3...cli-v2.35.4) (2024-12-20)
+
+
+### Bug Fixes
+
+* **API:** Repo Sync Event errors field type #STRINGS-1074 ([#756](https://github.com/phrase/openapi/issues/756)) ([c7670e0](https://github.com/phrase/openapi/commit/c7670e04810f95359d72ba6346b5f626bfb77b6f))
+
 ## [2.35.3](https://github.com/phrase/openapi/compare/cli-v2.35.2...cli-v2.35.3) (2024-12-20)
 
 
