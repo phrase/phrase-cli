@@ -13,7 +13,7 @@ import (
 )
 
 func init() {
-	initProjectsQualityPerformanceScore()
+	initQualityPerformanceScoreList()
 
 	rootCmd.AddCommand(QualityPerformanceScoreApiCmd)
 }
@@ -23,12 +23,12 @@ var QualityPerformanceScoreApiCmd = &cobra.Command{
 	Short: "QualityPerformanceScore API",
 }
 
-func initProjectsQualityPerformanceScore() {
+func initQualityPerformanceScoreList() {
 	params := viper.New()
 	var use string
 	// this weird approach is due to mustache template limitations
-	use = strings.Join(strings.Split("projects/quality_performance_score", "/")[1:], "_")
-	var ProjectsQualityPerformanceScore = &cobra.Command{
+	use = strings.Join(strings.Split("quality_performance_score/list", "/")[1:], "_")
+	var QualityPerformanceScoreList = &cobra.Command{
 		Use:   use,
 		Short: "Get Translation Quality",
 		Long:  `Retrieves the quality scores for your Strings translations. Returns a score, measured by Phrase QPS`,
@@ -42,7 +42,7 @@ func initProjectsQualityPerformanceScore() {
 			}
 
 			client := api.NewAPIClient(cfg)
-			localVarOptionals := api.ProjectsQualityPerformanceScoreOpts{}
+			localVarOptionals := api.QualityPerformanceScoreListOpts{}
 
 			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
@@ -50,18 +50,18 @@ func initProjectsQualityPerformanceScore() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
-			var projectsQualityPerformanceScoreRequest api.ProjectsQualityPerformanceScoreRequest
-			if err := json.Unmarshal([]byte(params.GetString("data")), &projectsQualityPerformanceScoreRequest); err != nil {
+			var qualityPerformanceScoreListRequest api.QualityPerformanceScoreListRequest
+			if err := json.Unmarshal([]byte(params.GetString("data")), &qualityPerformanceScoreListRequest); err != nil {
 				HandleError(err)
 			}
 			if Config.Debug {
-				fmt.Printf("%+v\n", projectsQualityPerformanceScoreRequest)
+				fmt.Printf("%+v\n", qualityPerformanceScoreListRequest)
 			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.QualityPerformanceScoreApi.ProjectsQualityPerformanceScore(auth, projectId, projectsQualityPerformanceScoreRequest, &localVarOptionals)
+			data, api_response, err := client.QualityPerformanceScoreApi.QualityPerformanceScoreList(auth, projectId, qualityPerformanceScoreListRequest, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -87,10 +87,10 @@ func initProjectsQualityPerformanceScore() {
 		},
 	}
 
-	QualityPerformanceScoreApiCmd.AddCommand(ProjectsQualityPerformanceScore)
-	AddFlag(ProjectsQualityPerformanceScore, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
-	AddFlag(ProjectsQualityPerformanceScore, "string", "data", "d", "payload in JSON format", true)
-	AddFlag(ProjectsQualityPerformanceScore, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	QualityPerformanceScoreApiCmd.AddCommand(QualityPerformanceScoreList)
+	AddFlag(QualityPerformanceScoreList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(QualityPerformanceScoreList, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(QualityPerformanceScoreList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
-	params.BindPFlags(ProjectsQualityPerformanceScore.Flags())
+	params.BindPFlags(QualityPerformanceScoreList.Flags())
 }
