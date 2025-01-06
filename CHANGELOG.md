@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.5](https://github.com/phrase/openapi/compare/cli-v2.35.4...cli-v2.35.5) (2025-01-06)
+
+
+### Bug Fixes
+
+* **CLI:** Adjust operationId for quality_performance_score #STRINGS-1104 ([#721](https://github.com/phrase/openapi/issues/721)) ([7aa3b9b](https://github.com/phrase/openapi/commit/7aa3b9b508d1d24a4af7f4977b1a2fead8bfda78))
+
 ## [2.35.4](https://github.com/phrase/openapi/compare/cli-v2.35.3...cli-v2.35.4) (2024-12-20)
 
 
