@@ -71,7 +71,7 @@ func (cmd *PullCommand) Run(config *phrase.Config) error {
 		val, ok := localesCache[LocalesCacheKey{target.ProjectID, target.GetBranch()}]
 		if !ok || len(val) == 0 {
 			if cmd.Branch != "" {
-				continue
+				return fmt.Errorf("Branch '%s' does not exist in project '%s'", cmd.Branch, target.ProjectID)
 			}
 			return fmt.Errorf("Could not find any locales for project %q", target.ProjectID)
 		}
