@@ -350,23 +350,18 @@ func initJobKeysDelete() {
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
+			var jobKeysDeleteParameters api.JobKeysDeleteParameters
+			if err := json.Unmarshal([]byte(params.GetString("data")), &jobKeysDeleteParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", jobKeysDeleteParameters)
+			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("branch")) {
-				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("translationKeyIds")) {
-				var translationKeyIds map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("TranslationKeyIds"))), &translationKeyIds); err != nil {
-					HandleError(err)
-				}
-				localVarOptionals.TranslationKeyIds = optional.NewInterface(translationKeyIds)
-			}
-
-			data, api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, &localVarOptionals)
+			data, api_response, err := client.JobsApi.JobKeysDelete(auth, projectId, id, jobKeysDeleteParameters, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -390,9 +385,8 @@ func initJobKeysDelete() {
 	JobsApiCmd.AddCommand(JobKeysDelete)
 	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(JobKeysDelete, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
-	AddFlag(JobKeysDelete, "string", helpers.ToSnakeCase("TranslationKeyIds"), "", "payload in JSON format", false)
 
 	params.BindPFlags(JobKeysDelete.Flags())
 }
