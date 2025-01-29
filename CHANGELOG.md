@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.35.6](https://github.com/phrase/openapi/compare/cli-v2.35.5...cli-v2.35.6) (2025-01-29)
+
+
+### Bug Fixes
+
+* **API:** pass translation_key_ids when removing keys from job ([#771](https://github.com/phrase/openapi/issues/771)) ([f670e27](https://github.com/phrase/openapi/commit/f670e2763b1112fefd1812109b3c09def42b7bd2))
+* **cli:** CLI do not exit with 0 on pull when branch does not exist ([#768](https://github.com/phrase/openapi/issues/768)) ([e7d8c43](https://github.com/phrase/openapi/commit/e7d8c435dafec065ed8fb657e8879bf843ee3a48))
+* **CLI:** Undo version bump ([#770](https://github.com/phrase/openapi/issues/770)) ([643aba1](https://github.com/phrase/openapi/commit/643aba13c79c6350f7416af3f5a78837bc937055))
+
 ## [2.35.5](https://github.com/phrase/openapi/compare/cli-v2.35.4...cli-v2.35.5) (2025-01-06)
 
 
