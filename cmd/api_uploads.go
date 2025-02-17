@@ -107,16 +107,20 @@ func initUploadCreate() {
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("localeMapping")) {
+
 				var localeMapping map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("LocaleMapping"))), &localeMapping); err != nil {
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("localeMapping"))), &localeMapping); err != nil {
 					HandleError(err)
 				}
 				localVarOptionals.LocaleMapping = optional.NewInterface(localeMapping)
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("formatOptions")) {
+
 				var formatOptions map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("FormatOptions"))), &formatOptions); err != nil {
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("formatOptions"))), &formatOptions); err != nil {
 					HandleError(err)
 				}
 				localVarOptionals.FormatOptions = optional.NewInterface(formatOptions)

@@ -319,8 +319,10 @@ func initLocaleDownload() {
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("formatOptions")) {
+
 				var formatOptions map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("FormatOptions"))), &formatOptions); err != nil {
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("formatOptions"))), &formatOptions); err != nil {
 					HandleError(err)
 				}
 				localVarOptionals.FormatOptions = optional.NewInterface(formatOptions)
@@ -359,11 +361,23 @@ func initLocaleDownload() {
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("customMetadataFilters")) {
+
 				var customMetadataFilters map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("CustomMetadataFilters"))), &customMetadataFilters); err != nil {
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("customMetadataFilters"))), &customMetadataFilters); err != nil {
 					HandleError(err)
 				}
 				localVarOptionals.CustomMetadataFilters = optional.NewInterface(customMetadataFilters)
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("localeIds")) {
+
+				var localeIds []string
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("localeIds"))), &localeIds); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.LocaleIds = localeIds
 			}
 
 			data, api_response, err := client.LocalesApi.LocaleDownload(auth, projectId, id, &localVarOptionals)
@@ -415,6 +429,7 @@ func initLocaleDownload() {
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("TranslationKeyPrefix"), "", "Download all translation keys, and remove the specified prefix where possible. Warning: this may create duplicate key names if other keys share the same name after the prefix is removed.", false)
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("FilterByPrefix"), "", "Only download translation keys containing the specified prefix, and remove the prefix from the generated file.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("CustomMetadataFilters"), "", "payload in JSON format", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("LocaleIds"), "", "payload in JSON format", false)
 
 	params.BindPFlags(LocaleDownload.Flags())
 }

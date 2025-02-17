@@ -592,19 +592,23 @@ func initCommentsList() {
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("localeIds")) {
-				var localeIds map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("LocaleIds"))), &localeIds); err != nil {
+
+				var localeIds []string
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("localeIds"))), &localeIds); err != nil {
 					HandleError(err)
 				}
-				localVarOptionals.LocaleIds = optional.NewInterface(localeIds)
+				localVarOptionals.LocaleIds = localeIds
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("filters")) {
-				var filters map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("Filters"))), &filters); err != nil {
+
+				var filters []string
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("filters"))), &filters); err != nil {
 					HandleError(err)
 				}
-				localVarOptionals.Filters = optional.NewInterface(filters)
+				localVarOptionals.Filters = filters
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("order")) {

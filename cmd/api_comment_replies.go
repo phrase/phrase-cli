@@ -88,11 +88,13 @@ func initRepliesList() {
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("filters")) {
-				var filters map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("Filters"))), &filters); err != nil {
+
+				var filters []string
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("filters"))), &filters); err != nil {
 					HandleError(err)
 				}
-				localVarOptionals.Filters = optional.NewInterface(filters)
+				localVarOptionals.Filters = filters
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("order")) {

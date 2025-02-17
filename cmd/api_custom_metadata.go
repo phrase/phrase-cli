@@ -121,8 +121,10 @@ func initCustomMetadataPropertiesList() {
 			}
 
 			if params.IsSet(helpers.ToSnakeCase("dataType")) {
+
 				var dataType map[string]interface{}
-				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("DataType"))), &dataType); err != nil {
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("dataType"))), &dataType); err != nil {
 					HandleError(err)
 				}
 				localVarOptionals.DataType = optional.NewInterface(dataType)
