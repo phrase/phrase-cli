@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.36.0](https://github.com/phrase/openapi/compare/cli-v2.35.6...cli-v2.36.0) (2025-02-17)
+
+
+### Features
+
+* **API:** Add locale_ids param to synchronous download endpoint [STRINGS-1492] ([#780](https://github.com/phrase/openapi/issues/780)) ([47186a4](https://github.com/phrase/openapi/commit/47186a44fc8c0b8e466636acf3d49413b1f29f30))
+* **API:** Add source last updated at information on job details ([#777](https://github.com/phrase/openapi/issues/777)) ([c9b8423](https://github.com/phrase/openapi/commit/c9b8423766b4138980d0553502b3e18ca524f34e))
+* **API:** document tags attribute of an upload #STRINGS-1221 ([#790](https://github.com/phrase/openapi/issues/790)) ([fff505b](https://github.com/phrase/openapi/commit/fff505bdff35a0033fee06e505c42fe794c88562))
+
 ## [2.35.6](https://github.com/phrase/openapi/compare/cli-v2.35.5...cli-v2.35.6) (2025-01-29)
 
 
