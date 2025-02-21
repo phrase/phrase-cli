@@ -866,6 +866,10 @@ func initJobsByAccount() {
 				localVarOptionals.State = optional.NewString(params.GetString(helpers.ToSnakeCase("State")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("updatedSince")) {
+				localVarOptionals.UpdatedSince = optional.NewString(params.GetString(helpers.ToSnakeCase("UpdatedSince")))
+			}
+
 			data, api_response, err := client.JobsApi.JobsByAccount(auth, accountId, &localVarOptionals)
 
 			if err != nil {
@@ -899,7 +903,8 @@ func initJobsByAccount() {
 	AddFlag(JobsByAccount, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("OwnedBy"), "", "filter by user owning job", false)
 	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("AssignedTo"), "", "filter by user assigned to job", false)
-	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("State"), "", "filter by state of job Valid states are <code>draft</code>, <code>in_progress</code>, <code>completed</code>", false)
+	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("State"), "", "filter by state of job; valid states are: <code>draft</code>, <code>in_progress</code>, <code>completed</code>", false)
+	AddFlag(JobsByAccount, "string", helpers.ToSnakeCase("UpdatedSince"), "", "filter by jobs updated since given date", false)
 
 	params.BindPFlags(JobsByAccount.Flags())
 }
@@ -958,6 +963,10 @@ func initJobsList() {
 				localVarOptionals.State = optional.NewString(params.GetString(helpers.ToSnakeCase("State")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("updatedSince")) {
+				localVarOptionals.UpdatedSince = optional.NewString(params.GetString(helpers.ToSnakeCase("UpdatedSince")))
+			}
+
 			data, api_response, err := client.JobsApi.JobsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -989,10 +998,11 @@ func initJobsList() {
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(JobsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
-	AddFlag(JobsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("OwnedBy"), "", "filter by user owning job", false)
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("AssignedTo"), "", "filter by user assigned to job", false)
-	AddFlag(JobsList, "string", helpers.ToSnakeCase("State"), "", "filter by state of job Valid states are <code>draft</code>, <code>in_progress</code>, <code>completed</code>", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("State"), "", "filter by state of job; valid states are: <code>draft</code>, <code>in_progress</code>, <code>completed</code>", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("UpdatedSince"), "", "filter by jobs updated since given date", false)
 
 	params.BindPFlags(JobsList.Flags())
 }
