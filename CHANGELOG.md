@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.37.0](https://github.com/phrase/openapi/compare/cli-v2.36.0...cli-v2.37.0) (2025-02-25)
+
+
+### Features
+
+* **API:** add updated_since filter to job list #STRINGS-1555 ([#799](https://github.com/phrase/openapi/issues/799)) ([dc9b6ed](https://github.com/phrase/openapi/commit/dc9b6ed12e013231d397820449086c87fea2f8ba))
+
+
+### Bug Fixes
+
+* **CLI:** Revert viper library version #STRINGS-1487 ([#809](https://github.com/phrase/openapi/issues/809)) ([8b68918](https://github.com/phrase/openapi/commit/8b689182b5e23bf7fee447db9229c5aba0417c7d))
+
 ## [2.36.0](https://github.com/phrase/openapi/compare/cli-v2.35.6...cli-v2.36.0) (2025-02-17)
 
 
