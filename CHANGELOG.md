@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.38.0](https://github.com/phrase/openapi/compare/cli-v2.37.0...cli-v2.38.0) (2025-03-05)
+
+
+### Features
+
+* **API:** Include roles in account response ([#811](https://github.com/phrase/openapi/issues/811)) ([dc27ee5](https://github.com/phrase/openapi/commit/dc27ee5117762222b6e1e6abb639f8e00c6a9101))
+
 ## [2.37.0](https://github.com/phrase/openapi/compare/cli-v2.36.0...cli-v2.37.0) (2025-02-25)
 
 
