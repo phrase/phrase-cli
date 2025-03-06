@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.39.0](https://github.com/phrase/openapi/compare/cli-v2.38.0...cli-v2.39.0) (2025-03-06)
+
+
+### Features
+
+* **CLI:** Support cleanup over multiple sources #STRINGS-1378 ([#810](https://github.com/phrase/openapi/issues/810)) ([e78ab70](https://github.com/phrase/openapi/commit/e78ab704ef451b1be161011204f6d402201408a1))
+
 ## [2.38.0](https://github.com/phrase/openapi/compare/cli-v2.37.0...cli-v2.38.0) (2025-03-05)
 
 
