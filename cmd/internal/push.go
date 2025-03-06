@@ -30,6 +30,12 @@ type PushCommand struct {
 	Tag                string
 }
 
+type PushResult struct {
+	ProjectID string
+	Branch    string
+	UploadIDs []string
+}
+
 func (cmd *PushCommand) Run() error {
 	if cmd.Config.Debug {
 		// suppresses content output
@@ -141,24 +147,51 @@ func (cmd *PushCommand) Run() error {
 		}
 	}
 
+	pushResults := []*PushResult{}
+
 	for _, source := range sources {
-		err := source.Push(client, cmd.Wait, cmd.Cleanup, cmd.Branch, cmd.Tag)
+		pushResult, err := source.Push(client, cmd.Wait, cmd.Branch, cmd.Tag)
 		if err != nil {
 			return err
 		}
+		if cmd.Wait && cmd.Cleanup {
+			// collect all upload ids for cleanup by project and branch
+			found := false
+			for _, result := range pushResults {
+				if result.ProjectID == pushResult.ProjectID && result.Branch == pushResult.Branch {
+					result.UploadIDs = append(result.UploadIDs, pushResult.UploadIDs...)
+					found = true
+					break
+				}
+			}
+			if !found {
+				pushResults = append(pushResults, pushResult)
+			}
+		}
+	}
+	for _, pushResult := range pushResults {
+		UploadCleanup(client, true, pushResult.UploadIDs, pushResult.Branch, pushResult.ProjectID)
 	}
 
 	return nil
 }
 
-func (source *Source) Push(client *phrase.APIClient, waitForResults bool, cleanup bool, branch string, tag string) error {
+func (source *Source) Push(client *phrase.APIClient, waitForResults bool, branch string, tag string) (*PushResult, error) {
 	localeFiles, err := source.LocaleFiles()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	noErrors := true
-	uploadIds := []string{}
+	pushResult := &PushResult{
+		ProjectID: source.ProjectID,
+		Branch:    source.Params.Branch.Value(),
+		UploadIDs: []string{},
+	}
+	if branch != "" {
+		pushResult.Branch = branch
+	}
+
 	for _, localeFile := range localeFiles {
 		print.NonBatchPrintf("Uploading %s... ", localeFile.RelPath())
 
@@ -179,9 +212,9 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, cleanu
 			if openapiError, ok := err.(phrase.GenericOpenAPIError); ok {
 				print.Warn("\nAPI response: %s", openapiError.Body())
 			}
-			return err
+			return nil, err
 		}
-		uploadIds = append(uploadIds, upload.Id)
+		pushResult.UploadIDs = append(pushResult.UploadIDs, upload.Id)
 
 		if waitForResults {
 			print.NonBatchPrintf("\n")
@@ -198,7 +231,7 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, cleanu
 			print.NonBatchPrintf("\n")
 
 			if err := <-taskErr; err != nil {
-				return err
+				return nil, err
 			}
 
 			switch <-taskResult {
@@ -218,14 +251,10 @@ func (source *Source) Push(client *phrase.APIClient, waitForResults bool, cleanu
 		}
 	}
 	if noErrors {
-		if waitForResults && cleanup {
-			return UploadCleanup(client, true, uploadIds, branch, source.ProjectID)
-		}
+		return pushResult, nil
 	} else {
-		return errors.New("not all files were uploaded successfully")
+		return nil, errors.New("not all files were uploaded successfully")
 	}
-
-	return nil
 }
 
 func outputUpload(upload *phrase.Upload) {

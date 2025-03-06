@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
-	"sort"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -15,7 +14,6 @@ import (
 	"github.com/phrase/phrase-cli/cmd/internal/shared"
 	"github.com/phrase/phrase-go/v4"
 	"github.com/spf13/viper"
-	"golang.org/x/exp/maps"
 )
 
 var Debug bool
@@ -212,66 +210,11 @@ func StringToInterface() mapstructure.DecodeHookFunc {
 	}
 }
 
-func findCommonUnmentionedKeys(client *phrase.APIClient, ids []string, branch string, projectId string) ([]phrase.TranslationKey, error) {
-	commonUnmentionedKeys := map[string]phrase.TranslationKey{}
-	alreadyInitialized := false
-	for _, id := range ids {
-		q := "unmentioned_in_upload:" + id
-		keysListLocalVarOptionals := phrase.KeysListOpts{
-			Page:    optional.NewInt32(1),
-			PerPage: optional.NewInt32(100),
-			Q:       optional.NewString(q),
-			Branch:  optional.NewString(branch),
-		}
-		allUnmentionedKeysInUpload := map[string]phrase.TranslationKey{}
-		keys, _, err := client.KeysApi.KeysList(Auth, projectId, &keysListLocalVarOptionals)
-		if err != nil {
-			return nil, err
-		}
-		for len(keys) != 0 {
-			for _, key := range keys {
-				allUnmentionedKeysInUpload[key.Id] = key
-			}
-
-			keysListLocalVarOptionals.Page = optional.NewInt32(keysListLocalVarOptionals.Page.Value() + 1)
-
-			keys, _, err = client.KeysApi.KeysList(Auth, projectId, &keysListLocalVarOptionals)
-			if err != nil {
-				return nil, err
-			}
-		}
-
-		if alreadyInitialized {
-			newUnmentioned := map[string]phrase.TranslationKey{}
-			for id, key := range allUnmentionedKeysInUpload {
-				if _, ok := commonUnmentionedKeys[id]; ok {
-					newUnmentioned[id] = key
-				}
-			}
-			commonUnmentionedKeys = newUnmentioned
-		} else {
-			commonUnmentionedKeys = allUnmentionedKeysInUpload
-			alreadyInitialized = true
-		}
-	}
-
-	return maps.Values(commonUnmentionedKeys), nil
-}
-
-func deleteKeys(client *phrase.APIClient, confirm bool, branch string, projectId string, keys []phrase.TranslationKey) error {
-	ids := make([]string, len(keys))
-	names := make([]string, len(keys))
-	for i, key := range keys {
-		ids[i] = key.Id
-		names[i] = key.Name
-	}
-
+func UploadCleanup(client *phrase.APIClient, confirm bool, ids []string, branch string, projectId string) error {
 	if !shared.BatchMode {
-		fmt.Println("Following key(s) are about to be deleted from your project:")
-		sort.Strings(names)
-		fmt.Println(strings.Join(names, "\n"))
+		fmt.Println("Keys not mentioned in the following uploads will be deleted:")
+		fmt.Println(strings.Join(ids, "\n"))
 	}
-
 	if !confirm {
 		if shared.BatchMode {
 			return errors.New("Can't ask for confirmation in batch mode. Aborting")
@@ -288,50 +231,28 @@ func deleteKeys(client *phrase.APIClient, confirm bool, branch string, projectId
 		}
 	}
 
-	const ChunkSize = 100
-	totalAffected := int32(0)
-
-	for i := 0; i < len(ids); i += ChunkSize {
-		end := i + ChunkSize
-
-		if end > len(ids) {
-			end = len(ids)
-		}
-
-		q := "ids:" + strings.Join(ids[i:end], ",")
-		keysDeletelocalVarOptionals := phrase.KeysDeleteCollectionOpts{
-			Q:      optional.NewString(q),
-			Branch: optional.NewString(branch),
-		}
-		affected, _, err := client.KeysApi.KeysDeleteCollection(Auth, projectId, &keysDeletelocalVarOptionals)
-
-		if err != nil {
-			return err
-		}
-		totalAffected += affected.RecordsAffected
-		if shared.BatchMode {
-			jsonBuf, jsonErr := json.MarshalIndent(affected, "", " ")
-			if jsonErr != nil {
-				print.Error(jsonErr)
-			}
-			fmt.Printf("%s\n", string(jsonBuf))
-		}
+	q := "unmentioned_in_upload:" + strings.Join(ids, ",")
+	optionalBranch := optional.String{}
+	if branch != "" {
+		optionalBranch = optional.NewString(branch)
 	}
+	keysDeletelocalVarOptionals := phrase.KeysDeleteCollectionOpts{
+		Q:      optional.NewString(q),
+		Branch: optionalBranch,
+	}
+	affected, _, err := client.KeysApi.KeysDeleteCollection(Auth, projectId, &keysDeletelocalVarOptionals)
 
-	if !shared.BatchMode {
-		print.Success("%d key(s) successfully deleted.\n", totalAffected)
+	if err != nil {
+		return err
+	}
+	if shared.BatchMode {
+		jsonBuf, jsonErr := json.MarshalIndent(affected, "", " ")
+		if jsonErr != nil {
+			print.Error(jsonErr)
+		}
+		fmt.Printf("%s\n", string(jsonBuf))
+	} else {
+		print.Success("%d key(s) successfully deleted.\n", affected.RecordsAffected)
 	}
 	return nil
-}
-
-func UploadCleanup(client *phrase.APIClient, confirm bool, ids []string, branch string, projectId string) error {
-	keys, error := findCommonUnmentionedKeys(client, ids, branch, projectId)
-	if error != nil {
-		return error
-	}
-	if len(keys) == 0 {
-		print.Success("There were no keys unmentioned in the uploads.")
-		return nil
-	}
-	return deleteKeys(client, confirm, branch, projectId, keys)
 }
