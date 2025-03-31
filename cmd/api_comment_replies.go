@@ -60,13 +60,6 @@ func initRepliesList() {
 
 			commentId := params.GetString(helpers.ToSnakeCase("CommentId"))
 
-			var repliesListParameters api.RepliesListParameters
-			if err := json.Unmarshal([]byte(params.GetString("data")), &repliesListParameters); err != nil {
-				HandleError(err)
-			}
-			if Config.Debug {
-				fmt.Printf("%+v\n", repliesListParameters)
-			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -101,7 +94,7 @@ func initRepliesList() {
 				localVarOptionals.Order = optional.NewString(params.GetString(helpers.ToSnakeCase("Order")))
 			}
 
-			data, api_response, err := client.CommentRepliesApi.RepliesList(auth, projectId, keyId, commentId, repliesListParameters, &localVarOptionals)
+			data, api_response, err := client.CommentRepliesApi.RepliesList(auth, projectId, keyId, commentId, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -131,7 +124,6 @@ func initRepliesList() {
 	AddFlag(RepliesList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(RepliesList, "string", helpers.ToSnakeCase("KeyId"), "", "Translation Key ID", true)
 	AddFlag(RepliesList, "string", helpers.ToSnakeCase("CommentId"), "", "Comment ID", true)
-	AddFlag(RepliesList, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(RepliesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(RepliesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(RepliesList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
