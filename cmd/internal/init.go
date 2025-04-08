@@ -143,7 +143,11 @@ func (cmd *InitCommand) askForToken() error {
 }
 
 func (cmd *InitCommand) setToken(token string) {
-	cmd.YAML.AccessToken = token
+	saveTokenToConfig := ""
+	_ = prompt.WithDefault("You can choose to save the token to the configuration file. Otherwise you will have to provide it every time you run the command either through a command argument (\"phrase -t YOUR_TOKEN\") or through an environment variable (PHRASE_ACCESS_TOKEN=\"YOUR_TOKEN\").\nDo you want to save the token to the config file? (y/n)", &saveTokenToConfig, "n")
+	if trimAndLower(saveTokenToConfig) == "y" {
+		cmd.YAML.AccessToken = token
+	}
 	cmd.Credentials.Token = token
 	Config = &cmd.Config
 	client := newClient()
@@ -385,7 +389,7 @@ func (cmd *InitCommand) writeConfig() error {
 
 	pushNow := ""
 	_ = prompt.WithDefault("Do you want to upload your locales now for the first time? (y/n)", &pushNow, "y")
-	if pushNow == "y" {
+	if trimAndLower(pushNow) == "y" {
 		err = firstPush()
 		if err != nil {
 			return err
@@ -405,4 +409,8 @@ func firstPush() error {
 	}
 	cmd := &PushCommand{Config: *config}
 	return cmd.Run()
+}
+
+func trimAndLower(s string) string {
+	return strings.TrimSpace(strings.ToLower(s))
 }
