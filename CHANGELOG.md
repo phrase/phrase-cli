@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.40.0](https://github.com/phrase/openapi/compare/cli-v2.39.0...cli-v2.40.0) (2025-04-08)
+
+
+### Features
+
+* **CLI:** Do not save token to config file by default #STRINGS-999 ([#822](https://github.com/phrase/openapi/issues/822)) ([7836701](https://github.com/phrase/openapi/commit/783670117c84357da9157b4e5cdb80fc3d96c820))
+
+
+### Bug Fixes
+
+* **API:** Remove request body from GET comments ([#817](https://github.com/phrase/openapi/issues/817)) ([2646001](https://github.com/phrase/openapi/commit/264600132e80ac03983e0ae86e99db3d6fb9080d))
+
 ## [2.39.0](https://github.com/phrase/openapi/compare/cli-v2.38.0...cli-v2.39.0) (2025-03-06)
 
 
