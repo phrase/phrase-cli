@@ -130,6 +130,10 @@ func initUploadCreate() {
 				localVarOptionals.Autotranslate = optional.NewBool(params.GetBool(helpers.ToSnakeCase("Autotranslate")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("verifyMentionedTranslations")) {
+				localVarOptionals.VerifyMentionedTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("VerifyMentionedTranslations")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("markReviewed")) {
 				localVarOptionals.MarkReviewed = optional.NewBool(params.GetBool(helpers.ToSnakeCase("MarkReviewed")))
 			}
@@ -187,6 +191,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("LocaleMapping"), "", "payload in JSON format", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FormatOptions"), "", "payload in JSON format", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("Autotranslate"), "", "If set, translations for the uploaded language will be fetched automatically.", false)
+	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("VerifyMentionedTranslations"), "", "Indicates whether all translations mentioned in the upload should be verified.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("MarkReviewed"), "", "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("TagOnlyAffectedKeys"), "", "Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("TranslationKeyPrefix"), "", "This prefix will be added to all uploaded translation key names to prevent collisions. Use a meaningful prefix related to your project or file to keep key names organized.", false)
