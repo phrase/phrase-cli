@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.41.0](https://github.com/phrase/openapi/compare/cli-v2.40.0...cli-v2.41.0) (2025-05-16)
+
+
+### Features
+
+* **API:** Add "verify_mentioned_translations" parameter to uploads ([#830](https://github.com/phrase/openapi/issues/830)) ([f2fdf60](https://github.com/phrase/openapi/commit/f2fdf60dd97c3908293cd457a765dafde603bd9b))
+* **API:** Add processed & upload total translations on upload summary ([#824](https://github.com/phrase/openapi/issues/824)) ([081db68](https://github.com/phrase/openapi/commit/081db68d2ffcf5d66a81e07eec0a9572a1f9d633))
+* **API:** Translations unreview & batch unreview ([#831](https://github.com/phrase/openapi/issues/831)) ([6a696db](https://github.com/phrase/openapi/commit/6a696db00d80d8acaf5887a08a7a97997566eb8f))
+
 ## [2.40.0](https://github.com/phrase/openapi/compare/cli-v2.39.0...cli-v2.40.0) (2025-04-08)
 
 
