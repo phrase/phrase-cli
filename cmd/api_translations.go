@@ -18,6 +18,7 @@ func init() {
 	initTranslationInclude()
 	initTranslationReview()
 	initTranslationShow()
+	initTranslationUnreview()
 	initTranslationUnverify()
 	initTranslationUpdate()
 	initTranslationVerify()
@@ -28,6 +29,7 @@ func init() {
 	initTranslationsList()
 	initTranslationsReviewCollection()
 	initTranslationsSearch()
+	initTranslationsUnreviewCollection()
 	initTranslationsUnverifyCollection()
 	initTranslationsVerifyCollection()
 
@@ -402,6 +404,80 @@ func initTranslationShow() {
 	AddFlag(TranslationShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(TranslationShow.Flags())
+}
+func initTranslationUnreview() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translation/unreview", "/")[1:], "_")
+	var TranslationUnreview = &cobra.Command{
+		Use:   use,
+		Short: "Unreview a translation",
+		Long:  `Mark a reviewed translation as translated.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.TranslationUnreviewOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			var translationUnreviewParameters api.TranslationUnreviewParameters
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationUnreviewParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationUnreviewParameters)
+			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			data, api_response, err := client.TranslationsApi.TranslationUnreview(auth, projectId, id, translationUnreviewParameters, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	TranslationsApiCmd.AddCommand(TranslationUnreview)
+	AddFlag(TranslationUnreview, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TranslationUnreview, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(TranslationUnreview, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(TranslationUnreview, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(TranslationUnreview.Flags())
 }
 func initTranslationUnverify() {
 	params := viper.New()
@@ -1213,6 +1289,77 @@ func initTranslationsSearch() {
 	AddFlag(TranslationsSearch, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 
 	params.BindPFlags(TranslationsSearch.Flags())
+}
+func initTranslationsUnreviewCollection() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("translations/unreview-collection", "/")[1:], "_")
+	var TranslationsUnreviewCollection = &cobra.Command{
+		Use:   use,
+		Short: "Unreview translations selected by query",
+		Long:  `Unreview translations matching query.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.TranslationsUnreviewCollectionOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
+			var translationsUnreviewParameters api.TranslationsUnreviewParameters
+			if err := json.Unmarshal([]byte(params.GetString("data")), &translationsUnreviewParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", translationsUnreviewParameters)
+			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			data, api_response, err := client.TranslationsApi.TranslationsUnreviewCollection(auth, projectId, translationsUnreviewParameters, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	TranslationsApiCmd.AddCommand(TranslationsUnreviewCollection)
+	AddFlag(TranslationsUnreviewCollection, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(TranslationsUnreviewCollection, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(TranslationsUnreviewCollection, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(TranslationsUnreviewCollection.Flags())
 }
 func initTranslationsUnverifyCollection() {
 	params := viper.New()
