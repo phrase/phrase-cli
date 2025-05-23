@@ -197,6 +197,10 @@ func initTagShow() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("omitStatistics")) {
+				localVarOptionals.OmitStatistics = optional.NewBool(params.GetBool(helpers.ToSnakeCase("OmitStatistics")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("branch")) {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
@@ -231,6 +235,7 @@ func initTagShow() {
 	AddFlag(TagShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TagShow, "string", helpers.ToSnakeCase("Name"), "", "name", true)
 	AddFlag(TagShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(TagShow, "bool", helpers.ToSnakeCase("OmitStatistics"), "", "omit statistics in the response", false)
 	AddFlag(TagShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 
 	params.BindPFlags(TagShow.Flags())
