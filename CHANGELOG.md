@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.42.0](https://github.com/phrase/openapi/compare/cli-v2.41.0...cli-v2.42.0) (2025-05-23)
+
+
+### Features
+
+* **API:** Add omit_statistics param to tags#show ([#834](https://github.com/phrase/openapi/issues/834)) ([2058b18](https://github.com/phrase/openapi/commit/2058b18297133075885ac99770aee2e171811cd6))
+
 ## [2.41.0](https://github.com/phrase/openapi/compare/cli-v2.40.0...cli-v2.41.0) (2025-05-16)
 
 
