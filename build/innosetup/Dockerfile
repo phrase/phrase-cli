@@ -9,6 +9,4 @@ ENV FORCE_COLOR 1
 
 # # Install Inno Setup binaries
 RUN curl -SL "http://www.jrsoftware.org/download.php/is.exe" -o is.exe
-RUN xvfb-run wine wineboot --init \
-        && xvfb-run -e /dev/stdout wine is.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
-
+RUN xvfb-run wine is.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
