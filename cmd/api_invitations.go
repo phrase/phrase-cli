@@ -38,7 +38,7 @@ func initInvitationCreate() {
 	var InvitationCreate = &cobra.Command{
 		Use:   use,
 		Short: "Create a new invitation",
-		Long:  `Invite a person to an account. Developers and translators need &lt;code&gt;project_ids&lt;/code&gt; and &lt;code&gt;locale_ids&lt;/code&gt; assigned to access them. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Long:  `Invite a person to an account. Developers and translators need &#x60;project_ids&#x60; and &#x60;locale_ids&#x60; assigned to access them. Access token scope must include &#x60;team.manage&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -109,7 +109,7 @@ func initInvitationDelete() {
 	var InvitationDelete = &cobra.Command{
 		Use:   use,
 		Short: "Delete an invitation",
-		Long:  `Delete an existing invitation (must not be accepted yet). Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Long:  `Delete an existing invitation (must not be accepted yet). Access token scope must include &#x60;team.manage&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -170,7 +170,7 @@ func initInvitationResend() {
 	var InvitationResend = &cobra.Command{
 		Use:   use,
 		Short: "Resend an invitation",
-		Long:  `Resend the invitation email (must not be accepted yet). Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Long:  `Resend the invitation email (must not be accepted yet). Access token scope must include &#x60;team.manage&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -236,7 +236,7 @@ func initInvitationShow() {
 	var InvitationShow = &cobra.Command{
 		Use:   use,
 		Short: "Get a single invitation",
-		Long:  `Get details on a single invitation. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Long:  `Get details on a single invitation. Access token scope must include &#x60;team.manage&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -302,7 +302,7 @@ func initInvitationUpdate() {
 	var InvitationUpdate = &cobra.Command{
 		Use:   use,
 		Short: "Update an invitation",
-		Long:  `Update an existing invitation (must not be accepted yet). The &lt;code&gt;email&lt;/code&gt; cannot be updated. Developers and translators need &lt;code&gt;project_ids&lt;/code&gt; and &lt;code&gt;locale_ids&lt;/code&gt; assigned to access them. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Long:  `Update an existing invitation (must not be accepted yet). The &#x60;email&#x60; cannot be updated. Developers and translators need &#x60;project_ids&#x60; and &#x60;locale_ids&#x60; assigned to access them. Access token scope must include &#x60;team.manage&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -376,7 +376,7 @@ func initInvitationUpdateSettings() {
 	var InvitationUpdateSettings = &cobra.Command{
 		Use:   use,
 		Short: "Update a member's invitation access",
-		Long:  `Update member&#x27;s settings in the invitations. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Long:  `Update member&#x27;s settings in the invitations. Access token scope must include &#x60;team.manage&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -450,7 +450,7 @@ func initInvitationsList() {
 	var InvitationsList = &cobra.Command{
 		Use:   use,
 		Short: "List invitations",
-		Long:  `List invitations for an account. It will also list the accessible resources like projects and locales the invited user has access to. In case nothing is shown the default access from the role is used. Access token scope must include &lt;code&gt;team.manage&lt;/code&gt;.`,
+		Long:  `List invitations for an account. It will also list the accessible resources like projects and locales the invited user has access to. In case nothing is shown the default access from the role is used. Access token scope must include &#x60;team.manage&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

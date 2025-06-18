@@ -793,7 +793,7 @@ func initTranslationsByKey() {
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
-	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).<br><br> The following qualifiers are supported in the query:<br> <ul>   <li><code>id:translation_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>unverified:{true|false}</code> for verification status</li>   <li><code>tags:XYZ</code> for tags on the translation</li>   <li><code>excluded:{true|false}</code> for exclusion status</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
+	AddFlag(TranslationsByKey, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).  The following qualifiers are supported in the query:  * `id:translation_id,...` for queries on a comma-separated list of ids * `unverified:{true|false}` for verification status * `tags:XYZ` for tags on the translation * `excluded:{true|false}` for exclusion status * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries  Find more examples [here](/en/api/strings/usage-examples). ", false)
 
 	params.BindPFlags(TranslationsByKey.Flags())
 }
@@ -805,7 +805,7 @@ func initTranslationsByLocale() {
 	var TranslationsByLocale = &cobra.Command{
 		Use:   use,
 		Short: "List translations by locale",
-		Long:  `List translations for a specific locale. If you want to download all translations for one locale we recommend to use the &lt;code&gt;locales#download&lt;/code&gt; endpoint.`,
+		Long:  `List translations for a specific locale. If you want to download all translations for one locale we recommend to use the &#x60;locales#download&#x60; endpoint. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -889,7 +889,7 @@ func initTranslationsByLocale() {
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
-	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).<br><br> <i>Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).</i><br> The following qualifiers are supported in the query:<br> <ul>   <li><code>id:translation_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>unverified:{true|false}</code> for verification status</li>   <li><code>tags:XYZ</code> for tags on the translation</li>   <li><code>excluded:{true|false}</code> for exclusion status</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
+	AddFlag(TranslationsByLocale, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).  *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*  The following qualifiers are supported in the query: - `id:translation_id,...` for queries on a comma-separated list of ids - `unverified:{true|false}` for verification status - `tags:XYZ` for tags on the translation - `excluded:{true|false}` for exclusion status - `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries  Find more examples [here](/en/api/strings/usage-examples). ", false)
 
 	params.BindPFlags(TranslationsByLocale.Flags())
 }
@@ -1043,7 +1043,7 @@ func initTranslationsList() {
 	var TranslationsList = &cobra.Command{
 		Use:   use,
 		Short: "List all translations",
-		Long:  `List translations for the given project. If you want to download all translations for one locale we recommend to use the &lt;code&gt;locales#download&lt;/code&gt; endpoint.`,
+		Long:  `List translations for the given project. If you want to download all translations for one locale we recommend to use the &#x60;locales#download&#x60; endpoint. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -1127,14 +1127,14 @@ func initTranslationsList() {
 	TranslationsApiCmd.AddCommand(TranslationsList)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("IfModifiedSince"), "", "Last modified condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
-	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("IfNoneMatch"), "", "ETag condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
+	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("IfModifiedSince"), "", "Last modified condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)", false)
+	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("IfNoneMatch"), "", "ETag condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)", false)
 	AddFlag(TranslationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(TranslationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
-	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).<br><br> <i>Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).</i><br> The following qualifiers are supported in the query:<br> <ul>   <li><code>id:translation_id,...</code> for queries on a comma-separated list of ids</li>   <li><code>tags:XYZ</code> for tags on the translation</li>   <li><code>unverified:{true|false}</code> for verification status</li>   <li><code>excluded:{true|false}</code> for exclusion status</li>   <li><code>updated_at:{>=|<=}2013-02-21T00:00:00Z</code> for date range queries</li>   <li><code>reviewed_after:2013-02-21T00:00:00Z</code> for fetching translations that were reviewed after the given timestamp</li> </ul> Find more examples <a href=\"#overview--usage-examples\">here</a>. ", false)
+	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).  *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*  The following qualifiers are supported in the query:  * `id:translation_id,...` for queries on a comma-separated list of ids * `tags:XYZ` for tags on the translation * `unverified:{true|false}` for verification status * `excluded:{true|false}` for exclusion status * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries * `reviewed_after:2013-02-21T00:00:00Z` for fetching translations that were reviewed after the given timestamp  Find more examples [here](/en/api/strings/usage-examples). ", false)
 
 	params.BindPFlags(TranslationsList.Flags())
 }
@@ -1217,7 +1217,7 @@ func initTranslationsSearch() {
 	var TranslationsSearch = &cobra.Command{
 		Use:   use,
 		Short: "Search translations",
-		Long:  `Search translations for the given project. Provides the same search interface as &lt;code&gt;translations#index&lt;/code&gt; but allows POST requests to avoid limitations imposed by GET requests. If you want to download all translations for one locale we recommend to use the &lt;code&gt;locales#download&lt;/code&gt; endpoint.`,
+		Long:  `Search translations for the given project. Provides the same search interface as &#x60;translations#index&#x60; but allows POST requests to avoid limitations imposed by GET requests. If you want to download all translations for one locale we recommend to use the &#x60;locales#download&#x60; endpoint.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

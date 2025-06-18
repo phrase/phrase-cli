@@ -174,7 +174,7 @@ func initReleaseTriggersList() {
 	var ReleaseTriggersList = &cobra.Command{
 		Use:   use,
 		Short: "List release triggers",
-		Long:  `List all release triggers for the given distribution.&lt;br&gt; Note: Currently only one release trigger can exist per distribution. `,
+		Long:  `List all release triggers for the given distribution.  Note: Currently only one release trigger can exist per distribution. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 

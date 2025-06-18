@@ -103,8 +103,8 @@ func initLocaleDownloadCreate() {
 	AddFlag(LocaleDownloadCreate, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale ID", true)
 	AddFlag(LocaleDownloadCreate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(LocaleDownloadCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(LocaleDownloadCreate, "string", helpers.ToSnakeCase("IfModifiedSince"), "", "Last modified condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
-	AddFlag(LocaleDownloadCreate, "string", helpers.ToSnakeCase("IfNoneMatch"), "", "ETag condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
+	AddFlag(LocaleDownloadCreate, "string", helpers.ToSnakeCase("IfModifiedSince"), "", "Last modified condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)", false)
+	AddFlag(LocaleDownloadCreate, "string", helpers.ToSnakeCase("IfNoneMatch"), "", "ETag condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)", false)
 
 	params.BindPFlags(LocaleDownloadCreate.Flags())
 }
@@ -182,8 +182,8 @@ func initLocaleDownloadShow() {
 	AddFlag(LocaleDownloadShow, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale ID", true)
 	AddFlag(LocaleDownloadShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(LocaleDownloadShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(LocaleDownloadShow, "string", helpers.ToSnakeCase("IfModifiedSince"), "", "Last modified condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
-	AddFlag(LocaleDownloadShow, "string", helpers.ToSnakeCase("IfNoneMatch"), "", "ETag condition, see <a href=\"#overview--conditional-get-requests--http-caching\">Conditional GET requests / HTTP Caching</a> (optional)", false)
+	AddFlag(LocaleDownloadShow, "string", helpers.ToSnakeCase("IfModifiedSince"), "", "Last modified condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)", false)
+	AddFlag(LocaleDownloadShow, "string", helpers.ToSnakeCase("IfNoneMatch"), "", "ETag condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)", false)
 
 	params.BindPFlags(LocaleDownloadShow.Flags())
 }

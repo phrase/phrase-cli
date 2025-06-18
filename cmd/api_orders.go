@@ -110,7 +110,7 @@ func initOrderCreate() {
 	var OrderCreate = &cobra.Command{
 		Use:   use,
 		Short: "Create a new order",
-		Long:  `Create a new order. Access token scope must include &lt;code&gt;orders.create&lt;/code&gt;.`,
+		Long:  `Create a new order. Access token scope must include &#x60;orders.create&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
