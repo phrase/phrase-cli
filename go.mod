@@ -1,8 +1,8 @@
 module github.com/phrase/phrase-cli
 
-go 1.22.0
+go 1.24
 
-toolchain go1.22.10
+toolchain go1.24.4
 
 require (
 	github.com/antihax/optional v1.0.0
