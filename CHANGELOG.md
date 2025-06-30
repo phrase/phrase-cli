@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.42.2](https://github.com/phrase/openapi/compare/cli-v2.42.1...cli-v2.42.2) (2025-06-30)
+
+
+### Bug Fixes
+
+* **CLI:** address additional checks introduced by golang 1.24 ([#856](https://github.com/phrase/openapi/issues/856)) ([6f6e1f5](https://github.com/phrase/openapi/commit/6f6e1f5af5287c92fde059645519af9837cf8e19))
+
 ## [2.42.1](https://github.com/phrase/openapi/compare/cli-v2.42.0...cli-v2.42.1) (2025-06-30)
 
 
