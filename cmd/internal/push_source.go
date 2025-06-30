@@ -142,7 +142,7 @@ func (source *Source) CheckPreconditions() error {
 
 	if len(duplicatedPlaceholders) > 0 {
 		dups := strings.Join(duplicatedPlaceholders, ", ")
-		return fmt.Errorf(fmt.Sprintf("%s can only occur once in a file pattern!", dups))
+		return fmt.Errorf("%s can only occur once in a file pattern!", dups)
 	}
 
 	return nil

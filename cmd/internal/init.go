@@ -308,7 +308,7 @@ func (cmd *InitCommand) configureSources() error {
 
 		err = paths.Validate(pushPath, cmd.FileFormat.ApiName, cmd.FileFormat.Extension)
 		if err != nil {
-			print.Failure(err.Error())
+			print.Failure("%s", err.Error())
 		} else {
 			break
 		}
@@ -339,7 +339,7 @@ func (cmd *InitCommand) configureTargets() error {
 
 		err = paths.Validate(pullPath, cmd.FileFormat.ApiName, cmd.FileFormat.Extension)
 		if err != nil {
-			print.Failure(err.Error())
+			print.Failure("%s", err.Error())
 		} else {
 			break
 		}
@@ -375,12 +375,12 @@ func (cmd *InitCommand) writeConfig() error {
 		return err
 	}
 
-	print.Success("We created the following configuration file for you: " + filename)
+	print.Success("We created the following configuration file for you: %s", filename)
 
 	fmt.Println()
 	fmt.Println(string(yamlBytes))
 
-	print.Success("For advanced configuration options, take a look at the documentation: " + shared.DocsConfigUrl)
+	print.Success("For advanced configuration options, take a look at the documentation: %s", shared.DocsConfigUrl)
 	print.Success("You can now use the push & pull commands in your workflow:")
 	fmt.Println()
 	fmt.Println("$ phrase push")
