@@ -264,6 +264,8 @@ func downloadExportedLocale(url string, localName string) error {
 	return nil
 }
 
+// asyncDownloadParams converts the optional parameters from the Pull command into a LocaleDownloadCreateParameters struct.
+// It uses reflection to match the fields of the optional parameters with the fields of the LocaleDownloadCreateParameters struct.
 func asyncDownloadParams(localVarOptionals phrase.LocaleDownloadOpts) phrase.LocaleDownloadCreateParameters {
 	sourceFields := reflect.VisibleFields(reflect.TypeOf(localVarOptionals))
 	localeDownloadCreateParams := phrase.LocaleDownloadCreateParameters{}
@@ -273,8 +275,22 @@ func asyncDownloadParams(localVarOptionals phrase.LocaleDownloadOpts) phrase.Loc
 		for _, sourceField := range sourceFields {
 			if targetField.Name == sourceField.Name {
 				sourceValue := reflect.ValueOf(localVarOptionals).FieldByName(sourceField.Name)
-				if sourceValue.MethodByName("IsSet").Call([]reflect.Value{})[0].Interface().(bool) {
-					targetValue := reflect.ValueOf(&localeDownloadCreateParams).Elem().Field(i)
+				targetValue := reflect.ValueOf(&localeDownloadCreateParams).Elem().Field(i)
+				// handle slices
+				if sourceValue.Kind() == reflect.Slice {
+					if sourceValue.Len() > 0 {
+						targetValue.Set(reflect.MakeSlice(targetValue.Type(), sourceValue.Len(), sourceValue.Len()))
+						for j := 0; j < sourceValue.Len(); j++ {
+							sourceElem := sourceValue.Index(j)
+							if sourceElem.IsValid() {
+								targetElem := targetValue.Index(j)
+								if targetElem.CanSet() {
+									targetElem.Set(sourceElem)
+								}
+							}
+						}
+					}
+				} else if sourceValue.MethodByName("IsSet").Call([]reflect.Value{})[0].Interface().(bool) {
 					sourceOptionalValue := sourceValue.MethodByName("Value").Call([]reflect.Value{})[0]
 					switch sourceField.Type {
 					case reflect.TypeOf((*optional.String)(nil)).Elem():
