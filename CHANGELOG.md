@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.42.1](https://github.com/phrase/openapi/compare/cli-v2.42.0...cli-v2.42.1) (2025-06-30)
+
+
+### Bug Fixes
+
+* **CLI:** Fix async download parameters creation #STRINGS-2712 ([#854](https://github.com/phrase/openapi/issues/854)) ([3a264d4](https://github.com/phrase/openapi/commit/3a264d49cf9d09f550b0cc45e6a97a782b7b0adb))
+
 ## [2.42.0](https://github.com/phrase/openapi/compare/cli-v2.41.0...cli-v2.42.0) (2025-05-23)
 
 
