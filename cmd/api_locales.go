@@ -434,7 +434,7 @@ func initLocaleDownload() {
 	AddFlag(LocaleDownload, "bool", helpers.ToSnakeCase("FilterByPrefix"), "", "Only download translation keys containing the specified prefix, and remove the prefix from the generated file.", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("CustomMetadataFilters"), "", "payload in JSON format", false)
 	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("LocaleIds"), "", "payload in JSON format", false)
-	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("UpdatedSince"), "", "Only include keys that have been updated since the given date. The date must be in ISO 8601 format (e.g., `2023-01-01T00:00:00Z`). ", false)
+	AddFlag(LocaleDownload, "string", helpers.ToSnakeCase("UpdatedSince"), "", "Only include translations and keys that have been updated since the given date. The date must be in ISO 8601 format (e.g., `2023-01-01T00:00:00Z`). ", false)
 
 	params.BindPFlags(LocaleDownload.Flags())
 }
