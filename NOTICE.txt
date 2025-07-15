@@ -1,0 +1,179 @@
+NOTICE
+
+This product includes third party software developed by various authors.
+
+---
+
+DEPENDENCIES AND LICENSE INFORMATION:
+
+1. github.com/antihax/optional
+   - Version: v1.0.0
+   - License: MIT
+   - Author(s): Adam Hintz
+   - URL: github.com/antihax/optional
+   - License text: See LICENSES file within the included source code of the dependency
+
+2. github.com/bgentry/speakeasy
+   - Version: v0.2.0
+   - License: Apache 2.0;MIT
+   - Author(s): Blake Gentry
+   - URL: github.com/bgentry/speakeasy
+   - License text: See LICENSES file within the included source code of the dependency
+
+3. github.com/coreos/go-semver
+   - Version: v0.3.1
+   - License: Apache 2.0
+   - Author(s): CoreOS, Inc
+   - URL: github.com/coreos/go-semver
+   - License text: See LICENSES file within the included source code of the dependency
+
+4. github.com/daviddengcn/go-colortext
+   - Version: v1.0.0
+   - License: MIT
+   - Author(s): David Deng
+   - URL: github.com/daviddengcn/go-colortext
+   - License text: See LICENSES file within the included source code of the dependency
+
+5. github.com/fsnotify/fsnotify
+   - Version: v1.8.0
+   - License: New BSD
+   - Author(s): The Go Authors
+   - URL: github.com/fsnotify/fsnotify
+   - License text: See LICENSES file within the included source code of the dependency
+
+6. github.com/hashicorp/hcl
+   - Version: v1.0.0
+   - License: Mozilla Public License 2.0
+   - Author(s): HashiCorp
+   - URL: github.com/hashicorp/hcl
+   - License text: See LICENSES file within the included source code of the dependency
+
+7. github.com/jpillora/backoff
+   - Version: v1.0.0
+   - License: MIT
+   - Author(s): Jaime Pillora
+   - URL: github.com/jpillora/backoff
+   - License text: See LICENSES file within the included source code of the dependency
+
+8. github.com/magiconair/properties
+   - Version: v1.8.9
+   - License: Simplified BSD
+   - Author(s): Frank Schroeder
+   - URL: github.com/magiconair/properties
+   - License text: See LICENSES file within the included source code of the dependency
+
+9. github.com/mitchellh/mapstructure
+   - Version: v1.5.0
+   - License: MIT
+   - Author(s): Mitchell Hashimoto
+   - URL: github.com/mitchellh/mapstructure
+   - License text: See LICENSES file within the included source code of the dependency
+
+10. github.com/pelletier/go-toml
+   - Version: v1.2.0
+   - License: MIT
+   - Author(s): Thomas Pelletier, Eric Anderton
+   - URL: github.com/pelletier/go-toml
+   - License text: See LICENSES file within the included source code of the dependency
+
+11. github.com/phrase/phrase-go/v4
+   - Version: v4.6.0
+   - License: MIT
+   - Author(s): Phrase GmbH
+   - URL: github.com/phrase/phrase-go
+   - License text: See LICENSES file within the included source code of the dependency
+
+12. github.com/spf13/afero
+   - Version: v1.11.0
+   - License: Apache 2.0
+   - Author(s): Steve Francia
+   - URL: github.com/spf13/afero
+   - License text: See LICENSES file within the included source code of the dependency
+
+13. github.com/spf13/cast
+   - Version: v1.7.1
+   - License: MIT
+   - Author(s): Steve Francia
+   - URL: github.com/spf13/cast
+   - License text: See LICENSES file within the included source code of the dependency
+
+14. github.com/spf13/cobra
+   - Version: v1.8.1
+   - License: Apache 2.0
+   - Author(s): Steve Francia
+   - URL: github.com/spf13/cobra
+   - License text: See LICENSES file within the included source code of the dependency
+
+15. github.com/spf13/jwalterweatherman
+   - Version: v1.1.0
+   - License: MIT
+   - Author(s): Steve Francia
+   - URL: github.com/spf13/jwalterweatherman
+   - License text: See LICENSES file within the included source code of the dependency
+
+16. github.com/spf13/pflag
+   - Version: v1.0.5
+   - License: New BSD
+   - Author(s): Alex Ogier
+   - URL: github.com/spf13/pflag
+   - License text: See LICENSES file within the included source code of the dependency
+
+17. github.com/spf13/viper
+   - Version: v1.7.1
+   - License: MIT
+   - Author(s): Steve Francia,
+   - URL: github.com/spf13/viper
+   - License text: See LICENSES file within the included source code of the dependency
+
+18. github.com/subosito/gotenv
+   - Version: v1.6.0
+   - License: MIT
+   - Author(s): Alif Rachmawadi
+   - URL: github.com/subosito/gotenv
+   - License text: See LICENSES file within the included source code of the dependency
+
+19. golang.org/x/oauth2
+   - Version: v0.24.0
+   - License: New BSD
+   - Author(s): The Go Authors
+   - URL: golang.org/x/oauth2
+   - License text: See LICENSES file within the included source code of the dependency
+
+20. golang.org/x/sys
+   - Version: v0.28.0
+   - License: New BSD
+   - Author(s): The Go Authors
+   - URL: golang.org/x/sys
+   - License text: See LICENSES file within the included source code of the dependency
+
+21. golang.org/x/text
+   - Version: v0.21.0
+   - License: New BSD
+   - Author(s): The Go Authors
+   - URL: golang.org/x/text
+   - License text: See LICENSES file within the included source code of the dependency
+
+22. gopkg.in/ini.v1
+   - Version: v1.67.0
+   - License: Apache 2.0
+   - Author(s): Joe Chen
+   - URL: gopkg.in/ini.v1
+   - License text: See LICENSES file within the included source code of the dependency
+
+23. gopkg.in/yaml.v2
+   - Version: v2.4.0
+   - License: Apache 2.0;MIT
+   - Author(s): Canonical Ltd
+   - URL: gopkg.in/yaml.v2
+   - License text: See LICENSES file within the included source code of the dependency
+
+24. rapidoc
+   - Version: 9.1.3
+   - License: MIT
+   - Author(s): Mrinmoy Majumdar
+   - URL: github.com/rapi-doc/RapiDoc
+   - License text: See LICENSES file within the included source code of the dependency
+
+---
+
+This NOTICE file is for informational purposes only and does not modify the license terms of any referenced software.
