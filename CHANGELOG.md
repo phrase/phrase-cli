@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.43.0](https://github.com/phrase/openapi/compare/cli-v2.42.2...cli-v2.43.0) (2025-07-18)
+
+
+### Features
+
+* **API:** add updated_since param for downloads ([#858](https://github.com/phrase/openapi/issues/858)) ([db4196b](https://github.com/phrase/openapi/commit/db4196bfb1a45f628577bebb99aad7da1179c241))
+* **API:** Add use_ordinal_rules attribute to request body for create/update Keys endpoints ([#868](https://github.com/phrase/openapi/issues/868)) ([29410b5](https://github.com/phrase/openapi/commit/29410b5d4edee9645f449d2d7de53fb953c1f0c2))
+* **API:** Add use_ordinal_rules boolean [STRINGS-2273] ([#846](https://github.com/phrase/openapi/issues/846)) ([450ce0c](https://github.com/phrase/openapi/commit/450ce0cce6bb2064758c44b130b39dd5539c2681))
+
 ## [2.42.2](https://github.com/phrase/openapi/compare/cli-v2.42.1...cli-v2.42.2) (2025-06-30)
 
 
