@@ -567,6 +567,10 @@ func initJobShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("includeAnnotations")) {
+				localVarOptionals.IncludeAnnotations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeAnnotations")))
+			}
+
 			data, api_response, err := client.JobsApi.JobShow(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
@@ -597,7 +601,8 @@ func initJobShow() {
 	AddFlag(JobShow, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(JobShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(JobShow, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(JobShow, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
+	AddFlag(JobShow, "bool", helpers.ToSnakeCase("IncludeAnnotations"), "", "Include job-locale annotations in the response", false)
 
 	params.BindPFlags(JobShow.Flags())
 }

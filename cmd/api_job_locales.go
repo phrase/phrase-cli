@@ -370,6 +370,10 @@ func initJobLocaleShow() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("includeAnnotations")) {
+				localVarOptionals.IncludeAnnotations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeAnnotations")))
+			}
+
 			data, api_response, err := client.JobLocalesApi.JobLocaleShow(auth, projectId, jobId, id, &localVarOptionals)
 
 			if err != nil {
@@ -402,6 +406,7 @@ func initJobLocaleShow() {
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(JobLocaleShow, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
+	AddFlag(JobLocaleShow, "bool", helpers.ToSnakeCase("IncludeAnnotations"), "", "Include job-locale annotations in the response", false)
 
 	params.BindPFlags(JobLocaleShow.Flags())
 }
@@ -601,6 +606,10 @@ func initJobLocalesList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("includeAnnotations")) {
+				localVarOptionals.IncludeAnnotations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeAnnotations")))
+			}
+
 			data, api_response, err := client.JobLocalesApi.JobLocalesList(auth, projectId, jobId, &localVarOptionals)
 
 			if err != nil {
@@ -634,6 +643,7 @@ func initJobLocalesList() {
 	AddFlag(JobLocalesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(JobLocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(JobLocalesList, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
+	AddFlag(JobLocalesList, "bool", helpers.ToSnakeCase("IncludeAnnotations"), "", "Include job-locale annotations in the response", false)
 
 	params.BindPFlags(JobLocalesList.Flags())
 }
