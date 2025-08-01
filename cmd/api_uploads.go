@@ -78,6 +78,10 @@ func initUploadCreate() {
 				localVarOptionals.UpdateTranslations = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateTranslations")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("updateCustomMetadata")) {
+				localVarOptionals.UpdateCustomMetadata = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateCustomMetadata")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("updateTranslationKeys")) {
 				localVarOptionals.UpdateTranslationKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateTranslationKeys")))
 			}
@@ -181,6 +185,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Tags"), "", "List of tags separated by comma to be associated with the new keys contained in the upload.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslations"), "", "Indicates whether existing translations should be updated with the file content.", false)
+	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateCustomMetadata"), "", "Indicates whether existing custom metadata properties should be updated with the file content", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslationKeys"), "", "Pass `false` here to prevent new keys from being created and existing keys updated.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslationsOnSourceMatch"), "", "Update target translations only if the source translations of the uploaded multilingual file match the stored translations.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateDescriptions"), "", "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.", false)
