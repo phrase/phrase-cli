@@ -185,7 +185,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Tags"), "", "List of tags separated by comma to be associated with the new keys contained in the upload.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslations"), "", "Indicates whether existing translations should be updated with the file content.", false)
-	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateCustomMetadata"), "", "Indicates whether existing custom metadata properties should be updated with the file content", false)
+	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateCustomMetadata"), "", "Determines whether to update custom metadata values when uploading a file. If set to true, existing metadata can be changed or removed. Passing an empty value deletes the corresponding metadata property.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslationKeys"), "", "Pass `false` here to prevent new keys from being created and existing keys updated.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslationsOnSourceMatch"), "", "Update target translations only if the source translations of the uploaded multilingual file match the stored translations.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateDescriptions"), "", "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.", false)
