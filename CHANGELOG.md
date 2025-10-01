@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.47.0](https://github.com/phrase/openapi/compare/cli-v2.46.0...cli-v2.47.0) (2025-10-01)
+
+
+### Features
+
+* add branch sync endpoint ([#912](https://github.com/phrase/openapi/issues/912)) ([3293917](https://github.com/phrase/openapi/commit/329391757b3f81574448b1b87506b85bfdeb6761))
+
 ## [2.46.0](https://github.com/phrase/openapi/compare/cli-v2.45.0...cli-v2.46.0) (2025-09-30)
 
 
