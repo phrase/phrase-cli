@@ -19,6 +19,7 @@ func init() {
 	initBranchDelete()
 	initBranchMerge()
 	initBranchShow()
+	initBranchSync()
 	initBranchUpdate()
 	initBranchesList()
 
@@ -231,7 +232,7 @@ func initBranchMerge() {
 	var BranchMerge = &cobra.Command{
 		Use:   use,
 		Short: "Merge a branch",
-		Long:  `Merge an existing branch.   *Note: Merging a branch may take several minutes depending on diff size.* `,
+		Long:  `Merge an existing branch.  *Note: Merging a branch may take several minutes depending on diff size.* `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -357,6 +358,75 @@ func initBranchShow() {
 	AddFlag(BranchShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(BranchShow.Flags())
+}
+func initBranchSync() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branch/sync", "/")[1:], "_")
+	var BranchSync = &cobra.Command{
+		Use:   use,
+		Short: "Sync a branch",
+		Long:  `Sync an existing branch.  *Note: Only available for branches created with new branching. New branching is currently in private beta* `,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.BranchSyncOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
+			name := params.GetString(helpers.ToSnakeCase("Name"))
+
+			var branchSyncParameters api.BranchSyncParameters
+			if err := json.Unmarshal([]byte(params.GetString("data")), &branchSyncParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", branchSyncParameters)
+			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			data, api_response, err := client.BranchesApi.BranchSync(auth, projectId, name, branchSyncParameters, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	BranchesApiCmd.AddCommand(BranchSync)
+	AddFlag(BranchSync, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchSync, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(BranchSync, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(BranchSync, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(BranchSync.Flags())
 }
 func initBranchUpdate() {
 	params := viper.New()
