@@ -38,7 +38,7 @@ func initAutomationActivate() {
 	var AutomationActivate = &cobra.Command{
 		Use:   use,
 		Short: "Activate an automation",
-		Long:  ``,
+		Long:  `Activate an automation.  For feature availability, see [Jobs (Strings)](https://support.phrase.com/hc/en-us/articles/5784100517788-Jobs-Strings). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -104,7 +104,7 @@ func initAutomationCreate() {
 	var AutomationCreate = &cobra.Command{
 		Use:   use,
 		Short: "Create an automation",
-		Long:  `Create a new automation.`,
+		Long:  `Create a new automation.  For feature availability, see [Jobs (Strings)](https://support.phrase.com/hc/en-us/articles/5784100517788-Jobs-Strings). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -175,7 +175,7 @@ func initAutomationDeactivate() {
 	var AutomationDeactivate = &cobra.Command{
 		Use:   use,
 		Short: "Deactivate an automation",
-		Long:  ``,
+		Long:  `Deactivate an automation.  For feature availability, see [Jobs (Strings)](https://support.phrase.com/hc/en-us/articles/5784100517788-Jobs-Strings). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -241,7 +241,7 @@ func initAutomationDelete() {
 	var AutomationDelete = &cobra.Command{
 		Use:   use,
 		Short: "Destroy automation",
-		Long:  `Destroy an automation of an account.  This endpoint is only available to accounts with advanced plans or above. `,
+		Long:  `Destroy an automation of an account.  For feature availability, see [Jobs (Strings)](https://support.phrase.com/hc/en-us/articles/5784100517788-Jobs-Strings). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -302,7 +302,7 @@ func initAutomationShow() {
 	var AutomationShow = &cobra.Command{
 		Use:   use,
 		Short: "Get a single automation",
-		Long:  `Get details of a single automation.`,
+		Long:  `Get details of a single automation.  For feature availability, see [Jobs (Strings)](https://support.phrase.com/hc/en-us/articles/5784100517788-Jobs-Strings). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -368,7 +368,7 @@ func initAutomationUpdate() {
 	var AutomationUpdate = &cobra.Command{
 		Use:   use,
 		Short: "Update an automation",
-		Long:  `Update an existing automation.`,
+		Long:  `Update an existing automation.  For feature availability, see [Jobs (Strings)](https://support.phrase.com/hc/en-us/articles/5784100517788-Jobs-Strings). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -442,7 +442,7 @@ func initAutomationsList() {
 	var AutomationsList = &cobra.Command{
 		Use:   use,
 		Short: "List automations",
-		Long:  `List all automations for an account.  This endpoint is only available to accounts with advanced plans or above. `,
+		Long:  `List all automations for an account.  For feature availability, see [Jobs (Strings)](https://support.phrase.com/hc/en-us/articles/5784100517788-Jobs-Strings). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
