@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.49.0](https://github.com/phrase/openapi/compare/cli-v2.48.0...cli-v2.49.0) (2025-10-23)
+
+
+### Features
+
+* **API:** Support source_locale_id param in uploads ([#935](https://github.com/phrase/openapi/issues/935)) ([304a406](https://github.com/phrase/openapi/commit/304a4061aaac8001a3a9e10c5cf985b04c31dab2))
+
 ## [2.48.0](https://github.com/phrase/openapi/compare/cli-v2.47.0...cli-v2.48.0) (2025-10-16)
 
 
