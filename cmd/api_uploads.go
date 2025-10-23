@@ -90,6 +90,10 @@ func initUploadCreate() {
 				localVarOptionals.UpdateTranslationsOnSourceMatch = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateTranslationsOnSourceMatch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("sourceLocaleId")) {
+				localVarOptionals.SourceLocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("SourceLocaleId")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("updateDescriptions")) {
 				localVarOptionals.UpdateDescriptions = optional.NewBool(params.GetBool(helpers.ToSnakeCase("UpdateDescriptions")))
 			}
@@ -188,6 +192,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateCustomMetadata"), "", "Determines whether to update custom metadata values when uploading a file. If set to true, existing metadata can be changed or removed. Passing an empty value deletes the corresponding metadata property.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslationKeys"), "", "Pass `false` here to prevent new keys from being created and existing keys updated.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateTranslationsOnSourceMatch"), "", "Update target translations only if the source translations of the uploaded multilingual file match the stored translations.", false)
+	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("SourceLocaleId"), "", "Specifies the source locale for multilingual files. Can be the name or id of the locale. Preferred is id.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("UpdateDescriptions"), "", "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("ConvertEmoji"), "", "This option is obsolete. Providing the option will cause a bad request error.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("SkipUploadTags"), "", "Indicates whether the upload should not create upload tags.", false)
