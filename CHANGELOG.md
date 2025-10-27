@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.50.0](https://github.com/phrase/openapi/compare/cli-v2.49.0...cli-v2.50.0) (2025-10-27)
+
+
+### Features
+
+* **API:** Support omit_translation_keys param in Jobs#show ([#944](https://github.com/phrase/openapi/issues/944)) ([690a2ce](https://github.com/phrase/openapi/commit/690a2ce992359e7920367699145d2d4ff3a206fa))
+
 ## [2.49.0](https://github.com/phrase/openapi/compare/cli-v2.48.0...cli-v2.49.0) (2025-10-23)
 
 
