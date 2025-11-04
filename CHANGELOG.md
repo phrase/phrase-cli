@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.50.1](https://github.com/phrase/openapi/compare/cli-v2.50.0...cli-v2.50.1) (2025-11-04)
+
+
+### Bug Fixes
+
+* **CLI:** segfault on pull with branch argument ([#955](https://github.com/phrase/openapi/issues/955)) ([2f33f92](https://github.com/phrase/openapi/commit/2f33f927e1c5bc07a5746802d077295c25c83dee))
+
 ## [2.50.0](https://github.com/phrase/openapi/compare/cli-v2.49.0...cli-v2.50.0) (2025-10-27)
 
 
