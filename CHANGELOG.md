@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.50.2](https://github.com/phrase/openapi/compare/cli-v2.50.1...cli-v2.50.2) (2025-11-10)
+
+
+### Bug Fixes
+
+* **API:** Add omit_translation_keys to Jobs#show endpoint ([#957](https://github.com/phrase/openapi/issues/957)) ([23ece66](https://github.com/phrase/openapi/commit/23ece66b05fc748a4598ce876cb2954ed1a385cc))
+
 ## [2.50.1](https://github.com/phrase/openapi/compare/cli-v2.50.0...cli-v2.50.1) (2025-11-04)
 
 
