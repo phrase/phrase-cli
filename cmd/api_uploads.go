@@ -34,7 +34,7 @@ func initUploadCreate() {
 	var UploadCreate = &cobra.Command{
 		Use:   use,
 		Short: "Upload a new file",
-		Long:  `Upload a new language file. Creates necessary resources in your project.`,
+		Long:  `Upload a new language file. Creates necessary resources in your project.  Note: be aware of [upload limits](https://support.phrase.com/hc/en-us/articles/8548271212188-Phrase-Strings-Limits#file-size-upload-limits-0-0). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
