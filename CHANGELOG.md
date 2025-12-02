@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.51.0](https://github.com/phrase/openapi/compare/cli-v2.50.2...cli-v2.51.0) (2025-12-02)
+
+
+### Features
+
+* **API:** add manual triggering of automations #SCM-953 ([#968](https://github.com/phrase/openapi/issues/968)) ([ebe1c68](https://github.com/phrase/openapi/commit/ebe1c68e472d87ea6c6cd2f76bb421406c30a274))
+* **API:** add use_locale_fallback option to download #SCD-620 ([#976](https://github.com/phrase/openapi/issues/976)) ([9266c68](https://github.com/phrase/openapi/commit/9266c680d8717bb736aed83625858f0b3419da54))
+
 ## [2.50.2](https://github.com/phrase/openapi/compare/cli-v2.50.1...cli-v2.50.2) (2025-11-10)
 
 
