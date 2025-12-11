@@ -15,6 +15,7 @@ import (
 
 func init() {
 	initBranchCompare()
+	initBranchComparisonCreate()
 	initBranchCreate()
 	initBranchDelete()
 	initBranchMerge()
@@ -39,7 +40,7 @@ func initBranchCompare() {
 	var BranchCompare = &cobra.Command{
 		Use:   use,
 		Short: "Compare branches",
-		Long:  `Compare branch with main branch.   *Note: Comparing a branch may take several minutes depending on the project size.* `,
+		Long:  `Compare branch with main branch.  *Note: Comparing a branch may take several minutes depending on the project size. Consider using the &#x60;POST /compare&#x60; endpoint for creating comparison asynchronously.* `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -91,6 +92,75 @@ func initBranchCompare() {
 	AddFlag(BranchCompare, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(BranchCompare.Flags())
+}
+func initBranchComparisonCreate() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("branch/comparison/create", "/")[1:], "_")
+	var BranchComparisonCreate = &cobra.Command{
+		Use:   use,
+		Short: "Create comparison (async.)",
+		Long:  `Create a branch comparison asynchronously. `,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.BranchComparisonCreateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
+			name := params.GetString(helpers.ToSnakeCase("Name"))
+
+			var branchCreateComparisonParameters api.BranchCreateComparisonParameters
+			if err := json.Unmarshal([]byte(params.GetString("data")), &branchCreateComparisonParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", branchCreateComparisonParameters)
+			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			data, api_response, err := client.BranchesApi.BranchComparisonCreate(auth, projectId, name, branchCreateComparisonParameters, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				os.Stdout.Write(data)
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	BranchesApiCmd.AddCommand(BranchComparisonCreate)
+	AddFlag(BranchComparisonCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(BranchComparisonCreate, "string", helpers.ToSnakeCase("Name"), "", "name", true)
+	AddFlag(BranchComparisonCreate, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(BranchComparisonCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(BranchComparisonCreate.Flags())
 }
 func initBranchCreate() {
 	params := viper.New()
@@ -367,7 +437,7 @@ func initBranchSync() {
 	var BranchSync = &cobra.Command{
 		Use:   use,
 		Short: "Sync a branch",
-		Long:  `Sync an existing branch.  *Note: Only available for branches created with new branching. New branching is currently in private beta* `,
+		Long:  `Sync an existing branch.  *Note: Only available for branches created with new branching.* `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
