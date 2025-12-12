@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.52.0](https://github.com/phrase/openapi/compare/cli-v2.51.0...cli-v2.52.0) (2025-12-11)
+
+
+### Features
+
+* **API:** Add create comparison endpoint for branches [SCD-549] ([#966](https://github.com/phrase/openapi/issues/966)) ([4099e32](https://github.com/phrase/openapi/commit/4099e32d42744f9d73346077ef30b0f4bd5c849e))
+
 ## [2.51.0](https://github.com/phrase/openapi/compare/cli-v2.50.2...cli-v2.51.0) (2025-12-02)
 
 
