@@ -62,14 +62,6 @@ func initAccountLocales() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("page")) {
-				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
-			}
-
-			if params.IsSet(helpers.ToSnakeCase("perPage")) {
-				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
-			}
-
 			data, api_response, err := client.LocalesApi.AccountLocales(auth, id, &localVarOptionals)
 
 			if err != nil {
@@ -99,8 +91,6 @@ func initAccountLocales() {
 	LocalesApiCmd.AddCommand(AccountLocales)
 	AddFlag(AccountLocales, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(AccountLocales, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
-	AddFlag(AccountLocales, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
-	AddFlag(AccountLocales, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 
 	params.BindPFlags(AccountLocales.Flags())
 }
