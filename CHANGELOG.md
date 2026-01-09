@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.53.0](https://github.com/phrase/openapi/compare/cli-v2.52.0...cli-v2.53.0) (2026-01-09)
+
+
+### Features
+
+* **API:** Add missing project flags to project details schema #SCD-141 ([#993](https://github.com/phrase/openapi/issues/993)) ([93fbdd7](https://github.com/phrase/openapi/commit/93fbdd76150ed94374ef888ac92c0c9b626de7c8))
+
+
+### Bug Fixes
+
+* **API:** drop invalid account locale params ([#992](https://github.com/phrase/openapi/issues/992)) ([87af83c](https://github.com/phrase/openapi/commit/87af83c94fd7e47340b5393847e93a31127abbe8))
+
 ## [2.52.0](https://github.com/phrase/openapi/compare/cli-v2.51.0...cli-v2.52.0) (2025-12-11)
 
 
