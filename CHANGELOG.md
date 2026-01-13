@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.53.1](https://github.com/phrase/openapi/compare/cli-v2.53.0...cli-v2.53.1) (2026-01-13)
+
+
+### Bug Fixes
+
+* **CLI:** Stuck waiting when using push -w -B ([#1003](https://github.com/phrase/openapi/issues/1003)) ([8a1b0f8](https://github.com/phrase/openapi/commit/8a1b0f865bc8e0437fbb2f00aa5a4a7b487aa7d7))
+
 ## [2.53.0](https://github.com/phrase/openapi/compare/cli-v2.52.0...cli-v2.53.0) (2026-01-09)
 
 
