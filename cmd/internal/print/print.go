@@ -46,7 +46,13 @@ func PhraseLogo() {
 // Prints the argument if the command is started in non-batch mode
 func NonBatchPrintf(msg string, args ...interface{}) {
 	if !shared.BatchMode {
-		fmt.Print(fmt.Sprintf(msg, args...))
+		fmt.Printf(msg, args...)
+	}
+}
+
+func NonBatchPrint(msg string) {
+	if !shared.BatchMode {
+		fmt.Print(msg)
 	}
 }
 
