@@ -50,9 +50,17 @@ security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
+# Add keychain to the search list (prepend to existing list)
+# This is required for codesign to find the identity
+EXISTING_KEYCHAINS=$(security list-keychains -d user | tr -d '"' | tr '\n' ' ')
+security list-keychains -d user -s "$KEYCHAIN_PATH" $EXISTING_KEYCHAINS
+
 # Import certificate into keychain
 security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
 security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+
+# Set the custom keychain as the default for this session
+security default-keychain -s "$KEYCHAIN_PATH"
 
 # Show available signing identities for visibility
 echo "🔎 Available signing identities (codesigning):"
