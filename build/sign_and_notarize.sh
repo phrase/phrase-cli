@@ -8,8 +8,8 @@ SIGNING_IDENTITY="${SIGNING_IDENTITY}"
 KEYCHAIN_PASSWORD="${KEYCHAIN_PASSWORD}"
 DIST_DIR="${DIST_DIR:-dist}"
 
-CERTIFICATE_PATH="./build_certificate.p12"
-KEYCHAIN_PATH="./my-signing.keychain-db"
+CERTIFICATE_PATH="$(pwd)/build_certificate.p12"
+KEYCHAIN_PATH="$(pwd)/my-signing.keychain-db"
 
 # Basic env validation to fail fast
 require_env() {
@@ -57,14 +57,22 @@ security list-keychains -d user -s "$KEYCHAIN_PATH" $EXISTING_KEYCHAINS
 
 # Import certificate into keychain
 security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
-security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
 # Set the custom keychain as the default for this session
 security default-keychain -s "$KEYCHAIN_PATH"
 
+# Debug: show keychain search list
+echo "🔎 Keychain search list:"
+security list-keychains -d user
+
 # Show available signing identities for visibility
 echo "🔎 Available signing identities (codesigning):"
 security find-identity -v -p codesigning "$KEYCHAIN_PATH" || true
+
+# Also check all keychains
+echo "🔎 All available signing identities:"
+security find-identity -v -p codesigning || true
 
 # Find and sign all macOS binaries dynamically
 echo "🔎 Searching for macOS binaries in $DIST_DIR..."
