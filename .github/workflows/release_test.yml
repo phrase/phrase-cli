@@ -81,6 +81,8 @@ jobs:
           files: |
             dist/phrase_macosx_*.zip
             dist/*.tar.gz
+            dist/phrase_windows_*.exe.zip
+            dist/phrase_windows_*.exe
           fail_on_unmatched_files: true
           overwrite: true
           name: ${{ github.ref_name }}
