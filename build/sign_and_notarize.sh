@@ -74,13 +74,25 @@ security find-identity -v -p codesigning "$KEYCHAIN_PATH" || true
 echo "🔎 All available signing identities:"
 security find-identity -v -p codesigning || true
 
+# Extract the SHA-1 hash from the keychain for reliable signing
+# This avoids issues with identity name matching
+IDENTITY_HASH=$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | grep "Developer ID Application" | head -1 | awk '{print $2}')
+if [[ -z "$IDENTITY_HASH" ]]; then
+  echo "❌ No Developer ID Application identity found in keychain" >&2
+  exit 1
+fi
+echo "🔑 Using identity hash: $IDENTITY_HASH"
+
 # Find and sign all macOS binaries dynamically
 echo "🔎 Searching for macOS binaries in $DIST_DIR..."
 
-find "$DIST_DIR" -type f \( -name "phrase_macosx_*" ! -name "*.tar.gz" \) -print0 | while IFS= read -r -d '' binary; do
+shopt -s nullglob
+for binary in "$DIST_DIR"/phrase_macosx_*; do
+  [[ "$binary" == *.tar.gz ]] && continue
+  [[ ! -f "$binary" ]] && continue
   echo "🔏 Signing $binary..."
-  codesign --timestamp --options runtime --keychain "$KEYCHAIN_PATH" --sign "$SIGNING_IDENTITY" "$binary"
-  codesign --verify --verbose=2 --keychain "$KEYCHAIN_PATH" "$binary"
+  codesign --force --timestamp --options runtime --keychain "$KEYCHAIN_PATH" --sign "$IDENTITY_HASH" "$binary"
+  codesign --verify --verbose=2 "$binary"
 done
 
 echo "✅ All macOS binaries signed successfully."
