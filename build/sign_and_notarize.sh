@@ -97,6 +97,25 @@ done
 
 echo "✅ All macOS binaries signed successfully."
 
+# --- Recreate tar.gz with signed binaries (for Homebrew) ---
+echo "📦 Recreating tar.gz archives with signed binaries..."
+for binary in "$DIST_DIR"/phrase_macosx_*; do
+  [[ "$binary" == *.tar.gz ]] && continue
+  [[ "$binary" == *.zip ]] && continue
+  [[ ! -f "$binary" ]] && continue
+  relbin="${binary#${DIST_DIR}/}"
+  # Remove old tar.gz if exists
+  rm -f "$DIST_DIR/${relbin}.tar.gz"
+  # Create new tar.gz with signed binary renamed to 'phrase'
+  echo "Creating $DIST_DIR/${relbin}.tar.gz with signed binary..."
+  (
+    cd "$DIST_DIR"
+    cp "$relbin" phrase
+    tar --create phrase | gzip -n > "${relbin}.tar.gz"
+    rm phrase
+  )
+done
+
 # --- Zip artifacts for notarization ---
 echo "📦 Zipping macOS binaries for notarization..."
 shopt -s nullglob
