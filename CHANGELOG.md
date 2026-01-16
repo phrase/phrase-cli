@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.53.2](https://github.com/phrase/strings-openapi/compare/cli-v2.53.1...cli-v2.53.2) (2026-01-16)
+
+
+### Bug Fixes
+
+* **API:** Add linked_translation to translation type ([#1005](https://github.com/phrase/strings-openapi/issues/1005)) ([b18e64c](https://github.com/phrase/strings-openapi/commit/b18e64c948d40a9e5f996e8fdf6dee07d1812b02))
+
 ## [2.53.1](https://github.com/phrase/openapi/compare/cli-v2.53.0...cli-v2.53.1) (2026-01-13)
 
 
