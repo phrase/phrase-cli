@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.54.0](https://github.com/phrase/strings-openapi/compare/cli-v2.53.2...cli-v2.54.0) (2026-01-19)
+
+
+### Features
+
+* **CLI:** Add macOS binary signing using Apple Distribution certificate [SCD-129] ([#1002](https://github.com/phrase/strings-openapi/issues/1002)) ([f4f06c7](https://github.com/phrase/strings-openapi/commit/f4f06c735c4a7599ee08304a48dfd773af51590e))
+
 ## [2.53.2](https://github.com/phrase/strings-openapi/compare/cli-v2.53.1...cli-v2.53.2) (2026-01-16)
 
 
