@@ -76,10 +76,10 @@ jobs:
         with:
           files: |
             dist/phrase_macosx_*.zip
-            dist/*.tar.gz
+            dist/phrase_macosx_*.tar.gz
+            dist/phrase_linux_*.tar.gz
             dist/phrase_windows_*.exe.zip
             dist/phrase_windows_*.exe
-          fail_on_unmatched_files: true
           overwrite: true
           name: ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
