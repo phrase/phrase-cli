@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.54.1](https://github.com/phrase/strings-openapi/compare/cli-v2.54.0...cli-v2.54.1) (2026-01-19)
+
+
+### Bug Fixes
+
+* **CLI:** Fix releasing binary files ([#1015](https://github.com/phrase/strings-openapi/issues/1015)) ([0ceac81](https://github.com/phrase/strings-openapi/commit/0ceac813ebee7c4ff6f9fb08aaf45e5b1d348e23))
+
 ## [2.54.0](https://github.com/phrase/strings-openapi/compare/cli-v2.53.2...cli-v2.54.0) (2026-01-19)
 
 
