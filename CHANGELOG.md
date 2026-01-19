@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.54.2](https://github.com/phrase/strings-openapi/compare/cli-v2.54.1...cli-v2.54.2) (2026-01-19)
+
+
+### Bug Fixes
+
+* **CLI:** Unify asset uploading and release publishing steps ([#1017](https://github.com/phrase/strings-openapi/issues/1017)) ([dfa0c2e](https://github.com/phrase/strings-openapi/commit/dfa0c2e816474c0a6bf82901af3ad4fed7330af8))
+
 ## [2.54.1](https://github.com/phrase/strings-openapi/compare/cli-v2.54.0...cli-v2.54.1) (2026-01-19)
 
 
