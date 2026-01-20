@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.54.3](https://github.com/phrase/strings-openapi/compare/cli-v2.54.2...cli-v2.54.3) (2026-01-20)
+
+
+### Bug Fixes
+
+* **CLI:** Fix bare binary release for Linux ([#1020](https://github.com/phrase/strings-openapi/issues/1020)) ([954efca](https://github.com/phrase/strings-openapi/commit/954efca1d9954d229a3a99eea6dca0f695a1a286))
+
 ## [2.54.2](https://github.com/phrase/strings-openapi/compare/cli-v2.54.1...cli-v2.54.2) (2026-01-19)
 
 
