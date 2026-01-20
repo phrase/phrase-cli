@@ -40,14 +40,6 @@ jobs:
         with:
           name: dist
           path: dist/
-      - name: Create draft GitHub Release
-        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # pin@v1
-        with:
-          draft: true
-          name: ${{ github.ref_name }}
-          tag_name: ${{ github.ref_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   sign_and_notarize:
     runs-on: macos-latest
@@ -75,11 +67,9 @@ jobs:
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # pin@v1
         with:
           files: |
-            dist/phrase_macosx_*.zip
-            dist/phrase_macosx_*.tar.gz
-            dist/phrase_linux_*.tar.gz
-            dist/phrase_windows_*.exe.zip
-            dist/phrase_windows_*.exe
+            dist/phrase_macosx_*
+            dist/phrase_linux_*
+            dist/phrase_windows_*
           overwrite: true
           draft: false
           name: ${{ github.ref_name }}
