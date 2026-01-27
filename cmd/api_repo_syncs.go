@@ -259,6 +259,10 @@ func initRepoSyncImport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+
 			var repoSyncImportParameters map[string]interface{}
 			if err := json.Unmarshal([]byte(params.GetString("data")), &repoSyncImportParameters); err != nil {
 				HandleError(err)
@@ -297,6 +301,7 @@ func initRepoSyncImport() {
 	AddFlag(RepoSyncImport, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(RepoSyncImport, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(RepoSyncImport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(RepoSyncImport, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 	AddFlag(RepoSyncImport, "string", "data", "d", "payload in JSON format", false)
 
 	params.BindPFlags(RepoSyncImport.Flags())
