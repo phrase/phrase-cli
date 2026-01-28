@@ -264,11 +264,13 @@ func initRepoSyncImport() {
 			}
 
 			var repoSyncImportParameters map[string]interface{}
-			if err := json.Unmarshal([]byte(params.GetString("data")), &repoSyncImportParameters); err != nil {
-				HandleError(err)
-			}
-			if Config.Debug {
-				fmt.Printf("%+v\n", repoSyncImportParameters)
+			if params.IsSet("data") {
+				if err := json.Unmarshal([]byte(params.GetString("data")), &repoSyncImportParameters); err != nil {
+					HandleError(err)
+				}
+				if Config.Debug {
+					fmt.Printf("%+v\n", repoSyncImportParameters)
+				}
 			}
 
 			data, api_response, err := client.RepoSyncsApi.RepoSyncImport(auth, accountId, id, &localVarOptionals)
