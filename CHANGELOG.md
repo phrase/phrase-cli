@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.55.0](https://github.com/phrase/strings-openapi/compare/cli-v2.54.3...cli-v2.55.0) (2026-01-28)
+
+
+### Features
+
+* **API:** Accept branch param in RepoSyncs#import ([#1035](https://github.com/phrase/strings-openapi/issues/1035)) ([fdfd542](https://github.com/phrase/strings-openapi/commit/fdfd54203510f94d546d771e1eeb6f4cc40f9b06))
+* **API:** creating upload batches #SCD-687 ([#1022](https://github.com/phrase/strings-openapi/issues/1022)) ([83f5a41](https://github.com/phrase/strings-openapi/commit/83f5a411f1ebc63d26cdce0729093aa517d79b62))
+* **CLI:** key cleanup using batches #SCD-687 ([#1036](https://github.com/phrase/strings-openapi/issues/1036)) ([3d8f064](https://github.com/phrase/strings-openapi/commit/3d8f064fe9002047f22e70334e513a6b593d7366))
+
+
+### Bug Fixes
+
+* remove project from account locales ([#1025](https://github.com/phrase/strings-openapi/issues/1025)) ([06b780f](https://github.com/phrase/strings-openapi/commit/06b780f91d2fe22a22ec821aa18968ed3b50510a))
+
 ## [2.54.3](https://github.com/phrase/strings-openapi/compare/cli-v2.54.2...cli-v2.54.3) (2026-01-20)
 
 
