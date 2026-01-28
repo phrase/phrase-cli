@@ -210,49 +210,50 @@ func StringToInterface() mapstructure.DecodeHookFunc {
 	}
 }
 
-func UploadCleanup(client *phrase.APIClient, confirm bool, ids []string, branch string, projectId string) error {
-	if !shared.BatchMode {
-		fmt.Println("Keys not mentioned in the following uploads will be deleted:")
-		fmt.Println(strings.Join(ids, "\n"))
-	}
-	if !confirm {
-		if shared.BatchMode {
-			return errors.New("Can't ask for confirmation in batch mode. Aborting")
+func CreateUploadBatch(client *phrase.APIClient, confirm bool, ids []string, branch string, projectId string, cleanup bool) error {
+	if cleanup {
+		if !shared.BatchMode {
+			fmt.Println("Keys not mentioned in the following uploads will be deleted:")
+			fmt.Println(strings.Join(ids, "\n"))
 		}
-		confirmation := ""
-		err := prompt.WithDefault("Are you sure you want to continue? (y/n)", &confirmation, "n")
-		if err != nil {
-			return err
+		if !confirm {
+			if shared.BatchMode {
+				return errors.New("Can't ask for confirmation in batch mode. Aborting")
+			}
+			confirmation := ""
+			err := prompt.WithDefault("Are you sure you want to continue? (y/n)", &confirmation, "n")
+			if err != nil {
+				return err
+			}
+
+			if strings.ToLower(confirmation) != "y" {
+				fmt.Println("Clean up aborted")
+				return nil
+			}
 		}
-
-		if strings.ToLower(confirmation) != "y" {
-			fmt.Println("Clean up aborted")
-			return nil
-		}
 	}
 
-	q := "unmentioned_in_upload:" + strings.Join(ids, ",")
-	optionalBranch := optional.String{}
-	if branch != "" {
-		optionalBranch = optional.NewString(branch)
+	uploadBatchesCreateParameters := phrase.UploadBatchesCreateParameters{
+		Branch:                branch,
+		DeleteUnmentionedKeys: &cleanup,
+		UploadIds:             ids,
 	}
-	keysDeletelocalVarOptionals := phrase.KeysDeleteCollectionOpts{
-		Q:      optional.NewString(q),
-		Branch: optionalBranch,
-	}
-	affected, _, err := client.KeysApi.KeysDeleteCollection(Auth, projectId, &keysDeletelocalVarOptionals)
-
+	uploadBatch, _, err := client.UploadBatchesApi.UploadBatchesCreate(Auth, projectId, uploadBatchesCreateParameters, nil)
 	if err != nil {
 		return err
 	}
+	if !cleanup {
+		return nil
+	}
+
 	if shared.BatchMode {
-		jsonBuf, jsonErr := json.MarshalIndent(affected, "", " ")
+		jsonBuf, jsonErr := json.MarshalIndent(uploadBatch, "", " ")
 		if jsonErr != nil {
 			print.Error(jsonErr)
 		}
 		fmt.Printf("%s\n", string(jsonBuf))
 	} else {
-		print.Success("%d key(s) successfully deleted.\n", affected.RecordsAffected)
+		print.Success("Keys cleanup scheduled for an upload batch with %d uploads", len(ids))
 	}
 	return nil
 }

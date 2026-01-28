@@ -160,7 +160,7 @@ func (t *Target) GetTags() []string {
 }
 
 func TargetsFromConfig(config phrase.Config) (Targets, error) {
-	if config.Targets == nil || len(config.Targets) == 0 {
+	if config.Pull == nil || len(config.Pull) == 0 {
 		return nil, fmt.Errorf("no targets for download specified")
 	}
 
@@ -170,7 +170,7 @@ func TargetsFromConfig(config phrase.Config) (Targets, error) {
 
 	targets := viper.New()
 	targets.SetConfigType("yaml")
-	err := targets.ReadConfig(bytes.NewReader(config.Targets))
+	err := targets.ReadConfig(bytes.NewReader(config.Pull))
 
 	if err != nil {
 		return nil, err

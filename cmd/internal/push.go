@@ -43,17 +43,18 @@ func (cmd *PushCommand) Run() error {
 		Debug = true
 	}
 
-	if cmd.Cleanup && !cmd.Wait {
-		return fmt.Errorf("You can only use the --cleanup option together with --wait")
-	}
-
 	Config = &cmd.Config
 
 	client := newClient()
 
-	sources, err := SourcesFromConfig(cmd.Config)
+	sources, deleteUnmentionedKeys, err := SourcesFromConfig(cmd.Config)
 	if err != nil {
 		return err
+	}
+
+	// Use delete_unmentioned_keys from config if Cleanup wasn't explicitly set via command line
+	if deleteUnmentionedKeys && !cmd.Cleanup {
+		cmd.Cleanup = deleteUnmentionedKeys
 	}
 
 	if err := sources.Validate(); err != nil {
@@ -154,23 +155,21 @@ func (cmd *PushCommand) Run() error {
 		if err != nil {
 			return err
 		}
-		if cmd.Wait && cmd.Cleanup {
-			// collect all upload ids for cleanup by project and branch
-			found := false
-			for _, result := range pushResults {
-				if result.ProjectID == pushResult.ProjectID && result.Branch == pushResult.Branch {
-					result.UploadIDs = append(result.UploadIDs, pushResult.UploadIDs...)
-					found = true
-					break
-				}
+		// collect all upload ids by project and branch for batch creation (cleanup depends on cmd.Cleanup)
+		found := false
+		for _, result := range pushResults {
+			if result.ProjectID == pushResult.ProjectID && result.Branch == pushResult.Branch {
+				result.UploadIDs = append(result.UploadIDs, pushResult.UploadIDs...)
+				found = true
+				break
 			}
-			if !found {
-				pushResults = append(pushResults, pushResult)
-			}
+		}
+		if !found {
+			pushResults = append(pushResults, pushResult)
 		}
 	}
 	for _, pushResult := range pushResults {
-		UploadCleanup(client, true, pushResult.UploadIDs, pushResult.Branch, pushResult.ProjectID)
+		CreateUploadBatch(client, true, pushResult.UploadIDs, pushResult.Branch, pushResult.ProjectID, cmd.Cleanup)
 	}
 
 	return nil

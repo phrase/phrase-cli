@@ -13,26 +13,27 @@ import (
 	"github.com/spf13/viper"
 )
 
-func SourcesFromConfig(config phrase.Config) (Sources, error) {
-	if config.Sources == nil || len(config.Sources) == 0 {
-		return nil, fmt.Errorf("no sources for upload specified")
+func SourcesFromConfig(config phrase.Config) (Sources, bool, error) {
+	if config.Push == nil || len(config.Push) == 0 {
+		return nil, false, fmt.Errorf("no sources for upload specified")
 	}
 
 	tmp := struct {
-		Sources Sources
+		DeleteUnmentionedKeys bool    `json:"delete_unmentioned_keys,omitempty"`
+		Sources               Sources `json:"sources,omitempty"`
 	}{}
 
-	sources := viper.New()
-	sources.SetConfigType("yaml")
-	err := sources.ReadConfig(bytes.NewReader(config.Sources))
+	pushSection := viper.New()
+	pushSection.SetConfigType("yaml")
+	err := pushSection.ReadConfig(bytes.NewReader(config.Push))
 
 	if err != nil {
-		return nil, err
+		return nil, false, err
 	}
 
-	err = sources.UnmarshalExact(&tmp, ViperStructTag())
+	err = pushSection.UnmarshalExact(&tmp, ViperStructTag())
 	if err != nil {
-		return nil, err
+		return nil, false, err
 	}
 
 	srcs := tmp.Sources
@@ -64,10 +65,10 @@ func SourcesFromConfig(config phrase.Config) (Sources, error) {
 	}
 
 	if len(validSources) <= 0 {
-		return nil, fmt.Errorf("no sources could be identified! Refine the sources list in your config")
+		return nil, false, fmt.Errorf("no sources could be identified! Refine the sources list in your config")
 	}
 
-	return validSources, nil
+	return validSources, tmp.DeleteUnmentionedKeys, nil
 }
 
 type Sources []*Source
