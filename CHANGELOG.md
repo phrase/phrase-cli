@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.55.1](https://github.com/phrase/strings-openapi/compare/cli-v2.55.0...cli-v2.55.1) (2026-01-28)
+
+
+### Bug Fixes
+
+* **CLI:** Allow optional data not to be passed ([#1039](https://github.com/phrase/strings-openapi/issues/1039)) ([cac33b6](https://github.com/phrase/strings-openapi/commit/cac33b6602785fe94707d1045a085aea8164dab1))
+
 ## [2.55.0](https://github.com/phrase/strings-openapi/compare/cli-v2.54.3...cli-v2.55.0) (2026-01-28)
 
 
