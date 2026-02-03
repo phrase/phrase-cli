@@ -3,8 +3,8 @@ package prompt
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"os"
+	"strings"
 )
 
 var stdin = bufio.NewReader(os.Stdin)
@@ -26,11 +26,27 @@ func P(msg string, args ...interface{}) error {
 	return err
 }
 
+// Line prints msg, then reads a line of user input. The input line is then cleaned of whitespace and assigned to val.
+func Line(msg string, val *string) error {
+	fmt.Print(msg + " ")
+
+	line, err := stdin.ReadString('\n')
+	if err != nil {
+		return err
+	}
+
+	*val = strings.TrimSpace(line)
+	if *val == "" {
+		return fmt.Errorf("empty input")
+	}
+	return nil
+}
+
 // WithDefault prints msg, then parses a line of user input into
 func WithDefault(msg string, arg *string, defaultValue string) error {
-	err := P(msg+" "+fmt.Sprintf("[default %v]", defaultValue), arg)
+	err := Line(msg+" "+fmt.Sprintf("[default %v]", defaultValue), arg)
 
-	if err == io.EOF {
+	if err != nil {
 		*arg = defaultValue
 		return nil
 	}
