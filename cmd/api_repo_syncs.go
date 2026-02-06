@@ -193,6 +193,16 @@ func initRepoSyncExport() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			var repoSyncExportParameters map[string]interface{}
+			if params.IsSet("data") {
+				if err := json.Unmarshal([]byte(params.GetString("data")), &repoSyncExportParameters); err != nil {
+					HandleError(err)
+				}
+				if Config.Debug {
+					fmt.Printf("%+v\n", repoSyncExportParameters)
+				}
+			}
+
 			data, api_response, err := client.RepoSyncsApi.RepoSyncExport(auth, accountId, id, &localVarOptionals)
 
 			if err != nil {
@@ -223,6 +233,7 @@ func initRepoSyncExport() {
 	AddFlag(RepoSyncExport, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(RepoSyncExport, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(RepoSyncExport, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(RepoSyncExport, "string", "data", "d", "payload in JSON format", false)
 
 	params.BindPFlags(RepoSyncExport.Flags())
 }
