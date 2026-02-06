@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.55.2](https://github.com/phrase/strings-openapi/compare/cli-v2.55.1...cli-v2.55.2) (2026-02-03)
+
+
+### Bug Fixes
+
+* **CLI:** Fix creating projects from CLI with spaces in their name (SCD-52) ([#1042](https://github.com/phrase/strings-openapi/issues/1042)) ([5949dde](https://github.com/phrase/strings-openapi/commit/5949ddea02d508d5477e1a43572bcbc41d0df96b))
+
 ## [2.55.1](https://github.com/phrase/strings-openapi/compare/cli-v2.55.0...cli-v2.55.1) (2026-01-28)
 
 
