@@ -83,10 +83,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Update Homebrew formula
-        uses: dawidd6/action-homebrew-bump-formula@75ed025ff3ad1d617862838b342b06d613a0ddf3 # v3.10.1
+        uses: dawidd6/action-homebrew-bump-formula@1446dca236b0440c6f02723a3f14f13be2c04ab0 # v7
         with:
           # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
           token: ${{secrets.GH_ACCESS_TOKEN}}
+          # Avoid extra /user GitHub API call in the action
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
           # Formula name, required
           formula: phrase-cli
           # Optional, will be determined automatically
