@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.56.0](https://github.com/phrase/strings-openapi/compare/cli-v2.55.2...cli-v2.56.0) (2026-03-13)
+
+
+### Features
+
+* **API:** Add only_content_updates on translations versions ([#977](https://github.com/phrase/strings-openapi/issues/977)) ([57df730](https://github.com/phrase/strings-openapi/commit/57df730023ee736307b619e366bf9c87d9fe0db2))
+* **API:** add pr_branch param to repo-sync export #SCD-594 ([#978](https://github.com/phrase/strings-openapi/issues/978)) ([7c3c19f](https://github.com/phrase/strings-openapi/commit/7c3c19fa6b7254315ce48a1ad420b97d529dbd9a))
+
+
+### Bug Fixes
+
+* Add repo url to package.json to fix npm publish ([#1058](https://github.com/phrase/strings-openapi/issues/1058)) ([f021f13](https://github.com/phrase/strings-openapi/commit/f021f1305d1f203033a520e8b7e2f92da00b2fd2))
+
 ## [2.55.2](https://github.com/phrase/strings-openapi/compare/cli-v2.55.1...cli-v2.55.2) (2026-02-03)
 
 
