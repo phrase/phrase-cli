@@ -143,6 +143,10 @@ func initVersionsList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("onlyContentUpdates")) {
+				localVarOptionals.OnlyContentUpdates = optional.NewBool(params.GetBool(helpers.ToSnakeCase("OnlyContentUpdates")))
+			}
+
 			data, api_response, err := client.VersionsHistoryApi.VersionsList(auth, projectId, translationId, &localVarOptionals)
 
 			if err != nil {
@@ -176,6 +180,7 @@ func initVersionsList() {
 	AddFlag(VersionsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(VersionsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(VersionsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(VersionsList, "bool", helpers.ToSnakeCase("OnlyContentUpdates"), "", "Indicates whether only content updates should be returned", false)
 
 	params.BindPFlags(VersionsList.Flags())
 }
