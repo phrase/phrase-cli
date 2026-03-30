@@ -3,6 +3,7 @@ package internal
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -26,13 +27,17 @@ const (
 	asyncRetryCount  = 360 // 30 minutes
 )
 
-var Config *phrase.Config
+var (
+	Config         *phrase.Config
+	errNotModified = errors.New("not modified")
+)
 
 type PullCommand struct {
 	phrase.Config
 	Branch             string
 	UseLocalBranchName bool
 	Async              bool
+	Cache              bool
 }
 
 var Auth context.Context
@@ -81,8 +86,22 @@ func (cmd *PullCommand) Run(config *phrase.Config) error {
 		target.RemoteLocales = val
 	}
 
+	var cache *DownloadCache
+	if cmd.Cache {
+		if cmd.Async {
+			print.Warn("--cache is not supported with --async, ignoring cache")
+		} else {
+			cache = LoadDownloadCache()
+			defer func() {
+				if err := cache.Save(); err != nil {
+					print.Warn("Failed to save download cache: %s. Check directory permissions.", err)
+				}
+			}()
+		}
+	}
+
 	for _, target := range targets {
-		err := target.Pull(client, cmd.Async)
+		err := target.Pull(client, cmd.Async, cache)
 		if err != nil {
 			return err
 		}
@@ -110,7 +129,7 @@ type PullParams struct {
 	LocaleID                  string `json:"locale_id"`
 }
 
-func (target *Target) Pull(client *phrase.APIClient, async bool) error {
+func (target *Target) Pull(client *phrase.APIClient, async bool, cache *DownloadCache) error {
 	if err := target.CheckPreconditions(); err != nil {
 		return err
 	}
@@ -131,8 +150,10 @@ func (target *Target) Pull(client *phrase.APIClient, async bool) error {
 			return err
 		}
 
-		err = target.DownloadAndWriteToFile(client, localeFile, async)
-		if err != nil {
+		err = target.DownloadAndWriteToFile(client, localeFile, async, cache)
+		if errors.Is(err, errNotModified) {
+			print.Success("Not modified %s", localeFile.RelPath())
+		} else if err != nil {
 			if openapiError, ok := err.(phrase.GenericOpenAPIError); ok {
 				print.Warn("API response: %s", openapiError.Body())
 			}
@@ -146,7 +167,7 @@ func (target *Target) Pull(client *phrase.APIClient, async bool) error {
 	return nil
 }
 
-func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFile *LocaleFile, async bool) error {
+func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFile *LocaleFile, async bool, cache *DownloadCache) error {
 	localVarOptionals := phrase.LocaleDownloadOpts{}
 
 	if target.Params != nil {
@@ -182,9 +203,8 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 
 	if async {
 		return target.downloadAsynchronously(client, localeFile, localVarOptionals)
-	} else {
-		return target.downloadSynchronously(client, localeFile, localVarOptionals)
 	}
+	return target.downloadSynchronously(client, localeFile, localVarOptionals, cache)
 }
 
 func (target *Target) downloadAsynchronously(client *phrase.APIClient, localeFile *LocaleFile, downloadOpts phrase.LocaleDownloadOpts) error {
@@ -216,12 +236,40 @@ func (target *Target) downloadAsynchronously(client *phrase.APIClient, localeFil
 	return fmt.Errorf("download failed: %s", asyncDownload.Error)
 }
 
-func (target *Target) downloadSynchronously(client *phrase.APIClient, localeFile *LocaleFile, downloadOpts phrase.LocaleDownloadOpts) error {
+func (target *Target) downloadSynchronously(client *phrase.APIClient, localeFile *LocaleFile, downloadOpts phrase.LocaleDownloadOpts, cache *DownloadCache) error {
+	// Compute cache key before mutating opts
+	var cacheKey string
+	if cache != nil {
+		cacheKey = CacheKey(target.ProjectID, localeFile.ID, downloadOpts)
+		if entry, ok := cache.Get(cacheKey); ok {
+			debugFprintln("Cache hit for", localeFile.ID, "- sending conditional request")
+			if entry.ETag != "" {
+				downloadOpts.IfNoneMatch = optional.NewString(entry.ETag)
+			}
+			if entry.LastModified != "" {
+				downloadOpts.IfModifiedSince = optional.NewString(entry.LastModified)
+			}
+		} else {
+			debugFprintln("Cache miss for", localeFile.ID)
+		}
+	}
+
 	file, response, err := client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &downloadOpts)
+
+	// The SDK treats status >= 300 as an error, including 304 Not Modified.
+	// Check response.StatusCode before err to intercept the 304 case.
+	if response != nil && response.StatusCode == 304 {
+		debugFprintln("Not modified (304), skipping", localeFile.Path)
+		return errNotModified
+	}
+
 	if err != nil {
-		if response.Rate.Remaining == 0 {
+		if response != nil && response.Rate.Remaining == 0 {
 			waitForRateLimit(response.Rate)
-			file, _, err = client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &downloadOpts)
+			// Strip conditional headers on retry to get a full response
+			downloadOpts.IfNoneMatch = optional.String{}
+			downloadOpts.IfModifiedSince = optional.String{}
+			file, response, err = client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &downloadOpts)
 			if err != nil {
 				return err
 			}
@@ -229,6 +277,16 @@ func (target *Target) downloadSynchronously(client *phrase.APIClient, localeFile
 			return err
 		}
 	}
+
+	// Update cache from response headers
+	if cache != nil && response != nil {
+		etag := response.Header.Get("ETag")
+		lastMod := response.Header.Get("Last-Modified")
+		if etag != "" || lastMod != "" {
+			cache.Set(cacheKey, CacheEntry{ETag: etag, LastModified: lastMod})
+		}
+	}
+
 	return copyToDestination(file, localeFile.Path)
 }
 
