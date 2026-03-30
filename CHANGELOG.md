@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.57.0](https://github.com/phrase/strings-openapi/compare/cli-v2.56.0...cli-v2.57.0) (2026-03-30)
+
+
+### Features
+
+* **CLI:** add --cache flag to phrase pull for conditional requests ([#1066](https://github.com/phrase/strings-openapi/issues/1066)) ([b815b79](https://github.com/phrase/strings-openapi/commit/b815b79506b73d5f58398fe64f3144543f03918c))
+
 ## [2.56.0](https://github.com/phrase/strings-openapi/compare/cli-v2.55.2...cli-v2.56.0) (2026-03-13)
 
 
