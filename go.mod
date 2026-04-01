@@ -37,5 +37,6 @@ require (
 	github.com/pelletier/go-toml v1.2.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
+	golang.org/x/sync v0.12.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )

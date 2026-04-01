@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/phrase/phrase-cli/cmd/internal/paths"
@@ -19,6 +20,7 @@ import (
 
 	"github.com/antihax/optional"
 	"github.com/phrase/phrase-go/v4"
+	"golang.org/x/sync/errgroup"
 )
 
 const (
@@ -26,6 +28,8 @@ const (
 	asyncWaitTime    = 5 * time.Second
 	asyncRetryCount  = 360 // 30 minutes
 )
+
+const maxParallelDownloads = 4 // Phrase API allows max 4 concurrent requests
 
 var (
 	Config         *phrase.Config
@@ -38,6 +42,7 @@ type PullCommand struct {
 	UseLocalBranchName bool
 	Async              bool
 	Cache              bool
+	Parallel           bool
 }
 
 var Auth context.Context
@@ -101,7 +106,15 @@ func (cmd *PullCommand) Run(config *phrase.Config) error {
 	}
 
 	for _, target := range targets {
-		err := target.Pull(client, cmd.Async, cache)
+		var err error
+		if cmd.Parallel && !cmd.Async {
+			err = target.PullParallel(client)
+		} else {
+			if cmd.Parallel && cmd.Async {
+				print.Warn("--parallel is not supported with --async, ignoring parallel")
+			}
+			err = target.Pull(client, cmd.Async, cache)
+		}
 		if err != nil {
 			return err
 		}
@@ -167,6 +180,12 @@ func (target *Target) Pull(client *phrase.APIClient, async bool, cache *Download
 	return nil
 }
 
+type downloadResult struct {
+	message string
+	path    string
+	errMsg  string
+}
+
 func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFile *LocaleFile, async bool, cache *DownloadCache) error {
 	localVarOptionals := phrase.LocaleDownloadOpts{}
 
@@ -205,6 +224,140 @@ func (target *Target) DownloadAndWriteToFile(client *phrase.APIClient, localeFil
 		return target.downloadAsynchronously(client, localeFile, localVarOptionals)
 	}
 	return target.downloadSynchronously(client, localeFile, localVarOptionals, cache)
+}
+
+func (target *Target) PullParallel(client *phrase.APIClient) error {
+	if err := target.CheckPreconditions(); err != nil {
+		return err
+	}
+
+	localeFiles, err := target.LocaleFiles()
+	if err != nil {
+		return err
+	}
+
+	// Ensure all destination files/dirs exist before parallel downloads
+	for _, lf := range localeFiles {
+		if err := createFile(lf.Path); err != nil {
+			return err
+		}
+	}
+
+	results := make([]downloadResult, len(localeFiles))
+	var rateMu sync.RWMutex
+
+	ctx, cancel := context.WithTimeout(context.Background(), timeoutInMinutes)
+	defer cancel()
+	g, ctx := errgroup.WithContext(ctx)
+	g.SetLimit(maxParallelDownloads)
+
+	for i, lf := range localeFiles {
+		g.Go(func() error {
+			if ctx.Err() != nil {
+				return ctx.Err()
+			}
+
+			opts, err := target.buildDownloadOpts(lf)
+			if err != nil {
+				err = fmt.Errorf("%s for %s", err, lf.Path)
+				results[i] = downloadResult{errMsg: err.Error()}
+				return err
+			}
+
+			err = target.downloadWithRateGate(client, lf, opts, &rateMu)
+			if err != nil {
+				if openapiError, ok := err.(phrase.GenericOpenAPIError); ok {
+					print.Warn("API response: %s", openapiError.Body())
+				}
+				err = fmt.Errorf("%s for %s", err, lf.Path)
+				results[i] = downloadResult{errMsg: err.Error()}
+				return err
+			}
+
+			results[i] = downloadResult{
+				message: lf.Message(),
+				path:    lf.RelPath(),
+			}
+			return nil
+		})
+	}
+
+	waitErr := g.Wait()
+
+	// Print results in original order: successes and failures
+	var skipCount int
+	for _, r := range results {
+		if r.path != "" {
+			print.Success("Downloaded %s to %s", r.message, r.path)
+		} else if r.errMsg != "" {
+			print.Failure("Failed %s", r.errMsg)
+		} else {
+			skipCount++
+		}
+	}
+	if skipCount > 0 {
+		print.Warn("%d download(s) skipped due to earlier failure", skipCount)
+	}
+
+	return waitErr
+}
+
+// downloadWithRateGate downloads a locale file with rate-limit coordination.
+// Uses RWMutex as a broadcast gate: workers take a read lock (cheap, concurrent),
+// and a rate-limited worker takes the write lock to pause everyone until reset.
+func (target *Target) downloadWithRateGate(client *phrase.APIClient, localeFile *LocaleFile, opts phrase.LocaleDownloadOpts, gate *sync.RWMutex) error {
+	// Read-lock gate: blocks only when a writer (rate-limited worker) holds it
+	gate.RLock()
+	gate.RUnlock()
+
+	file, response, err := client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &opts)
+	if err != nil {
+		if response != nil && response.Rate.Remaining == 0 {
+			// TryLock ensures only one worker handles the rate limit pause.
+			// Others will block on their next RLock until the pause is over.
+			if gate.TryLock() {
+				waitForRateLimit(response.Rate)
+				gate.Unlock()
+			} else {
+				// Another worker is already pausing; wait for it
+				gate.RLock()
+				gate.RUnlock()
+			}
+
+			file, _, err = client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &opts)
+			if err != nil {
+				return err
+			}
+		} else {
+			return err
+		}
+	}
+	return copyToDestination(file, localeFile.Path)
+}
+
+// buildDownloadOpts prepares the LocaleDownloadOpts for a locale file download.
+func (target *Target) buildDownloadOpts(localeFile *LocaleFile) (phrase.LocaleDownloadOpts, error) {
+	opts := phrase.LocaleDownloadOpts{}
+
+	if target.Params != nil {
+		opts = target.Params.LocaleDownloadOpts
+		translationKeyPrefix, err := placeholders.ResolveTranslationKeyPrefix(target.Params.TranslationKeyPrefix, localeFile.Path)
+		if err != nil {
+			return opts, err
+		}
+		opts.TranslationKeyPrefix = translationKeyPrefix
+	}
+
+	if opts.FileFormat.Value() == "" {
+		opts.FileFormat = optional.NewString(localeFile.FileFormat)
+	}
+
+	if localeFile.Tag != "" {
+		opts.Tags = optional.NewString(localeFile.Tag)
+		opts.Tag = optional.EmptyString()
+	}
+
+	return opts, nil
 }
 
 func (target *Target) downloadAsynchronously(client *phrase.APIClient, localeFile *LocaleFile, downloadOpts phrase.LocaleDownloadOpts) error {
