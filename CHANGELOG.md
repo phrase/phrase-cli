@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.58.0](https://github.com/phrase/strings-openapi/compare/cli-v2.57.0...cli-v2.58.0) (2026-04-02)
+
+
+### Features
+
+* **API:** Add missing project & job params ([#1065](https://github.com/phrase/strings-openapi/issues/1065)) ([0df6013](https://github.com/phrase/strings-openapi/commit/0df6013f919fdb763c15a1192372e1e5dc743a58))
+* **API:** Extend exposed project settings ([#1071](https://github.com/phrase/strings-openapi/issues/1071)) ([b93ce3b](https://github.com/phrase/strings-openapi/commit/b93ce3be6194f8e7df2170aa3bab6c6d0578d7ec))
+* **API:** RepoSync export: optional branch parameter ([#1050](https://github.com/phrase/strings-openapi/issues/1050)) ([07b3182](https://github.com/phrase/strings-openapi/commit/07b31825bfa648d7c7578c86a31c2dd31583090d))
+* **CLI:** add --parallel flag to phrase pull for concurrent downloads ([#1067](https://github.com/phrase/strings-openapi/issues/1067)) ([d93d302](https://github.com/phrase/strings-openapi/commit/d93d3022d067e8b7241809345162cd413ca4e7e4))
+
 ## [2.57.0](https://github.com/phrase/strings-openapi/compare/cli-v2.56.0...cli-v2.57.0) (2026-03-30)
 
 
