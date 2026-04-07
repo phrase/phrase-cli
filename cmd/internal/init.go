@@ -50,14 +50,15 @@ var stepFuncs = map[string]stepFunc{
 // structs that can be marshalled to YAML to create a valid configuration file
 
 type ConfigYAML struct {
-	Host        string                            `yaml:"host,omitempty"`
-	AccessToken string                            `yaml:"access_token,omitempty"`
-	ProjectID   string                            `yaml:"project_id"`
-	FileFormat  string                            `yaml:"file_format,omitempty"`
-	PerPage     int                               `yaml:"per_page,omitempty"`
-	Defaults    map[string]map[string]interface{} `yaml:"defaults,omitempty"`
-	Push        PushYAML                          `yaml:"push,omitempty"`
-	Pull        PullYAML                          `yaml:"pull,omitempty"`
+	Host          string                            `yaml:"host,omitempty"`
+	AccessToken   string                            `yaml:"access_token,omitempty"`
+	ProjectID     string                            `yaml:"project_id"`
+	FileFormat    string                            `yaml:"file_format,omitempty"`
+	PerPage       int                               `yaml:"per_page,omitempty"`
+	Defaults      map[string]map[string]interface{} `yaml:"defaults,omitempty"`
+	Push          PushYAML                          `yaml:"push,omitempty"`
+	Pull          PullYAML                          `yaml:"pull,omitempty"`
+	LocaleMapping map[string]string                 `yaml:"locale_mapping,omitempty"`
 }
 
 type PushYAML struct {

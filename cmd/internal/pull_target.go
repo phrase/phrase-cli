@@ -29,6 +29,7 @@ type Target struct {
 	AccessToken   string      `json:"access_token"`
 	FileFormat    string      `json:"file_format"`
 	Params        *PullParams `json:"params" mapstructure:"omittable-nested,omitempty"`
+	LocaleMapping map[string]string
 	RemoteLocales []*phrase.Locale
 }
 
@@ -118,7 +119,7 @@ func (target *Target) ReplacePlaceholders(localeFile *LocaleFile) (string, error
 		return "", err
 	}
 
-	path := strings.Replace(absPath, "<locale_name>", localeFile.Name, -1)
+	path := strings.Replace(absPath, "<locale_name>", target.applyLocaleMapping(localeFile.Name), -1)
 	path = strings.Replace(path, "<locale_code>", localeFile.Code, -1)
 	path = strings.Replace(path, "<tag>", localeFile.Tag, -1)
 
@@ -197,6 +198,7 @@ func TargetsFromConfig(config phrase.Config) (Targets, error) {
 		if target.FileFormat == "" {
 			target.FileFormat = fileFormat
 		}
+		target.LocaleMapping = config.LocaleMapping
 		validTargets = append(validTargets, target)
 	}
 
@@ -205,4 +207,15 @@ func TargetsFromConfig(config phrase.Config) (Targets, error) {
 	}
 
 	return validTargets, nil
+}
+
+// applyLocaleMapping returns the mapped local locale name if a mapping exists,
+// otherwise returns the original remote name
+func (target *Target) applyLocaleMapping(remoteName string) string {
+	if target.LocaleMapping != nil {
+		if localName, ok := target.LocaleMapping[remoteName]; ok {
+			return localName
+		}
+	}
+	return remoteName
 }
