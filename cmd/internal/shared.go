@@ -257,3 +257,12 @@ func CreateUploadBatch(client *phrase.APIClient, confirm bool, ids []string, bra
 	}
 	return nil
 }
+
+// ApplyLocaleMapping enables using custom locale names in files. The map is provided
+// in the config file and maps remote locale names to local ones.
+func ApplyLocaleMapping(localeMapping map[string]string, remoteName string) string {
+	if localName, ok := localeMapping[remoteName]; ok {
+		return localName
+	}
+	return remoteName
+}

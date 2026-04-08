@@ -13,6 +13,21 @@ import (
 	"github.com/spf13/viper"
 )
 
+// reverseLocaleMapping reverses a locale mapping from remote→local to local→remote
+func reverseLocaleMapping(mapping map[string]string) (map[string]string, error) {
+	if mapping == nil {
+		return nil, nil
+	}
+	reversed := make(map[string]string, len(mapping))
+	for remote, local := range mapping {
+		if existingRemote, exists := reversed[local]; exists {
+			return nil, fmt.Errorf("locale_mapping error: both '%s' and '%s' map to the same local name '%s'", existingRemote, remote, local)
+		}
+		reversed[local] = remote
+	}
+	return reversed, nil
+}
+
 func SourcesFromConfig(config phrase.Config) (Sources, bool, error) {
 	if config.Push == nil || len(config.Push) == 0 {
 		return nil, false, fmt.Errorf("no sources for upload specified")
@@ -41,6 +56,13 @@ func SourcesFromConfig(config phrase.Config) (Sources, bool, error) {
 	projectId := config.DefaultProjectID
 	fileFormat := config.DefaultFileFormat
 
+	// Validate and reverse locale mapping for push operations
+	// For push: we need local→remote mapping (reversed from config's remote→local)
+	reversedMapping, err := reverseLocaleMapping(config.LocaleMapping)
+	if err != nil {
+		return nil, false, err
+	}
+
 	validSources := []*Source{}
 	for _, source := range srcs {
 		if source == nil {
@@ -52,6 +74,10 @@ func SourcesFromConfig(config phrase.Config) (Sources, bool, error) {
 		if source.Params == nil {
 			source.Params = new(UploadParams)
 		}
+
+		// Pass reversed locale mapping from config to source
+		// This allows lookup from local file names to remote locale names
+		source.LocaleMapping = reversedMapping
 
 		if !source.Params.FileFormat.IsSet() {
 			switch {
@@ -89,12 +115,13 @@ type UploadParams struct {
 }
 
 type Source struct {
-	File        string        `json:"file"`
-	ProjectID   string        `json:"project_id"`
-	Branch      string        `json:"branch"`
-	AccessToken string        `json:"access_token"`
-	FileFormat  string        `json:"file_format"`
-	Params      *UploadParams `json:"params,omitempty"`
+	File          string        `json:"file"`
+	ProjectID     string        `json:"project_id"`
+	Branch        string        `json:"branch"`
+	AccessToken   string        `json:"access_token"`
+	FileFormat    string        `json:"file_format"`
+	Params        *UploadParams `json:"params,omitempty"`
+	LocaleMapping map[string]string
 
 	RemoteLocales []*phrase.Locale
 	Format        *phrase.Format
@@ -156,6 +183,7 @@ func (sources Sources) GetAllLocalesCacheKeys() []LocalesCacheKey {
 	}
 	return projectIdsBranches
 }
+
 func (source *Source) uploadFile(client *phrase.APIClient, localeFile *LocaleFile, branch string, tag string) (*phrase.Upload, error) {
 	if Debug {
 		fmt.Fprintln(os.Stdout, "Source file pattern:", source.File)
