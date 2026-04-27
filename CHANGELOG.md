@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.61.0](https://github.com/phrase/strings-openapi/compare/cli-v2.60.0...cli-v2.61.0) (2026-04-27)
+
+
+### Features
+
+* **API:** Add target_locale_ids to jobs create/update ([#1106](https://github.com/phrase/strings-openapi/issues/1106)) ([00140ab](https://github.com/phrase/strings-openapi/commit/00140ab96ff351bec548e4af1f271f3e60087989))
+
+
+### Bug Fixes
+
+* **CLI:** cache ignored when using --parallel with phrase pull ([#1085](https://github.com/phrase/strings-openapi/issues/1085)) ([2bee38a](https://github.com/phrase/strings-openapi/commit/2bee38ad3a85d4f18a1961f7413cb855493353a4))
+
 ## [2.60.0](https://github.com/phrase/strings-openapi/compare/cli-v2.59.0...cli-v2.60.0) (2026-04-14)
 
 
