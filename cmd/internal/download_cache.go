@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"sync"
 
 	"github.com/antihax/optional"
 	"github.com/phrase/phrase-go/v4"
@@ -28,6 +29,7 @@ type DownloadCache struct {
 	Entries map[string]CacheEntry `json:"entries"`
 	path    string
 	dirty   bool
+	mu      sync.Mutex `json:"-"`
 }
 
 func LoadDownloadCache() *DownloadCache {
@@ -65,16 +67,22 @@ func loadFromPath(path string) *DownloadCache {
 }
 
 func (dc *DownloadCache) Get(key string) (CacheEntry, bool) {
+	dc.mu.Lock()
+	defer dc.mu.Unlock()
 	e, ok := dc.Entries[key]
 	return e, ok
 }
 
 func (dc *DownloadCache) Set(key string, entry CacheEntry) {
+	dc.mu.Lock()
+	defer dc.mu.Unlock()
 	dc.Entries[key] = entry
 	dc.dirty = true
 }
 
 func (dc *DownloadCache) Save() error {
+	dc.mu.Lock()
+	defer dc.mu.Unlock()
 	if !dc.dirty {
 		return nil
 	}
@@ -133,6 +141,9 @@ func serializeOpts(opts phrase.LocaleDownloadOpts) string {
 			if len(results) > 0 && results[0].Bool() {
 				m[name] = valueMethod.Call(nil)[0].Interface()
 			}
+		} else if !field.IsZero() {
+			// plain field (string, bool, int, etc.) — include if non-zero
+			m[name] = field.Interface()
 		}
 	}
 
