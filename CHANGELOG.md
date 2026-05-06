@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.62.0](https://github.com/phrase/strings-openapi/compare/cli-v2.61.0...cli-v2.62.0) (2026-05-05)
+
+
+### Features
+
+* **repo_syncs:** add API docs for create endpoint [SCD-933] ([#1113](https://github.com/phrase/strings-openapi/issues/1113)) ([3f65e16](https://github.com/phrase/strings-openapi/commit/3f65e16f6aeb074b933c7d7899197a1884c32865))
+* **tags:** Add q search param to tags list endpoint ([#1122](https://github.com/phrase/strings-openapi/issues/1122)) ([b1342c6](https://github.com/phrase/strings-openapi/commit/b1342c6b94f2f9256d5d0f093ef65c7602e44ae5))
+
 ## [2.61.0](https://github.com/phrase/strings-openapi/compare/cli-v2.60.0...cli-v2.61.0) (2026-04-27)
 
 
