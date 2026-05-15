@@ -625,6 +625,10 @@ func initLocalesList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("q")) {
+				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
+			}
+
 			data, api_response, err := client.LocalesApi.LocalesList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -658,6 +662,7 @@ func initLocalesList() {
 	AddFlag(LocalesList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(LocalesList, "string", helpers.ToSnakeCase("SortBy"), "", "Sort locales. Valid options are \"name_asc\", \"name_desc\", \"default_asc\", \"default_desc\".", false)
 	AddFlag(LocalesList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(LocalesList, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to filter locales. Currently supports `name` argument, filtering only locales with names starting with the given string.", false)
 
 	params.BindPFlags(LocalesList.Flags())
 }
