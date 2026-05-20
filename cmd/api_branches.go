@@ -170,7 +170,7 @@ func initBranchCreate() {
 	var BranchCreate = &cobra.Command{
 		Use:   use,
 		Short: "Create a branch",
-		Long:  `Create a new branch.  *Note: Creating a new branch may take several minutes depending on the project size.* `,
+		Long:  `Create a new branch.  Branch project provisioning runs asynchronously, so the newly created branch is returned in a transitional state (typically &#x60;creating_branch&#x60;) and only reaches &#x60;success&#x60; once the underlying project has been set up. Poll the branch resource until its &#x60;state&#x60; becomes &#x60;success&#x60; before performing further operations on it.  Requires the Branching feature to be enabled on the account.  *Note: Creating a new branch may take several minutes depending on the project size.* `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -241,7 +241,7 @@ func initBranchDelete() {
 	var BranchDelete = &cobra.Command{
 		Use:   use,
 		Short: "Delete a branch",
-		Long:  `Delete an existing branch.`,
+		Long:  `Delete an existing branch.  A branch cannot be deleted while it still has open jobs or open translation orders attached to its branch project — in that case the request is rejected with &#x60;409 Conflict&#x60;. A branch whose current &#x60;state&#x60; does not allow deletion (for example, while a merge or sync is in progress) is rejected with &#x60;422 Unprocessable Entity&#x60;.  Requires the Branching feature to be enabled on the account. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -302,7 +302,7 @@ func initBranchMerge() {
 	var BranchMerge = &cobra.Command{
 		Use:   use,
 		Short: "Merge a branch",
-		Long:  `Merge an existing branch.  *Note: Merging a branch may take several minutes depending on diff size.* `,
+		Long:  `Merge an existing branch back into its base branch.  The merge runs asynchronously. The branch transitions to &#x60;merging_branch&#x60; and settles in &#x60;merged&#x60;, &#x60;merge_error&#x60;, or &#x60;merge_conflict&#x60; once the background job completes; the response body for this request is empty. Poll the branch resource to observe the final state.  A branch cannot be merged while it still has open jobs or open translation orders attached to its branch project — in that case the request is rejected with &#x60;409 Conflict&#x60;. A branch whose current &#x60;state&#x60; does not allow a merge is rejected with &#x60;422 Unprocessable Entity&#x60;.  Requires the Branching feature to be enabled on the account.  *Note: Merging a branch may take several minutes depending on diff size.* `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -371,7 +371,7 @@ func initBranchShow() {
 	var BranchShow = &cobra.Command{
 		Use:   use,
 		Short: "Get a single branch",
-		Long:  `Get details on a single branch for a given project.`,
+		Long:  `Get details on a single branch for a given project.  Requires the Branching feature to be enabled on the account. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -437,7 +437,7 @@ func initBranchSync() {
 	var BranchSync = &cobra.Command{
 		Use:   use,
 		Short: "Sync a branch",
-		Long:  `Sync an existing branch.  *Note: Only available for branches created with new branching.* `,
+		Long:  `Pull changes from the base branch into this branch, applying the chosen conflict-resolution strategy.  The sync runs asynchronously. The branch transitions to &#x60;syncing_branch&#x60; and settles back into &#x60;success&#x60; (or &#x60;merge_conflict&#x60; / &#x60;branch_error&#x60;) once the background job completes; the response body for this request is empty. Poll the branch resource to observe the final state.  Only branches created with the newer branching system can be synced. Requests against branches from the older system, or against branches whose current state does not allow a sync, are rejected with &#x60;422 Unprocessable Entity&#x60; and an empty body.  Requires the Branching feature to be enabled on the account. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -506,7 +506,7 @@ func initBranchUpdate() {
 	var BranchUpdate = &cobra.Command{
 		Use:   use,
 		Short: "Update a branch",
-		Long:  `Update an existing branch.`,
+		Long:  `Update an existing branch. Only the branch name can be changed.  Requires the Branching feature to be enabled on the account. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -580,7 +580,7 @@ func initBranchesList() {
 	var BranchesList = &cobra.Command{
 		Use:   use,
 		Short: "List branches",
-		Long:  `List all branches the of the current project.`,
+		Long:  `List all branches of the current project.  Requires the Branching feature to be enabled on the account. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
