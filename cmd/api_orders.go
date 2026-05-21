@@ -353,6 +353,10 @@ func initOrdersList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("translationId")) {
+				localVarOptionals.TranslationId = optional.NewString(params.GetString(helpers.ToSnakeCase("TranslationId")))
+			}
+
 			data, api_response, err := client.OrdersApi.OrdersList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -385,6 +389,7 @@ func initOrdersList() {
 	AddFlag(OrdersList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(OrdersList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(OrdersList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(OrdersList, "string", helpers.ToSnakeCase("TranslationId"), "", "Filter the result to orders that include the given translation. When supplied with a translation code that does not exist, an empty list is returned.", false)
 
 	params.BindPFlags(OrdersList.Flags())
 }

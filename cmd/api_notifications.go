@@ -66,6 +66,10 @@ func initNotificationsList() {
 				localVarOptionals.Unseen = optional.NewBool(params.GetBool(helpers.ToSnakeCase("Unseen")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("lastDays")) {
+				localVarOptionals.LastDays = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("LastDays")))
+			}
+
 			data, api_response, err := client.NotificationsApi.NotificationsList(auth, &localVarOptionals)
 
 			if err != nil {
@@ -97,6 +101,7 @@ func initNotificationsList() {
 	AddFlag(NotificationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(NotificationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(NotificationsList, "bool", helpers.ToSnakeCase("Unseen"), "", "Include only unseen notifications", false)
+	AddFlag(NotificationsList, "int32", helpers.ToSnakeCase("LastDays"), "", "Restrict the results to notifications created within the last N days. Coerced to integer; non-numeric values resolve to 0 (returning nothing).", false)
 
 	params.BindPFlags(NotificationsList.Flags())
 }

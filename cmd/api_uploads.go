@@ -154,6 +154,10 @@ func initUploadCreate() {
 				localVarOptionals.TranslationKeyPrefix = optional.NewString(params.GetString(helpers.ToSnakeCase("TranslationKeyPrefix")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("skipAutomatedJobCreation")) {
+				localVarOptionals.SkipAutomatedJobCreation = optional.NewBool(params.GetBool(helpers.ToSnakeCase("SkipAutomatedJobCreation")))
+			}
+
 			data, api_response, err := client.UploadsApi.UploadCreate(auth, projectId, file, fileFormat, localeId, &localVarOptionals)
 
 			if err != nil {
@@ -205,6 +209,7 @@ func initUploadCreate() {
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("MarkReviewed"), "", "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.", false)
 	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("TagOnlyAffectedKeys"), "", "Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("TranslationKeyPrefix"), "", "This prefix will be added to all uploaded translation key names to prevent collisions. Use a meaningful prefix related to your project or file to keep key names organized.", false)
+	AddFlag(UploadCreate, "bool", helpers.ToSnakeCase("SkipAutomatedJobCreation"), "", "When `true`, the automation rules for the project will not fire for this upload, so no jobs are created as a side effect of importing this file. Defaults to `false`. ", false)
 
 	params.BindPFlags(UploadCreate.Flags())
 }

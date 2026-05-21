@@ -36,7 +36,7 @@ func initProjectCreate() {
 	var ProjectCreate = &cobra.Command{
 		Use:   use,
 		Short: "Create a project",
-		Long:  `Create a new project.`,
+		Long:  `Create a new project in the given account.  When &#x60;source_project_id&#x60; is supplied, the new project is created as a clone of that project. All locales, keys, and translations are copied asynchronously after the response is returned, so they may not be available immediately. Settings from the source project are inherited unless explicitly overridden in the request; in clone mode, the &#x60;shares_translation_memory&#x60; field is ignored and inherited from the source.  &#x60;shares_translation_memory&#x60; defaults to &#x60;true&#x60; when omitted on a non-clone create. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -104,7 +104,7 @@ func initProjectDelete() {
 	var ProjectDelete = &cobra.Command{
 		Use:   use,
 		Short: "Delete a project",
-		Long:  `Delete an existing project.`,
+		Long:  `Delete an existing project. Associated repository syncs and OTA distributions are removed. A &#x60;project:delete&#x60; event is dispatched. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -296,7 +296,7 @@ func initProjectsList() {
 	var ProjectsList = &cobra.Command{
 		Use:   use,
 		Short: "List projects",
-		Long:  `List all projects the current user has access to.`,
+		Long:  `List all projects the current user has access to.  When the &#x60;account_id&#x60; query parameter is omitted, the response includes projects across every account the user is a member of. Pass &#x60;account_id&#x60; to scope the results to a single account. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -343,6 +343,10 @@ func initProjectsList() {
 				localVarOptionals.Filters = filters
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("q")) {
+				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
+			}
+
 			data, api_response, err := client.ProjectsApi.ProjectsList(auth, &localVarOptionals)
 
 			if err != nil {
@@ -374,8 +378,9 @@ func initProjectsList() {
 	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(ProjectsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("AccountId"), "", "Filter by Account ID", false)
-	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("SortBy"), "", "Sort projects. Valid options are \"name_asc\", \"name_desc\", \"updated_at_asc\", \"updated_at_desc\", \"space_asc\" and \"space_desc\".", false)
+	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("SortBy"), "", "Sort projects. Valid values are `name_asc`, `name_desc`, `updated_at_asc`, `updated_at_desc`, `space_asc`, and `space_desc`. The trailing direction segment is optional; if omitted or invalid, projects are sorted ascending. Any other value is ignored and the default ordering is returned.", false)
 	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("Filters"), "", "payload in JSON format", false)
+	AddFlag(ProjectsList, "string", helpers.ToSnakeCase("Q"), "", "Search query. The only supported syntax is `name:<text>` — for example `name:android` returns projects whose name matches `android` (case-insensitive substring). Any value that does not match the `name:` prefix is ignored.", false)
 
 	params.BindPFlags(ProjectsList.Flags())
 }

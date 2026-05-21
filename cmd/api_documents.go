@@ -125,6 +125,10 @@ func initDocumentsList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("q")) {
+				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
+			}
+
 			data, api_response, err := client.DocumentsApi.DocumentsList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -156,6 +160,7 @@ func initDocumentsList() {
 	AddFlag(DocumentsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(DocumentsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(DocumentsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
+	AddFlag(DocumentsList, "string", helpers.ToSnakeCase("Q"), "", "Search query. Filters documents by name (case-insensitive substring match).", false)
 
 	params.BindPFlags(DocumentsList.Flags())
 }

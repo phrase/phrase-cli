@@ -1086,6 +1086,14 @@ func initTranslationsList() {
 				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("keyId")) {
+				localVarOptionals.KeyId = optional.NewString(params.GetString(helpers.ToSnakeCase("KeyId")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("localeId")) {
+				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("sort")) {
 				localVarOptionals.Sort = optional.NewString(params.GetString(helpers.ToSnakeCase("Sort")))
 			}
@@ -1132,6 +1140,8 @@ func initTranslationsList() {
 	AddFlag(TranslationsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(TranslationsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
+	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("KeyId"), "", "Filter translations to those attached to the key identified by this code. Equivalent to calling `GET /projects/{project_id}/keys/{key_id}/translations`.", false)
+	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("LocaleId"), "", "Filter translations to those for the given locale (locale code or id). Equivalent to calling `GET /projects/{project_id}/locales/{locale_id}/translations`.", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Sort"), "", "Sort criteria. Can be one of: key_name, created_at, updated_at.", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 	AddFlag(TranslationsList, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to find translations by content (including wildcards).  *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*  The following qualifiers are supported in the query:  * `id:translation_id,...` for queries on a comma-separated list of ids * `tags:XYZ` for tags on the translation * `unverified:{true|false}` for verification status * `excluded:{true|false}` for exclusion status * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries * `reviewed_after:2013-02-21T00:00:00Z` for fetching translations that were reviewed after the given timestamp  Find more examples [here](/en/api/strings/usage-examples). ", false)

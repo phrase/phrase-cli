@@ -439,7 +439,12 @@ func initJobLock() {
 					HandleError(castedError)
 				}
 			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
 				if Config.Debug {
 					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
@@ -734,7 +739,12 @@ func initJobUnlock() {
 					HandleError(castedError)
 				}
 			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
 				if Config.Debug {
 					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
@@ -973,6 +983,20 @@ func initJobsList() {
 				localVarOptionals.State = optional.NewString(params.GetString(helpers.ToSnakeCase("State")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("states")) {
+
+				var states []string
+
+				if err := json.Unmarshal([]byte(params.GetString(helpers.ToSnakeCase("states"))), &states); err != nil {
+					HandleError(err)
+				}
+				localVarOptionals.States = states
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("keyId")) {
+				localVarOptionals.KeyId = optional.NewString(params.GetString(helpers.ToSnakeCase("KeyId")))
+			}
+
 			if params.IsSet(helpers.ToSnakeCase("updatedSince")) {
 				localVarOptionals.UpdatedSince = optional.NewString(params.GetString(helpers.ToSnakeCase("UpdatedSince")))
 			}
@@ -1012,6 +1036,8 @@ func initJobsList() {
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("OwnedBy"), "", "filter by user owning job", false)
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("AssignedTo"), "", "filter by user assigned to job", false)
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("State"), "", "filter by state of job; valid states are: `draft`, `in_progress`, `completed`", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("States"), "", "payload in JSON format", false)
+	AddFlag(JobsList, "string", helpers.ToSnakeCase("KeyId"), "", "Filter to jobs that include the translation key identified by this code (matches via the job's tags).", false)
 	AddFlag(JobsList, "string", helpers.ToSnakeCase("UpdatedSince"), "", "filter by jobs updated since given date", false)
 
 	params.BindPFlags(JobsList.Flags())

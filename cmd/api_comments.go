@@ -644,7 +644,7 @@ func initCommentsList() {
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Query"), "", "Search query for comment messages", false)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("LocaleIds"), "", "payload in JSON format", false)
 	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Filters"), "", "payload in JSON format", false)
-	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
+	AddFlag(CommentsList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Defaults to `desc`. Values other than `asc` and `desc` fall back to `desc`.", false)
 
 	params.BindPFlags(CommentsList.Flags())
 }
