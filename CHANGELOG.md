@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.64.0](https://github.com/phrase/strings-openapi/compare/cli-v2.63.0...cli-v2.64.0) (2026-06-04)
+
+
+### Features
+
+* **API:** add automation_id and job_template_id fields to job responses ([#1149](https://github.com/phrase/strings-openapi/issues/1149)) ([eae51a3](https://github.com/phrase/strings-openapi/commit/eae51a300f71f30b84fdbc91c6f92058a1772138))
+* **API:** align and improve API coverage across v2 endpoints ([#1145](https://github.com/phrase/strings-openapi/issues/1145)) ([b27394b](https://github.com/phrase/strings-openapi/commit/b27394bd102f2aee4dd468e3c2fff355018ec59c))
+
+
+### Bug Fixes
+
+* **API:** branching: align operations with the backend behavior ([#1136](https://github.com/phrase/strings-openapi/issues/1136)) ([b0e0c8e](https://github.com/phrase/strings-openapi/commit/b0e0c8ed692be75ea55e761e49df8c35fb17df56))
+
 ## [2.63.0](https://github.com/phrase/strings-openapi/compare/cli-v2.62.0...cli-v2.63.0) (2026-05-15)
 
 
