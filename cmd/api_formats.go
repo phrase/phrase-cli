@@ -30,7 +30,7 @@ func initFormatsList() {
 	var FormatsList = &cobra.Command{
 		Use:   use,
 		Short: "List formats",
-		Long:  `Get a handy list of all localization file formats supported in Phrase.`,
+		Long:  `Returns all file formats that Phrase Strings supports. Use the api_name value from each format as the file_format parameter when uploading or downloading locale files. Not every format supports both directions: check the importable and exportable fields before using a format in a workflow. This endpoint does not require authentication and is not subject to rate limiting. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
