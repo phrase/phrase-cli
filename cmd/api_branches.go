@@ -77,7 +77,12 @@ func initBranchCompare() {
 					HandleError(castedError)
 				}
 			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
 				if Config.Debug {
 					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
