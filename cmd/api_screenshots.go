@@ -36,7 +36,7 @@ func initScreenshotCreate() {
 	var ScreenshotCreate = &cobra.Command{
 		Use:   use,
 		Short: "Create a screenshot",
-		Long:  `Create a new screenshot.`,
+		Long:  `Creates a screenshot in a project to provide visual context for in-context translation. Attach translation keys to regions of the uploaded image so translators can see where each string appears in your UI.  This endpoint accepts a multipart/form-data request with a binary file upload, unlike most Phrase API endpoints that use JSON. Use a multipart form client or the -F flag in curl rather than a JSON body.  The screenshot name must be unique within the project (case-insensitive). When name is omitted, it is derived from the uploaded filename. The account must have the Screenshots feature enabled; requests to projects on accounts without it return 403. Creating a screenshot requires a token with the write scope and manage access to the project. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -55,6 +55,8 @@ func initScreenshotCreate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
+			filename := params.Get * os.File(helpers.ToSnakeCase("Filename"))
+
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
@@ -71,15 +73,7 @@ func initScreenshotCreate() {
 				localVarOptionals.Description = optional.NewString(params.GetString(helpers.ToSnakeCase("Description")))
 			}
 
-			if params.IsSet(helpers.ToSnakeCase("filename")) {
-				file, err := os.Open(params.GetString(helpers.ToSnakeCase("filename")))
-				localVarOptionals.Filename = optional.NewInterface(file)
-				if err != nil {
-					HandleError(err)
-				}
-			}
-
-			data, api_response, err := client.ScreenshotsApi.ScreenshotCreate(auth, projectId, &localVarOptionals)
+			data, api_response, err := client.ScreenshotsApi.ScreenshotCreate(auth, projectId, filename, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -107,11 +101,11 @@ func initScreenshotCreate() {
 
 	ScreenshotsApiCmd.AddCommand(ScreenshotCreate)
 	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(ScreenshotCreate, "*os.File", helpers.ToSnakeCase("Filename"), "", "Image file to upload. Accepted formats are JPEG (jpg/jpeg), GIF, and PNG. Maximum file size is 10 MB. Submitting an unsupported format or a file exceeding the size limit returns 422.", true)
 	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
-	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("Name"), "", "Name of the screenshot", false)
-	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("Description"), "", "Description of the screenshot", false)
-	AddFlag(ScreenshotCreate, "*os.File", helpers.ToSnakeCase("Filename"), "", "Screenshot file", false)
+	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("Name"), "", "Display name for the screenshot. Must be unique within the project (case-insensitive). When omitted, the name is derived from the uploaded filename.", false)
+	AddFlag(ScreenshotCreate, "string", helpers.ToSnakeCase("Description"), "", "Optional free-text description of the screenshot.", false)
 
 	params.BindPFlags(ScreenshotCreate.Flags())
 }
