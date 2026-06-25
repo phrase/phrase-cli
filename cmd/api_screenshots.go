@@ -55,7 +55,10 @@ func initScreenshotCreate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
-			filename := params.Get * os.File(helpers.ToSnakeCase("Filename"))
+			filename, err := os.Open(params.GetString(helpers.ToSnakeCase("Filename")))
+			if err != nil {
+				HandleError(err)
+			}
 
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))

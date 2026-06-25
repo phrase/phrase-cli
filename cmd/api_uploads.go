@@ -53,7 +53,7 @@ func initUploadCreate() {
 
 			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
 
-			file, err := os.Open(params.GetString(helpers.ToSnakeCase("file")))
+			file, err := os.Open(params.GetString(helpers.ToSnakeCase("File")))
 			if err != nil {
 				HandleError(err)
 			}
