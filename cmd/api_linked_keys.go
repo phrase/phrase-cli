@@ -35,7 +35,7 @@ func initKeyLinksBatchDestroy() {
 	var KeyLinksBatchDestroy = &cobra.Command{
 		Use:   use,
 		Short: "Batch unlink child keys from a parent key",
-		Long:  `Unlinks multiple child keys from a given parent key in a single operation.`,
+		Long:  `Removes one or more child keys from a parent key&#x27;s linked-key group, or dissolves the entire group by setting unlink_parent to true.  Use this when you need to detach specific child keys from a shared translation source, or to fully break apart a linked-key group so each key manages its own translations independently. When child keys are unlinked, their translations are updated with a copy of the parent&#x27;s current content (strategy keep_content, the default) or cleared (strategy remove_content).  This operation is only available on main projects. It returns 422 when a child key in &#x60;child_key_ids&#x60; is not currently linked to the parent, or when a translation update fails while unlinking. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -56,18 +56,21 @@ func initKeyLinksBatchDestroy() {
 
 			id := params.GetString(helpers.ToSnakeCase("Id"))
 
-			var keyLinksBatchDestroyParameters api.KeyLinksBatchDestroyParameters
-			if err := json.Unmarshal([]byte(params.GetString("data")), &keyLinksBatchDestroyParameters); err != nil {
-				HandleError(err)
-			}
-			if Config.Debug {
-				fmt.Printf("%+v\n", keyLinksBatchDestroyParameters)
-			}
 			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
-			data, api_response, err := client.LinkedKeysApi.KeyLinksBatchDestroy(auth, projectId, id, keyLinksBatchDestroyParameters, &localVarOptionals)
+			var keyLinksBatchDestroyParameters map[string]interface{}
+			if params.IsSet("data") {
+				if err := json.Unmarshal([]byte(params.GetString("data")), &keyLinksBatchDestroyParameters); err != nil {
+					HandleError(err)
+				}
+				if Config.Debug {
+					fmt.Printf("%+v\n", keyLinksBatchDestroyParameters)
+				}
+			}
+
+			data, api_response, err := client.LinkedKeysApi.KeyLinksBatchDestroy(auth, projectId, id, &localVarOptionals)
 
 			if err != nil {
 				switch castedError := err.(type) {
@@ -79,7 +82,12 @@ func initKeyLinksBatchDestroy() {
 					HandleError(castedError)
 				}
 			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				os.Stdout.Write(data)
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
 
 				if Config.Debug {
 					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
@@ -91,8 +99,8 @@ func initKeyLinksBatchDestroy() {
 	LinkedKeysApiCmd.AddCommand(KeyLinksBatchDestroy)
 	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("Id"), "", "Parent Translation Key ID", true)
-	AddFlag(KeyLinksBatchDestroy, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(KeyLinksBatchDestroy, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(KeyLinksBatchDestroy, "string", "data", "d", "payload in JSON format", false)
 
 	params.BindPFlags(KeyLinksBatchDestroy.Flags())
 }
