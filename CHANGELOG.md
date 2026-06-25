@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.66.0](https://github.com/phrase/strings-openapi/compare/cli-v2.65.0...cli-v2.66.0) (2026-06-25)
+
+
+### Features
+
+* **API:** Add language_ai_profile to locales ([#1207](https://github.com/phrase/strings-openapi/issues/1207)) ([1dbfc65](https://github.com/phrase/strings-openapi/commit/1dbfc65767a9feead5ec18b35f306b728d7b2779))
+* **API:** add name field to repo sync schema and create endpoint ([#1203](https://github.com/phrase/strings-openapi/issues/1203)) ([ed5dabd](https://github.com/phrase/strings-openapi/commit/ed5dabdc5483e98ac3742466272e9de2f7949a56))
+* **API:** Add translation_key_prefix and filter_by_prefix to async locale download ([#1210](https://github.com/phrase/strings-openapi/issues/1210)) ([9c0dd12](https://github.com/phrase/strings-openapi/commit/9c0dd12d938626d49ee828b6eedf6692d4669414))
+* **API:** document branch compare output ([#1151](https://github.com/phrase/strings-openapi/issues/1151)) ([f082775](https://github.com/phrase/strings-openapi/commit/f0827755e1c6d6c3f66f10db5e6c26dc5003a679))
+* **API:** include review_due_date in job responses ([#1205](https://github.com/phrase/strings-openapi/issues/1205)) ([649d5ab](https://github.com/phrase/strings-openapi/commit/649d5ab6001f46f8c785d8d73cb13ac2062d179b))
+
+
+### Bug Fixes
+
+* **API:** improve get /formats documentation ([#1196](https://github.com/phrase/strings-openapi/issues/1196)) ([46fd53b](https://github.com/phrase/strings-openapi/commit/46fd53bda361a5b928147ab965515c29dbf887d3))
+* **cli:** detect file upload params by type, and run CLI build on PRs ([#1209](https://github.com/phrase/strings-openapi/issues/1209)) ([86adf6a](https://github.com/phrase/strings-openapi/commit/86adf6a0e7f6023684803ca5e5ee8ba2507543b1))
+
 ## [2.65.0](https://github.com/phrase/strings-openapi/compare/cli-v2.64.0...cli-v2.65.0) (2026-06-11)
 
 
