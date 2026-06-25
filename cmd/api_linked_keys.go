@@ -178,7 +178,7 @@ func initKeyLinksDestroy() {
 	var KeyLinksDestroy = &cobra.Command{
 		Use:   use,
 		Short: "Unlink a child key from a parent key",
-		Long:  `Unlinks a single child key from a given parent key.`,
+		Long:  `Removes a single child key from a parent key&#x27;s link group. A link group is the relationship model that keeps child keys synchronized with a parent: while linked, a child key&#x27;s translations are derived from the parent&#x27;s content. When you call this endpoint, the child key leaves the group and becomes independent — its existing translations are updated with the parent&#x27;s current content and then marked unverified, signalling that reviewers should confirm the content is still appropriate for the child&#x27;s context.  Use this endpoint when you need to detach one specific child key while keeping other children linked. To detach multiple children at once, use the batch unlink endpoint. This operation is only available on main projects.  It returns 422 when the child key is not currently linked to the specified parent key, or when a translation update fails during the unlink process. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -229,7 +229,7 @@ func initKeyLinksDestroy() {
 	LinkedKeysApiCmd.AddCommand(KeyLinksDestroy)
 	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("Id"), "", "Parent Translation Key ID", true)
-	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("ChildKeyId"), "", "The ID of the child key to unlink.", true)
+	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("ChildKeyId"), "", "The ID of the child translation key to unlink from the parent.", true)
 	AddFlag(KeyLinksDestroy, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(KeyLinksDestroy.Flags())
