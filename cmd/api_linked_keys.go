@@ -112,7 +112,7 @@ func initKeyLinksCreate() {
 	var KeyLinksCreate = &cobra.Command{
 		Use:   use,
 		Short: "Link child keys to a parent key",
-		Long:  `Creates links between a given parent key and one or more child keys.`,
+		Long:  `Designates a translation key as a parent and links one or more child keys to it. Once linked, child keys receive a special reference marker as their translation content, signalling that their translations are derived from the parent. Use this when you want to group related keys — for example, a short label and its long-form variant — so translators see them in context together.  Pass an empty child_key_ids array to mark the key as a parent without linking any children yet. Both the parent key and every child key must belong to the main project; branch keys cannot participate in key links. A child key can have at most one parent at a time; attempting to link a child that already has a parent returns a 422 error with code CHILD_IS_ALREADY_LINKED. Parent and child key plurality must match — linking a plural child to a non-plural parent (or vice versa) also returns a 422. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
