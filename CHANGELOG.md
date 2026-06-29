@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.66.1](https://github.com/phrase/strings-openapi/compare/cli-v2.66.0...cli-v2.66.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* **API:** improve delete /projects/{project_id}/keys/{id}/key_links documentation ([#1193](https://github.com/phrase/strings-openapi/issues/1193)) ([b0b2e3f](https://github.com/phrase/strings-openapi/commit/b0b2e3f03407fb59dff1fd6004cf77d7a0aab503))
+* **API:** improve delete /projects/{project_id}/keys/{id}/key_links/{child_key_id} documentation ([#1194](https://github.com/phrase/strings-openapi/issues/1194)) ([c0055b4](https://github.com/phrase/strings-openapi/commit/c0055b46575dfdaec95ee6e13f59b68015493f8b))
+
 ## [2.66.0](https://github.com/phrase/strings-openapi/compare/cli-v2.65.0...cli-v2.66.0) (2026-06-25)
 
 
