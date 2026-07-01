@@ -120,7 +120,7 @@ func initScreenshotDelete() {
 	var ScreenshotDelete = &cobra.Command{
 		Use:   use,
 		Short: "Delete a screenshot",
-		Long:  `Delete an existing screenshot.`,
+		Long:  `Permanently removes a screenshot and all its associated markers from the project. Use this when you need to fully remove a screenshot that is no longer relevant — for example, after a UI redesign renders the captured screen obsolete. This is a hard delete: the screenshot record and every key-to-region marker linked to it are destroyed together and cannot be recovered. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
