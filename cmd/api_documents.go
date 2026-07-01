@@ -33,7 +33,7 @@ func initDocumentDelete() {
 	var DocumentDelete = &cobra.Command{
 		Use:   use,
 		Short: "Delete document",
-		Long:  `Delete an existing document.`,
+		Long:  `Permanently deletes a document and all of its associated translation segments from the project. Use this when you want to remove a document that is no longer needed; the deletion cannot be reversed and all associated segments will be lost. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
