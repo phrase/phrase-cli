@@ -250,7 +250,7 @@ func initKeyLinksIndex() {
 	var KeyLinksIndex = &cobra.Command{
 		Use:   use,
 		Short: "List child keys of a parent key",
-		Long:  `Returns detailed information about a parent key, including its linked child keys.`,
+		Long:  `Returns the key link record for a parent key, including all child keys associated with it. Key linking lets translation keys share translations — a child key inherits content from its designated parent. Use this endpoint to inspect which keys are linked under a given parent before unlinking them or auditing translation consistency across related keys.  The key identified by &#x60;id&#x60; must be designated as a parent key (it must have at least one child key linked to it). Listing the links of a key that is not a parent returns 400. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
