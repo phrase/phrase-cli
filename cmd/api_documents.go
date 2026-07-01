@@ -94,7 +94,7 @@ func initDocumentsList() {
 	var DocumentsList = &cobra.Command{
 		Use:   use,
 		Short: "List documents",
-		Long:  `List all documents the current user has access to.`,
+		Long:  `Returns all documents in a project that the authenticated user has read access to. A Document is a source file — an HTML or DOCX file — that has been uploaded to Phrase Strings and whose content is segmented into translation keys for localization.  Use this endpoint to enumerate documents before downloading, previewing, or triggering translation workflows for individual files.  The q parameter performs a prefix match on the document name (case-insensitive). For example, passing q&#x3D;invoice returns documents whose names begin with \&quot;invoice\&quot; but not documents containing \&quot;invoice\&quot; elsewhere in the name. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -160,7 +160,7 @@ func initDocumentsList() {
 	AddFlag(DocumentsList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(DocumentsList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(DocumentsList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
-	AddFlag(DocumentsList, "string", helpers.ToSnakeCase("Q"), "", "Search query. Filters documents by name (case-insensitive substring match).", false)
+	AddFlag(DocumentsList, "string", helpers.ToSnakeCase("Q"), "", "Filter documents by name prefix. Returns documents whose name starts with the given value (case-insensitive).", false)
 
 	params.BindPFlags(DocumentsList.Flags())
 }
