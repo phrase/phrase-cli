@@ -186,7 +186,7 @@ func initScreenshotShow() {
 	var ScreenshotShow = &cobra.Command{
 		Use:   use,
 		Short: "Get a single screenshot",
-		Long:  `Get details on a single screenshot for a given project.`,
+		Long:  `Returns a single screenshot belonging to the specified project. Use this to retrieve the screenshot&#x27;s name, description, hosted image URL, and marker count after uploading, or before creating, updating, or inspecting its markers. The response is a synchronous, idempotent read — repeated calls return the same record without side effects.  The Attachable Screenshots feature must be enabled on the account. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
