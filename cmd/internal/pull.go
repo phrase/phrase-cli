@@ -273,14 +273,14 @@ func (target *Target) PullParallel(client *phrase.APIClient, cache *DownloadCach
 				return dlErr
 			}
 
-			if cache != nil {
-				updateCache(cache, cacheKey, response)
-			}
-
 			if err := copyToDestination(file, lf.Path); err != nil {
 				err = fmt.Errorf("%s for %s", err, lf.Path)
 				results[i] = downloadResult{errMsg: err.Error()}
 				return err
+			}
+
+			if cache != nil {
+				updateCache(cache, cacheKey, response)
 			}
 
 			results[i] = downloadResult{
@@ -445,23 +445,32 @@ func (target *Target) downloadSynchronously(client *phrase.APIClient, localeFile
 		}
 	}
 
+	if err := copyToDestination(file, localeFile.Path); err != nil {
+		return err
+	}
+
 	if cache != nil {
 		updateCache(cache, cacheKey, response)
 	}
 
-	return copyToDestination(file, localeFile.Path)
+	return nil
 }
 
 func copyToDestination(file *os.File, path string) error {
-	if file == nil {
-		return fmt.Errorf("no content to write to %s", path)
-	}
-	defer file.Close()
 	destFile, err := os.Create(path)
 	if err != nil {
 		return err
 	}
 	defer destFile.Close()
+
+	// The API returns a 200 with an empty body when a filter (e.g. --tags)
+	// matches no translations; decode() then leaves file nil with no error.
+	// That's a valid empty export, not a failed download, so write an empty
+	// file rather than treating it as an error.
+	if file == nil {
+		return nil
+	}
+	defer file.Close()
 	_, err = io.Copy(destFile, file)
 	return err
 }

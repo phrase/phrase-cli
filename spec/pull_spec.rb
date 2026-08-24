@@ -248,6 +248,62 @@ RSpec.describe "phrase pull" do
     end
   end
 
+  describe "pull with tag filter matching no translations" do
+    let(:config) do
+      <<~YAML
+        phrase:
+          host: #{ENV.fetch("BASE_URL")}
+          project_id: "#{project_id}"
+          access_token: "#{token}"
+          pull:
+            targets:
+            - file: "#{@tmpdir}/locales/<locale_code>.yml"
+              params:
+                file_format: yml
+                tags: "nonexistent-tag"
+      YAML
+    end
+
+    before do
+      # The API responds with 200 and an empty body when a tag filter
+      # matches zero translations - this is not an error.
+      mock_set!("GET", "/projects/#{project_id}/locales/#{locale_en_id}/download",
+        status: 200,
+        body: "",
+        headers: { "content-type" => "application/x-yaml" }
+      )
+      mock_set!("GET", "/projects/#{project_id}/locales/#{locale_de_id}/download",
+        status: 200,
+        body: "",
+        headers: { "content-type" => "application/x-yaml" }
+      )
+    end
+
+    it "succeeds and writes an empty file instead of failing" do
+      r = run_cli("pull", config: config)
+
+      expect(r[:exit_code]).to eq(0)
+
+      en_file_path = File.join(@tmpdir, "locales", "en.yml")
+      de_file_path = File.join(@tmpdir, "locales", "de.yml")
+
+      expect(File.exist?(en_file_path)).to be true
+      expect(File.exist?(de_file_path)).to be true
+      expect(File.read(en_file_path)).to eq("")
+      expect(File.read(de_file_path)).to eq("")
+    end
+
+    it "succeeds with --parallel too" do
+      r = run_cli("pull", "--parallel", config: config)
+
+      expect(r[:exit_code]).to eq(0)
+
+      en_file_path = File.join(@tmpdir, "locales", "en.yml")
+      expect(File.exist?(en_file_path)).to be true
+      expect(File.read(en_file_path)).to eq("")
+    end
+  end
+
   describe "pull with locale_mapping" do
     let(:config) do
       <<~YAML
