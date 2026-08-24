@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.67.1](https://github.com/phrase/strings-openapi/compare/cli-v2.67.0...cli-v2.67.1) (2026-08-24)
+
+
+### Bug Fixes
+
+* **cli:** verify build against pinned phrase-go version before release ([#1237](https://github.com/phrase/strings-openapi/issues/1237)) ([4566526](https://github.com/phrase/strings-openapi/commit/4566526019c25edf5e6c266cc93ac7405f823c7a))
+
 ## [2.67.0](https://github.com/phrase/strings-openapi/compare/cli-v2.66.1...cli-v2.67.0) (2026-08-24)
 
 
