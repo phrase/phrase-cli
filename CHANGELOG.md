@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.67.2](https://github.com/phrase/strings-openapi/compare/cli-v2.67.1...cli-v2.67.2) (2026-08-25)
+
+
+### Bug Fixes
+
+* **cli:** pin Inno Setup installer download to a GitHub release ([#1239](https://github.com/phrase/strings-openapi/issues/1239)) ([16e6117](https://github.com/phrase/strings-openapi/commit/16e6117e8d1caf477d300b4731826ea2ce282bf8))
+
 ## [2.67.1](https://github.com/phrase/strings-openapi/compare/cli-v2.67.0...cli-v2.67.1) (2026-08-24)
 
 
