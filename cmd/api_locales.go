@@ -404,10 +404,12 @@ func initLocaleDownload() {
 					HandleError(castedError)
 				}
 			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
-				content, _ := ioutil.ReadAll(data)
-				fmt.Printf("%s", string(content))
-				data.Close()
-				os.Remove(data.Name())
+				if data != nil {
+					content, _ := ioutil.ReadAll(data)
+					fmt.Printf("%s", string(content))
+					data.Close()
+					os.Remove(data.Name())
+				}
 
 				if Config.Debug {
 					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
