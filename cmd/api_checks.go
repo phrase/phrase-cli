@@ -153,6 +153,10 @@ func initCheckIssuesList() {
 				localVarOptionals.CheckNames = checkNames
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("createdSince")) {
+				localVarOptionals.CreatedSince = optional.NewString(params.GetString(helpers.ToSnakeCase("CreatedSince")))
+			}
+
 			data, api_response, err := client.ChecksApi.CheckIssuesList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -187,6 +191,7 @@ func initCheckIssuesList() {
 	AddFlag(CheckIssuesList, "string", helpers.ToSnakeCase("State"), "", "Filter by state of the check issue. Can be one of: `active`, `solved`, `dismissed`, `all`. Defaults to `active`.", false)
 	AddFlag(CheckIssuesList, "string", helpers.ToSnakeCase("LocaleIds"), "", "payload in JSON format", false)
 	AddFlag(CheckIssuesList, "string", helpers.ToSnakeCase("CheckNames"), "", "payload in JSON format", false)
+	AddFlag(CheckIssuesList, "string", helpers.ToSnakeCase("CreatedSince"), "", "Return only check issues created on or after this ISO 8601 datetime. Returns 400 if the value is not a valid date-time.", false)
 
 	params.BindPFlags(CheckIssuesList.Flags())
 }
