@@ -34,7 +34,7 @@ func initUploadCreate() {
 	var UploadCreate = &cobra.Command{
 		Use:   use,
 		Short: "Upload a new file",
-		Long:  `Upload a new language file. Creates necessary resources in your project.  Note: be aware of [upload limits](https://support.phrase.com/hc/en-us/articles/8548271212188-Phrase-Strings-Limits#file-size-upload-limits-0-0). `,
+		Long:  `Upload a new language file. Creates necessary resources in your project.  The upload is processed asynchronously: this endpoint returns &#x60;201 Created&#x60; once the file has been accepted and enqueued, not once processing has finished. Poll &#x60;GET /projects/{project_id}/uploads/{id}&#x60; and check the &#x60;state&#x60; field — &#x60;error&#x60; means processing failed (for example, an unparseable file or a &#x60;file_format&#x60; that doesn&#x27;t match the file&#x27;s actual content).  Note: be aware of [upload limits](https://support.phrase.com/hc/en-us/articles/8548271212188-Phrase-Strings-Limits#file-size-upload-limits-0-0). `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
@@ -187,7 +187,7 @@ func initUploadCreate() {
 	UploadsApiCmd.AddCommand(UploadCreate)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
 	AddFlag(UploadCreate, "*os.File", helpers.ToSnakeCase("File"), "", "File to be imported", true)
-	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FileFormat"), "", "File format. Auto-detected when possible and not specified.", true)
+	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("FileFormat"), "", "File format of the uploaded file, given as a format's `api_name`. See our [Formats API Endpoint](/en/api/strings/formats/list-formats) for the full list of supported formats.  Optional. When omitted, Phrase tries to auto-detect the format from the file's content. This is not always possible for JSON files, since several JSON-based formats (e.g. `json`, `simple_json`, `nested_json`) share the same structure. ", true)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale of the file's content. Can be the name or id of the locale. Preferred is id.", true)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(UploadCreate, "string", helpers.ToSnakeCase("Branch"), "", "specify the branch to use", false)
@@ -221,7 +221,7 @@ func initUploadShow() {
 	var UploadShow = &cobra.Command{
 		Use:   use,
 		Short: "Get a single upload",
-		Long:  `View details and summary for a single upload.`,
+		Long:  `View details and summary for a single upload. Use this endpoint to poll for the outcome of an upload created via &#x60;POST /projects/{project_id}/uploads&#x60; — check the &#x60;state&#x60; field. `,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
