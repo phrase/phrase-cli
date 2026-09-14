@@ -163,7 +163,7 @@ func initMemberUpdate() {
 	var MemberUpdate = &cobra.Command{
 		Use:   use,
 		Short: "Update a member",
-		Long:  `Update user permissions in the account. Developers and translators need &#x60;project_ids&#x60; and &#x60;locale_ids&#x60; assigned to access them. Access token scope must include &#x60;team.manage&#x60;.`,
+		Long:  `Update user permissions in the account. Developers and translators need &#x60;project_ids&#x60; and &#x60;locale_ids&#x60; assigned to access them. To grant account-wide language access instead of access scoped to specific projects, use &#x60;default_locale_codes&#x60;. Access token scope must include &#x60;team.manage&#x60;.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
