@@ -225,7 +225,7 @@ func initProjectUpdate() {
 	var ProjectUpdate = &cobra.Command{
 		Use:   use,
 		Short: "Update a project",
-		Long:  `Update an existing project.`,
+		Long:  `Update an existing project, including its review workflow, pre-translation/autotranslate rules, and machine-translation configuration (see workflow, machine_translation_enabled, and the autotranslate_* fields below).`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
