@@ -342,6 +342,10 @@ func initSpacesList() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("q")) {
+				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
+			}
+
 			data, api_response, err := client.SpacesApi.SpacesList(auth, accountId, &localVarOptionals)
 
 			if err != nil {
@@ -373,6 +377,7 @@ func initSpacesList() {
 	AddFlag(SpacesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(SpacesList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(SpacesList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
+	AddFlag(SpacesList, "string", helpers.ToSnakeCase("Q"), "", "Filter results by name. Supports the prefix-match syntax `name:<value>`, which returns only spaces whose names begin with `<value>`. Other query formats are ignored; omitting `q` returns all accessible spaces. ", false)
 
 	params.BindPFlags(SpacesList.Flags())
 }
