@@ -18,6 +18,7 @@ func init() {
 	initMemberShow()
 	initMemberUpdate()
 	initMemberUpdateSettings()
+	initMembersByProject()
 	initMembersList()
 
 	rootCmd.AddCommand(MembersApiCmd)
@@ -302,6 +303,89 @@ func initMemberUpdateSettings() {
 	AddFlag(MemberUpdateSettings, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(MemberUpdateSettings.Flags())
+}
+func initMembersByProject() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("members/by_project", "/")[1:], "_")
+	var MembersByProject = &cobra.Command{
+		Use:   use,
+		Short: "List project members",
+		Long:  `Get all members active in the project. Access token scope must include &#x60;read&#x60;.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.MembersByProjectOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			projectId := params.GetString(helpers.ToSnakeCase("ProjectId"))
+
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("q")) {
+				localVarOptionals.Q = optional.NewString(params.GetString(helpers.ToSnakeCase("Q")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("jobId")) {
+				localVarOptionals.JobId = optional.NewString(params.GetString(helpers.ToSnakeCase("JobId")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+
+			data, api_response, err := client.MembersApi.MembersByProject(auth, projectId, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	MembersApiCmd.AddCommand(MembersByProject)
+	AddFlag(MembersByProject, "string", helpers.ToSnakeCase("ProjectId"), "", "Project ID", true)
+	AddFlag(MembersByProject, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(MembersByProject, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to search for members by name or email (including wildcards).", false)
+	AddFlag(MembersByProject, "string", helpers.ToSnakeCase("JobId"), "", "Filter members to those assigned to the job identified by this id.", false)
+	AddFlag(MembersByProject, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(MembersByProject, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
+
+	params.BindPFlags(MembersByProject.Flags())
 }
 func initMembersList() {
 	params := viper.New()
