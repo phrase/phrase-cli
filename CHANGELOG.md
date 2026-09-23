@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.69.1](https://github.com/phrase/strings-openapi/compare/cli-v2.69.0...cli-v2.69.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **cli:** bump homebrew formula action to v10 to fix safe_system error ([#1278](https://github.com/phrase/strings-openapi/issues/1278)) ([f32ea33](https://github.com/phrase/strings-openapi/commit/f32ea3339664c4211d7de7bf7c155c896801c008))
+* **cli:** bump release build GOVERSION to 1.27.1 ([#1292](https://github.com/phrase/strings-openapi/issues/1292)) ([5c061ab](https://github.com/phrase/strings-openapi/commit/5c061ab3747886c1331f1f1f2f96b1895d3d1f6b))
+
 ## [2.69.0](https://github.com/phrase/strings-openapi/compare/cli-v2.68.0...cli-v2.69.0) (2026-09-23)
 
 
