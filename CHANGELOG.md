@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.69.0](https://github.com/phrase/strings-openapi/compare/cli-v2.68.0...cli-v2.69.0) (2026-09-23)
+
+
+### Features
+
+* **API:** Add /languages documentation ([#1279](https://github.com/phrase/strings-openapi/issues/1279)) ([e273b56](https://github.com/phrase/strings-openapi/commit/e273b5697172726ae7256450648f56489cd36b8f))
+* **API:** add owner_id parameter to job template create and update endpoints #STRINGS-3477 ([#1287](https://github.com/phrase/strings-openapi/issues/1287)) ([8dd71f9](https://github.com/phrase/strings-openapi/commit/8dd71f958b69d4a59d8c646f9b69d8154312dce6))
+* **API:** add X-Rate-Limit-Reason header to 429 responses STRINGS-3504 ([#1288](https://github.com/phrase/strings-openapi/issues/1288)) ([a109a3d](https://github.com/phrase/strings-openapi/commit/a109a3d2a3cf464b327fc2fc594742433291d578))
+* **API:** document GET /projects/{project_id}/members list endpoint STRINGS-3471 ([#1276](https://github.com/phrase/strings-openapi/issues/1276)) ([fbf8448](https://github.com/phrase/strings-openapi/commit/fbf844851b3fa67604c55fe8b16166006a89b74f))
+
 ## [2.68.0](https://github.com/phrase/strings-openapi/compare/cli-v2.67.2...cli-v2.68.0) (2026-09-17)
 
 
