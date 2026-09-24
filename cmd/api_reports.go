@@ -31,8 +31,8 @@ func initReportLocalesList() {
 	use = strings.Join(strings.Split("report/locales/list", "/")[1:], "_")
 	var ReportLocalesList = &cobra.Command{
 		Use:   use,
-		Short: "List Locale Reports",
-		Long:  `List all locale reports for the given project`,
+		Short: "List Locale Reports (word count, character count, translation statistics)",
+		Long:  `List all locale reports for the given project. Each report includes translation statistics per locale, including word count and character count fields (&#x60;source_word_count&#x60;, &#x60;word_count&#x60;, &#x60;word_count_unverified&#x60;, &#x60;word_count_missing&#x60;) as well as translation completion statistics (&#x60;keys_count&#x60;, &#x60;completed_translations_count&#x60;, &#x60;untranslated_keys_count&#x60;, &#x60;unverified_translations_count&#x60;, &#x60;reviewed_translations_count&#x60;, and their percentages). Use the &#x60;tag&#x60; parameter to scope the report to a specific job (e.g. its job tag) to get job-scoped word count statistics.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			auth := Auth()
 
