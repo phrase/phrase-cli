@@ -417,6 +417,14 @@ func initRepoSyncList() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("page")) {
+				localVarOptionals.Page = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("Page")))
+			}
+
+			if params.IsSet(helpers.ToSnakeCase("perPage")) {
+				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
+			}
+
 			data, api_response, err := client.RepoSyncsApi.RepoSyncList(auth, accountId, &localVarOptionals)
 
 			if err != nil {
@@ -446,6 +454,8 @@ func initRepoSyncList() {
 	RepoSyncsApiCmd.AddCommand(RepoSyncList)
 	AddFlag(RepoSyncList, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
 	AddFlag(RepoSyncList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(RepoSyncList, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
+	AddFlag(RepoSyncList, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
 
 	params.BindPFlags(RepoSyncList.Flags())
 }
