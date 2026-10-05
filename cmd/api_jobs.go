@@ -801,6 +801,10 @@ func initJobUpdate() {
 				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("branch")) {
+				localVarOptionals.Branch = optional.NewString(params.GetString(helpers.ToSnakeCase("Branch")))
+			}
+
 			data, api_response, err := client.JobsApi.JobUpdate(auth, projectId, id, jobUpdateParameters, &localVarOptionals)
 
 			if err != nil {
@@ -832,6 +836,7 @@ func initJobUpdate() {
 	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
 	AddFlag(JobUpdate, "string", "data", "d", "payload in JSON format", true)
 	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+	AddFlag(JobUpdate, "string", helpers.ToSnakeCase("Branch"), "", "Branch to use", false)
 
 	params.BindPFlags(JobUpdate.Flags())
 }
