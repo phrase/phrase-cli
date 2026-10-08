@@ -153,8 +153,8 @@ github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
 github.com/pelletier/go-toml v1.2.0 h1:T5zMGML61Wp+FlcbWjRDT7yAxhJNAiPPLOFECq181zc=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
-github.com/phrase/phrase-go/v4 v4.32.0 h1:LrYLt0qak06SldoYBLJ9UY/n8FVLZk8glN6xz1DTvsU=
-github.com/phrase/phrase-go/v4 v4.32.0/go.mod h1:coMK4wg6WwpltJhrLUkUIQ2gwFAkAHd0IXBGoAJTejo=
+github.com/phrase/phrase-go/v4 v4.33.0 h1:R1MrGgiQxd5Maja1aCo3+ijHeyBQ5hU0wL/64NnntxI=
+github.com/phrase/phrase-go/v4 v4.33.0/go.mod h1:1OsQWcCFtBXcmnddBM/ykjeCmYMaOU/Lr5VrDXFJiaE=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
