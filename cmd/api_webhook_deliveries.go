@@ -62,6 +62,10 @@ func initWebhookDeliveriesList() {
 				localVarOptionals.ResponseStatusCodes = optional.NewString(params.GetString(helpers.ToSnakeCase("ResponseStatusCodes")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("status")) {
+				localVarOptionals.Status = optional.NewString(params.GetString(helpers.ToSnakeCase("Status")))
+			}
+
 			data, api_response, err := client.WebhookDeliveriesApi.WebhookDeliveriesList(auth, projectId, webhookId, &localVarOptionals)
 
 			if err != nil {
@@ -93,6 +97,7 @@ func initWebhookDeliveriesList() {
 	AddFlag(WebhookDeliveriesList, "string", helpers.ToSnakeCase("WebhookId"), "", "Webhook ID", true)
 	AddFlag(WebhookDeliveriesList, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(WebhookDeliveriesList, "string", helpers.ToSnakeCase("ResponseStatusCodes"), "", "List of Response Status Codes", false)
+	AddFlag(WebhookDeliveriesList, "string", helpers.ToSnakeCase("Status"), "", "Filter deliveries by outcome. `success` returns deliveries with a 2xx response code or a soft error. `failed` returns all other deliveries, including exceptions and timeouts without a response code. ", false)
 
 	params.BindPFlags(WebhookDeliveriesList.Flags())
 }
