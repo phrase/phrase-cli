@@ -31,9 +31,13 @@ const (
 
 const maxParallelDownloads = 4 // Phrase API allows max 4 concurrent requests
 
+const maxDownloadAttempts = 3
+
 var (
 	Config         *phrase.Config
 	errNotModified = errors.New("not modified")
+
+	downloadRetrySleep = time.Sleep
 )
 
 type PullCommand struct {
@@ -315,7 +319,7 @@ func (target *Target) downloadWithRateGate(client *phrase.APIClient, localeFile 
 	waitForGate := func() { gate.RLock(); gate.RUnlock() }
 	waitForGate()
 
-	file, response, err := client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &opts)
+	file, response, err := downloadLocale(client, target.ProjectID, localeFile.ID, &opts)
 	if err != nil {
 		if response != nil && response.StatusCode == 304 {
 			return nil, response, nil
@@ -329,7 +333,7 @@ func (target *Target) downloadWithRateGate(client *phrase.APIClient, localeFile 
 			}
 			opts.IfNoneMatch = optional.String{}
 			opts.IfModifiedSince = optional.String{}
-			file, response, err = client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &opts)
+			file, response, err = downloadLocale(client, target.ProjectID, localeFile.ID, &opts)
 			if err != nil {
 				return nil, response, err
 			}
@@ -338,6 +342,36 @@ func (target *Target) downloadWithRateGate(client *phrase.APIClient, localeFile 
 		}
 	}
 	return file, response, nil
+}
+
+// downloadLocale calls the locale download endpoint and retries transport
+// errors, e.g. an HTTP/2 stream reset by an intermediary while reading the
+// body. API errors, including 304 and rate limiting, are returned to the
+// caller unchanged.
+func downloadLocale(client *phrase.APIClient, projectID string, localeID string, opts *phrase.LocaleDownloadOpts) (*os.File, *phrase.APIResponse, error) {
+	var file *os.File
+	var response *phrase.APIResponse
+	err := retryTransient(func() (bool, error) {
+		var err error
+		file, response, err = client.LocalesApi.LocaleDownload(Auth, projectID, localeID, opts)
+		var apiErr phrase.GenericOpenAPIError
+		return !errors.As(err, &apiErr), err
+	})
+	return file, response, err
+}
+
+// retryTransient calls fn up to maxDownloadAttempts times for as long as it
+// fails with an error it reports as transient.
+func retryTransient(fn func() (transient bool, err error)) error {
+	for attempt := 1; ; attempt++ {
+		transient, err := fn()
+		if err == nil || !transient || attempt >= maxDownloadAttempts {
+			return err
+		}
+		delay := time.Second << (attempt - 1) // 1s, 2s
+		debugFprintln(fmt.Sprintf("Download attempt %d/%d failed: %s, retrying in %s", attempt, maxDownloadAttempts, err, delay))
+		downloadRetrySleep(delay)
+	}
 }
 
 // buildDownloadOpts prepares the LocaleDownloadOpts for a locale file download.
@@ -425,7 +459,7 @@ func (target *Target) downloadSynchronously(client *phrase.APIClient, localeFile
 		applyCacheHeaders(cache, cacheKey, &downloadOpts)
 	}
 
-	file, response, err := client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &downloadOpts)
+	file, response, err := downloadLocale(client, target.ProjectID, localeFile.ID, &downloadOpts)
 	if err != nil {
 		if response != nil && response.StatusCode == 304 {
 			debugFprintln("Not modified (304), skipping", localeFile.Path)
@@ -436,7 +470,7 @@ func (target *Target) downloadSynchronously(client *phrase.APIClient, localeFile
 			// Strip conditional headers on retry to get a full response
 			downloadOpts.IfNoneMatch = optional.String{}
 			downloadOpts.IfModifiedSince = optional.String{}
-			file, response, err = client.LocalesApi.LocaleDownload(Auth, target.ProjectID, localeFile.ID, &downloadOpts)
+			file, response, err = downloadLocale(client, target.ProjectID, localeFile.ID, &downloadOpts)
 			if err != nil {
 				return err
 			}
@@ -477,23 +511,27 @@ func copyToDestination(file *os.File, path string) error {
 
 func downloadExportedLocale(url string, localName string) error {
 	debugFprintln("Downloading file from ", url)
-	file, err := os.Create(localName)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return err
 	}
 	request.Header.Set("Authorization", "Bearer "+Config.Credentials.Token)
-	response, err := http.DefaultClient.Do(request)
-	if err != nil {
-		return err
-	}
-	defer response.Body.Close()
-	_, err = io.Copy(file, response.Body)
-	return err
+	return retryTransient(func() (bool, error) {
+		response, err := http.DefaultClient.Do(request)
+		if err != nil {
+			return true, err
+		}
+		defer response.Body.Close()
+		if response.StatusCode >= 300 {
+			return false, fmt.Errorf("downloading exported file failed: %s", response.Status)
+		}
+		// Read the whole body first so a failed attempt never leaves a partial file.
+		data, err := io.ReadAll(response.Body)
+		if err != nil {
+			return true, err
+		}
+		return false, os.WriteFile(localName, data, 0o666)
+	})
 }
 
 // asyncDownloadParams converts the optional parameters from the Pull command into a LocaleDownloadCreateParameters struct.
