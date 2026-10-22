@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.70.0](https://github.com/phrase/strings-openapi/compare/cli-v2.69.1...cli-v2.70.0) (2026-10-22)
+
+
+### Features
+
+* **API:** add include_branches field to automations request and response #STRINGS-3748 ([#1329](https://github.com/phrase/strings-openapi/issues/1329)) ([0219fce](https://github.com/phrase/strings-openapi/commit/0219fce491ceaa02a78ffddb72349ea27cd56d47))
+* **API:** add page/per_page params to repo_syncs list endpoint #STRINGS-3518 ([#1297](https://github.com/phrase/strings-openapi/issues/1297)) ([414261f](https://github.com/phrase/strings-openapi/commit/414261fe370337ed78dd4a5144c98132bc91ee7a))
+* **API:** add status filter to webhook deliveries list ([#1317](https://github.com/phrase/strings-openapi/issues/1317)) ([3890f8c](https://github.com/phrase/strings-openapi/commit/3890f8cef2fc7195b0920ccfc2b323c72b56d5ca))
+
+
+### Bug Fixes
+
+* **API:** add review_due_date to job create and update requests #STRINGS-3938 ([#1333](https://github.com/phrase/strings-openapi/issues/1333)) ([312388b](https://github.com/phrase/strings-openapi/commit/312388b1f53e463455022cc1601f01d1a2aa65e7))
+* **API:** move job update branch param from body to query #STRINGS-3488 ([#1306](https://github.com/phrase/strings-openapi/issues/1306)) ([a8f2673](https://github.com/phrase/strings-openapi/commit/a8f267314ff1b1a3e3848df1b15cc5647ba434cb))
+* **cli:** add testify to Go template to stop build-cli failures ([#1311](https://github.com/phrase/strings-openapi/issues/1311)) ([715f835](https://github.com/phrase/strings-openapi/commit/715f835a6fece54886bb7c93d0ca1fbae2e26209))
+* **cli:** retry locale downloads on transport errors ([#1315](https://github.com/phrase/strings-openapi/issues/1315)) ([98121e5](https://github.com/phrase/strings-openapi/commit/98121e5aa48b3ac2a2f97b5b832520f30ef4253b))
+* **cli:** sync go.sum with go.mod to fix build-cli CI ([#1310](https://github.com/phrase/strings-openapi/issues/1310)) ([eb23bcf](https://github.com/phrase/strings-openapi/commit/eb23bcf8bb62303e88cc2885ba4c4ec3ac71bc8d))
+
 ## [2.69.1](https://github.com/phrase/strings-openapi/compare/cli-v2.69.0...cli-v2.69.1) (2026-09-23)
 
 
