@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.72.0](https://github.com/phrase/strings-openapi/compare/cli-v2.71.0...cli-v2.72.0) (2026-11-04)
+
+
+### Features
+
+* **API:** add exclude_linked_child_keys to jobs and job templates #STRINGS-4424 ([#1356](https://github.com/phrase/strings-openapi/issues/1356)) ([46690ee](https://github.com/phrase/strings-openapi/commit/46690ee15758d6d500aa5eec5e264f1686f50200))
+* **API:** add uploads array to repo sync import event show response #STRINGS-3739 ([#1342](https://github.com/phrase/strings-openapi/issues/1342)) ([b5a07de](https://github.com/phrase/strings-openapi/commit/b5a07decfa83958869e9ce9363d45646cc8fa523))
+
 ## [2.71.0](https://github.com/phrase/strings-openapi/compare/cli-v2.70.0...cli-v2.71.0) (2026-10-23)
 
 
