@@ -595,6 +595,10 @@ func initKeysList() {
 				localVarOptionals.LocaleId = optional.NewString(params.GetString(helpers.ToSnakeCase("LocaleId")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("includeLinkedKeys")) {
+				localVarOptionals.IncludeLinkedKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeLinkedKeys")))
+			}
+
 			data, api_response, err := client.KeysApi.KeysList(auth, projectId, &localVarOptionals)
 
 			if err != nil {
@@ -631,6 +635,7 @@ func initKeysList() {
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("Order"), "", "Order direction. Can be one of: asc, desc.", false)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("Q"), "", "Specify a query to do broad search for keys by name (including wildcards).  The following qualifiers are also supported in the search term:  - `ids:key_id,...` for queries on a comma-separated list of ids - `name:key_name` for text queries on exact key names - spaces, commas, and colons  need to be escaped with double backslashes - `tags:tag_name` to filter for keys with certain tags - `translated:{true|false}` for translation status (also requires `locale_id` to be specified) - `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries - `unmentioned_in_upload:upload_id,...` to filter keys unmentioned within upload. When multiple upload IDs provided, matches only keys not mentioned in **all** uploads  **Caution:** Query parameters with empty values will be treated as though they are not included in the request and will be ignored.  Find more examples [here](/en/api/strings/usage-examples). ", false)
 	AddFlag(KeysList, "string", helpers.ToSnakeCase("LocaleId"), "", "Locale used to determine the translation state of a key when filtering for untranslated or translated keys.", false)
+	AddFlag(KeysList, "bool", helpers.ToSnakeCase("IncludeLinkedKeys"), "", "When set to `true`, each key object in the response includes a `linked_key` field describing whether the key is a parent or child in a key-link relationship, and the number of children (for parent keys) or the parent's id and name (for child keys). Keys with no active link return `linked_key: null`. Omit this parameter or set it to `false` to leave the `linked_key` field out of the response entirely. ", false)
 
 	params.BindPFlags(KeysList.Flags())
 }
@@ -680,6 +685,10 @@ func initKeysSearch() {
 				localVarOptionals.PerPage = optional.NewInt32(params.GetInt32(helpers.ToSnakeCase("PerPage")))
 			}
 
+			if params.IsSet(helpers.ToSnakeCase("includeLinkedKeys")) {
+				localVarOptionals.IncludeLinkedKeys = optional.NewBool(params.GetBool(helpers.ToSnakeCase("IncludeLinkedKeys")))
+			}
+
 			data, api_response, err := client.KeysApi.KeysSearch(auth, projectId, keysSearchParameters, &localVarOptionals)
 
 			if err != nil {
@@ -712,6 +721,7 @@ func initKeysSearch() {
 	AddFlag(KeysSearch, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("Page"), "", "Page number", false)
 	AddFlag(KeysSearch, "int32", helpers.ToSnakeCase("PerPage"), "", "Limit on the number of objects to be returned, between 1 and 100. 25 by default", false)
+	AddFlag(KeysSearch, "bool", helpers.ToSnakeCase("IncludeLinkedKeys"), "", "When set to `true`, each key object in the response includes a `linked_key` field describing whether the key is a parent or child in a key-link relationship, and the number of children (for parent keys) or the parent's id and name (for child keys). Keys with no active link return `linked_key: null`. Omit this parameter or set it to `false` to leave the `linked_key` field out of the response entirely. ", false)
 
 	params.BindPFlags(KeysSearch.Flags())
 }
