@@ -20,6 +20,7 @@ func init() {
 	initRepoSyncImport()
 	initRepoSyncList()
 	initRepoSyncShow()
+	initRepoSyncUpdate()
 
 	rootCmd.AddCommand(RepoSyncsApiCmd)
 }
@@ -524,4 +525,78 @@ func initRepoSyncShow() {
 	AddFlag(RepoSyncShow, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
 
 	params.BindPFlags(RepoSyncShow.Flags())
+}
+func initRepoSyncUpdate() {
+	params := viper.New()
+	var use string
+	// this weird approach is due to mustache template limitations
+	use = strings.Join(strings.Split("repo_sync/update", "/")[1:], "_")
+	var RepoSyncUpdate = &cobra.Command{
+		Use:   use,
+		Short: "Update a repo sync",
+		Long:  `Update settings for an existing Repo Sync. Sending &#x60;owner_id&#x60;, &#x60;export_triggers&#x60;, or &#x60;export_schedule&#x60; requires the caller to have &#x60;manage_github_sync?&#x60; permission on the project (returns &#x60;403&#x60; otherwise). Sending &#x60;export_triggers&#x60; or &#x60;export_schedule&#x60; when the automatic export feature is not enabled for the account returns &#x60;422&#x60;. `,
+		Run: func(cmd *cobra.Command, args []string) {
+			auth := Auth()
+
+			cfg := api.NewConfiguration()
+			cfg.SetUserAgent(Config.UserAgent)
+			if Config.Credentials.Host != "" {
+				cfg.BasePath = Config.Credentials.Host
+			}
+
+			client := api.NewAPIClient(cfg)
+			localVarOptionals := api.RepoSyncUpdateOpts{}
+
+			if Config.Credentials.TFA && Config.Credentials.TFAToken != "" {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(Config.Credentials.TFAToken)
+			}
+
+			accountId := params.GetString(helpers.ToSnakeCase("AccountId"))
+
+			id := params.GetString(helpers.ToSnakeCase("Id"))
+
+			var repoSyncUpdateParameters api.RepoSyncUpdateParameters
+			if err := json.Unmarshal([]byte(params.GetString("data")), &repoSyncUpdateParameters); err != nil {
+				HandleError(err)
+			}
+			if Config.Debug {
+				fmt.Printf("%+v\n", repoSyncUpdateParameters)
+			}
+			if params.IsSet(helpers.ToSnakeCase("xPhraseAppOTP")) {
+				localVarOptionals.XPhraseAppOTP = optional.NewString(params.GetString(helpers.ToSnakeCase("XPhraseAppOTP")))
+			}
+
+			data, api_response, err := client.RepoSyncsApi.RepoSyncUpdate(auth, accountId, id, repoSyncUpdateParameters, &localVarOptionals)
+
+			if err != nil {
+				switch castedError := err.(type) {
+				case api.GenericOpenAPIError:
+					fmt.Printf("\n%s\n\n", string(castedError.Body()))
+					HandleError(castedError)
+
+				default:
+					HandleError(castedError)
+				}
+			} else if api_response.StatusCode >= 200 && api_response.StatusCode < 300 {
+				jsonBuf, jsonErr := json.MarshalIndent(data, "", " ")
+				if jsonErr != nil {
+					fmt.Printf("%v\n", data)
+					HandleError(err)
+				}
+				fmt.Printf("%s\n", string(jsonBuf))
+
+				if Config.Debug {
+					fmt.Printf("%+v\n", api_response) // &{Response:0xc00011ccf0 NextPage:2 FirstPage:1 LastPage:4 Rate:{Limit:1000 Remaining:998 Reset:2020-04-25 00:35:00 +0200 CEST}}
+				}
+			}
+		},
+	}
+
+	RepoSyncsApiCmd.AddCommand(RepoSyncUpdate)
+	AddFlag(RepoSyncUpdate, "string", helpers.ToSnakeCase("AccountId"), "", "Account ID", true)
+	AddFlag(RepoSyncUpdate, "string", helpers.ToSnakeCase("Id"), "", "ID", true)
+	AddFlag(RepoSyncUpdate, "string", "data", "d", "payload in JSON format", true)
+	AddFlag(RepoSyncUpdate, "string", helpers.ToSnakeCase("XPhraseAppOTP"), "", "Two-Factor-Authentication token (optional)", false)
+
+	params.BindPFlags(RepoSyncUpdate.Flags())
 }
