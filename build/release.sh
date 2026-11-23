@@ -9,7 +9,12 @@ sed -e "s/VERSION/${VERSION}/g" ./build/innosetup/phrase-cli.iss.template > ./bu
 
 # Build client
 ./build/build.sh
-./build/innosetup/create_installer.sh
+# The Windows installer is an optional extra: the plain Windows binaries are
+# already built above. Don't let a failure here (e.g. wine/Docker issues on the
+# runner) block the rest of the release.
+if ! ./build/innosetup/create_installer.sh; then
+  echo "::warning title=Windows installer::Inno Setup build failed; releasing without phrase_windows_setup*.exe"
+fi
 
 # build docker image
 
