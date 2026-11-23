@@ -379,6 +379,61 @@ RSpec.describe "phrase pull" do
     end
   end
 
+  describe "rate limiting" do
+    let(:config) do
+      <<~YAML
+        phrase:
+          host: #{ENV.fetch("BASE_URL")}
+          project_id: "#{project_id}"
+          access_token: "#{token}"
+          pull:
+            targets:
+            - file: "#{@tmpdir}/locales/<locale_code>.yml"
+              params:
+                file_format: yml
+      YAML
+    end
+
+    let(:en_download_path) { "/projects/#{project_id}/locales/#{locale_en_id}/download" }
+
+    def en_download_requests
+      mock_requests.select { |r| r["path"] == en_download_path }
+    end
+
+    it "retries a download rejected by the concurrency limit" do
+      mock_enqueue!("GET", en_download_path,
+        status: 429,
+        body: { error: "Concurrency limit exceeded" },
+        headers: { "x-rate-limit-reason" => "global-concurrency" }
+      )
+
+      r = run_cli("pull", config: config)
+
+      expect(r[:exit_code]).to eq(0)
+      expect(File.read(File.join(@tmpdir, "locales", "en.yml"))).to eq(en_content)
+      expect(en_download_requests.length).to eq(2)
+    end
+
+    it "waits for the rate limit reset and retries" do
+      mock_enqueue!("GET", en_download_path,
+        status: 429,
+        body: { error: "Rate limit exceeded" },
+        headers: {
+          "x-rate-limit-reason" => "global-rate",
+          "x-rate-limit-limit" => "1000",
+          "x-rate-limit-remaining" => "0",
+          "x-rate-limit-reset" => (Time.now.to_i + 1).to_s
+        }
+      )
+
+      r = run_cli("pull", config: config)
+
+      expect(r[:exit_code]).to eq(0)
+      expect(File.read(File.join(@tmpdir, "locales", "en.yml"))).to eq(en_content)
+      expect(en_download_requests.length).to eq(2)
+    end
+  end
+
   describe "pull without configuration" do
     it "returns error when no targets are specified" do
       config = <<~YAML

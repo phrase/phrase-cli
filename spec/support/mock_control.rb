@@ -17,6 +17,17 @@ module MockControl
     })
   end
 
+  # Queues a one-shot response, served once before the response set by mock_set!.
+  def mock_enqueue!(method, path, status:, body:, headers: {})
+    post_json("/__control__/enqueue", {
+      method: method,
+      path: path,
+      status: status,
+      headers: headers,
+      body: body
+    })
+  end
+
   def mock_requests
     get_json("/__control__/requests").fetch("requests")
   end

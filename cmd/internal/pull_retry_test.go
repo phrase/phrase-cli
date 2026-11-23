@@ -39,9 +39,9 @@ func TestDownloadRetries(t *testing.T) {
 		{"does not retry API errors", 0, http.StatusServiceUnavailable, true, 1},
 	}
 
-	prevAuth, prevConfig, prevSleep := Auth, Config, downloadRetrySleep
-	Auth, Config, downloadRetrySleep = context.Background(), &phrase.Config{}, func(time.Duration) {}
-	t.Cleanup(func() { Auth, Config, downloadRetrySleep = prevAuth, prevConfig, prevSleep })
+	prevAuth, prevConfig, prevSleep := Auth, Config, retrySleep
+	Auth, Config, retrySleep = context.Background(), &phrase.Config{}, func(context.Context, time.Duration) error { return nil }
+	t.Cleanup(func() { Auth, Config, retrySleep = prevAuth, prevConfig, prevSleep })
 
 	for name, download := range downloads {
 		for _, c := range cases {

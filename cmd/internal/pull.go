@@ -11,7 +11,6 @@ import (
 	"path/filepath"
 	"reflect"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/phrase/phrase-cli/cmd/internal/paths"
@@ -31,13 +30,9 @@ const (
 
 const maxParallelDownloads = 4 // Phrase API allows max 4 concurrent requests
 
-const maxDownloadAttempts = 3
-
 var (
 	Config         *phrase.Config
 	errNotModified = errors.New("not modified")
-
-	downloadRetrySleep = time.Sleep
 )
 
 type PullCommand struct {
@@ -138,6 +133,7 @@ func newClient() *phrase.APIClient {
 	if Config.Credentials.Host != "" {
 		cfg.BasePath = Config.Credentials.Host
 	}
+	cfg.HTTPClient = &http.Client{Transport: rateLimitTransport{http.DefaultTransport}}
 	return phrase.NewAPIClient(cfg)
 }
 
@@ -234,7 +230,6 @@ func (target *Target) PullParallel(client *phrase.APIClient, cache *DownloadCach
 	}
 
 	results := make([]downloadResult, len(localeFiles))
-	var rateMu sync.RWMutex
 
 	ctx, cancel := context.WithTimeout(context.Background(), timeoutInMinutes)
 	defer cancel()
@@ -260,7 +255,7 @@ func (target *Target) PullParallel(client *phrase.APIClient, cache *DownloadCach
 				applyCacheHeaders(cache, cacheKey, &opts)
 			}
 
-			file, response, dlErr := target.downloadWithRateGate(client, lf, opts, &rateMu)
+			file, response, dlErr := downloadLocale(client, target.ProjectID, lf.ID, &opts)
 
 			if response != nil && response.StatusCode == 304 {
 				debugFprintln("Not modified (304), skipping", lf.Path)
@@ -312,38 +307,6 @@ func (target *Target) PullParallel(client *phrase.APIClient, cache *DownloadCach
 	return waitErr
 }
 
-// downloadWithRateGate downloads a locale file with rate-limit coordination.
-// Uses RWMutex as a broadcast gate: workers take a read lock (cheap, concurrent),
-// and a rate-limited worker takes the write lock to pause everyone until reset.
-func (target *Target) downloadWithRateGate(client *phrase.APIClient, localeFile *LocaleFile, opts phrase.LocaleDownloadOpts, gate *sync.RWMutex) (*os.File, *phrase.APIResponse, error) {
-	waitForGate := func() { gate.RLock(); gate.RUnlock() }
-	waitForGate()
-
-	file, response, err := downloadLocale(client, target.ProjectID, localeFile.ID, &opts)
-	if err != nil {
-		if response != nil && response.StatusCode == 304 {
-			return nil, response, nil
-		}
-		if response != nil && response.Rate.Remaining == 0 {
-			if gate.TryLock() {
-				waitForRateLimit(response.Rate)
-				gate.Unlock()
-			} else {
-				waitForGate()
-			}
-			opts.IfNoneMatch = optional.String{}
-			opts.IfModifiedSince = optional.String{}
-			file, response, err = downloadLocale(client, target.ProjectID, localeFile.ID, &opts)
-			if err != nil {
-				return nil, response, err
-			}
-		} else {
-			return nil, response, err
-		}
-	}
-	return file, response, nil
-}
-
 // downloadLocale calls the locale download endpoint and retries transport
 // errors, e.g. an HTTP/2 stream reset by an intermediary while reading the
 // body. API errors, including 304 and rate limiting, are returned to the
@@ -358,20 +321,6 @@ func downloadLocale(client *phrase.APIClient, projectID string, localeID string,
 		return !errors.As(err, &apiErr), err
 	})
 	return file, response, err
-}
-
-// retryTransient calls fn up to maxDownloadAttempts times for as long as it
-// fails with an error it reports as transient.
-func retryTransient(fn func() (transient bool, err error)) error {
-	for attempt := 1; ; attempt++ {
-		transient, err := fn()
-		if err == nil || !transient || attempt >= maxDownloadAttempts {
-			return err
-		}
-		delay := time.Second << (attempt - 1) // 1s, 2s
-		debugFprintln(fmt.Sprintf("Download attempt %d/%d failed: %s, retrying in %s", attempt, maxDownloadAttempts, err, delay))
-		downloadRetrySleep(delay)
-	}
 }
 
 // buildDownloadOpts prepares the LocaleDownloadOpts for a locale file download.
@@ -465,18 +414,7 @@ func (target *Target) downloadSynchronously(client *phrase.APIClient, localeFile
 			debugFprintln("Not modified (304), skipping", localeFile.Path)
 			return errNotModified
 		}
-		if response != nil && response.Rate.Remaining == 0 {
-			waitForRateLimit(response.Rate)
-			// Strip conditional headers on retry to get a full response
-			downloadOpts.IfNoneMatch = optional.String{}
-			downloadOpts.IfModifiedSince = optional.String{}
-			file, response, err = downloadLocale(client, target.ProjectID, localeFile.ID, &downloadOpts)
-			if err != nil {
-				return err
-			}
-		} else {
-			return err
-		}
+		return err
 	}
 
 	if err := copyToDestination(file, localeFile.Path); err != nil {
@@ -635,25 +573,6 @@ func (target *Target) createLocaleFiles(remoteLocale *phrase.Locale) (LocaleFile
 		files = append(files, localeFile)
 	}
 	return files, nil
-}
-
-func waitForRateLimit(rate phrase.Rate) {
-	endTime := rate.Reset.Time.Add(5 * time.Second)
-	duration := time.Until(endTime)
-	message := "Rate limit exceeded. Download will resume in %d seconds"
-	seconds := int64(time.Until(endTime).Seconds())
-	print.Warn(message, seconds)
-	counter := int64(1)
-	ticker := time.NewTicker(1 * time.Second)
-	for range ticker.C {
-		counter++
-		seconds = int64(time.Until(endTime).Seconds())
-		print.Warn(message, seconds)
-		if counter > int64(duration/time.Second) {
-			ticker.Stop()
-			break
-		}
-	}
 }
 
 func createLocaleFile(target *Target, remoteLocale *phrase.Locale, tag string) (*LocaleFile, error) {

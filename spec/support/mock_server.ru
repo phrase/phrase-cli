@@ -2,6 +2,7 @@ require "json"
 
 $mock = {
   routes: {},
+  queues: Hash.new { |h, k| h[k] = [] }, # one-shot responses, served before the route
   requests: [] # array of hashes
 }
 
@@ -45,6 +46,7 @@ run lambda { |env|
   # ---- Control API ----
   if method == "POST" && path == "/__control__/reset"
     $mock[:routes].clear
+    $mock[:queues].clear
     $mock[:requests].clear
     return json(200, { ok: true })
   end
@@ -63,11 +65,23 @@ run lambda { |env|
     return json(200, { ok: true })
   end
 
+  if method == "POST" && path == "/__control__/enqueue"
+    payload = JSON.parse(read_body(env))
+    $mock[:queues][[payload.fetch("method"), payload.fetch("path")]] << {
+      status:  payload.fetch("status"),
+      headers: payload["headers"] || {},
+      body:    payload["body"] || ""
+    }
+
+    return json(200, { ok: true })
+  end
+
   if method == "GET" && path == "/__control__/requests"
     return json(200, { requests: $mock[:requests] })
   end
 
   if method == "POST" && path == "/__control__/requests/clear"
+    $mock[:queues].clear
     $mock[:requests].clear
     return json(200, { ok: true })
   end
@@ -76,7 +90,7 @@ run lambda { |env|
   record_request!(env)
 
   # ---- Serve mocked responses ----
-  route = $mock[:routes][[method, path]]
+  route = $mock[:queues][[method, path]].shift || $mock[:routes][[method, path]]
   return json(404, { error: "not mocked", method: method, path: path }) unless route
 
   status  = route[:status]
