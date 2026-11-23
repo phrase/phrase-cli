@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.74.1](https://github.com/phrase/strings-openapi/compare/cli-v2.74.0...cli-v2.74.1) (2026-11-23)
+
+
+### Bug Fixes
+
+* **cli:** drop QEMU setup and make Windows installer non-fatal in release ([#1383](https://github.com/phrase/strings-openapi/issues/1383)) ([5da8b17](https://github.com/phrase/strings-openapi/commit/5da8b175d3024bbe49f543e577053e8bb046636f))
+
 ## [2.74.0](https://github.com/phrase/strings-openapi/compare/cli-v2.73.0...cli-v2.74.0) (2026-11-23)
 
 
