@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.75.0](https://github.com/phrase/strings-openapi/compare/cli-v2.74.1...cli-v2.75.0) (2026-11-24)
+
+
+### Features
+
+* **API:** add project note endpoints and note field to project details ([#1382](https://github.com/phrase/strings-openapi/issues/1382)) ([d8a7dce](https://github.com/phrase/strings-openapi/commit/d8a7dce5ba70d133f457a58512b6234228a8d989))
+
+
+### Bug Fixes
+
+* **cli:** pin release job to ubuntu-24.04 to fix Windows installer build ([#1385](https://github.com/phrase/strings-openapi/issues/1385)) ([cf83296](https://github.com/phrase/strings-openapi/commit/cf83296fdc8720b905e72dbe038b40376b42bd54))
+
 ## [2.74.1](https://github.com/phrase/strings-openapi/compare/cli-v2.74.0...cli-v2.74.1) (2026-11-23)
 
 
